@@ -12,89 +12,6 @@ namespace DHSTesterXL
 {
     public partial class FormProduct
     {
-        // Font 테스트용 헬퍼
-        private string BuildZplTemplateWithAZ(int dpi = DEFAULT_DPI)
-        {
-            // 1) 레이아웃 그대로 ZPL 생성
-            var zpl = BuildZplFromUi(dpi);
-
-            // 2) 헤더에 박혀 있는 임의 매핑(^CW...)은 제거 (나중에 폰트별로 다시 넣을 것)
-            zpl = Regex.Replace(zpl, @"^\^CW.*\r?\n", "", RegexOptions.Multiline);
-
-            // 3) 본문 폰트호출을 전부 Z 폰트로 통일
-            //    ^A0N/^A0R/^A0I/^A0B → ^AZN/^AZR/^AZI/^AZB
-            zpl = Regex.Replace(zpl, @"\^A0(?=[NRBI])", "^AZ");
-            //    바꿔둔 ^A1N...도 있을 수 있으니 같이 교체
-            zpl = Regex.Replace(zpl, @"\^A1(?=[NRBI])", "^AZ");
-
-            // 4) 수량은 1장으로 고정
-            zpl = Regex.Replace(zpl, @"\^PQ\d+", "^PQ1");
-
-            return zpl;
-        }
-        private string BuildZplForFont(string ttfPath, int dpi = DEFAULT_DPI)
-        {
-            string tpl = BuildZplTemplateWithAZ(dpi);
-
-            int xa = tpl.IndexOf("^XA", StringComparison.Ordinal);
-            if (xa >= 0)
-            {
-                int insertPos = xa + 3; 
-                string header =
-                    "\n^CWZ," + ttfPath + "\n" +
-                    "^FO10,10^AZN,24,24^FD" + ttfPath + "^FS\n";
-                tpl = tpl.Insert(insertPos, header);
-            }
-            return tpl;
-        }
-
-
-        // 테스트할 TTF 목록
-        private static readonly string[] _ttfFontsOnPrinter = new[]
-        {
-            "E:ROBOTOMONO-EXTRA.TTF",
-            "E:ROBOTOMONO-LIGHT.TTF",
-            "E:ROBOTOMONO.TTF",
-            "E:ROBOTO.TTF",
-            "E:LUCON.TTF",
-            "E:CONSOLA.TTF",
-            "E:CONSOLAB.TTF",
-            "E:OCRAEXT.TTF",
-            "E:D2CODING-VER1.TTF",
-            "E:D2CODINGBOLD-VER.TTF",
-            //"E:CG_TIMES.TTF",
-            //"E:CG_TRIUMVIRATE.TTF",
-            //"E:EFONT_A.TTF",
-            //"E:EFONT_B.TTF",
-            //"E:EFONT_C.TTF",
-            //"E:M_BOLD.TTF",
-            //"E:M_CG_6PT.TTF",
-            //"E:M_CG_BOLD.TTF",
-            //"E:REDUCED.TTF",
-            //"E:STANDARD.TTF",
-            //"E:HELVETICA_A.TTF",
-            //"E:HELVETICA_B.TTF",
-            "E:TT0003M_.TTF", // SWISS 721
-            // 필요 시 추가 (R:*.TTF 있으면 여기에 "R:파일명.TTF")
-};
-
-        // 한번에 모두 출력
-        private void PrintAllTtfSamples(string printerName, int dpi = DEFAULT_DPI)
-        {
-            var all = new StringBuilder(4096);
-
-            foreach (var ttf in _ttfFontsOnPrinter)
-            {
-                string zpl = BuildZplForFont(ttf, dpi);
-                all.AppendLine(zpl);
-            }
-
-            // 한 번에 전송
-            LabelPrinter.SendRawToPrinter(printerName, all.ToString());
-        }
-        // Font 헬퍼
-        private static string FontTTF(int h, int w) => $"^A@N,{h},{w},E:D2CODING-VER1.TTF";
-
         // ───────────────────── ZPL 생성 (좌상단 기준, 회전 없음) ─────────────────────
         private string BuildZplFromUi(int dpi = DEFAULT_DPI)
         {
@@ -519,6 +436,89 @@ namespace DHSTesterXL
             return (bestM, bestH, bestSide);
         }
 
+
+        // Font 테스트용 헬퍼
+        private string BuildZplTemplateWithAZ(int dpi = DEFAULT_DPI)
+        {
+            // 1) 레이아웃 그대로 ZPL 생성
+            var zpl = BuildZplFromUi(dpi);
+
+            // 2) 헤더에 박혀 있는 임의 매핑(^CW...)은 제거 (나중에 폰트별로 다시 넣을 것)
+            zpl = Regex.Replace(zpl, @"^\^CW.*\r?\n", "", RegexOptions.Multiline);
+
+            // 3) 본문 폰트호출을 전부 Z 폰트로 통일
+            //    ^A0N/^A0R/^A0I/^A0B → ^AZN/^AZR/^AZI/^AZB
+            zpl = Regex.Replace(zpl, @"\^A0(?=[NRBI])", "^AZ");
+            //    바꿔둔 ^A1N...도 있을 수 있으니 같이 교체
+            zpl = Regex.Replace(zpl, @"\^A1(?=[NRBI])", "^AZ");
+
+            // 4) 수량은 1장으로 고정
+            zpl = Regex.Replace(zpl, @"\^PQ\d+", "^PQ1");
+
+            return zpl;
+        }
+        private string BuildZplForFont(string ttfPath, int dpi = DEFAULT_DPI)
+        {
+            string tpl = BuildZplTemplateWithAZ(dpi);
+
+            int xa = tpl.IndexOf("^XA", StringComparison.Ordinal);
+            if (xa >= 0)
+            {
+                int insertPos = xa + 3;
+                string header =
+                    "\n^CWZ," + ttfPath + "\n" +
+                    "^FO10,10^AZN,24,24^FD" + ttfPath + "^FS\n";
+                tpl = tpl.Insert(insertPos, header);
+            }
+            return tpl;
+        }
+
+
+        // 테스트할 TTF 목록
+        private static readonly string[] _ttfFontsOnPrinter = new[]
+        {
+            "E:ROBOTOMONO-EXTRA.TTF",
+            "E:ROBOTOMONO-LIGHT.TTF",
+            "E:ROBOTOMONO.TTF",
+            "E:ROBOTO.TTF",
+            "E:LUCON.TTF",
+            "E:CONSOLA.TTF",
+            "E:CONSOLAB.TTF",
+            "E:OCRAEXT.TTF",
+            "E:D2CODING-VER1.TTF",
+            "E:D2CODINGBOLD-VER.TTF",
+            //"E:CG_TIMES.TTF",
+            //"E:CG_TRIUMVIRATE.TTF",
+            //"E:EFONT_A.TTF",
+            //"E:EFONT_B.TTF",
+            //"E:EFONT_C.TTF",
+            //"E:M_BOLD.TTF",
+            //"E:M_CG_6PT.TTF",
+            //"E:M_CG_BOLD.TTF",
+            //"E:REDUCED.TTF",
+            //"E:STANDARD.TTF",
+            //"E:HELVETICA_A.TTF",
+            //"E:HELVETICA_B.TTF",
+            "E:TT0003M_.TTF", // SWISS 721
+            // 필요 시 추가 (R:*.TTF 있으면 여기에 "R:파일명.TTF")
+        };
+
+        // 한번에 모두 출력
+        private void PrintAllTtfSamples(string printerName, int dpi = DEFAULT_DPI)
+        {
+            var all = new StringBuilder(4096);
+
+            foreach (var ttf in _ttfFontsOnPrinter)
+            {
+                string zpl = BuildZplForFont(ttf, dpi);
+                all.AppendLine(zpl);
+            }
+
+            // 한 번에 전송
+            LabelPrinter.SendRawToPrinter(printerName, all.ToString());
+        }
+        // Font 헬퍼
+        private static string FontTTF(int h, int w) => $"^A@N,{h},{w},E:D2CODING-VER1.TTF";
 
         /// <summary>
         /// Bitmap → ZPL ^GFA (ASCII HEX).

@@ -234,59 +234,6 @@ namespace DHSTesterXL
 
         }
 
-        private static GraphicsPath CreateRoundedRectPath(RectangleF rect, float radius)
-        {
-            var graphicsPath = new GraphicsPath();
-            float diameter = radius * 2f;
-
-            graphicsPath.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
-            graphicsPath.AddArc(rect.Right - diameter, rect.Y, diameter, diameter, 270, 90);
-            graphicsPath.AddArc(rect.Right - diameter, rect.Bottom - diameter, diameter, diameter, 0, 90);
-            graphicsPath.AddArc(rect.X, rect.Bottom - diameter, diameter, diameter, 90, 90);
-
-            graphicsPath.CloseFigure();
-            return graphicsPath;
-        }
-
-        /// <summary>
-        /// 텍스트 그리기(프리뷰, 좌상단 기준)
-        /// - mmFont → px/pt 변환
-        /// - 좌상단(X,Y)로 이동 후 Scale(X,Y) 적용
-        /// </summary>
-        private static void DrawTextTopLeft(Graphics g, string text,
-            double mmX, double mmY, double mmFont,
-            Func<double, float> MMX, Func<double, float> MMY, float mm2px,
-            bool bold, double scaleXRatio, double scaleYRatio)
-        {
-            //float fontPx = (float)(mmFont * mm2px);
-            //float fontPt = Math.Max(1f, fontPx * 72f / g.DpiY);
-
-            int hDots = Math.Max(1, MmToDotsInt(mmFont * scaleYRatio, DEFAULT_DPI));
-            int wDots = Math.Max(1, (int)Math.Round(hDots * scaleXRatio));
-            float hPx = (float)(DotsToMm(hDots, DEFAULT_DPI) * mm2px);
-            // GDI 폰트 포인트로 변환
-            float fontPt = Math.Max(1f, hPx * 72f / g.DpiY);
-
-            using (var font = new Font("Arial", fontPt, bold ? FontStyle.Bold : FontStyle.Regular))
-            using (var brush = new SolidBrush(Color.Black))
-            {
-                var state = g.Save();
-                try
-                {
-                    float xTop = MMX(mmX);
-                    float yTop = MMY(mmY);
-
-                    g.TranslateTransform(xTop, yTop);
-                    if (Math.Abs(scaleXRatio - 1.0) > 1e-6 || Math.Abs(scaleYRatio - 1.0) > 1e-6)
-                        g.ScaleTransform((float)Math.Max(0.01, scaleXRatio),
-                                         (float)Math.Max(0.01, scaleYRatio));
-
-                    g.DrawString(text, font, brush, 0f, 0f);
-                }
-                finally { g.Restore(state); }
-            }
-        }
-
         /// <summary>로고/회사명/품번(프리뷰, 모두 좌상단 기준)</summary>
         private void DrawLogoBrandPart(Graphics g,
                                        Func<double, float> MMX,
@@ -447,6 +394,59 @@ namespace DHSTesterXL
             if (len <= 72) return 22;
             if (len <= 88) return 24;
             return Math.Min(144, 26 + (int)Math.Ceiling((len - 88) / 12.0));
+        }
+
+        private static GraphicsPath CreateRoundedRectPath(RectangleF rect, float radius)
+        {
+            var graphicsPath = new GraphicsPath();
+            float diameter = radius * 2f;
+
+            graphicsPath.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
+            graphicsPath.AddArc(rect.Right - diameter, rect.Y, diameter, diameter, 270, 90);
+            graphicsPath.AddArc(rect.Right - diameter, rect.Bottom - diameter, diameter, diameter, 0, 90);
+            graphicsPath.AddArc(rect.X, rect.Bottom - diameter, diameter, diameter, 90, 90);
+
+            graphicsPath.CloseFigure();
+            return graphicsPath;
+        }
+
+        /// <summary>
+        /// 텍스트 그리기(프리뷰, 좌상단 기준)
+        /// - mmFont → px/pt 변환
+        /// - 좌상단(X,Y)로 이동 후 Scale(X,Y) 적용
+        /// </summary>
+        private static void DrawTextTopLeft(Graphics g, string text,
+            double mmX, double mmY, double mmFont,
+            Func<double, float> MMX, Func<double, float> MMY, float mm2px,
+            bool bold, double scaleXRatio, double scaleYRatio)
+        {
+            //float fontPx = (float)(mmFont * mm2px);
+            //float fontPt = Math.Max(1f, fontPx * 72f / g.DpiY);
+
+            int hDots = Math.Max(1, MmToDotsInt(mmFont * scaleYRatio, DEFAULT_DPI));
+            int wDots = Math.Max(1, (int)Math.Round(hDots * scaleXRatio));
+            float hPx = (float)(DotsToMm(hDots, DEFAULT_DPI) * mm2px);
+            // GDI 폰트 포인트로 변환
+            float fontPt = Math.Max(1f, hPx * 72f / g.DpiY);
+
+            using (var font = new Font("Arial", fontPt, bold ? FontStyle.Bold : FontStyle.Regular))
+            using (var brush = new SolidBrush(Color.Black))
+            {
+                var state = g.Save();
+                try
+                {
+                    float xTop = MMX(mmX);
+                    float yTop = MMY(mmY);
+
+                    g.TranslateTransform(xTop, yTop);
+                    if (Math.Abs(scaleXRatio - 1.0) > 1e-6 || Math.Abs(scaleYRatio - 1.0) > 1e-6)
+                        g.ScaleTransform((float)Math.Max(0.01, scaleXRatio),
+                                         (float)Math.Max(0.01, scaleYRatio));
+
+                    g.DrawString(text, font, brush, 0f, 0f);
+                }
+                finally { g.Restore(state); }
+            }
         }
 
 
