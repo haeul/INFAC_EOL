@@ -1,10 +1,13 @@
 ﻿using DHSTesterXL.Forms;
+using DHSTesterXL;
 using GSCommon;
 using log4net;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -17,7 +20,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using vxlapi_NET;
 using static vxlapi_NET.XLClass;
-
 
 namespace DHSTesterXL
 {
@@ -109,11 +111,13 @@ namespace DHSTesterXL
 
         // 메인 폼 객체
         public static FormDHSTesterXL frmMain;
+        // 품목 설정 폼 객체
+        public static FormProduct ProductForm;
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         // Properties
         public static GSystemData SystemData { get { return _systemData; } }
-        public static ProductConfig ProductSettings { get { return _productSettings; } }
+        public static ProductConfig ProductSettings { get {  return _productSettings; } }
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         // System Special Methods
@@ -144,7 +148,7 @@ namespace DHSTesterXL
 
         public static void SetDoubleBuffering(System.Windows.Forms.Control control, bool value)
         {
-            System.Reflection.PropertyInfo controlProperty = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered",
+            System.Reflection.PropertyInfo controlProperty = typeof(System.Windows.Forms.Control).GetProperty("DoubleBufferd",
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             controlProperty.SetValue(control, value, null);
         }
@@ -162,7 +166,7 @@ namespace DHSTesterXL
             }
         }
 
-        public static void SetButtonForeColor(Button button, Color targetColor)
+        public static void SetButtonForeColor(System.Windows.Forms.Button button, Color targetColor)
         {
             ColorSubstitution.SourceColor = button.ForeColor;
             ColorSubstitution.TargetColor = targetColor;
@@ -171,7 +175,7 @@ namespace DHSTesterXL
             button.ForeColor = targetColor;
         }
 
-        public static void SetButtonForeColor(Button button, Color sourceColor, Color targetColor)
+        public static void SetButtonForeColor(System.Windows.Forms.Button button, Color sourceColor, Color targetColor)
         {
             ColorSubstitution.SourceColor = sourceColor;
             ColorSubstitution.TargetColor = targetColor;
@@ -272,6 +276,9 @@ namespace DHSTesterXL
         public delegate void MessageBoxDelegate(string message, string caption, MessageBoxButtons buttons, MessageBoxIcon icon);
         public static MessageBoxDelegate MainFormMessageBox = null;
 
+        public delegate void BarcodeResetAndPopUpDelegate(int channel);
+        public static BarcodeResetAndPopUpDelegate BarcodeResetAndPopUp = null;
+
         public static int _nextSerialNo = 1;
 
 
@@ -285,8 +292,19 @@ namespace DHSTesterXL
             new TickTimer(),
             new TickTimer()
         };
+        public static byte[] TouchLockState = new byte[ChannelCount];
+        public static byte[] CancelLockState = new byte[ChannelCount];
         public static byte[] NFC_State = new byte[ChannelCount];
+        public static string TrayBarcode = string.Empty;
+        public static string[] ProductBarcode = new string[ChannelCount];
 
+        public static bool[] MasterTestCh1 = new bool[] { false, false, false, false, false };
+        public static bool[] MasterTestCh2 = new bool[] { false, false, false, false, false };
+
+        public static uint[] TempSerialNumber = new uint[ChannelCount] { 0, 0 };
+
+        public static int TrayInterlockCount { get; set; } = 10;
+        public static int ProductInterlockCount { get; set; } = 0;
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         // M_Layer
@@ -294,13 +312,13 @@ namespace DHSTesterXL
         public static MDedicatedCTRL DedicatedCTRL { get { return _dedicatedCTRL; } }
         public static bool ConnectDedicatedCTRL()
         {
-            DedicatedCTRL.OpenRelayModule(
-                    SystemData.RelayModuleSettings.PortName,
-                    SystemData.RelayModuleSettings.BaudRate,
-                    SystemData.RelayModuleSettings.ParityBit,
-                    SystemData.RelayModuleSettings.DataBit,
-                    SystemData.RelayModuleSettings.StopBit
-                    );
+            //DedicatedCTRL.OpenRelayModule(
+            //        SystemData.RelayModuleSettings.PortName,
+            //        SystemData.RelayModuleSettings.BaudRate,
+            //        SystemData.RelayModuleSettings.ParityBit,
+            //        SystemData.RelayModuleSettings.DataBit,
+            //        SystemData.RelayModuleSettings.StopBit
+            //        );
 
             DedicatedCTRL.SlaveAddress = 2;
             return DedicatedCTRL.Open(
@@ -313,7 +331,7 @@ namespace DHSTesterXL
         }
         public static void DisconnectDedicatedCTRL()
         {
-            DedicatedCTRL.CloseRelayModule();
+            //DedicatedCTRL.CloseRelayModule();
             DedicatedCTRL.Close();
         }
 
@@ -349,8 +367,8 @@ namespace DHSTesterXL
         public static int[] idleCancelSlowSelfAvg = new int[] { 0, 0 };
         public static int[] deltaCancelFastSelf = new int[] { 0, 0 };
         public static int[] deltaCancelSlowSelf = new int[] { 0, 0 };
-        public static int[] thdCancelFastSelf = new int[] { 500, 500 };
-        public static int[] thdCancelSlowSelf = new int[] { 500, 500 };
+        public static int[] thdCancelFastSelf = new int[] { 300, 300 };
+        public static int[] thdCancelSlowSelf = new int[] { 300, 300 };
         public static int[] judgeCountCancelFastSelf = new int[] { 0, 0 };
         public static int[] judgeCountCancelSlowSelf = new int[] { 0, 0 };
 
@@ -360,194 +378,129 @@ namespace DHSTesterXL
         public static bool[] isCancelSlowSelfComplete = new bool[] { false, false };
         public static bool[] isCancelFirstExecute = new bool[] { true, true };
 
+        public static bool[] prevStartPressed = new bool[] { false, false };
+
+
+
+        // LOT 
+        public static string GetLotNumber()
+        {
+            string lotNumber;
+
+            // 제조년
+            int baseYear = 2023;
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month;
+            int day = DateTime.Now.Day;
+
+            char y = (char)('S' + (year - baseYear));
+            char m = (char)('A' + month - 1);
+            char d;
+            if (day < 27)
+                d = (char)('A' + day - 1);
+            else
+                d = (char)('1' + day - 27 - 1);
+            lotNumber = $"{y}{m}{d}";
+            return lotNumber;
+        }
+
+
+
+
+
+
         // 라벨 생성
-        public static bool PrintProductLabel(string hw, string sw, string lot, string sn, string printerName = null)
+        //public static bool PrintProductLabel(string hw, string sw, string lot, string sn, string printerName = null)
+        //{
+        //    string zpl = BuildProductLabelZpl(hw, sw, lot, sn);
+
+        //    if (string.IsNullOrWhiteSpace(printerName))
+        //        printerName = ProductSettings?.LabelPrint?.PrinterName ?? "ZDesigner ZD421-203dpi ZPL";
+
+        //    return SendRawToPrinter(printerName, zpl);
+        //}
+        public static bool PrintProductLabel(
+            LabelPayload payload,
+            LabelStyle style,
+            EtcsSettings etcs,
+            string printerName = null,
+            int? dpi = null, int? darkness = null, int? qty = null, double? speedIps = 1)
         {
-            string zpl = BuildProductLabelZpl(hw, sw, lot, sn);
+            var ps = ProductSettings?.LabelPrint;
+            int _dpi = dpi ?? (ps?.Dpi ?? 203);
+            int _dark = Math.Max(0, Math.Min(30, darkness ?? 20));
+            int _qty = Math.Max(1, qty ?? 1);
+            double _ips = speedIps ?? 1.0;
 
-            if (string.IsNullOrWhiteSpace(printerName))
-                printerName = ProductSettings?.LabelPrint?.PrinterName ?? "ZDesigner ZD421-203dpi ZPL";
+            string name = string.IsNullOrWhiteSpace(printerName)
+                ? (ps?.PrinterName ?? "ZDesigner ZD421-203dpi ZPL")
+                : printerName;
 
-            return SendRawToPrinter(printerName, zpl);
-        }
+            // JSON에서 로드된 ETCS 가변값(외부 호출 기본 소스)
+            if (etcs == null)
+                etcs = ProductSettings?.LabelPrint?.Etcs;
 
-        // Raw 전송 
-        public static bool SendRawToPrinter(string printerName, string zpl)
-        {
-            IntPtr hPrinter;
-
-            if (!OpenPrinter((printerName ?? "").Normalize(), out hPrinter, IntPtr.Zero))
-                throw new InvalidOperationException($"OpenPrinter 실패 (Win32:{Marshal.GetLastWin32Error()})");
-
-            var docInfo = new DOCINFOA { pDocName = "ZPL Job", pDataType = "RAW" };
-
-            if (!StartDocPrinter(hPrinter, 1, docInfo))
+            // 로고 로더
+            System.Drawing.Bitmap GetLogo()
             {
-                ClosePrinter(hPrinter);
-                throw new InvalidOperationException($"StartDocPrinter 실패 (Win32:{Marshal.GetLastWin32Error()})");
-            }
-            if (!StartPagePrinter(hPrinter))
-            {
-                EndDocPrinter(hPrinter);
-                ClosePrinter(hPrinter);
-                throw new InvalidOperationException($"StartPagePrinter 실패 (Win32:{Marshal.GetLastWin32Error()})");
-            }
-
-            IntPtr unmanagedBuffer = IntPtr.Zero;
-            try
-            {
-                byte[] bytes = Encoding.ASCII.GetBytes(zpl ?? "");
-                unmanagedBuffer = Marshal.AllocCoTaskMem(bytes.Length);
-                Marshal.Copy(bytes, 0, unmanagedBuffer, bytes.Length);
-
-                if (!WritePrinter(hPrinter, unmanagedBuffer, bytes.Length, out _))
-                    throw new InvalidOperationException($"WritePrinter 실패 (Win32:{Marshal.GetLastWin32Error()})");
-
-                return true;
-            }
-            finally
-            {
-                EndPagePrinter(hPrinter);
-                EndDocPrinter(hPrinter);
-                ClosePrinter(hPrinter);
-
-                if (unmanagedBuffer != IntPtr.Zero)
-                    Marshal.FreeCoTaskMem(unmanagedBuffer);
-            }
-        }
-
-        // P/Invoke (ANSI, DOCINFOA)
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-        private struct DOCINFOA
-        {
-            public string pDocName;
-            public string pOutputFile;
-            public string pDataType;
-        }
-
-        [DllImport("winspool.Drv", EntryPoint = "OpenPrinterA", SetLastError = true, CharSet = CharSet.Ansi)]
-        private static extern bool OpenPrinter(string pPrinterName, out IntPtr phPrinter, IntPtr pDefault);
-
-        [DllImport("winspool.Drv", SetLastError = true)]
-        private static extern bool ClosePrinter(IntPtr hPrinter);
-
-        [DllImport("winspool.Drv", EntryPoint = "StartDocPrinterA", SetLastError = true, CharSet = CharSet.Ansi)]
-        private static extern bool StartDocPrinter(IntPtr hPrinter, int level, [In] DOCINFOA di);
-
-        [DllImport("winspool.Drv", SetLastError = true)]
-        private static extern bool EndDocPrinter(IntPtr hPrinter);
-
-        [DllImport("winspool.Drv", SetLastError = true)]
-        private static extern bool StartPagePrinter(IntPtr hPrinter);
-
-        [DllImport("winspool.Drv", SetLastError = true)]
-        private static extern bool EndPagePrinter(IntPtr hPrinter);
-
-        [DllImport("winspool.Drv", SetLastError = true)]
-        private static extern bool WritePrinter(IntPtr hPrinter, IntPtr pBytes, int dwCount, out int dwWritten);
-    
-        public static string BuildProductLabelZpl(string hwVersion, string swVersion, string lotNumber, string serialNumber)
-        {
-            // ───────────────────── 1) 설정 로드 ─────────────────────
-            var ps = ProductSettings ?? throw new InvalidOperationException("ProductSettings not loaded.");
-            var lp = ps.LabelPrint ?? throw new InvalidOperationException("LabelPrint section missing.");
-            var style = lp.Style ?? new LabelStyle();
-
-            // ───────────────────── 2) 가변 데이터 주입 ─────────────────────
-            // (FormProductLabel.cs의 패턴에 맞춰 수치만 받아 접두사는 여기서 붙임)
-            style.PartText = ps.ProductInfo?.PartNo ?? style.PartText ?? "";
-            style.HWText = $"HW:{(hwVersion ?? "").Trim()}";
-            style.SWText = $"SW:{(swVersion ?? "").Trim()}";
-            style.LOTText = (lotNumber ?? "").Trim();
-            style.SerialText = (serialNumber ?? "").Trim();
-
-            // ───────────────────── 3) 공통 유틸(로컬 함수로 캡슐화) ─────────────────────
-            int dpi = lp.Dpi > 0 ? lp.Dpi : 203;
-
-            int MmToDots(double mm) => (int)Math.Round(mm * dpi / 25.4);
-            string Escape(string s) => s?.Replace("^", "") ?? "";
-            string AsciiSafeOneLine(string s) // 줄바꿈/탭 제거 + ASCII 범위만 유지
-            {
-                if (string.IsNullOrEmpty(s)) return "";
-                var asciiSb = new StringBuilder(s.Length);
-                foreach (var ch in s)
+                try
                 {
-                    if (ch == '\r' || ch == '\n' || ch == '\t') continue;
-                    asciiSb.Append((ch >= 32 && ch <= 126) ? ch : '_');
+                    if (style == null || string.IsNullOrWhiteSpace(style.LogoImagePath)) return null;
+                    if (!System.IO.File.Exists(style.LogoImagePath)) return null;
+                    return new System.Drawing.Bitmap(style.LogoImagePath);
                 }
-                return asciiSb.ToString();
-            }
-            string BuildLotDisplay(string lotRaw, string snRaw)
-            {
-                string lot = (lotRaw ?? "").Trim();
-                string sn = (snRaw ?? "").Trim();
-                if (!string.IsNullOrEmpty(lot) && !string.IsNullOrEmpty(sn)) return $"LOT NO : {lot}-{sn}";
-                if (!string.IsNullOrEmpty(lot)) return $"LOT NO : {lot}";
-                if (!string.IsNullOrEmpty(sn)) return $"LOT NO : {sn}";
-                return "LOT NO : ";
+                catch { return null; }
             }
 
-            // ───────────────────── 4) 페이로드 준비 ─────────────────────
-            string part = style.PartText ?? "";
-            string hw = style.HWText ?? "";
-            string sw = style.SWText ?? "";
-            string lotDisplay = BuildLotDisplay(style.LOTText, style.SerialText);
-
-            // QR 데이터: part|HW:..|SW:..|LOT-SN(둘 다 있을 때 하이픈 결합)
-            string lotToken = (style.LOTText ?? "").Trim();
-            string snToken = (style.SerialText ?? "").Trim();
-            string lotForQr = string.Join("-", new[] { lotToken, snToken }.Where(s => !string.IsNullOrWhiteSpace(s)));
-
-            string qrRaw = $"{part}|{hw}|{sw}|{lotForQr}";
-            string qrData = AsciiSafeOneLine(Escape(qrRaw));
-
-            // ───────────────────── 5) 치수/좌표 도트 변환 ─────────────────────
-            int PW = MmToDots(style.LabelWmm); // Print Width
-            int LL = MmToDots(style.LabelHmm); // Label Length
-
-            int brandX = MmToDots(style.BrandX), brandY = MmToDots(style.BrandY);
-            int brandH = MmToDots(style.BrandFont);
-            int partY = MmToDots(style.PartY), partH = MmToDots(style.PartFont);
-
-            // 회전/스케일은 UI 그리드에서만 관리하므로 여기서는 기본값(N, 1.0)
-            int xHW = MmToDots(style.HWx), yHW = MmToDots(style.HWy);
-            int hHW = MmToDots(style.HWfont > 0 ? style.HWfont : 2.6);
-
-            int xSW = MmToDots(style.SWx), ySW = MmToDots(style.SWy);
-            int hSW = MmToDots(style.SWfont > 0 ? style.SWfont : 2.6);
-
-            int xLOT = MmToDots(style.LOTx), yLOT = MmToDots(style.LOTy);
-            int hLOT = MmToDots(style.LOTfont > 0 ? style.LOTfont : 2.6);
-
-            // ───────────────────── 6) ZPL 조립 ─────────────────────
-            var sb = new StringBuilder(1024);
-            sb.AppendLine("^XA");
-            sb.AppendLine("^PW" + PW);
-            sb.AppendLine("^LL" + LL);
-            sb.AppendLine("^LH0,0");
-            sb.AppendLine("^LT0");
-            sb.AppendLine("^LS0");
-            sb.AppendLine("^PQ1"); // 항상 1장
-
-            // QR (JSON: UseQr/QRMagnification 반영, 좌표는 간단히 (1mm,1mm))
-            if (lp.UseQr)
-            {
-                int qrX = MmToDots(1.0), qrY = MmToDots(1.0);
-                int mag = lp.QRMagnification > 0 ? lp.QRMagnification : 2;
-                sb.AppendLine($"^FO{qrX},{qrY}^BQN,2,{mag}^FDQA,{qrData}^FS");
-            }
-
-            // 고정 요소(브랜드 / 품번 중앙 정렬)
-            sb.AppendLine($"^FO{brandX},{brandY}^A0N,{brandH},{brandH}^FD{Escape(style.BrandText)}^FS");
-            sb.AppendLine($"^FO0,{partY}^FB{PW},1,0,C^A0N,{partH},{partH}^FD{Escape(part)}^FS");
-
-            // 가변 요소(HW / SW / LOT+SN)
-            sb.AppendLine($"^FO{xHW},{yHW}^A0N,{hHW},{hHW}^FD{Escape(hw)}^FS");
-            sb.AppendLine($"^FO{xSW},{ySW}^A0N,{hSW},{hSW}^FD{Escape(sw)}^FS");
-            sb.AppendLine($"^FO{xLOT},{yLOT}^A0N,{hLOT},{hLOT}^FD{Escape(lotDisplay)}^FS");
-
-            sb.AppendLine("^XZ");
-            return sb.ToString();
+            // payload.DataMatrix가 비어 있으면, 빌더가 etcs로 ETCS DM을 생성함
+            string zpl = ZebraZplFacade.BuildZpl(style, payload, etcs, _dpi, _qty, _dark, _ips, GetLogo);
+            return LabelPrinter.SendRawToPrinter(name, zpl);
         }
+
+        /* 하위호환 시그니처 유지(기존 외부 코드가 그대로 동작)
+        public static bool PrintProductLabel(
+            string hw, string sw, string lot, string sn,
+            string partNo, string fccId, string icId, string company, string dataMatrix,
+            string printerName = null)
+        {
+            var payload = new LabelPayload
+            {
+                HW = hw,
+                SW = sw,
+                LOT = lot,
+                SN = sn,
+                PartNo = partNo,
+                FCCID = fccId,
+                ICID = icId,
+                Company = company,
+                DataMatrix = dataMatrix
+            };
+
+            var style = ProductSettings?.LabelPrint?.Style ?? new LabelStyle();
+            return PrintProductLabel(payload, style, etcs, printerName);
+        }
+        */
+
+        public static async Task ChangePLCRecipeAsync(int recipe)
+        {
+            await Task.Run(async () =>
+            {
+                int bitIndex = 0;
+                MiPLC.Ch1_W_RecipeNo = (ushort)recipe;
+                MiPLC.Ch2_W_RecipeNo = (ushort)recipe;
+                MiPLC.Ch1_W_Command2 |= GDefines.BIT16[bitIndex];
+                MiPLC.Ch2_W_Command2 |= GDefines.BIT16[bitIndex];
+                MiPLC.M1402_Req_Proc();
+                while (MiPLC.Ch1_R_RecipeNo != (ushort)recipe || MiPLC.Ch2_R_RecipeNo != (ushort)recipe)
+                {
+                    await Task.Delay(10);
+                }
+                await Task.Delay(500);
+                MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
+                MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
+                MiPLC.M1402_Req_Proc();
+            });
+        }
+
     }
 }

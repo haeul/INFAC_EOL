@@ -62,7 +62,8 @@ namespace DHSTesterXL
         public TestResult PLightTurnOn { get; set; }
         public TestResult PLightCurrent { get; set; }
         public TestResult PLightAmbient { get; set; }
-        public TestResult Touch { get; set; }
+        public TestResult LockSen { get; set; }
+        public TestResult LockCan { get; set; }
         public TestResult Cancel { get; set; }
         public TestResult SecurityBit { get; set; }
         public TestResult NFC { get; set; }
@@ -100,7 +101,8 @@ namespace DHSTesterXL
             PLightTurnOn     = new TestResult() { Name = GDefines.TEST_ITEM_NAME_STR[(int)TestItems.PLightTurnOn    ] };
             PLightCurrent    = new TestResult() { Name = GDefines.TEST_ITEM_NAME_STR[(int)TestItems.PLightCurrent   ] };
             PLightAmbient    = new TestResult() { Name = GDefines.TEST_ITEM_NAME_STR[(int)TestItems.PLightAmbient   ] };
-            Touch            = new TestResult() { Name = GDefines.TEST_ITEM_NAME_STR[(int)TestItems.Touch           ] };
+            LockSen          = new TestResult() { Name = GDefines.TEST_ITEM_NAME_STR[(int)TestItems.LockSen         ] };
+            LockCan          = new TestResult() { Name = GDefines.TEST_ITEM_NAME_STR[(int)TestItems.LockCan         ] };
             Cancel           = new TestResult() { Name = GDefines.TEST_ITEM_NAME_STR[(int)TestItems.Cancel          ] };
             SecurityBit      = new TestResult() { Name = GDefines.TEST_ITEM_NAME_STR[(int)TestItems.SecurityBit     ] };
             NFC              = new TestResult() { Name = GDefines.TEST_ITEM_NAME_STR[(int)TestItems.NFC             ] };
@@ -137,7 +139,8 @@ namespace DHSTesterXL
                     case TestItems.PLightTurnOn     : if (PLightTurnOn    .Use) testResults.Add(PLightTurnOn    );   break;
                     case TestItems.PLightCurrent    : if (PLightCurrent   .Use) testResults.Add(PLightCurrent   );   break;
                     case TestItems.PLightAmbient    : if (PLightAmbient   .Use) testResults.Add(PLightAmbient   );   break;
-                    case TestItems.Touch            : if (Touch           .Use) testResults.Add(Touch           );   break;
+                    case TestItems.LockSen          : if (LockSen         .Use) testResults.Add(LockSen         );   break;
+                    case TestItems.LockCan          : if (LockCan         .Use) testResults.Add(LockCan         );   break;
                     case TestItems.Cancel           : if (Cancel          .Use) testResults.Add(Cancel          );   break;
                     case TestItems.SecurityBit      : if (SecurityBit     .Use) testResults.Add(SecurityBit     );   break;
                     case TestItems.NFC              : if (NFC             .Use) testResults.Add(NFC             );   break;

@@ -134,7 +134,18 @@
     <Compile Include="Component\H_Layer\GSerialDevice.cs" />
     <Compile Include="Component\System\GSystem.cs" />
     <Compile Include="Component\System\GSystemData.cs" />
-    <Compile Include="Label\LabelNumericColumn.cs" />
+    <Compile Include="FormJigBarcode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormJigBarcode.Designer.cs">
+      <DependentUpon>FormJigBarcode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormBarcode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormBarcode.Designer.cs">
+      <DependentUpon>FormBarcode.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormDHSTesterXL.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,9 +203,7 @@
     <Compile Include="Forms\FormSettings.Designer.cs">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormVFlash.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\FormVFlash.cs" />
     <Compile Include="Forms\FormVFlash.Designer.cs">
       <DependentUpon>FormVFlash.cs</DependentUpon>
     </Compile>
@@ -211,27 +220,33 @@
     <Compile Include="Component\M_Layer\MRelayModule.cs" />
     <Compile Include="Component\System\PerformResult.cs" />
     <Compile Include="Component\System\ProductSettings.cs" />
-    <Compile Include="Label\LabelStyle.cs" />
+    <Compile Include="Component\M_Layer\MCPacket.cs" />
+    <Compile Include="Component\M_Layer\MitsubishiPLC.cs" />
     <Compile Include="Label\LabelDataGridView.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Label\LabelNumericColumn.cs" />
     <Compile Include="Label\LabelPreview.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Label\LabelPrinter.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Label\LabelPrinter.cs" />
+    <Compile Include="Label\LabelStyle.cs" />
     <Compile Include="Label\LabelZplBuilder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MCPacket.cs" />
-    <Compile Include="MitsubishiPLC.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Component\System\TestResult.cs" />
-    <Compile Include="PTouchOnly.cs" />
+    <Compile Include="Component\P_Layer\PTouchOnly.cs" />
+    <EmbeddedResource Include="FormJigBarcode.resx">
+      <DependentUpon>FormJigBarcode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormBarcode.resx">
+      <DependentUpon>FormBarcode.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDHSTesterXL.resx">
       <DependentUpon>FormDHSTesterXL.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormChangePassword.resx">
       <DependentUpon>FormChangePassword.cs</DependentUpon>

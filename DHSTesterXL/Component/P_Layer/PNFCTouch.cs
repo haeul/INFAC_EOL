@@ -242,6 +242,17 @@ namespace DHSTesterXL
         }
 
         // -------------------------------------------------------------------------------------------------
+        public bool OpenPortCOM(int channel)
+        {
+            return false;
+        }
+        // -------------------------------------------------------------------------------------------------
+        public void ClosePortCOM(int channel)
+        {
+            
+        }
+
+        // -------------------------------------------------------------------------------------------------
         public bool IsOpen(int channel)
         {
             return _isOpen[channel];
@@ -461,6 +472,18 @@ namespace DHSTesterXL
                 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
             };
             return WriteFrame(channel, id, dlc, data, logging, "CMD: WAKE_UP");
+        }
+
+        // -----------------------------------------------------------------------------------------------
+        public XL_Status Send_NFC(int channel, bool logging = false)
+        {
+            uint id = ProductSettings.NFC_ReqID;
+            ushort dlc = 8;
+            byte[] data = new byte[]
+            {
+                0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+            };
+            return WriteFrame(channel, id, dlc, data, logging, "CMD: NFC_INPUT");
         }
 
         // -----------------------------------------------------------------------------------------------
@@ -873,6 +896,18 @@ namespace DHSTesterXL
             return WriteFrame(channel, id, dlc, data, logging, $"CMD: SECURITY addr=0x{address:X08}");
         }
 
+        // -----------------------------------------------------------------------------------------------
+        public XL_Status Send_HardwireTest(int channel, bool logging = false)
+        {
+            uint id = ProductSettings.CanReqID;
+            XL_CANFD_DLC dlc = XL_CANFD_DLC.DLC_CAN_CANFD_8_BYTES;
+            byte[] data = new byte[8]
+            {
+                0x03, 0x2F, 0xF1, 0x11, 0x03, 0xAA, 0xAA, 0xAA
+            };
+            return WriteFrameStd(channel, id, dlc, data, logging, "CMD: HARDWIRE_TEST");
+        }
+
 
 
         // -----------------------------------------------------------------------------------------------
@@ -1028,6 +1063,18 @@ namespace DHSTesterXL
             _prevTestStep[channel] = _currTestStep[channel];
             _currTestStep[channel] = step;
             return _prevTestStep[channel];
+        }
+        public TouchOnlyTestStep NextTouchOnlyTestStep(int channel)
+        {
+            throw new NotImplementedException();
+        }
+        public TouchOnlyTestStep GetTouchOnlyTestStep(int channel)
+        {
+            throw new NotImplementedException();
+        }
+        public TouchOnlyTestStep SetTouchOnlyTestStep(int channel, TouchOnlyTestStep step)
+        {
+            throw new NotImplementedException();
         }
 
         public void StartTest(int channel)

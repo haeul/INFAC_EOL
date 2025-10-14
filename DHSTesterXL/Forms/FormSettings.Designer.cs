@@ -39,9 +39,47 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.buttonConnCountInit = new System.Windows.Forms.Button();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.numericConnNotify = new System.Windows.Forms.NumericUpDown();
+            this.numericConnChange = new System.Windows.Forms.NumericUpDown();
+            this.label31 = new System.Windows.Forms.Label();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.label32 = new System.Windows.Forms.Label();
+            this.numericLogExpDate = new System.Windows.Forms.NumericUpDown();
+            this.checkLogDelete = new System.Windows.Forms.CheckBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.label25 = new System.Windows.Forms.Label();
+            this.buttonVFlashFolder = new System.Windows.Forms.Button();
+            this.buttonDataFolderRepeat = new System.Windows.Forms.Button();
+            this.buttonProductFolder = new System.Windows.Forms.Button();
+            this.textVFlashFolder = new System.Windows.Forms.TextBox();
+            this.buttonDataFolderBack = new System.Windows.Forms.Button();
+            this.textProductFolder = new System.Windows.Forms.TextBox();
+            this.buttonDataFolderPass = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.buttonDataFolderAll = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textDataFolderRepeat = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.textDataFolderBack = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.textDataFolderPass = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.textDataFolderAll = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonSetSensor = new System.Windows.Forms.Button();
+            this.comboSensorModel = new System.Windows.Forms.ComboBox();
             this.buttonStartLampCh2 = new System.Windows.Forms.Button();
             this.buttonStartLampCh1 = new System.Windows.Forms.Button();
             this.buttonHighPowerCh2 = new System.Windows.Forms.Button();
@@ -74,43 +112,6 @@
             this.comboDCtrlBaudRate = new System.Windows.Forms.ComboBox();
             this.comboDCtrlPortName = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.panelRModuleManualFrame = new System.Windows.Forms.Panel();
-            this.panelRModuleManual = new System.Windows.Forms.Panel();
-            this.buttonRModuleRY8 = new System.Windows.Forms.Button();
-            this.buttonRModuleRY7 = new System.Windows.Forms.Button();
-            this.buttonRModuleRY6 = new System.Windows.Forms.Button();
-            this.buttonRModuleRY5 = new System.Windows.Forms.Button();
-            this.buttonRModuleRY4 = new System.Windows.Forms.Button();
-            this.buttonRModuleRY3 = new System.Windows.Forms.Button();
-            this.buttonRModuleRY2 = new System.Windows.Forms.Button();
-            this.buttonRModuleRY1 = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.panelRModuleCOMFrame = new System.Windows.Forms.Panel();
-            this.panelRModuleCOM = new System.Windows.Forms.Panel();
-            this.buttonRModuleClose = new System.Windows.Forms.Button();
-            this.buttonRModuleOpen = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.labelProductNo = new System.Windows.Forms.Label();
-            this.comboRModuleStopBit = new System.Windows.Forms.ComboBox();
-            this.comboRModuleDataBit = new System.Windows.Forms.ComboBox();
-            this.comboRModuleParityBit = new System.Windows.Forms.ComboBox();
-            this.comboRModuleBaudRate = new System.Windows.Forms.ComboBox();
-            this.comboRModulePortName = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.buttonResultFolder = new System.Windows.Forms.Button();
-            this.buttonVFlashFolder = new System.Windows.Forms.Button();
-            this.textResultFolder = new System.Windows.Forms.TextBox();
-            this.buttonProductFolder = new System.Windows.Forms.Button();
-            this.textVFlashFolder = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.textProductFolder = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.buttonPLCAutoStopCh1 = new System.Windows.Forms.Button();
             this.buttonPLCAutoStartCh1 = new System.Windows.Forms.Button();
@@ -176,22 +177,53 @@
             this.buttonAutoTouchCh1 = new System.Windows.Forms.Button();
             this.buttonAutoLoadingCh1 = new System.Windows.Forms.Button();
             this.labelAutoStartCh1 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panelRModuleManualFrame = new System.Windows.Forms.Panel();
+            this.panelRModuleManual = new System.Windows.Forms.Panel();
+            this.buttonRModuleRY8 = new System.Windows.Forms.Button();
+            this.buttonRModuleRY7 = new System.Windows.Forms.Button();
+            this.buttonRModuleRY6 = new System.Windows.Forms.Button();
+            this.buttonRModuleRY5 = new System.Windows.Forms.Button();
+            this.buttonRModuleRY4 = new System.Windows.Forms.Button();
+            this.buttonRModuleRY3 = new System.Windows.Forms.Button();
+            this.buttonRModuleRY2 = new System.Windows.Forms.Button();
+            this.buttonRModuleRY1 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.panelRModuleCOMFrame = new System.Windows.Forms.Panel();
+            this.panelRModuleCOM = new System.Windows.Forms.Panel();
+            this.buttonRModuleClose = new System.Windows.Forms.Button();
+            this.buttonRModuleOpen = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.labelProductNo = new System.Windows.Forms.Label();
+            this.comboRModuleStopBit = new System.Windows.Forms.ComboBox();
+            this.comboRModuleDataBit = new System.Windows.Forms.ComboBox();
+            this.comboRModuleParityBit = new System.Windows.Forms.ComboBox();
+            this.comboRModuleBaudRate = new System.Windows.Forms.ComboBox();
+            this.comboRModulePortName = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConnNotify)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConnChange)).BeginInit();
+            this.panel11.SuspendLayout();
+            this.panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericLogExpDate)).BeginInit();
+            this.panel7.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridDCtrlRegisters)).BeginInit();
             this.panelDCtrlCOMFrame.SuspendLayout();
             this.panelDCtrlCOM.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.panelRModuleManualFrame.SuspendLayout();
-            this.panelRModuleManual.SuspendLayout();
-            this.panelRModuleCOMFrame.SuspendLayout();
-            this.panelRModuleCOM.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -199,6 +231,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridReadPLC)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.panelRModuleManualFrame.SuspendLayout();
+            this.panelRModuleManual.SuspendLayout();
+            this.panelRModuleCOMFrame.SuspendLayout();
+            this.panelRModuleCOM.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -206,15 +243,434 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(0, -1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1008, 678);
             this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.panel9);
+            this.tabPage3.Controls.Add(this.panel11);
+            this.tabPage3.Controls.Add(this.panel7);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1000, 650);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "일반";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.LightGray;
+            this.panel9.Controls.Add(this.panel10);
+            this.panel9.Location = new System.Drawing.Point(290, 382);
+            this.panel9.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(340, 110);
+            this.panel9.TabIndex = 4;
+            // 
+            // panel10
+            // 
+            this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel10.BackColor = System.Drawing.SystemColors.Control;
+            this.panel10.Controls.Add(this.buttonConnCountInit);
+            this.panel10.Controls.Add(this.label29);
+            this.panel10.Controls.Add(this.label30);
+            this.panel10.Controls.Add(this.numericConnNotify);
+            this.panel10.Controls.Add(this.numericConnChange);
+            this.panel10.Controls.Add(this.label31);
+            this.panel10.Location = new System.Drawing.Point(1, 1);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(338, 108);
+            this.panel10.TabIndex = 0;
+            // 
+            // buttonConnCountInit
+            // 
+            this.buttonConnCountInit.Location = new System.Drawing.Point(227, 30);
+            this.buttonConnCountInit.Name = "buttonConnCountInit";
+            this.buttonConnCountInit.Size = new System.Drawing.Size(100, 30);
+            this.buttonConnCountInit.TabIndex = 4;
+            this.buttonConnCountInit.Text = "초기화";
+            this.buttonConnCountInit.UseVisualStyleBackColor = true;
+            this.buttonConnCountInit.Click += new System.EventHandler(this.buttonConnCountInit_Click);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(20, 63);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(99, 15);
+            this.label29.TabIndex = 3;
+            this.label29.Text = "커넥터 교체 알림";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(20, 34);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(99, 15);
+            this.label30.TabIndex = 3;
+            this.label30.Text = "커넥터 교체 주기";
+            this.label30.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // numericConnNotify
+            // 
+            this.numericConnNotify.Location = new System.Drawing.Point(125, 59);
+            this.numericConnNotify.Maximum = new decimal(new int[] {
+            30000,
+            0,
+            0,
+            0});
+            this.numericConnNotify.Name = "numericConnNotify";
+            this.numericConnNotify.Size = new System.Drawing.Size(80, 23);
+            this.numericConnNotify.TabIndex = 2;
+            this.numericConnNotify.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericConnNotify.ThousandsSeparator = true;
+            // 
+            // numericConnChange
+            // 
+            this.numericConnChange.Location = new System.Drawing.Point(125, 30);
+            this.numericConnChange.Maximum = new decimal(new int[] {
+            30000,
+            0,
+            0,
+            0});
+            this.numericConnChange.Name = "numericConnChange";
+            this.numericConnChange.Size = new System.Drawing.Size(80, 23);
+            this.numericConnChange.TabIndex = 2;
+            this.numericConnChange.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericConnChange.ThousandsSeparator = true;
+            // 
+            // label31
+            // 
+            this.label31.BackColor = System.Drawing.Color.LightGray;
+            this.label31.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label31.Location = new System.Drawing.Point(0, 0);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(338, 19);
+            this.label31.TabIndex = 0;
+            this.label31.Text = "지그";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel11
+            // 
+            this.panel11.BackColor = System.Drawing.Color.LightGray;
+            this.panel11.Controls.Add(this.panel12);
+            this.panel11.Location = new System.Drawing.Point(20, 382);
+            this.panel11.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(260, 110);
+            this.panel11.TabIndex = 5;
+            // 
+            // panel12
+            // 
+            this.panel12.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel12.BackColor = System.Drawing.SystemColors.Control;
+            this.panel12.Controls.Add(this.label32);
+            this.panel12.Controls.Add(this.numericLogExpDate);
+            this.panel12.Controls.Add(this.checkLogDelete);
+            this.panel12.Controls.Add(this.label33);
+            this.panel12.Location = new System.Drawing.Point(1, 1);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(258, 108);
+            this.panel12.TabIndex = 0;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(62, 69);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(71, 15);
+            this.label32.TabIndex = 3;
+            this.label32.Text = "로그 보관일";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // numericLogExpDate
+            // 
+            this.numericLogExpDate.Location = new System.Drawing.Point(139, 66);
+            this.numericLogExpDate.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericLogExpDate.Name = "numericLogExpDate";
+            this.numericLogExpDate.Size = new System.Drawing.Size(80, 23);
+            this.numericLogExpDate.TabIndex = 2;
+            this.numericLogExpDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // checkLogDelete
+            // 
+            this.checkLogDelete.AutoSize = true;
+            this.checkLogDelete.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkLogDelete.Location = new System.Drawing.Point(20, 37);
+            this.checkLogDelete.Name = "checkLogDelete";
+            this.checkLogDelete.Size = new System.Drawing.Size(134, 19);
+            this.checkLogDelete.TabIndex = 1;
+            this.checkLogDelete.Text = "과거 로그 삭제 여부";
+            this.checkLogDelete.UseVisualStyleBackColor = true;
+            // 
+            // label33
+            // 
+            this.label33.BackColor = System.Drawing.Color.LightGray;
+            this.label33.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label33.Location = new System.Drawing.Point(0, 0);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(258, 19);
+            this.label33.TabIndex = 0;
+            this.label33.Text = "로그";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.LightGray;
+            this.panel7.Controls.Add(this.panel8);
+            this.panel7.Location = new System.Drawing.Point(20, 20);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(700, 350);
+            this.panel7.TabIndex = 3;
+            // 
+            // panel8
+            // 
+            this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel8.BackColor = System.Drawing.SystemColors.Control;
+            this.panel8.Controls.Add(this.label25);
+            this.panel8.Controls.Add(this.buttonVFlashFolder);
+            this.panel8.Controls.Add(this.buttonDataFolderRepeat);
+            this.panel8.Controls.Add(this.buttonProductFolder);
+            this.panel8.Controls.Add(this.textVFlashFolder);
+            this.panel8.Controls.Add(this.buttonDataFolderBack);
+            this.panel8.Controls.Add(this.textProductFolder);
+            this.panel8.Controls.Add(this.buttonDataFolderPass);
+            this.panel8.Controls.Add(this.label17);
+            this.panel8.Controls.Add(this.buttonDataFolderAll);
+            this.panel8.Controls.Add(this.label16);
+            this.panel8.Controls.Add(this.textDataFolderRepeat);
+            this.panel8.Controls.Add(this.label28);
+            this.panel8.Controls.Add(this.textDataFolderBack);
+            this.panel8.Controls.Add(this.label27);
+            this.panel8.Controls.Add(this.textDataFolderPass);
+            this.panel8.Controls.Add(this.label26);
+            this.panel8.Controls.Add(this.textDataFolderAll);
+            this.panel8.Controls.Add(this.label18);
+            this.panel8.Location = new System.Drawing.Point(1, 1);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(698, 348);
+            this.panel8.TabIndex = 0;
+            // 
+            // label25
+            // 
+            this.label25.BackColor = System.Drawing.Color.LightGray;
+            this.label25.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label25.Location = new System.Drawing.Point(0, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(698, 20);
+            this.label25.TabIndex = 0;
+            this.label25.Text = "경로";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // buttonVFlashFolder
+            // 
+            this.buttonVFlashFolder.Location = new System.Drawing.Point(534, 257);
+            this.buttonVFlashFolder.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.buttonVFlashFolder.Name = "buttonVFlashFolder";
+            this.buttonVFlashFolder.Size = new System.Drawing.Size(100, 30);
+            this.buttonVFlashFolder.TabIndex = 2;
+            this.buttonVFlashFolder.Text = "선택...";
+            this.buttonVFlashFolder.UseVisualStyleBackColor = true;
+            this.buttonVFlashFolder.Click += new System.EventHandler(this.buttonVFlashFolder_Click);
+            // 
+            // buttonDataFolderRepeat
+            // 
+            this.buttonDataFolderRepeat.Location = new System.Drawing.Point(534, 157);
+            this.buttonDataFolderRepeat.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.buttonDataFolderRepeat.Name = "buttonDataFolderRepeat";
+            this.buttonDataFolderRepeat.Size = new System.Drawing.Size(100, 30);
+            this.buttonDataFolderRepeat.TabIndex = 2;
+            this.buttonDataFolderRepeat.Tag = "DATA_REPEAT";
+            this.buttonDataFolderRepeat.Text = "선택...";
+            this.buttonDataFolderRepeat.UseVisualStyleBackColor = true;
+            this.buttonDataFolderRepeat.Click += new System.EventHandler(this.buttonSelectFolder_Click);
+            // 
+            // buttonProductFolder
+            // 
+            this.buttonProductFolder.Location = new System.Drawing.Point(534, 217);
+            this.buttonProductFolder.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.buttonProductFolder.Name = "buttonProductFolder";
+            this.buttonProductFolder.Size = new System.Drawing.Size(100, 30);
+            this.buttonProductFolder.TabIndex = 2;
+            this.buttonProductFolder.Text = "선택...";
+            this.buttonProductFolder.UseVisualStyleBackColor = true;
+            this.buttonProductFolder.Click += new System.EventHandler(this.buttonProductFolder_Click);
+            // 
+            // textVFlashFolder
+            // 
+            this.textVFlashFolder.BackColor = System.Drawing.SystemColors.Window;
+            this.textVFlashFolder.Location = new System.Drawing.Point(124, 262);
+            this.textVFlashFolder.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.textVFlashFolder.Name = "textVFlashFolder";
+            this.textVFlashFolder.Size = new System.Drawing.Size(400, 23);
+            this.textVFlashFolder.TabIndex = 1;
+            // 
+            // buttonDataFolderBack
+            // 
+            this.buttonDataFolderBack.Location = new System.Drawing.Point(534, 117);
+            this.buttonDataFolderBack.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.buttonDataFolderBack.Name = "buttonDataFolderBack";
+            this.buttonDataFolderBack.Size = new System.Drawing.Size(100, 30);
+            this.buttonDataFolderBack.TabIndex = 2;
+            this.buttonDataFolderBack.Tag = "DATA_BACK";
+            this.buttonDataFolderBack.Text = "선택...";
+            this.buttonDataFolderBack.UseVisualStyleBackColor = true;
+            this.buttonDataFolderBack.Click += new System.EventHandler(this.buttonSelectFolder_Click);
+            // 
+            // textProductFolder
+            // 
+            this.textProductFolder.BackColor = System.Drawing.SystemColors.Window;
+            this.textProductFolder.Location = new System.Drawing.Point(124, 224);
+            this.textProductFolder.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.textProductFolder.Name = "textProductFolder";
+            this.textProductFolder.Size = new System.Drawing.Size(400, 23);
+            this.textProductFolder.TabIndex = 1;
+            // 
+            // buttonDataFolderPass
+            // 
+            this.buttonDataFolderPass.Location = new System.Drawing.Point(534, 77);
+            this.buttonDataFolderPass.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.buttonDataFolderPass.Name = "buttonDataFolderPass";
+            this.buttonDataFolderPass.Size = new System.Drawing.Size(100, 30);
+            this.buttonDataFolderPass.TabIndex = 2;
+            this.buttonDataFolderPass.Tag = "DATA_PASS";
+            this.buttonDataFolderPass.Text = "선택...";
+            this.buttonDataFolderPass.UseVisualStyleBackColor = true;
+            this.buttonDataFolderPass.Click += new System.EventHandler(this.buttonSelectFolder_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(32, 265);
+            this.label17.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(82, 15);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "VFLASH 경로:";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // buttonDataFolderAll
+            // 
+            this.buttonDataFolderAll.Location = new System.Drawing.Point(534, 37);
+            this.buttonDataFolderAll.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.buttonDataFolderAll.Name = "buttonDataFolderAll";
+            this.buttonDataFolderAll.Size = new System.Drawing.Size(100, 30);
+            this.buttonDataFolderAll.TabIndex = 2;
+            this.buttonDataFolderAll.Tag = "DATA_ALL";
+            this.buttonDataFolderAll.Text = "선택...";
+            this.buttonDataFolderAll.UseVisualStyleBackColor = true;
+            this.buttonDataFolderAll.Click += new System.EventHandler(this.buttonSelectFolder_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(52, 227);
+            this.label16.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(62, 15);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "품목 경로:";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // textDataFolderRepeat
+            // 
+            this.textDataFolderRepeat.BackColor = System.Drawing.SystemColors.Window;
+            this.textDataFolderRepeat.Location = new System.Drawing.Point(124, 162);
+            this.textDataFolderRepeat.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.textDataFolderRepeat.Name = "textDataFolderRepeat";
+            this.textDataFolderRepeat.Size = new System.Drawing.Size(400, 23);
+            this.textDataFolderRepeat.TabIndex = 1;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(40, 165);
+            this.label28.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(74, 15);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "반복 데이터:";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // textDataFolderBack
+            // 
+            this.textDataFolderBack.BackColor = System.Drawing.SystemColors.Window;
+            this.textDataFolderBack.Location = new System.Drawing.Point(124, 122);
+            this.textDataFolderBack.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.textDataFolderBack.Name = "textDataFolderBack";
+            this.textDataFolderBack.Size = new System.Drawing.Size(400, 23);
+            this.textDataFolderBack.TabIndex = 1;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(40, 125);
+            this.label27.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(74, 15);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "백업 데이터:";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // textDataFolderPass
+            // 
+            this.textDataFolderPass.BackColor = System.Drawing.SystemColors.Window;
+            this.textDataFolderPass.Location = new System.Drawing.Point(124, 82);
+            this.textDataFolderPass.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.textDataFolderPass.Name = "textDataFolderPass";
+            this.textDataFolderPass.Size = new System.Drawing.Size(400, 23);
+            this.textDataFolderPass.TabIndex = 1;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(40, 85);
+            this.label26.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(74, 15);
+            this.label26.TabIndex = 0;
+            this.label26.Text = "양품 데이터:";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // textDataFolderAll
+            // 
+            this.textDataFolderAll.BackColor = System.Drawing.SystemColors.Window;
+            this.textDataFolderAll.Location = new System.Drawing.Point(124, 42);
+            this.textDataFolderAll.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.textDataFolderAll.Name = "textDataFolderAll";
+            this.textDataFolderAll.Size = new System.Drawing.Size(400, 23);
+            this.textDataFolderAll.TabIndex = 1;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(40, 45);
+            this.label18.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(74, 15);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "전체 데이터:";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // tabPage1
             // 
@@ -244,6 +700,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.panel2.Controls.Add(this.buttonSetSensor);
+            this.panel2.Controls.Add(this.comboSensorModel);
             this.panel2.Controls.Add(this.buttonStartLampCh2);
             this.panel2.Controls.Add(this.buttonStartLampCh1);
             this.panel2.Controls.Add(this.buttonHighPowerCh2);
@@ -262,6 +720,30 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(528, 618);
             this.panel2.TabIndex = 0;
+            // 
+            // buttonSetSensor
+            // 
+            this.buttonSetSensor.Location = new System.Drawing.Point(300, 256);
+            this.buttonSetSensor.Name = "buttonSetSensor";
+            this.buttonSetSensor.Size = new System.Drawing.Size(210, 30);
+            this.buttonSetSensor.TabIndex = 13;
+            this.buttonSetSensor.Text = "Select Sensor Model";
+            this.buttonSetSensor.UseVisualStyleBackColor = true;
+            this.buttonSetSensor.Click += new System.EventHandler(this.buttonSetSensor_Click);
+            // 
+            // comboSensorModel
+            // 
+            this.comboSensorModel.FormattingEnabled = true;
+            this.comboSensorModel.Items.AddRange(new object[] {
+            "Sensor Off",
+            "JG NFC Touch",
+            "JG Touch Only",
+            "NH2 NFC Touch",
+            "NH2 Touch Only"});
+            this.comboSensorModel.Location = new System.Drawing.Point(300, 227);
+            this.comboSensorModel.Name = "comboSensorModel";
+            this.comboSensorModel.Size = new System.Drawing.Size(210, 23);
+            this.comboSensorModel.TabIndex = 12;
             // 
             // buttonStartLampCh2
             // 
@@ -291,9 +773,8 @@
             this.buttonHighPowerCh2.Name = "buttonHighPowerCh2";
             this.buttonHighPowerCh2.Size = new System.Drawing.Size(100, 30);
             this.buttonHighPowerCh2.TabIndex = 7;
-            this.buttonHighPowerCh2.Text = "High Power";
+            this.buttonHighPowerCh2.Text = "Power Off";
             this.buttonHighPowerCh2.UseVisualStyleBackColor = true;
-            this.buttonHighPowerCh2.Visible = false;
             this.buttonHighPowerCh2.Click += new System.EventHandler(this.buttonHighPowerCh2_Click);
             // 
             // buttonHighPowerCh1
@@ -302,9 +783,8 @@
             this.buttonHighPowerCh1.Name = "buttonHighPowerCh1";
             this.buttonHighPowerCh1.Size = new System.Drawing.Size(100, 30);
             this.buttonHighPowerCh1.TabIndex = 7;
-            this.buttonHighPowerCh1.Text = "High Power";
+            this.buttonHighPowerCh1.Text = "Power Off";
             this.buttonHighPowerCh1.UseVisualStyleBackColor = true;
-            this.buttonHighPowerCh1.Visible = false;
             this.buttonHighPowerCh1.Click += new System.EventHandler(this.buttonHighPowerCh1_Click);
             // 
             // label15
@@ -335,7 +815,7 @@
             this.buttonLowPowerCh2.Name = "buttonLowPowerCh2";
             this.buttonLowPowerCh2.Size = new System.Drawing.Size(100, 30);
             this.buttonLowPowerCh2.TabIndex = 7;
-            this.buttonLowPowerCh2.Text = "Active Current";
+            this.buttonLowPowerCh2.Text = "Power On";
             this.buttonLowPowerCh2.UseVisualStyleBackColor = true;
             this.buttonLowPowerCh2.Click += new System.EventHandler(this.buttonLowPowerCh2_Click);
             // 
@@ -345,7 +825,7 @@
             this.buttonLowPowerCh1.Name = "buttonLowPowerCh1";
             this.buttonLowPowerCh1.Size = new System.Drawing.Size(100, 30);
             this.buttonLowPowerCh1.TabIndex = 7;
-            this.buttonLowPowerCh1.Text = "Active Current";
+            this.buttonLowPowerCh1.Text = "Power On";
             this.buttonLowPowerCh1.UseVisualStyleBackColor = true;
             this.buttonLowPowerCh1.Click += new System.EventHandler(this.buttonLowPowerCh1_Click);
             // 
@@ -642,6 +1122,827 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "통신 설정";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.buttonPLCAutoStopCh1);
+            this.tabPage4.Controls.Add(this.buttonPLCAutoStartCh1);
+            this.tabPage4.Controls.Add(this.buttonAutoUnclampCh1);
+            this.tabPage4.Controls.Add(this.buttonAutoUnloadCh1);
+            this.tabPage4.Controls.Add(this.buttonAutoMoveUnloadCh1);
+            this.tabPage4.Controls.Add(this.buttonAutoNfcCh1);
+            this.tabPage4.Controls.Add(this.panel5);
+            this.tabPage4.Controls.Add(this.buttonAutoCancelCh1);
+            this.tabPage4.Controls.Add(this.panel3);
+            this.tabPage4.Controls.Add(this.buttonAutoTouchCh1);
+            this.tabPage4.Controls.Add(this.buttonAutoLoadingCh1);
+            this.tabPage4.Controls.Add(this.labelAutoStartCh1);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1000, 650);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "PLC";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // buttonPLCAutoStopCh1
+            // 
+            this.buttonPLCAutoStopCh1.Location = new System.Drawing.Point(20, 501);
+            this.buttonPLCAutoStopCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLCAutoStopCh1.Name = "buttonPLCAutoStopCh1";
+            this.buttonPLCAutoStopCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLCAutoStopCh1.TabIndex = 10;
+            this.buttonPLCAutoStopCh1.Text = "STOP";
+            this.buttonPLCAutoStopCh1.UseVisualStyleBackColor = true;
+            this.buttonPLCAutoStopCh1.Visible = false;
+            this.buttonPLCAutoStopCh1.Click += new System.EventHandler(this.buttonPLCAutoStopCh1_Click);
+            // 
+            // buttonPLCAutoStartCh1
+            // 
+            this.buttonPLCAutoStartCh1.Location = new System.Drawing.Point(20, 466);
+            this.buttonPLCAutoStartCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLCAutoStartCh1.Name = "buttonPLCAutoStartCh1";
+            this.buttonPLCAutoStartCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLCAutoStartCh1.TabIndex = 10;
+            this.buttonPLCAutoStartCh1.Text = "AUTO";
+            this.buttonPLCAutoStartCh1.UseVisualStyleBackColor = true;
+            this.buttonPLCAutoStartCh1.Visible = false;
+            this.buttonPLCAutoStartCh1.Click += new System.EventHandler(this.buttonPLCAutoStartCh1_Click);
+            // 
+            // buttonAutoUnclampCh1
+            // 
+            this.buttonAutoUnclampCh1.Location = new System.Drawing.Point(20, 420);
+            this.buttonAutoUnclampCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonAutoUnclampCh1.Name = "buttonAutoUnclampCh1";
+            this.buttonAutoUnclampCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonAutoUnclampCh1.TabIndex = 10;
+            this.buttonAutoUnclampCh1.Text = "Unclamp";
+            this.buttonAutoUnclampCh1.UseVisualStyleBackColor = true;
+            this.buttonAutoUnclampCh1.Visible = false;
+            this.buttonAutoUnclampCh1.Click += new System.EventHandler(this.buttonAutoUnclampCh1_Click);
+            // 
+            // buttonAutoUnloadCh1
+            // 
+            this.buttonAutoUnloadCh1.Location = new System.Drawing.Point(20, 385);
+            this.buttonAutoUnloadCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonAutoUnloadCh1.Name = "buttonAutoUnloadCh1";
+            this.buttonAutoUnloadCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonAutoUnloadCh1.TabIndex = 10;
+            this.buttonAutoUnloadCh1.Text = "Unloading";
+            this.buttonAutoUnloadCh1.UseVisualStyleBackColor = true;
+            this.buttonAutoUnloadCh1.Visible = false;
+            this.buttonAutoUnloadCh1.Click += new System.EventHandler(this.buttonAutoUnloadCh1_Click);
+            // 
+            // buttonAutoMoveUnloadCh1
+            // 
+            this.buttonAutoMoveUnloadCh1.Location = new System.Drawing.Point(20, 350);
+            this.buttonAutoMoveUnloadCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonAutoMoveUnloadCh1.Name = "buttonAutoMoveUnloadCh1";
+            this.buttonAutoMoveUnloadCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonAutoMoveUnloadCh1.TabIndex = 10;
+            this.buttonAutoMoveUnloadCh1.Text = "Move Unload";
+            this.buttonAutoMoveUnloadCh1.UseVisualStyleBackColor = true;
+            this.buttonAutoMoveUnloadCh1.Visible = false;
+            this.buttonAutoMoveUnloadCh1.Click += new System.EventHandler(this.buttonAutoMoveUnloadCh1_Click);
+            // 
+            // buttonAutoNfcCh1
+            // 
+            this.buttonAutoNfcCh1.Location = new System.Drawing.Point(20, 315);
+            this.buttonAutoNfcCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonAutoNfcCh1.Name = "buttonAutoNfcCh1";
+            this.buttonAutoNfcCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonAutoNfcCh1.TabIndex = 10;
+            this.buttonAutoNfcCh1.Text = "NFC";
+            this.buttonAutoNfcCh1.UseVisualStyleBackColor = true;
+            this.buttonAutoNfcCh1.Visible = false;
+            this.buttonAutoNfcCh1.Click += new System.EventHandler(this.buttonAutoNfcCh1_Click);
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.LightGray;
+            this.panel5.Controls.Add(this.panel6);
+            this.panel5.Location = new System.Drawing.Point(250, 10);
+            this.panel5.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(740, 628);
+            this.panel5.TabIndex = 4;
+            // 
+            // panel6
+            // 
+            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.panel6.Controls.Add(this.buttonPLC_TestStopCh2);
+            this.panel6.Controls.Add(this.buttonPLC_UnclampCh2);
+            this.panel6.Controls.Add(this.buttonPLC_TestStopCh1);
+            this.panel6.Controls.Add(this.buttonPLC_UnclampCh1);
+            this.panel6.Controls.Add(this.buttonPLC_UnloadCh2);
+            this.panel6.Controls.Add(this.buttonPLC_UnloadCh1);
+            this.panel6.Controls.Add(this.buttonPLC_LoadYCh2);
+            this.panel6.Controls.Add(this.buttonPLC_NfcZUpCh2);
+            this.panel6.Controls.Add(this.buttonPLC_LoadYCh1);
+            this.panel6.Controls.Add(this.buttonPLC_NfcZUpCh1);
+            this.panel6.Controls.Add(this.buttonPLC_CancelZUpCh2);
+            this.panel6.Controls.Add(this.buttonPLC_CancelZUpCh1);
+            this.panel6.Controls.Add(this.buttonPLC_TouchZUpCh2);
+            this.panel6.Controls.Add(this.buttonPLC_TouchZUpCh1);
+            this.panel6.Controls.Add(this.buttonPLC_NfcZDnCh2);
+            this.panel6.Controls.Add(this.buttonPLC_NfcZDnCh1);
+            this.panel6.Controls.Add(this.buttonPLC_CancelZDnCh2);
+            this.panel6.Controls.Add(this.buttonPLC_CancelZDnCh1);
+            this.panel6.Controls.Add(this.buttonPLC_TouchZDnCh2);
+            this.panel6.Controls.Add(this.buttonPLC_TouchZDnCh1);
+            this.panel6.Controls.Add(this.buttonPLC_LoadingCh2);
+            this.panel6.Controls.Add(this.buttonPLC_LoadingCh1);
+            this.panel6.Controls.Add(this.buttonPLC_NfcYCh2);
+            this.panel6.Controls.Add(this.buttonPLC_NfcYCh1);
+            this.panel6.Controls.Add(this.buttonPLC_CancelYCh2);
+            this.panel6.Controls.Add(this.buttonPLC_CancelYCh1);
+            this.panel6.Controls.Add(this.buttonPLC_TouchYCh2);
+            this.panel6.Controls.Add(this.buttonPLC_TouchYCh1);
+            this.panel6.Controls.Add(this.buttonPLC_SetRecipeCh1);
+            this.panel6.Controls.Add(this.textPLC_RecipeNoCh1);
+            this.panel6.Controls.Add(this.label19);
+            this.panel6.Controls.Add(this.label20);
+            this.panel6.Controls.Add(this.gridWritePLC);
+            this.panel6.Controls.Add(this.gridReadPLC);
+            this.panel6.Controls.Add(this.label21);
+            this.panel6.Location = new System.Drawing.Point(1, 1);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(738, 618);
+            this.panel6.TabIndex = 0;
+            // 
+            // buttonPLC_TestStopCh2
+            // 
+            this.buttonPLC_TestStopCh2.Location = new System.Drawing.Point(619, 573);
+            this.buttonPLC_TestStopCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_TestStopCh2.Name = "buttonPLC_TestStopCh2";
+            this.buttonPLC_TestStopCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_TestStopCh2.TabIndex = 9;
+            this.buttonPLC_TestStopCh2.Text = "UNCLAMP 후진";
+            this.buttonPLC_TestStopCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_TestStopCh2.Click += new System.EventHandler(this.buttonPLC_TestStopCh2_Click);
+            // 
+            // buttonPLC_UnclampCh2
+            // 
+            this.buttonPLC_UnclampCh2.Location = new System.Drawing.Point(619, 538);
+            this.buttonPLC_UnclampCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_UnclampCh2.Name = "buttonPLC_UnclampCh2";
+            this.buttonPLC_UnclampCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_UnclampCh2.TabIndex = 9;
+            this.buttonPLC_UnclampCh2.Text = "UNCLAMP 전진";
+            this.buttonPLC_UnclampCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_UnclampCh2.Click += new System.EventHandler(this.buttonPLC_UnclampCh2_Click);
+            // 
+            // buttonPLC_TestStopCh1
+            // 
+            this.buttonPLC_TestStopCh1.Location = new System.Drawing.Point(509, 573);
+            this.buttonPLC_TestStopCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_TestStopCh1.Name = "buttonPLC_TestStopCh1";
+            this.buttonPLC_TestStopCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_TestStopCh1.TabIndex = 9;
+            this.buttonPLC_TestStopCh1.Text = "UNCLAMP 후진";
+            this.buttonPLC_TestStopCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_TestStopCh1.Click += new System.EventHandler(this.buttonPLC_TestStopCh1_Click);
+            // 
+            // buttonPLC_UnclampCh1
+            // 
+            this.buttonPLC_UnclampCh1.Location = new System.Drawing.Point(509, 538);
+            this.buttonPLC_UnclampCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_UnclampCh1.Name = "buttonPLC_UnclampCh1";
+            this.buttonPLC_UnclampCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_UnclampCh1.TabIndex = 9;
+            this.buttonPLC_UnclampCh1.Text = "UNCLAMP 전진";
+            this.buttonPLC_UnclampCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_UnclampCh1.Click += new System.EventHandler(this.buttonPLC_UnclampCh1_Click);
+            // 
+            // buttonPLC_UnloadCh2
+            // 
+            this.buttonPLC_UnloadCh2.Location = new System.Drawing.Point(619, 503);
+            this.buttonPLC_UnloadCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_UnloadCh2.Name = "buttonPLC_UnloadCh2";
+            this.buttonPLC_UnloadCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_UnloadCh2.TabIndex = 9;
+            this.buttonPLC_UnloadCh2.Text = "UNLOADING";
+            this.buttonPLC_UnloadCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_UnloadCh2.Click += new System.EventHandler(this.buttonPLC_UnloadCh2_Click);
+            // 
+            // buttonPLC_UnloadCh1
+            // 
+            this.buttonPLC_UnloadCh1.Location = new System.Drawing.Point(509, 503);
+            this.buttonPLC_UnloadCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_UnloadCh1.Name = "buttonPLC_UnloadCh1";
+            this.buttonPLC_UnloadCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_UnloadCh1.TabIndex = 9;
+            this.buttonPLC_UnloadCh1.Text = "UNLOADING";
+            this.buttonPLC_UnloadCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_UnloadCh1.Click += new System.EventHandler(this.buttonPLC_UnloadCh1_Click);
+            // 
+            // buttonPLC_LoadYCh2
+            // 
+            this.buttonPLC_LoadYCh2.Location = new System.Drawing.Point(619, 118);
+            this.buttonPLC_LoadYCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_LoadYCh2.Name = "buttonPLC_LoadYCh2";
+            this.buttonPLC_LoadYCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_LoadYCh2.TabIndex = 9;
+            this.buttonPLC_LoadYCh2.Text = "투입(배출) 위치";
+            this.buttonPLC_LoadYCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_LoadYCh2.Click += new System.EventHandler(this.buttonPLC_LoadYCh2_Click);
+            // 
+            // buttonPLC_NfcZUpCh2
+            // 
+            this.buttonPLC_NfcZUpCh2.Location = new System.Drawing.Point(619, 468);
+            this.buttonPLC_NfcZUpCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_NfcZUpCh2.Name = "buttonPLC_NfcZUpCh2";
+            this.buttonPLC_NfcZUpCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_NfcZUpCh2.TabIndex = 9;
+            this.buttonPLC_NfcZUpCh2.Text = "NFC-Z 상승";
+            this.buttonPLC_NfcZUpCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_NfcZUpCh2.Click += new System.EventHandler(this.buttonPLC_NfcZUpCh2_Click);
+            // 
+            // buttonPLC_LoadYCh1
+            // 
+            this.buttonPLC_LoadYCh1.Location = new System.Drawing.Point(509, 118);
+            this.buttonPLC_LoadYCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_LoadYCh1.Name = "buttonPLC_LoadYCh1";
+            this.buttonPLC_LoadYCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_LoadYCh1.TabIndex = 9;
+            this.buttonPLC_LoadYCh1.Text = "투입(배출) 위치";
+            this.buttonPLC_LoadYCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_LoadYCh1.Click += new System.EventHandler(this.buttonPLC_LoadYCh1_Click);
+            // 
+            // buttonPLC_NfcZUpCh1
+            // 
+            this.buttonPLC_NfcZUpCh1.Location = new System.Drawing.Point(509, 468);
+            this.buttonPLC_NfcZUpCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_NfcZUpCh1.Name = "buttonPLC_NfcZUpCh1";
+            this.buttonPLC_NfcZUpCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_NfcZUpCh1.TabIndex = 9;
+            this.buttonPLC_NfcZUpCh1.Text = "NFC-Z 상승";
+            this.buttonPLC_NfcZUpCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_NfcZUpCh1.Click += new System.EventHandler(this.buttonPLC_NfcZUpCh1_Click);
+            // 
+            // buttonPLC_CancelZUpCh2
+            // 
+            this.buttonPLC_CancelZUpCh2.Location = new System.Drawing.Point(619, 328);
+            this.buttonPLC_CancelZUpCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_CancelZUpCh2.Name = "buttonPLC_CancelZUpCh2";
+            this.buttonPLC_CancelZUpCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_CancelZUpCh2.TabIndex = 9;
+            this.buttonPLC_CancelZUpCh2.Text = "Cancel-Z 상승";
+            this.buttonPLC_CancelZUpCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_CancelZUpCh2.Click += new System.EventHandler(this.buttonPLC_CancelZUpCh2_Click);
+            // 
+            // buttonPLC_CancelZUpCh1
+            // 
+            this.buttonPLC_CancelZUpCh1.Location = new System.Drawing.Point(509, 328);
+            this.buttonPLC_CancelZUpCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_CancelZUpCh1.Name = "buttonPLC_CancelZUpCh1";
+            this.buttonPLC_CancelZUpCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_CancelZUpCh1.TabIndex = 9;
+            this.buttonPLC_CancelZUpCh1.Text = "Cancel-Z 상승";
+            this.buttonPLC_CancelZUpCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_CancelZUpCh1.Click += new System.EventHandler(this.buttonPLC_CancelZUpCh1_Click);
+            // 
+            // buttonPLC_TouchZUpCh2
+            // 
+            this.buttonPLC_TouchZUpCh2.Location = new System.Drawing.Point(619, 258);
+            this.buttonPLC_TouchZUpCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_TouchZUpCh2.Name = "buttonPLC_TouchZUpCh2";
+            this.buttonPLC_TouchZUpCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_TouchZUpCh2.TabIndex = 9;
+            this.buttonPLC_TouchZUpCh2.Text = "Touch-Z 상승";
+            this.buttonPLC_TouchZUpCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_TouchZUpCh2.Click += new System.EventHandler(this.buttonPLC_TouchZUpCh2_Click);
+            // 
+            // buttonPLC_TouchZUpCh1
+            // 
+            this.buttonPLC_TouchZUpCh1.Location = new System.Drawing.Point(509, 258);
+            this.buttonPLC_TouchZUpCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_TouchZUpCh1.Name = "buttonPLC_TouchZUpCh1";
+            this.buttonPLC_TouchZUpCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_TouchZUpCh1.TabIndex = 9;
+            this.buttonPLC_TouchZUpCh1.Text = "Touch-Z 상승";
+            this.buttonPLC_TouchZUpCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_TouchZUpCh1.Click += new System.EventHandler(this.buttonPLC_TouchZUpCh1_Click);
+            // 
+            // buttonPLC_NfcZDnCh2
+            // 
+            this.buttonPLC_NfcZDnCh2.Location = new System.Drawing.Point(619, 433);
+            this.buttonPLC_NfcZDnCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_NfcZDnCh2.Name = "buttonPLC_NfcZDnCh2";
+            this.buttonPLC_NfcZDnCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_NfcZDnCh2.TabIndex = 9;
+            this.buttonPLC_NfcZDnCh2.Text = "NFC-Z 하강";
+            this.buttonPLC_NfcZDnCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_NfcZDnCh2.Click += new System.EventHandler(this.buttonPLC_NfcZDnCh2_Click);
+            // 
+            // buttonPLC_NfcZDnCh1
+            // 
+            this.buttonPLC_NfcZDnCh1.Location = new System.Drawing.Point(509, 433);
+            this.buttonPLC_NfcZDnCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_NfcZDnCh1.Name = "buttonPLC_NfcZDnCh1";
+            this.buttonPLC_NfcZDnCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_NfcZDnCh1.TabIndex = 9;
+            this.buttonPLC_NfcZDnCh1.Text = "NFC-Z 하강";
+            this.buttonPLC_NfcZDnCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_NfcZDnCh1.Click += new System.EventHandler(this.buttonPLC_NfcZDnCh1_Click);
+            // 
+            // buttonPLC_CancelZDnCh2
+            // 
+            this.buttonPLC_CancelZDnCh2.Location = new System.Drawing.Point(619, 363);
+            this.buttonPLC_CancelZDnCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_CancelZDnCh2.Name = "buttonPLC_CancelZDnCh2";
+            this.buttonPLC_CancelZDnCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_CancelZDnCh2.TabIndex = 9;
+            this.buttonPLC_CancelZDnCh2.Text = "Cancel-Z 하강";
+            this.buttonPLC_CancelZDnCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_CancelZDnCh2.Click += new System.EventHandler(this.buttonPLC_CancelZDnCh2_Click);
+            // 
+            // buttonPLC_CancelZDnCh1
+            // 
+            this.buttonPLC_CancelZDnCh1.Location = new System.Drawing.Point(509, 363);
+            this.buttonPLC_CancelZDnCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_CancelZDnCh1.Name = "buttonPLC_CancelZDnCh1";
+            this.buttonPLC_CancelZDnCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_CancelZDnCh1.TabIndex = 9;
+            this.buttonPLC_CancelZDnCh1.Text = "Cancel-Z 하강";
+            this.buttonPLC_CancelZDnCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_CancelZDnCh1.Click += new System.EventHandler(this.buttonPLC_CancelZDnCh1_Click);
+            // 
+            // buttonPLC_TouchZDnCh2
+            // 
+            this.buttonPLC_TouchZDnCh2.Location = new System.Drawing.Point(619, 223);
+            this.buttonPLC_TouchZDnCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_TouchZDnCh2.Name = "buttonPLC_TouchZDnCh2";
+            this.buttonPLC_TouchZDnCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_TouchZDnCh2.TabIndex = 9;
+            this.buttonPLC_TouchZDnCh2.Text = "Touch-Z 하강";
+            this.buttonPLC_TouchZDnCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_TouchZDnCh2.Click += new System.EventHandler(this.buttonPLC_TouchZDnCh2_Click);
+            // 
+            // buttonPLC_TouchZDnCh1
+            // 
+            this.buttonPLC_TouchZDnCh1.Location = new System.Drawing.Point(509, 223);
+            this.buttonPLC_TouchZDnCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_TouchZDnCh1.Name = "buttonPLC_TouchZDnCh1";
+            this.buttonPLC_TouchZDnCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_TouchZDnCh1.TabIndex = 9;
+            this.buttonPLC_TouchZDnCh1.Text = "Touch-Z 하강";
+            this.buttonPLC_TouchZDnCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_TouchZDnCh1.Click += new System.EventHandler(this.buttonPLC_TouchZDnCh1_Click);
+            // 
+            // buttonPLC_LoadingCh2
+            // 
+            this.buttonPLC_LoadingCh2.Location = new System.Drawing.Point(619, 153);
+            this.buttonPLC_LoadingCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_LoadingCh2.Name = "buttonPLC_LoadingCh2";
+            this.buttonPLC_LoadingCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_LoadingCh2.TabIndex = 9;
+            this.buttonPLC_LoadingCh2.Text = "LOADING";
+            this.buttonPLC_LoadingCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_LoadingCh2.Click += new System.EventHandler(this.buttonPLC_LoadingCh2_Click);
+            // 
+            // buttonPLC_LoadingCh1
+            // 
+            this.buttonPLC_LoadingCh1.Location = new System.Drawing.Point(509, 153);
+            this.buttonPLC_LoadingCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_LoadingCh1.Name = "buttonPLC_LoadingCh1";
+            this.buttonPLC_LoadingCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_LoadingCh1.TabIndex = 9;
+            this.buttonPLC_LoadingCh1.Text = "LOADING";
+            this.buttonPLC_LoadingCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_LoadingCh1.Click += new System.EventHandler(this.buttonPLC_LoadingCh1_Click);
+            // 
+            // buttonPLC_NfcYCh2
+            // 
+            this.buttonPLC_NfcYCh2.Location = new System.Drawing.Point(619, 398);
+            this.buttonPLC_NfcYCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_NfcYCh2.Name = "buttonPLC_NfcYCh2";
+            this.buttonPLC_NfcYCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_NfcYCh2.TabIndex = 9;
+            this.buttonPLC_NfcYCh2.Text = "NFC-Y";
+            this.buttonPLC_NfcYCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_NfcYCh2.Click += new System.EventHandler(this.buttonPLC_NfcYCh2_Click);
+            // 
+            // buttonPLC_NfcYCh1
+            // 
+            this.buttonPLC_NfcYCh1.Location = new System.Drawing.Point(509, 398);
+            this.buttonPLC_NfcYCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_NfcYCh1.Name = "buttonPLC_NfcYCh1";
+            this.buttonPLC_NfcYCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_NfcYCh1.TabIndex = 9;
+            this.buttonPLC_NfcYCh1.Text = "NFC-Y";
+            this.buttonPLC_NfcYCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_NfcYCh1.Click += new System.EventHandler(this.buttonPLC_NfcYCh1_Click);
+            // 
+            // buttonPLC_CancelYCh2
+            // 
+            this.buttonPLC_CancelYCh2.Location = new System.Drawing.Point(619, 293);
+            this.buttonPLC_CancelYCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_CancelYCh2.Name = "buttonPLC_CancelYCh2";
+            this.buttonPLC_CancelYCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_CancelYCh2.TabIndex = 9;
+            this.buttonPLC_CancelYCh2.Text = "Cancel-Y";
+            this.buttonPLC_CancelYCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_CancelYCh2.Click += new System.EventHandler(this.buttonPLC_CancelYCh2_Click);
+            // 
+            // buttonPLC_CancelYCh1
+            // 
+            this.buttonPLC_CancelYCh1.Location = new System.Drawing.Point(509, 293);
+            this.buttonPLC_CancelYCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_CancelYCh1.Name = "buttonPLC_CancelYCh1";
+            this.buttonPLC_CancelYCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_CancelYCh1.TabIndex = 9;
+            this.buttonPLC_CancelYCh1.Text = "Cancel-Y";
+            this.buttonPLC_CancelYCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_CancelYCh1.Click += new System.EventHandler(this.buttonPLC_CancelYCh1_Click);
+            // 
+            // buttonPLC_TouchYCh2
+            // 
+            this.buttonPLC_TouchYCh2.Location = new System.Drawing.Point(619, 188);
+            this.buttonPLC_TouchYCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_TouchYCh2.Name = "buttonPLC_TouchYCh2";
+            this.buttonPLC_TouchYCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_TouchYCh2.TabIndex = 9;
+            this.buttonPLC_TouchYCh2.Text = "Touch-Y";
+            this.buttonPLC_TouchYCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_TouchYCh2.Click += new System.EventHandler(this.buttonPLC_TouchYCh2_Click);
+            // 
+            // buttonPLC_TouchYCh1
+            // 
+            this.buttonPLC_TouchYCh1.Location = new System.Drawing.Point(509, 188);
+            this.buttonPLC_TouchYCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_TouchYCh1.Name = "buttonPLC_TouchYCh1";
+            this.buttonPLC_TouchYCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_TouchYCh1.TabIndex = 9;
+            this.buttonPLC_TouchYCh1.Text = "Touch-Y";
+            this.buttonPLC_TouchYCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_TouchYCh1.Click += new System.EventHandler(this.buttonPLC_TouchYCh1_Click);
+            // 
+            // buttonPLC_SetRecipeCh2
+            // 
+            this.buttonPLC_SetRecipeCh2.Location = new System.Drawing.Point(626, 709);
+            this.buttonPLC_SetRecipeCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_SetRecipeCh2.Name = "buttonPLC_SetRecipeCh2";
+            this.buttonPLC_SetRecipeCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_SetRecipeCh2.TabIndex = 9;
+            this.buttonPLC_SetRecipeCh2.Text = "레시피 변경";
+            this.buttonPLC_SetRecipeCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_SetRecipeCh2.Visible = false;
+            this.buttonPLC_SetRecipeCh2.Click += new System.EventHandler(this.buttonPLC_SetRecipeCh2_Click);
+            // 
+            // buttonPLC_SetRecipeCh1
+            // 
+            this.buttonPLC_SetRecipeCh1.Location = new System.Drawing.Point(509, 83);
+            this.buttonPLC_SetRecipeCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_SetRecipeCh1.Name = "buttonPLC_SetRecipeCh1";
+            this.buttonPLC_SetRecipeCh1.Size = new System.Drawing.Size(210, 30);
+            this.buttonPLC_SetRecipeCh1.TabIndex = 9;
+            this.buttonPLC_SetRecipeCh1.Text = "레시피 변경";
+            this.buttonPLC_SetRecipeCh1.UseVisualStyleBackColor = true;
+            this.buttonPLC_SetRecipeCh1.Click += new System.EventHandler(this.buttonPLC_SetRecipeCh1_Click);
+            // 
+            // textPLC_RecipeNoCh2
+            // 
+            this.textPLC_RecipeNoCh2.Location = new System.Drawing.Point(626, 681);
+            this.textPLC_RecipeNoCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textPLC_RecipeNoCh2.Name = "textPLC_RecipeNoCh2";
+            this.textPLC_RecipeNoCh2.Size = new System.Drawing.Size(100, 23);
+            this.textPLC_RecipeNoCh2.TabIndex = 8;
+            this.textPLC_RecipeNoCh2.Text = "1";
+            this.textPLC_RecipeNoCh2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textPLC_RecipeNoCh2.Visible = false;
+            // 
+            // textPLC_RecipeNoCh1
+            // 
+            this.textPLC_RecipeNoCh1.Location = new System.Drawing.Point(509, 55);
+            this.textPLC_RecipeNoCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textPLC_RecipeNoCh1.Name = "textPLC_RecipeNoCh1";
+            this.textPLC_RecipeNoCh1.Size = new System.Drawing.Size(210, 23);
+            this.textPLC_RecipeNoCh1.TabIndex = 8;
+            this.textPLC_RecipeNoCh1.Text = "1";
+            this.textPLC_RecipeNoCh1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label19
+            // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label19.BackColor = System.Drawing.Color.LightGray;
+            this.label19.Location = new System.Drawing.Point(619, 30);
+            this.label19.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(100, 20);
+            this.label19.TabIndex = 5;
+            this.label19.Text = "CH. 2";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label20
+            // 
+            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label20.BackColor = System.Drawing.Color.LightGray;
+            this.label20.Location = new System.Drawing.Point(509, 30);
+            this.label20.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(100, 20);
+            this.label20.TabIndex = 5;
+            this.label20.Text = "CH. 1";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // gridWritePLC
+            // 
+            this.gridWritePLC.AllowUserToAddRows = false;
+            this.gridWritePLC.AllowUserToDeleteRows = false;
+            this.gridWritePLC.AllowUserToResizeColumns = false;
+            this.gridWritePLC.AllowUserToResizeRows = false;
+            this.gridWritePLC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.gridWritePLC.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.gridWritePLC.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridWritePLC.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.gridWritePLC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.gridWritePLC.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6});
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridWritePLC.DefaultCellStyle = dataGridViewCellStyle6;
+            this.gridWritePLC.GridColor = System.Drawing.Color.LightGray;
+            this.gridWritePLC.Location = new System.Drawing.Point(256, 30);
+            this.gridWritePLC.Name = "gridWritePLC";
+            this.gridWritePLC.RowHeadersVisible = false;
+            this.gridWritePLC.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.gridWritePLC.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.gridWritePLC.RowTemplate.Height = 23;
+            this.gridWritePLC.Size = new System.Drawing.Size(240, 483);
+            this.gridWritePLC.TabIndex = 6;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Reg. No";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn4.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewTextBoxColumn5.HeaderText = "항목";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn6.HeaderText = "값";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // gridReadPLC
+            // 
+            this.gridReadPLC.AllowUserToAddRows = false;
+            this.gridReadPLC.AllowUserToDeleteRows = false;
+            this.gridReadPLC.AllowUserToResizeColumns = false;
+            this.gridReadPLC.AllowUserToResizeRows = false;
+            this.gridReadPLC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.gridReadPLC.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.gridReadPLC.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridReadPLC.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.gridReadPLC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.gridReadPLC.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3});
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridReadPLC.DefaultCellStyle = dataGridViewCellStyle9;
+            this.gridReadPLC.GridColor = System.Drawing.Color.LightGray;
+            this.gridReadPLC.Location = new System.Drawing.Point(10, 30);
+            this.gridReadPLC.Name = "gridReadPLC";
+            this.gridReadPLC.RowHeadersVisible = false;
+            this.gridReadPLC.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.gridReadPLC.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.gridReadPLC.RowTemplate.Height = 23;
+            this.gridReadPLC.Size = new System.Drawing.Size(240, 483);
+            this.gridReadPLC.TabIndex = 6;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Reg. No";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn1.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewTextBoxColumn2.HeaderText = "항목";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.HeaderText = "값";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // label21
+            // 
+            this.label21.BackColor = System.Drawing.Color.LightGray;
+            this.label21.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label21.Location = new System.Drawing.Point(0, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(738, 20);
+            this.label21.TabIndex = 1;
+            this.label21.Text = "PLC Memory";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // buttonAutoCancelCh1
+            // 
+            this.buttonAutoCancelCh1.Location = new System.Drawing.Point(20, 280);
+            this.buttonAutoCancelCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonAutoCancelCh1.Name = "buttonAutoCancelCh1";
+            this.buttonAutoCancelCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonAutoCancelCh1.TabIndex = 10;
+            this.buttonAutoCancelCh1.Text = "Cancel";
+            this.buttonAutoCancelCh1.UseVisualStyleBackColor = true;
+            this.buttonAutoCancelCh1.Visible = false;
+            this.buttonAutoCancelCh1.Click += new System.EventHandler(this.buttonAutoCancelCh1_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.LightGray;
+            this.panel3.Controls.Add(this.panel4);
+            this.panel3.Location = new System.Drawing.Point(10, 10);
+            this.panel3.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(230, 150);
+            this.panel3.TabIndex = 3;
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.panel4.Controls.Add(this.textPLC_PortNum);
+            this.panel4.Controls.Add(this.textPLC_Address);
+            this.panel4.Controls.Add(this.buttonPLC_Disconnect);
+            this.panel4.Controls.Add(this.buttonPLC_Connect);
+            this.panel4.Controls.Add(this.label22);
+            this.panel4.Controls.Add(this.label23);
+            this.panel4.Controls.Add(this.label24);
+            this.panel4.Location = new System.Drawing.Point(1, 1);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(228, 140);
+            this.panel4.TabIndex = 0;
+            // 
+            // textPLC_PortNum
+            // 
+            this.textPLC_PortNum.Location = new System.Drawing.Point(100, 58);
+            this.textPLC_PortNum.Name = "textPLC_PortNum";
+            this.textPLC_PortNum.Size = new System.Drawing.Size(100, 23);
+            this.textPLC_PortNum.TabIndex = 8;
+            this.textPLC_PortNum.Text = "13000";
+            // 
+            // textPLC_Address
+            // 
+            this.textPLC_Address.Location = new System.Drawing.Point(100, 30);
+            this.textPLC_Address.Name = "textPLC_Address";
+            this.textPLC_Address.Size = new System.Drawing.Size(100, 23);
+            this.textPLC_Address.TabIndex = 7;
+            this.textPLC_Address.Text = "192.168.219.3";
+            // 
+            // buttonPLC_Disconnect
+            // 
+            this.buttonPLC_Disconnect.Location = new System.Drawing.Point(119, 95);
+            this.buttonPLC_Disconnect.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonPLC_Disconnect.Name = "buttonPLC_Disconnect";
+            this.buttonPLC_Disconnect.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_Disconnect.TabIndex = 6;
+            this.buttonPLC_Disconnect.Text = "닫기";
+            this.buttonPLC_Disconnect.UseVisualStyleBackColor = true;
+            this.buttonPLC_Disconnect.Click += new System.EventHandler(this.buttonPLC_Disconnect_Click);
+            // 
+            // buttonPLC_Connect
+            // 
+            this.buttonPLC_Connect.Location = new System.Drawing.Point(9, 95);
+            this.buttonPLC_Connect.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonPLC_Connect.Name = "buttonPLC_Connect";
+            this.buttonPLC_Connect.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_Connect.TabIndex = 6;
+            this.buttonPLC_Connect.Text = "열기";
+            this.buttonPLC_Connect.UseVisualStyleBackColor = true;
+            this.buttonPLC_Connect.Click += new System.EventHandler(this.buttonPLC_Connect_Click);
+            // 
+            // label22
+            // 
+            this.label22.Location = new System.Drawing.Point(10, 58);
+            this.label22.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(80, 21);
+            this.label22.TabIndex = 5;
+            this.label22.Text = "포트 번호";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label23
+            // 
+            this.label23.Location = new System.Drawing.Point(10, 30);
+            this.label23.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(80, 21);
+            this.label23.TabIndex = 5;
+            this.label23.Text = "IP Address";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label24
+            // 
+            this.label24.BackColor = System.Drawing.Color.LightGray;
+            this.label24.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label24.Location = new System.Drawing.Point(0, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(228, 20);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "네트워크 설정";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // buttonAutoTouchCh1
+            // 
+            this.buttonAutoTouchCh1.Location = new System.Drawing.Point(20, 245);
+            this.buttonAutoTouchCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonAutoTouchCh1.Name = "buttonAutoTouchCh1";
+            this.buttonAutoTouchCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonAutoTouchCh1.TabIndex = 10;
+            this.buttonAutoTouchCh1.Text = "Touch";
+            this.buttonAutoTouchCh1.UseVisualStyleBackColor = true;
+            this.buttonAutoTouchCh1.Visible = false;
+            this.buttonAutoTouchCh1.Click += new System.EventHandler(this.buttonAutoTouchCh1_Click);
+            // 
+            // buttonAutoLoadingCh1
+            // 
+            this.buttonAutoLoadingCh1.Location = new System.Drawing.Point(20, 210);
+            this.buttonAutoLoadingCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonAutoLoadingCh1.Name = "buttonAutoLoadingCh1";
+            this.buttonAutoLoadingCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonAutoLoadingCh1.TabIndex = 10;
+            this.buttonAutoLoadingCh1.Text = "Loading";
+            this.buttonAutoLoadingCh1.UseVisualStyleBackColor = true;
+            this.buttonAutoLoadingCh1.Visible = false;
+            this.buttonAutoLoadingCh1.Click += new System.EventHandler(this.buttonAutoLoadingCh1_Click);
+            // 
+            // labelAutoStartCh1
+            // 
+            this.labelAutoStartCh1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelAutoStartCh1.BackColor = System.Drawing.Color.LightGray;
+            this.labelAutoStartCh1.Location = new System.Drawing.Point(20, 185);
+            this.labelAutoStartCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.labelAutoStartCh1.Name = "labelAutoStartCh1";
+            this.labelAutoStartCh1.Size = new System.Drawing.Size(100, 20);
+            this.labelAutoStartCh1.TabIndex = 5;
+            this.labelAutoStartCh1.Text = "CH.1 START";
+            this.labelAutoStartCh1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelAutoStartCh1.Visible = false;
             // 
             // tabPage2
             // 
@@ -1016,917 +2317,6 @@
             this.label1.Text = "통신 설정";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.buttonResultFolder);
-            this.tabPage3.Controls.Add(this.buttonVFlashFolder);
-            this.tabPage3.Controls.Add(this.textResultFolder);
-            this.tabPage3.Controls.Add(this.buttonProductFolder);
-            this.tabPage3.Controls.Add(this.textVFlashFolder);
-            this.tabPage3.Controls.Add(this.label18);
-            this.tabPage3.Controls.Add(this.textProductFolder);
-            this.tabPage3.Controls.Add(this.label17);
-            this.tabPage3.Controls.Add(this.label16);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1000, 650);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "폴더 설정";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // buttonResultFolder
-            // 
-            this.buttonResultFolder.Location = new System.Drawing.Point(630, 127);
-            this.buttonResultFolder.Name = "buttonResultFolder";
-            this.buttonResultFolder.Size = new System.Drawing.Size(100, 30);
-            this.buttonResultFolder.TabIndex = 2;
-            this.buttonResultFolder.Text = "선택...";
-            this.buttonResultFolder.UseVisualStyleBackColor = true;
-            this.buttonResultFolder.Click += new System.EventHandler(this.buttonResultFolder_Click);
-            // 
-            // buttonVFlashFolder
-            // 
-            this.buttonVFlashFolder.Location = new System.Drawing.Point(630, 77);
-            this.buttonVFlashFolder.Name = "buttonVFlashFolder";
-            this.buttonVFlashFolder.Size = new System.Drawing.Size(100, 30);
-            this.buttonVFlashFolder.TabIndex = 2;
-            this.buttonVFlashFolder.Text = "선택...";
-            this.buttonVFlashFolder.UseVisualStyleBackColor = true;
-            this.buttonVFlashFolder.Click += new System.EventHandler(this.buttonVFlashFolder_Click);
-            // 
-            // textResultFolder
-            // 
-            this.textResultFolder.BackColor = System.Drawing.SystemColors.Window;
-            this.textResultFolder.Location = new System.Drawing.Point(124, 130);
-            this.textResultFolder.Name = "textResultFolder";
-            this.textResultFolder.Size = new System.Drawing.Size(500, 23);
-            this.textResultFolder.TabIndex = 1;
-            // 
-            // buttonProductFolder
-            // 
-            this.buttonProductFolder.Location = new System.Drawing.Point(630, 27);
-            this.buttonProductFolder.Name = "buttonProductFolder";
-            this.buttonProductFolder.Size = new System.Drawing.Size(100, 30);
-            this.buttonProductFolder.TabIndex = 2;
-            this.buttonProductFolder.Text = "선택...";
-            this.buttonProductFolder.UseVisualStyleBackColor = true;
-            this.buttonProductFolder.Click += new System.EventHandler(this.buttonProductFolder_Click);
-            // 
-            // textVFlashFolder
-            // 
-            this.textVFlashFolder.BackColor = System.Drawing.SystemColors.Window;
-            this.textVFlashFolder.Location = new System.Drawing.Point(124, 80);
-            this.textVFlashFolder.Name = "textVFlashFolder";
-            this.textVFlashFolder.Size = new System.Drawing.Size(500, 23);
-            this.textVFlashFolder.TabIndex = 1;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(39, 133);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(79, 15);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "Result Folder:";
-            // 
-            // textProductFolder
-            // 
-            this.textProductFolder.BackColor = System.Drawing.SystemColors.Window;
-            this.textProductFolder.Location = new System.Drawing.Point(124, 30);
-            this.textProductFolder.Name = "textProductFolder";
-            this.textProductFolder.Size = new System.Drawing.Size(500, 23);
-            this.textProductFolder.TabIndex = 1;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(36, 83);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(82, 15);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "VFlash Folder:";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(29, 33);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(89, 15);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "Product Folder:";
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.buttonPLCAutoStopCh1);
-            this.tabPage4.Controls.Add(this.buttonPLCAutoStartCh1);
-            this.tabPage4.Controls.Add(this.buttonAutoUnclampCh1);
-            this.tabPage4.Controls.Add(this.buttonAutoUnloadCh1);
-            this.tabPage4.Controls.Add(this.buttonAutoMoveUnloadCh1);
-            this.tabPage4.Controls.Add(this.buttonAutoNfcCh1);
-            this.tabPage4.Controls.Add(this.panel5);
-            this.tabPage4.Controls.Add(this.buttonAutoCancelCh1);
-            this.tabPage4.Controls.Add(this.panel3);
-            this.tabPage4.Controls.Add(this.buttonAutoTouchCh1);
-            this.tabPage4.Controls.Add(this.buttonAutoLoadingCh1);
-            this.tabPage4.Controls.Add(this.labelAutoStartCh1);
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1000, 650);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "PLC";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // buttonPLCAutoStopCh1
-            // 
-            this.buttonPLCAutoStopCh1.Location = new System.Drawing.Point(20, 501);
-            this.buttonPLCAutoStopCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLCAutoStopCh1.Name = "buttonPLCAutoStopCh1";
-            this.buttonPLCAutoStopCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLCAutoStopCh1.TabIndex = 10;
-            this.buttonPLCAutoStopCh1.Text = "STOP";
-            this.buttonPLCAutoStopCh1.UseVisualStyleBackColor = true;
-            this.buttonPLCAutoStopCh1.Click += new System.EventHandler(this.buttonPLCAutoStopCh1_Click);
-            // 
-            // buttonPLCAutoStartCh1
-            // 
-            this.buttonPLCAutoStartCh1.Location = new System.Drawing.Point(20, 466);
-            this.buttonPLCAutoStartCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLCAutoStartCh1.Name = "buttonPLCAutoStartCh1";
-            this.buttonPLCAutoStartCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLCAutoStartCh1.TabIndex = 10;
-            this.buttonPLCAutoStartCh1.Text = "AUTO";
-            this.buttonPLCAutoStartCh1.UseVisualStyleBackColor = true;
-            this.buttonPLCAutoStartCh1.Click += new System.EventHandler(this.buttonPLCAutoStartCh1_Click);
-            // 
-            // buttonAutoUnclampCh1
-            // 
-            this.buttonAutoUnclampCh1.Location = new System.Drawing.Point(20, 420);
-            this.buttonAutoUnclampCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonAutoUnclampCh1.Name = "buttonAutoUnclampCh1";
-            this.buttonAutoUnclampCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonAutoUnclampCh1.TabIndex = 10;
-            this.buttonAutoUnclampCh1.Text = "Unclamp";
-            this.buttonAutoUnclampCh1.UseVisualStyleBackColor = true;
-            this.buttonAutoUnclampCh1.Click += new System.EventHandler(this.buttonAutoUnclampCh1_Click);
-            // 
-            // buttonAutoUnloadCh1
-            // 
-            this.buttonAutoUnloadCh1.Location = new System.Drawing.Point(20, 385);
-            this.buttonAutoUnloadCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonAutoUnloadCh1.Name = "buttonAutoUnloadCh1";
-            this.buttonAutoUnloadCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonAutoUnloadCh1.TabIndex = 10;
-            this.buttonAutoUnloadCh1.Text = "Unloading";
-            this.buttonAutoUnloadCh1.UseVisualStyleBackColor = true;
-            this.buttonAutoUnloadCh1.Click += new System.EventHandler(this.buttonAutoUnloadCh1_Click);
-            // 
-            // buttonAutoMoveUnloadCh1
-            // 
-            this.buttonAutoMoveUnloadCh1.Location = new System.Drawing.Point(20, 350);
-            this.buttonAutoMoveUnloadCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonAutoMoveUnloadCh1.Name = "buttonAutoMoveUnloadCh1";
-            this.buttonAutoMoveUnloadCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonAutoMoveUnloadCh1.TabIndex = 10;
-            this.buttonAutoMoveUnloadCh1.Text = "Move Unload";
-            this.buttonAutoMoveUnloadCh1.UseVisualStyleBackColor = true;
-            this.buttonAutoMoveUnloadCh1.Click += new System.EventHandler(this.buttonAutoMoveUnloadCh1_Click);
-            // 
-            // buttonAutoNfcCh1
-            // 
-            this.buttonAutoNfcCh1.Location = new System.Drawing.Point(20, 315);
-            this.buttonAutoNfcCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonAutoNfcCh1.Name = "buttonAutoNfcCh1";
-            this.buttonAutoNfcCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonAutoNfcCh1.TabIndex = 10;
-            this.buttonAutoNfcCh1.Text = "NFC";
-            this.buttonAutoNfcCh1.UseVisualStyleBackColor = true;
-            this.buttonAutoNfcCh1.Click += new System.EventHandler(this.buttonAutoNfcCh1_Click);
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.Color.LightGray;
-            this.panel5.Controls.Add(this.panel6);
-            this.panel5.Location = new System.Drawing.Point(250, 10);
-            this.panel5.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(740, 628);
-            this.panel5.TabIndex = 4;
-            // 
-            // panel6
-            // 
-            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
-            this.panel6.Controls.Add(this.buttonPLC_TestStopCh2);
-            this.panel6.Controls.Add(this.buttonPLC_UnclampCh2);
-            this.panel6.Controls.Add(this.buttonPLC_TestStopCh1);
-            this.panel6.Controls.Add(this.buttonPLC_UnclampCh1);
-            this.panel6.Controls.Add(this.buttonPLC_UnloadCh2);
-            this.panel6.Controls.Add(this.buttonPLC_UnloadCh1);
-            this.panel6.Controls.Add(this.buttonPLC_LoadYCh2);
-            this.panel6.Controls.Add(this.buttonPLC_NfcZUpCh2);
-            this.panel6.Controls.Add(this.buttonPLC_LoadYCh1);
-            this.panel6.Controls.Add(this.buttonPLC_NfcZUpCh1);
-            this.panel6.Controls.Add(this.buttonPLC_CancelZUpCh2);
-            this.panel6.Controls.Add(this.buttonPLC_CancelZUpCh1);
-            this.panel6.Controls.Add(this.buttonPLC_TouchZUpCh2);
-            this.panel6.Controls.Add(this.buttonPLC_TouchZUpCh1);
-            this.panel6.Controls.Add(this.buttonPLC_NfcZDnCh2);
-            this.panel6.Controls.Add(this.buttonPLC_NfcZDnCh1);
-            this.panel6.Controls.Add(this.buttonPLC_CancelZDnCh2);
-            this.panel6.Controls.Add(this.buttonPLC_CancelZDnCh1);
-            this.panel6.Controls.Add(this.buttonPLC_TouchZDnCh2);
-            this.panel6.Controls.Add(this.buttonPLC_TouchZDnCh1);
-            this.panel6.Controls.Add(this.buttonPLC_LoadingCh2);
-            this.panel6.Controls.Add(this.buttonPLC_LoadingCh1);
-            this.panel6.Controls.Add(this.buttonPLC_NfcYCh2);
-            this.panel6.Controls.Add(this.buttonPLC_NfcYCh1);
-            this.panel6.Controls.Add(this.buttonPLC_CancelYCh2);
-            this.panel6.Controls.Add(this.buttonPLC_CancelYCh1);
-            this.panel6.Controls.Add(this.buttonPLC_TouchYCh2);
-            this.panel6.Controls.Add(this.buttonPLC_TouchYCh1);
-            this.panel6.Controls.Add(this.buttonPLC_SetRecipeCh2);
-            this.panel6.Controls.Add(this.buttonPLC_SetRecipeCh1);
-            this.panel6.Controls.Add(this.textPLC_RecipeNoCh2);
-            this.panel6.Controls.Add(this.textPLC_RecipeNoCh1);
-            this.panel6.Controls.Add(this.label19);
-            this.panel6.Controls.Add(this.label20);
-            this.panel6.Controls.Add(this.gridWritePLC);
-            this.panel6.Controls.Add(this.gridReadPLC);
-            this.panel6.Controls.Add(this.label21);
-            this.panel6.Location = new System.Drawing.Point(1, 1);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(738, 618);
-            this.panel6.TabIndex = 0;
-            // 
-            // buttonPLC_TestStopCh2
-            // 
-            this.buttonPLC_TestStopCh2.Location = new System.Drawing.Point(619, 573);
-            this.buttonPLC_TestStopCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_TestStopCh2.Name = "buttonPLC_TestStopCh2";
-            this.buttonPLC_TestStopCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_TestStopCh2.TabIndex = 9;
-            this.buttonPLC_TestStopCh2.Text = "검사 중지";
-            this.buttonPLC_TestStopCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_TestStopCh2.Click += new System.EventHandler(this.buttonPLC_TestStopCh2_Click);
-            // 
-            // buttonPLC_UnclampCh2
-            // 
-            this.buttonPLC_UnclampCh2.Location = new System.Drawing.Point(619, 538);
-            this.buttonPLC_UnclampCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_UnclampCh2.Name = "buttonPLC_UnclampCh2";
-            this.buttonPLC_UnclampCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_UnclampCh2.TabIndex = 9;
-            this.buttonPLC_UnclampCh2.Text = "UNCLAMP";
-            this.buttonPLC_UnclampCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_UnclampCh2.Click += new System.EventHandler(this.buttonPLC_UnclampCh2_Click);
-            // 
-            // buttonPLC_TestStopCh1
-            // 
-            this.buttonPLC_TestStopCh1.Location = new System.Drawing.Point(509, 573);
-            this.buttonPLC_TestStopCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_TestStopCh1.Name = "buttonPLC_TestStopCh1";
-            this.buttonPLC_TestStopCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_TestStopCh1.TabIndex = 9;
-            this.buttonPLC_TestStopCh1.Text = "검사 중지";
-            this.buttonPLC_TestStopCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_TestStopCh1.Click += new System.EventHandler(this.buttonPLC_TestStopCh1_Click);
-            // 
-            // buttonPLC_UnclampCh1
-            // 
-            this.buttonPLC_UnclampCh1.Location = new System.Drawing.Point(509, 538);
-            this.buttonPLC_UnclampCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_UnclampCh1.Name = "buttonPLC_UnclampCh1";
-            this.buttonPLC_UnclampCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_UnclampCh1.TabIndex = 9;
-            this.buttonPLC_UnclampCh1.Text = "UNCLAMP";
-            this.buttonPLC_UnclampCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_UnclampCh1.Click += new System.EventHandler(this.buttonPLC_UnclampCh1_Click);
-            // 
-            // buttonPLC_UnloadCh2
-            // 
-            this.buttonPLC_UnloadCh2.Location = new System.Drawing.Point(619, 503);
-            this.buttonPLC_UnloadCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_UnloadCh2.Name = "buttonPLC_UnloadCh2";
-            this.buttonPLC_UnloadCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_UnloadCh2.TabIndex = 9;
-            this.buttonPLC_UnloadCh2.Text = "UNLOADING";
-            this.buttonPLC_UnloadCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_UnloadCh2.Click += new System.EventHandler(this.buttonPLC_UnloadCh2_Click);
-            // 
-            // buttonPLC_UnloadCh1
-            // 
-            this.buttonPLC_UnloadCh1.Location = new System.Drawing.Point(509, 503);
-            this.buttonPLC_UnloadCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_UnloadCh1.Name = "buttonPLC_UnloadCh1";
-            this.buttonPLC_UnloadCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_UnloadCh1.TabIndex = 9;
-            this.buttonPLC_UnloadCh1.Text = "UNLOADING";
-            this.buttonPLC_UnloadCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_UnloadCh1.Click += new System.EventHandler(this.buttonPLC_UnloadCh1_Click);
-            // 
-            // buttonPLC_LoadYCh2
-            // 
-            this.buttonPLC_LoadYCh2.Location = new System.Drawing.Point(619, 118);
-            this.buttonPLC_LoadYCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_LoadYCh2.Name = "buttonPLC_LoadYCh2";
-            this.buttonPLC_LoadYCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_LoadYCh2.TabIndex = 9;
-            this.buttonPLC_LoadYCh2.Text = "투입(배출) 위치";
-            this.buttonPLC_LoadYCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_LoadYCh2.Click += new System.EventHandler(this.buttonPLC_LoadYCh2_Click);
-            // 
-            // buttonPLC_NfcZUpCh2
-            // 
-            this.buttonPLC_NfcZUpCh2.Location = new System.Drawing.Point(619, 468);
-            this.buttonPLC_NfcZUpCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_NfcZUpCh2.Name = "buttonPLC_NfcZUpCh2";
-            this.buttonPLC_NfcZUpCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_NfcZUpCh2.TabIndex = 9;
-            this.buttonPLC_NfcZUpCh2.Text = "NFC-Z 상승";
-            this.buttonPLC_NfcZUpCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_NfcZUpCh2.Click += new System.EventHandler(this.buttonPLC_NfcZUpCh2_Click);
-            // 
-            // buttonPLC_LoadYCh1
-            // 
-            this.buttonPLC_LoadYCh1.Location = new System.Drawing.Point(509, 118);
-            this.buttonPLC_LoadYCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_LoadYCh1.Name = "buttonPLC_LoadYCh1";
-            this.buttonPLC_LoadYCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_LoadYCh1.TabIndex = 9;
-            this.buttonPLC_LoadYCh1.Text = "투입(배출) 위치";
-            this.buttonPLC_LoadYCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_LoadYCh1.Click += new System.EventHandler(this.buttonPLC_LoadYCh1_Click);
-            // 
-            // buttonPLC_NfcZUpCh1
-            // 
-            this.buttonPLC_NfcZUpCh1.Location = new System.Drawing.Point(509, 468);
-            this.buttonPLC_NfcZUpCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_NfcZUpCh1.Name = "buttonPLC_NfcZUpCh1";
-            this.buttonPLC_NfcZUpCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_NfcZUpCh1.TabIndex = 9;
-            this.buttonPLC_NfcZUpCh1.Text = "NFC-Z 상승";
-            this.buttonPLC_NfcZUpCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_NfcZUpCh1.Click += new System.EventHandler(this.buttonPLC_NfcZUpCh1_Click);
-            // 
-            // buttonPLC_CancelZUpCh2
-            // 
-            this.buttonPLC_CancelZUpCh2.Location = new System.Drawing.Point(619, 363);
-            this.buttonPLC_CancelZUpCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_CancelZUpCh2.Name = "buttonPLC_CancelZUpCh2";
-            this.buttonPLC_CancelZUpCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_CancelZUpCh2.TabIndex = 9;
-            this.buttonPLC_CancelZUpCh2.Text = "Cancel-Z 상승";
-            this.buttonPLC_CancelZUpCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_CancelZUpCh2.Click += new System.EventHandler(this.buttonPLC_CancelZUpCh2_Click);
-            // 
-            // buttonPLC_CancelZUpCh1
-            // 
-            this.buttonPLC_CancelZUpCh1.Location = new System.Drawing.Point(509, 363);
-            this.buttonPLC_CancelZUpCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_CancelZUpCh1.Name = "buttonPLC_CancelZUpCh1";
-            this.buttonPLC_CancelZUpCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_CancelZUpCh1.TabIndex = 9;
-            this.buttonPLC_CancelZUpCh1.Text = "Cancel-Z 상승";
-            this.buttonPLC_CancelZUpCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_CancelZUpCh1.Click += new System.EventHandler(this.buttonPLC_CancelZUpCh1_Click);
-            // 
-            // buttonPLC_TouchZUpCh2
-            // 
-            this.buttonPLC_TouchZUpCh2.Location = new System.Drawing.Point(619, 258);
-            this.buttonPLC_TouchZUpCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_TouchZUpCh2.Name = "buttonPLC_TouchZUpCh2";
-            this.buttonPLC_TouchZUpCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_TouchZUpCh2.TabIndex = 9;
-            this.buttonPLC_TouchZUpCh2.Text = "Touch-Z 상승";
-            this.buttonPLC_TouchZUpCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_TouchZUpCh2.Click += new System.EventHandler(this.buttonPLC_TouchZUpCh2_Click);
-            // 
-            // buttonPLC_TouchZUpCh1
-            // 
-            this.buttonPLC_TouchZUpCh1.Location = new System.Drawing.Point(509, 258);
-            this.buttonPLC_TouchZUpCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_TouchZUpCh1.Name = "buttonPLC_TouchZUpCh1";
-            this.buttonPLC_TouchZUpCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_TouchZUpCh1.TabIndex = 9;
-            this.buttonPLC_TouchZUpCh1.Text = "Touch-Z 상승";
-            this.buttonPLC_TouchZUpCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_TouchZUpCh1.Click += new System.EventHandler(this.buttonPLC_TouchZUpCh1_Click);
-            // 
-            // buttonPLC_NfcZDnCh2
-            // 
-            this.buttonPLC_NfcZDnCh2.Location = new System.Drawing.Point(619, 433);
-            this.buttonPLC_NfcZDnCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_NfcZDnCh2.Name = "buttonPLC_NfcZDnCh2";
-            this.buttonPLC_NfcZDnCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_NfcZDnCh2.TabIndex = 9;
-            this.buttonPLC_NfcZDnCh2.Text = "NFC-Z 하강";
-            this.buttonPLC_NfcZDnCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_NfcZDnCh2.Click += new System.EventHandler(this.buttonPLC_NfcZDnCh2_Click);
-            // 
-            // buttonPLC_NfcZDnCh1
-            // 
-            this.buttonPLC_NfcZDnCh1.Location = new System.Drawing.Point(509, 433);
-            this.buttonPLC_NfcZDnCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_NfcZDnCh1.Name = "buttonPLC_NfcZDnCh1";
-            this.buttonPLC_NfcZDnCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_NfcZDnCh1.TabIndex = 9;
-            this.buttonPLC_NfcZDnCh1.Text = "NFC-Z 하강";
-            this.buttonPLC_NfcZDnCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_NfcZDnCh1.Click += new System.EventHandler(this.buttonPLC_NfcZDnCh1_Click);
-            // 
-            // buttonPLC_CancelZDnCh2
-            // 
-            this.buttonPLC_CancelZDnCh2.Location = new System.Drawing.Point(619, 328);
-            this.buttonPLC_CancelZDnCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_CancelZDnCh2.Name = "buttonPLC_CancelZDnCh2";
-            this.buttonPLC_CancelZDnCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_CancelZDnCh2.TabIndex = 9;
-            this.buttonPLC_CancelZDnCh2.Text = "Cancel-Z 하강";
-            this.buttonPLC_CancelZDnCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_CancelZDnCh2.Click += new System.EventHandler(this.buttonPLC_CancelZDnCh2_Click);
-            // 
-            // buttonPLC_CancelZDnCh1
-            // 
-            this.buttonPLC_CancelZDnCh1.Location = new System.Drawing.Point(509, 328);
-            this.buttonPLC_CancelZDnCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_CancelZDnCh1.Name = "buttonPLC_CancelZDnCh1";
-            this.buttonPLC_CancelZDnCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_CancelZDnCh1.TabIndex = 9;
-            this.buttonPLC_CancelZDnCh1.Text = "Cancel-Z 하강";
-            this.buttonPLC_CancelZDnCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_CancelZDnCh1.Click += new System.EventHandler(this.buttonPLC_CancelZDnCh1_Click);
-            // 
-            // buttonPLC_TouchZDnCh2
-            // 
-            this.buttonPLC_TouchZDnCh2.Location = new System.Drawing.Point(619, 223);
-            this.buttonPLC_TouchZDnCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_TouchZDnCh2.Name = "buttonPLC_TouchZDnCh2";
-            this.buttonPLC_TouchZDnCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_TouchZDnCh2.TabIndex = 9;
-            this.buttonPLC_TouchZDnCh2.Text = "Touch-Z 하강";
-            this.buttonPLC_TouchZDnCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_TouchZDnCh2.Click += new System.EventHandler(this.buttonPLC_TouchZDnCh2_Click);
-            // 
-            // buttonPLC_TouchZDnCh1
-            // 
-            this.buttonPLC_TouchZDnCh1.Location = new System.Drawing.Point(509, 223);
-            this.buttonPLC_TouchZDnCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_TouchZDnCh1.Name = "buttonPLC_TouchZDnCh1";
-            this.buttonPLC_TouchZDnCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_TouchZDnCh1.TabIndex = 9;
-            this.buttonPLC_TouchZDnCh1.Text = "Touch-Z 하강";
-            this.buttonPLC_TouchZDnCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_TouchZDnCh1.Click += new System.EventHandler(this.buttonPLC_TouchZDnCh1_Click);
-            // 
-            // buttonPLC_LoadingCh2
-            // 
-            this.buttonPLC_LoadingCh2.Location = new System.Drawing.Point(619, 153);
-            this.buttonPLC_LoadingCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_LoadingCh2.Name = "buttonPLC_LoadingCh2";
-            this.buttonPLC_LoadingCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_LoadingCh2.TabIndex = 9;
-            this.buttonPLC_LoadingCh2.Text = "LOADING";
-            this.buttonPLC_LoadingCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_LoadingCh2.Click += new System.EventHandler(this.buttonPLC_LoadingCh2_Click);
-            // 
-            // buttonPLC_LoadingCh1
-            // 
-            this.buttonPLC_LoadingCh1.Location = new System.Drawing.Point(509, 153);
-            this.buttonPLC_LoadingCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_LoadingCh1.Name = "buttonPLC_LoadingCh1";
-            this.buttonPLC_LoadingCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_LoadingCh1.TabIndex = 9;
-            this.buttonPLC_LoadingCh1.Text = "LOADING";
-            this.buttonPLC_LoadingCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_LoadingCh1.Click += new System.EventHandler(this.buttonPLC_LoadingCh1_Click);
-            // 
-            // buttonPLC_NfcYCh2
-            // 
-            this.buttonPLC_NfcYCh2.Location = new System.Drawing.Point(619, 398);
-            this.buttonPLC_NfcYCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_NfcYCh2.Name = "buttonPLC_NfcYCh2";
-            this.buttonPLC_NfcYCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_NfcYCh2.TabIndex = 9;
-            this.buttonPLC_NfcYCh2.Text = "NFC-Y";
-            this.buttonPLC_NfcYCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_NfcYCh2.Click += new System.EventHandler(this.buttonPLC_NfcYCh2_Click);
-            // 
-            // buttonPLC_NfcYCh1
-            // 
-            this.buttonPLC_NfcYCh1.Location = new System.Drawing.Point(509, 398);
-            this.buttonPLC_NfcYCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_NfcYCh1.Name = "buttonPLC_NfcYCh1";
-            this.buttonPLC_NfcYCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_NfcYCh1.TabIndex = 9;
-            this.buttonPLC_NfcYCh1.Text = "NFC-Y";
-            this.buttonPLC_NfcYCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_NfcYCh1.Click += new System.EventHandler(this.buttonPLC_NfcYCh1_Click);
-            // 
-            // buttonPLC_CancelYCh2
-            // 
-            this.buttonPLC_CancelYCh2.Location = new System.Drawing.Point(619, 293);
-            this.buttonPLC_CancelYCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_CancelYCh2.Name = "buttonPLC_CancelYCh2";
-            this.buttonPLC_CancelYCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_CancelYCh2.TabIndex = 9;
-            this.buttonPLC_CancelYCh2.Text = "Cancel-Y";
-            this.buttonPLC_CancelYCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_CancelYCh2.Click += new System.EventHandler(this.buttonPLC_CancelYCh2_Click);
-            // 
-            // buttonPLC_CancelYCh1
-            // 
-            this.buttonPLC_CancelYCh1.Location = new System.Drawing.Point(509, 293);
-            this.buttonPLC_CancelYCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_CancelYCh1.Name = "buttonPLC_CancelYCh1";
-            this.buttonPLC_CancelYCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_CancelYCh1.TabIndex = 9;
-            this.buttonPLC_CancelYCh1.Text = "Cancel-Y";
-            this.buttonPLC_CancelYCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_CancelYCh1.Click += new System.EventHandler(this.buttonPLC_CancelYCh1_Click);
-            // 
-            // buttonPLC_TouchYCh2
-            // 
-            this.buttonPLC_TouchYCh2.Location = new System.Drawing.Point(619, 188);
-            this.buttonPLC_TouchYCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_TouchYCh2.Name = "buttonPLC_TouchYCh2";
-            this.buttonPLC_TouchYCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_TouchYCh2.TabIndex = 9;
-            this.buttonPLC_TouchYCh2.Text = "Touch-Y";
-            this.buttonPLC_TouchYCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_TouchYCh2.Click += new System.EventHandler(this.buttonPLC_TouchYCh2_Click);
-            // 
-            // buttonPLC_TouchYCh1
-            // 
-            this.buttonPLC_TouchYCh1.Location = new System.Drawing.Point(509, 188);
-            this.buttonPLC_TouchYCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_TouchYCh1.Name = "buttonPLC_TouchYCh1";
-            this.buttonPLC_TouchYCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_TouchYCh1.TabIndex = 9;
-            this.buttonPLC_TouchYCh1.Text = "Touch-Y";
-            this.buttonPLC_TouchYCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_TouchYCh1.Click += new System.EventHandler(this.buttonPLC_TouchYCh1_Click);
-            // 
-            // buttonPLC_SetRecipeCh2
-            // 
-            this.buttonPLC_SetRecipeCh2.Location = new System.Drawing.Point(619, 83);
-            this.buttonPLC_SetRecipeCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_SetRecipeCh2.Name = "buttonPLC_SetRecipeCh2";
-            this.buttonPLC_SetRecipeCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_SetRecipeCh2.TabIndex = 9;
-            this.buttonPLC_SetRecipeCh2.Text = "레시피 변경";
-            this.buttonPLC_SetRecipeCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_SetRecipeCh2.Click += new System.EventHandler(this.buttonPLC_SetRecipeCh2_Click);
-            // 
-            // buttonPLC_SetRecipeCh1
-            // 
-            this.buttonPLC_SetRecipeCh1.Location = new System.Drawing.Point(509, 83);
-            this.buttonPLC_SetRecipeCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_SetRecipeCh1.Name = "buttonPLC_SetRecipeCh1";
-            this.buttonPLC_SetRecipeCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_SetRecipeCh1.TabIndex = 9;
-            this.buttonPLC_SetRecipeCh1.Text = "레시피 변경";
-            this.buttonPLC_SetRecipeCh1.UseVisualStyleBackColor = true;
-            this.buttonPLC_SetRecipeCh1.Click += new System.EventHandler(this.buttonPLC_SetRecipeCh1_Click);
-            // 
-            // textPLC_RecipeNoCh2
-            // 
-            this.textPLC_RecipeNoCh2.Location = new System.Drawing.Point(619, 55);
-            this.textPLC_RecipeNoCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.textPLC_RecipeNoCh2.Name = "textPLC_RecipeNoCh2";
-            this.textPLC_RecipeNoCh2.Size = new System.Drawing.Size(100, 23);
-            this.textPLC_RecipeNoCh2.TabIndex = 8;
-            this.textPLC_RecipeNoCh2.Text = "1";
-            this.textPLC_RecipeNoCh2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textPLC_RecipeNoCh1
-            // 
-            this.textPLC_RecipeNoCh1.Location = new System.Drawing.Point(509, 55);
-            this.textPLC_RecipeNoCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.textPLC_RecipeNoCh1.Name = "textPLC_RecipeNoCh1";
-            this.textPLC_RecipeNoCh1.Size = new System.Drawing.Size(100, 23);
-            this.textPLC_RecipeNoCh1.TabIndex = 8;
-            this.textPLC_RecipeNoCh1.Text = "1";
-            this.textPLC_RecipeNoCh1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label19
-            // 
-            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label19.BackColor = System.Drawing.Color.LightGray;
-            this.label19.Location = new System.Drawing.Point(619, 30);
-            this.label19.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(100, 20);
-            this.label19.TabIndex = 5;
-            this.label19.Text = "CH. 2";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label20
-            // 
-            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label20.BackColor = System.Drawing.Color.LightGray;
-            this.label20.Location = new System.Drawing.Point(509, 30);
-            this.label20.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(100, 20);
-            this.label20.TabIndex = 5;
-            this.label20.Text = "CH. 1";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // gridWritePLC
-            // 
-            this.gridWritePLC.AllowUserToAddRows = false;
-            this.gridWritePLC.AllowUserToDeleteRows = false;
-            this.gridWritePLC.AllowUserToResizeColumns = false;
-            this.gridWritePLC.AllowUserToResizeRows = false;
-            this.gridWritePLC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.gridWritePLC.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.gridWritePLC.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridWritePLC.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.gridWritePLC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.gridWritePLC.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridWritePLC.DefaultCellStyle = dataGridViewCellStyle6;
-            this.gridWritePLC.GridColor = System.Drawing.Color.LightGray;
-            this.gridWritePLC.Location = new System.Drawing.Point(256, 30);
-            this.gridWritePLC.Name = "gridWritePLC";
-            this.gridWritePLC.RowHeadersVisible = false;
-            this.gridWritePLC.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.gridWritePLC.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.gridWritePLC.RowTemplate.Height = 23;
-            this.gridWritePLC.Size = new System.Drawing.Size(240, 483);
-            this.gridWritePLC.TabIndex = 6;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Reg. No";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn4.Width = 60;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewTextBoxColumn5.HeaderText = "항목";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn6.HeaderText = "값";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // gridReadPLC
-            // 
-            this.gridReadPLC.AllowUserToAddRows = false;
-            this.gridReadPLC.AllowUserToDeleteRows = false;
-            this.gridReadPLC.AllowUserToResizeColumns = false;
-            this.gridReadPLC.AllowUserToResizeRows = false;
-            this.gridReadPLC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.gridReadPLC.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.gridReadPLC.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridReadPLC.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.gridReadPLC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.gridReadPLC.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridReadPLC.DefaultCellStyle = dataGridViewCellStyle9;
-            this.gridReadPLC.GridColor = System.Drawing.Color.LightGray;
-            this.gridReadPLC.Location = new System.Drawing.Point(10, 30);
-            this.gridReadPLC.Name = "gridReadPLC";
-            this.gridReadPLC.RowHeadersVisible = false;
-            this.gridReadPLC.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.gridReadPLC.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.gridReadPLC.RowTemplate.Height = 23;
-            this.gridReadPLC.Size = new System.Drawing.Size(240, 483);
-            this.gridReadPLC.TabIndex = 6;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Reg. No";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn1.Width = 60;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dataGridViewTextBoxColumn2.HeaderText = "항목";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.HeaderText = "값";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // label21
-            // 
-            this.label21.BackColor = System.Drawing.Color.LightGray;
-            this.label21.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label21.Location = new System.Drawing.Point(0, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(738, 20);
-            this.label21.TabIndex = 1;
-            this.label21.Text = "PLC Memory";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // buttonAutoCancelCh1
-            // 
-            this.buttonAutoCancelCh1.Location = new System.Drawing.Point(20, 280);
-            this.buttonAutoCancelCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonAutoCancelCh1.Name = "buttonAutoCancelCh1";
-            this.buttonAutoCancelCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonAutoCancelCh1.TabIndex = 10;
-            this.buttonAutoCancelCh1.Text = "Cancel";
-            this.buttonAutoCancelCh1.UseVisualStyleBackColor = true;
-            this.buttonAutoCancelCh1.Click += new System.EventHandler(this.buttonAutoCancelCh1_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.LightGray;
-            this.panel3.Controls.Add(this.panel4);
-            this.panel3.Location = new System.Drawing.Point(10, 10);
-            this.panel3.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(230, 150);
-            this.panel3.TabIndex = 3;
-            // 
-            // panel4
-            // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
-            this.panel4.Controls.Add(this.textPLC_PortNum);
-            this.panel4.Controls.Add(this.textPLC_Address);
-            this.panel4.Controls.Add(this.buttonPLC_Disconnect);
-            this.panel4.Controls.Add(this.buttonPLC_Connect);
-            this.panel4.Controls.Add(this.label22);
-            this.panel4.Controls.Add(this.label23);
-            this.panel4.Controls.Add(this.label24);
-            this.panel4.Location = new System.Drawing.Point(1, 1);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(228, 140);
-            this.panel4.TabIndex = 0;
-            // 
-            // textPLC_PortNum
-            // 
-            this.textPLC_PortNum.Location = new System.Drawing.Point(100, 58);
-            this.textPLC_PortNum.Name = "textPLC_PortNum";
-            this.textPLC_PortNum.Size = new System.Drawing.Size(100, 23);
-            this.textPLC_PortNum.TabIndex = 8;
-            this.textPLC_PortNum.Text = "13000";
-            // 
-            // textPLC_Address
-            // 
-            this.textPLC_Address.Location = new System.Drawing.Point(100, 30);
-            this.textPLC_Address.Name = "textPLC_Address";
-            this.textPLC_Address.Size = new System.Drawing.Size(100, 23);
-            this.textPLC_Address.TabIndex = 7;
-            this.textPLC_Address.Text = "192.168.219.3";
-            // 
-            // buttonPLC_Disconnect
-            // 
-            this.buttonPLC_Disconnect.Location = new System.Drawing.Point(119, 95);
-            this.buttonPLC_Disconnect.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonPLC_Disconnect.Name = "buttonPLC_Disconnect";
-            this.buttonPLC_Disconnect.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_Disconnect.TabIndex = 6;
-            this.buttonPLC_Disconnect.Text = "닫기";
-            this.buttonPLC_Disconnect.UseVisualStyleBackColor = true;
-            this.buttonPLC_Disconnect.Click += new System.EventHandler(this.buttonPLC_Disconnect_Click);
-            // 
-            // buttonPLC_Connect
-            // 
-            this.buttonPLC_Connect.Location = new System.Drawing.Point(9, 95);
-            this.buttonPLC_Connect.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonPLC_Connect.Name = "buttonPLC_Connect";
-            this.buttonPLC_Connect.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_Connect.TabIndex = 6;
-            this.buttonPLC_Connect.Text = "열기";
-            this.buttonPLC_Connect.UseVisualStyleBackColor = true;
-            this.buttonPLC_Connect.Click += new System.EventHandler(this.buttonPLC_Connect_Click);
-            // 
-            // label22
-            // 
-            this.label22.Location = new System.Drawing.Point(10, 58);
-            this.label22.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(80, 21);
-            this.label22.TabIndex = 5;
-            this.label22.Text = "포트 번호";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label23
-            // 
-            this.label23.Location = new System.Drawing.Point(10, 30);
-            this.label23.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(80, 21);
-            this.label23.TabIndex = 5;
-            this.label23.Text = "IP Address";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label24
-            // 
-            this.label24.BackColor = System.Drawing.Color.LightGray;
-            this.label24.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label24.Location = new System.Drawing.Point(0, 0);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(228, 20);
-            this.label24.TabIndex = 0;
-            this.label24.Text = "네트워크 설정";
-            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // buttonAutoTouchCh1
-            // 
-            this.buttonAutoTouchCh1.Location = new System.Drawing.Point(20, 245);
-            this.buttonAutoTouchCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonAutoTouchCh1.Name = "buttonAutoTouchCh1";
-            this.buttonAutoTouchCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonAutoTouchCh1.TabIndex = 10;
-            this.buttonAutoTouchCh1.Text = "Touch";
-            this.buttonAutoTouchCh1.UseVisualStyleBackColor = true;
-            this.buttonAutoTouchCh1.Click += new System.EventHandler(this.buttonAutoTouchCh1_Click);
-            // 
-            // buttonAutoLoadingCh1
-            // 
-            this.buttonAutoLoadingCh1.Location = new System.Drawing.Point(20, 210);
-            this.buttonAutoLoadingCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonAutoLoadingCh1.Name = "buttonAutoLoadingCh1";
-            this.buttonAutoLoadingCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonAutoLoadingCh1.TabIndex = 10;
-            this.buttonAutoLoadingCh1.Text = "Loading";
-            this.buttonAutoLoadingCh1.UseVisualStyleBackColor = true;
-            this.buttonAutoLoadingCh1.Click += new System.EventHandler(this.buttonAutoLoadingCh1_Click);
-            // 
-            // labelAutoStartCh1
-            // 
-            this.labelAutoStartCh1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelAutoStartCh1.BackColor = System.Drawing.Color.LightGray;
-            this.labelAutoStartCh1.Location = new System.Drawing.Point(20, 185);
-            this.labelAutoStartCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.labelAutoStartCh1.Name = "labelAutoStartCh1";
-            this.labelAutoStartCh1.Size = new System.Drawing.Size(100, 20);
-            this.labelAutoStartCh1.TabIndex = 5;
-            this.labelAutoStartCh1.Text = "CH.1 START";
-            this.labelAutoStartCh1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // timerUpdate
             // 
             this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
@@ -1963,31 +2353,39 @@
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.textPLC_RecipeNoCh2);
+            this.Controls.Add(this.buttonPLC_SetRecipeCh2);
             this.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Settings";
+            this.Text = "환경 설정";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormSettings_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormSettings_FormClosed);
             this.Load += new System.EventHandler(this.FormSettings_LoadAsync);
             this.Shown += new System.EventHandler(this.FormSettings_Shown);
             this.tabControl1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.panel9.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConnNotify)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConnChange)).EndInit();
+            this.panel11.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericLogExpDate)).EndInit();
+            this.panel7.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridDCtrlRegisters)).EndInit();
             this.panelDCtrlCOMFrame.ResumeLayout(false);
             this.panelDCtrlCOM.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.panelRModuleManualFrame.ResumeLayout(false);
-            this.panelRModuleManual.ResumeLayout(false);
-            this.panelRModuleCOMFrame.ResumeLayout(false);
-            this.panelRModuleCOM.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
@@ -1997,7 +2395,13 @@
             this.panel3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.panelRModuleManualFrame.ResumeLayout(false);
+            this.panelRModuleManual.ResumeLayout(false);
+            this.panelRModuleCOMFrame.ResumeLayout(false);
+            this.panelRModuleCOM.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -2076,8 +2480,8 @@
         private System.Windows.Forms.Button buttonVFlashFolder;
         private System.Windows.Forms.TextBox textVFlashFolder;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Button buttonResultFolder;
-        private System.Windows.Forms.TextBox textResultFolder;
+        private System.Windows.Forms.Button buttonDataFolderAll;
+        private System.Windows.Forms.TextBox textDataFolderAll;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Panel panel3;
@@ -2144,5 +2548,33 @@
         private System.Windows.Forms.Button buttonAutoLoadingCh1;
         private System.Windows.Forms.Button buttonPLCAutoStopCh1;
         private System.Windows.Forms.Label labelAutoStartCh1;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Button buttonDataFolderRepeat;
+        private System.Windows.Forms.Button buttonDataFolderBack;
+        private System.Windows.Forms.Button buttonDataFolderPass;
+        private System.Windows.Forms.TextBox textDataFolderRepeat;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox textDataFolderBack;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox textDataFolderPass;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Button buttonConnCountInit;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.NumericUpDown numericConnNotify;
+        private System.Windows.Forms.NumericUpDown numericConnChange;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.NumericUpDown numericLogExpDate;
+        private System.Windows.Forms.CheckBox checkLogDelete;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Button buttonSetSensor;
+        private System.Windows.Forms.ComboBox comboSensorModel;
     }
 }

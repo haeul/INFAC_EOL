@@ -14,9 +14,9 @@ namespace DHSTesterXL
     {
         TestInit = 0,
         ShortTest,
-        ActiveCurrent,
+        ActivePowerOn,
         LightOn,
-        SelectModel=8,
+        SensorModel = 8,
         AverageTime = 10,
     }
     public enum DedicatedSensorConnector
@@ -220,18 +220,18 @@ namespace DHSTesterXL
         private CancellationTokenSource _cts;
 
         // 릴레이모듈을 간이검사기에서만 사용. EOL설비에서는 사용하지 않는다.
-        private readonly MRelayModule _relayModule;
-        public MRelayModule RelayModule { get { return _relayModule; } }
+        //private readonly MRelayModule _relayModule;
+        //public MRelayModule RelayModule { get { return _relayModule; } }
         //
 
         public MDedicatedCTRL()
         {
-            _relayModule = new MRelayModule();
+            //_relayModule = new MRelayModule();
         }
 
         public MDedicatedCTRL(byte slaveAddress)
         {
-            _relayModule = new MRelayModule();
+            //_relayModule = new MRelayModule();
             _slaveAddress = slaveAddress;
         }
 
@@ -479,59 +479,100 @@ namespace DHSTesterXL
             int index = (int)DedicatedCommandBit.ShortTest;
             return ((Reg_03h_ch1_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
-        public bool GetCommandActiveCurrent(int channel)
+        public bool GetCommandActivePowerOn(int channel)
         {
-            int index = (int)DedicatedCommandBit.ActiveCurrent;
+            int index = (int)DedicatedCommandBit.ActivePowerOn;
             if (channel == (int)DedicatedChannels.Ch1)
                 return ((Reg_10h_ch1_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
             else
                 return ((Reg_10h_ch2_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
-        public void SetCommandActiveCurrent(int channel, bool state)
+        public void SetCommandActivePowerOn(int channel, bool state)
         {
-            SetCommand(channel, DedicatedCommandBit.ActiveCurrent, state);
+            SetCommand(channel, DedicatedCommandBit.ActivePowerOn, state);
             if (channel == (int)DedicatedChannels.Ch1)
                 PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH1_COMMAND, 1);
             else
                 PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH2_COMMAND, 1);
         }
-        public bool GetResponseActiveCurrent(int channel)
+        public bool GetResponseActivePowerOn(int channel)
         {
-            int index = (int)DedicatedCommandBit.ActiveCurrent;
+            int index = (int)DedicatedCommandBit.ActivePowerOn;
             if (channel == (int)DedicatedChannels.Ch1)
                 return ((Reg_03h_ch1_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
             else
                 return ((Reg_03h_ch2_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
-        public bool GetCompleteActiveCurrent(int channel)
+        public bool GetCompleteActivePowerOn(int channel)
         {
-            int index = (int)DedicatedCommandBit.ActiveCurrent;
+            int index = (int)DedicatedCommandBit.ActivePowerOn;
             if (channel == (int)DedicatedChannels.Ch1)
                 return ((Reg_03h_ch1_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
             else
                 return ((Reg_03h_ch2_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
 
-        public bool GetCommandActiveCurrentCh1()
+        public bool GetCommandActivePowerOnCh1()
         {
-            int index = (int)DedicatedCommandBit.ActiveCurrent;
+            int index = (int)DedicatedCommandBit.ActivePowerOn;
             return ((Reg_10h_ch1_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
-        public void SetCommandActiveCurrentCh1(bool state)
+        public void SetCommandActivePowerOnCh1(bool state)
         {
-            SetCommand((int)DedicatedChannels.Ch1, DedicatedCommandBit.ActiveCurrent, state);
+            SetCommand((int)DedicatedChannels.Ch1, DedicatedCommandBit.ActivePowerOn, state);
             PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH1_COMMAND, 1);
         }
-        public bool GetResponseActiveCurrentCh1()
+        public bool GetResponseActivePowerOnCh1()
         {
-            int index = (int)DedicatedCommandBit.ActiveCurrent;
+            int index = (int)DedicatedCommandBit.ActivePowerOn;
             return ((Reg_03h_ch1_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
-        public bool GetCompleteActiveCurrentCh1()
+        public bool GetCompleteActivePowerOnCh1()
         {
-            int index = (int)DedicatedCommandBit.ActiveCurrent;
+            int index = (int)DedicatedCommandBit.ActivePowerOn;
             return ((Reg_03h_ch1_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
+
+        public bool GetCommandSensorModel(int channel)
+        {
+            int index = (int)DedicatedCommandBit.SensorModel;
+            if (channel == (int)DedicatedChannels.Ch1)
+                return ((Reg_10h_ch1_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+            else
+                return ((Reg_10h_ch2_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public void SetCommandSensorModel(int channel, bool state)
+        {
+            SetCommand(channel, DedicatedCommandBit.SensorModel, state);
+            if (channel == (int)DedicatedChannels.Ch1)
+                PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH1_COMMAND, 1);
+            else
+                PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH2_COMMAND, 1);
+        }
+        public bool GetResponseSensorModel(int channel)
+        {
+            int index = (int)DedicatedCommandBit.SensorModel;
+            if (channel == (int)DedicatedChannels.Ch1)
+                return ((Reg_03h_ch1_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+            else
+                return ((Reg_03h_ch2_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public bool GetCompleteSensorModel(int channel)
+        {
+            int index = (int)DedicatedCommandBit.SensorModel;
+            if (channel == (int)DedicatedChannels.Ch1)
+                return ((Reg_03h_ch1_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+            else
+                return ((Reg_03h_ch2_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public void SetSensorModel(int sensorModel)
+        {
+            Reg_10h_ch1_conn_type = (ushort)sensorModel;
+            Reg_10h_ch2_conn_type = (ushort)sensorModel;
+            PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH1_CONN_TYPE, 1);
+            PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH2_CONN_TYPE, 1);
+        }
+
 
         public bool GetCommandAverageTimeCh1()
         {
@@ -581,6 +622,14 @@ namespace DHSTesterXL
             else
                 Reg_10h_ext_output = (ushort)(Reg_10h_ext_output & ~GDefines.BIT16[index]);
             PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_EXT_OUTPUT, 1);
+        }
+
+        public bool GetLockSignal(int channel)
+        {
+            if (channel == (int)DedicatedChannels.Ch1)
+                return (Reg_03h_ch1_lock_signal != 0);
+            else
+                return (Reg_03h_ch2_lock_signal != 0);
         }
 
         public bool GetLockSignalCh1()
@@ -633,24 +682,24 @@ namespace DHSTesterXL
             return ((Reg_03h_ch2_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
 
-        public bool GetCommandActiveCurrentCh2()
+        public bool GetCommandActivePowerOnCh2()
         {
-            int index = (int)DedicatedCommandBit.ActiveCurrent;
+            int index = (int)DedicatedCommandBit.ActivePowerOn;
             return ((Reg_10h_ch2_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
-        public void SetCommandActiveCurrentCh2(bool state)
+        public void SetCommandActivePowerOnCh2(bool state)
         {
-            SetCommand((int)DedicatedChannels.Ch2, DedicatedCommandBit.ActiveCurrent, state);
+            SetCommand((int)DedicatedChannels.Ch2, DedicatedCommandBit.ActivePowerOn, state);
             PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH2_COMMAND, 1);
         }
-        public bool GetResponseActiveCurrentCh2()
+        public bool GetResponseActivePowerOnCh2()
         {
-            int index = (int)DedicatedCommandBit.ActiveCurrent;
+            int index = (int)DedicatedCommandBit.ActivePowerOn;
             return ((Reg_03h_ch2_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
-        public bool GetCompleteActiveCurrentCh2()
+        public bool GetCompleteActivePowerOnCh2()
         {
-            int index = (int)DedicatedCommandBit.ActiveCurrent;
+            int index = (int)DedicatedCommandBit.ActivePowerOn;
             return ((Reg_03h_ch2_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
 
@@ -713,31 +762,31 @@ namespace DHSTesterXL
         // 릴레이모듈은 간이검사기에서만 사용한다. EOL설비에서는 사용하지 않는다.
         public bool OpenRelayModule(string portName, int baudRate, string parityBit = "None", int dataBit = 8, int stopBit = 1)
         {
-            return _relayModule.Open(portName, baudRate, parityBit, dataBit, stopBit);
+            return false; //_relayModule.Open(portName, baudRate, parityBit, dataBit, stopBit);
         }
         public void CloseRelayModule()
         {
-            _relayModule.Close();
+            //_relayModule.Close();
         }
 
         public void LockLampStateCh1(bool onOff)
         {
-            _relayModule.SetLockLampStateCh1(onOff);
+            //_relayModule.SetLockLampStateCh1(onOff);
         }
 
         public void PowerLampStateCh1(bool onOff)
         {
-            _relayModule.SetPowerLampStateCh1(onOff);
+            //_relayModule.SetPowerLampStateCh1(onOff);
         }
 
         public void LockLampStateCh2(bool onOff)
         {
-            _relayModule.SetLockLampStateCh2(onOff);
+            //_relayModule.SetLockLampStateCh2(onOff);
         }
 
         public void PowerLampStateCh2(bool onOff)
         {
-            _relayModule.SetPowerLampStateCh2(onOff);
+            //_relayModule.SetPowerLampStateCh2(onOff);
         }
         //
     }

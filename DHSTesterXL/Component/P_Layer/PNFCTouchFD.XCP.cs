@@ -45,6 +45,7 @@ namespace DHSTesterXL
         public int[] CurrentCancelState = new int[] { 0, 0 };
         public bool[] CancelStepExit = new bool[] { false, false };
 
+        private GCsvFile[] _capaDataFile = new GCsvFile[2] { new GCsvFile(), new GCsvFile() };
 
         // -----------------------------------------------------------------------------------------------
         // TOUCH STEP
@@ -82,6 +83,13 @@ namespace DHSTesterXL
 
             _tickXcpElapse[channel].Reset();
             GSystem.CapaData[channel].Info($"//--- {DateTime.Now:yyyy-MM-dd HH:mm:sss.fff} CH.{channel + 1} [{ProductSettings.ProductInfo.PartNo}] Start touch capacitance data ---");
+
+            // 파일 열기
+            string capaDataFileName = $"{DateTime.Now:yyMMdd-HHmmss}_ch{channel + 1}_{ProductSettings.ProductInfo.PartNo}_touch.csv";
+            string capaDataFilePath = $"C:\\INFAC\\DHS_EOL_Data\\Capa\\{ProductSettings.ProductInfo.PartNo}\\{DateTime.Now:yyyy}\\{DateTime.Now:MM}\\{DateTime.Now:dd}";
+            _capaDataFile[channel].Open(capaDataFileName, capaDataFilePath);
+            _capaDataFile[channel].Write("Time,Fast Mutual, Fast Selft, Touch State, Touch Z Down\r\n");
+
 
             _xcpTtouchStep[channel] = XcpTouchStep.Prepare;
             _retryTouch[channel] = 0;
@@ -126,6 +134,9 @@ namespace DHSTesterXL
 
             GSystem.CapaData[channel].Info($"//--- {DateTime.Now:yyyy-MM-dd HH:mm:sss.fff} CH.{channel + 1} [{ProductSettings.ProductInfo.PartNo}] Stop touch capacitance data ---");
 
+            // 파일 닫기
+            _capaDataFile[channel].Close();
+
             // 수신 스레드를 다시 살린다.
             StartCanReceiveThread(channel);
 
@@ -138,15 +149,15 @@ namespace DHSTesterXL
         }
         private void XcpTouchStep_Prepare(int channel)
         {
-            if (!GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel) && !GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (!GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel) && !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
             {
-                GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, true);
+                GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, true);
             }
             NextTouchStep(channel);
         }
         private void XcpTouchStep_ConnectSend(int channel)
         {
-            if (!GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel) && !GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (!GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel) && !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
                 return;
             Send_XCPConnect(channel);
             _tickXcpTouchTimeout[channel].Reset();
@@ -244,9 +255,11 @@ namespace DHSTesterXL
                         {
                             if (receivedEvent.tagData.canRxOkMsg.data[0] == 0xFF)
                             {
-                                CurrentTouchFastMutual[channel]  = (int)(receivedEvent.tagData.canRxOkMsg.data[2] << 8);
-                                CurrentTouchFastMutual[channel] += (int)(receivedEvent.tagData.canRxOkMsg.data[1]);
-                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[3]:X2}h {receivedEvent.tagData.canRxOkMsg.data[4]:X2}h ({CurrentTouchFastMutual[channel]})");
+                                int bitIndexLO = 1;
+                                int bitIndexHI = 2;
+                                CurrentTouchFastMutual[channel]  = (int)(receivedEvent.tagData.canRxOkMsg.data[bitIndexHI] << 8);
+                                CurrentTouchFastMutual[channel] += (int)(receivedEvent.tagData.canRxOkMsg.data[bitIndexLO]);
+                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[bitIndexLO]:X2}h {receivedEvent.tagData.canRxOkMsg.data[bitIndexHI]:X2}h ({CurrentTouchFastMutual[channel]})");
                                 _retryTouch[channel] = 0;
                                 NextTouchStep(channel);
                                 break;
@@ -326,9 +339,11 @@ namespace DHSTesterXL
                         {
                             if (receivedEvent.tagData.canRxOkMsg.data[0] == 0xFF)
                             {
-                                CurrentTouchFastSelf[channel]  = (int)(receivedEvent.tagData.canRxOkMsg.data[2] << 8);
-                                CurrentTouchFastSelf[channel] += (int)(receivedEvent.tagData.canRxOkMsg.data[1]);
-                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[3]:X2}h {receivedEvent.tagData.canRxOkMsg.data[4]:X2}h ({CurrentTouchFastSelf[channel]})");
+                                int bitIndexLO = 1;
+                                int bitIndexHI = 2;
+                                CurrentTouchFastSelf[channel]  = (int)(receivedEvent.tagData.canRxOkMsg.data[bitIndexHI] << 8);
+                                CurrentTouchFastSelf[channel] += (int)(receivedEvent.tagData.canRxOkMsg.data[bitIndexLO]);
+                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[bitIndexLO]:X2}h {receivedEvent.tagData.canRxOkMsg.data[bitIndexHI]:X2}h ({CurrentTouchFastSelf[channel]})");
                                 _retryTouch[channel] = 0;
                                 NextTouchStep(channel);
                                 break;
@@ -408,9 +423,11 @@ namespace DHSTesterXL
                         {
                             if (receivedEvent.tagData.canRxOkMsg.data[0] == 0xFF)
                             {
-                                CurrentTouchSlowSelf[channel]  = (int)(receivedEvent.tagData.canRxOkMsg.data[2] << 8);
-                                CurrentTouchSlowSelf[channel] += (int)(receivedEvent.tagData.canRxOkMsg.data[1]);
-                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[3]:X2}h {receivedEvent.tagData.canRxOkMsg.data[4]:X2}h ({CurrentTouchSlowSelf[channel]})");
+                                int bitIndexLO = 1;
+                                int bitIndexHI = 2;
+                                CurrentTouchSlowSelf[channel]  = (int)(receivedEvent.tagData.canRxOkMsg.data[bitIndexHI] << 8);
+                                CurrentTouchSlowSelf[channel] += (int)(receivedEvent.tagData.canRxOkMsg.data[bitIndexLO]);
+                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[bitIndexLO]:X2}h {receivedEvent.tagData.canRxOkMsg.data[bitIndexHI]:X2}h ({CurrentTouchSlowSelf[channel]})");
                                 _retryTouch[channel] = 0;
                                 NextTouchStep(channel);
                                 break;
@@ -578,7 +595,7 @@ namespace DHSTesterXL
                             if (receivedEvent.tagData.canRxOkMsg.data[0] == 0xFF)
                             {
                                 CurrentTouchState[channel] = (int)(receivedEvent.tagData.canRxOkMsg.data[1]);
-                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[3]:X2}h ({CurrentTouchState[channel]})");
+                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[1]:X2}h ({CurrentTouchState[channel]})");
 
                                 int elapsedTime = (int)_tickXcpTouchInterval[channel].GetElapsedMilliseconds();
                                 _tickXcpTouchInterval[channel].Reset();
@@ -590,6 +607,13 @@ namespace DHSTesterXL
                                 int avgElapsedTime = (int)(XcpTouchIntervalList[channel].Average() + 0.5);
                                 OnUpdateTouchXcpData(channel, CurrentTouchFastMutual[channel], CurrentTouchFastSelf[channel],
                                     CurrentTouchSlowSelf[channel], CurrentTouchComboRate[channel], CurrentTouchState[channel], avgElapsedTime);
+
+                                // 파일 저장
+                                string touchZstate = GSystem.MiPLC.GetState1(channel, 4) ? "Y" : "N";
+                                StringBuilder sb = new StringBuilder();
+                                sb.Append($"{_tickXcpElapse[channel].GetTotalSeconds():F6},{CurrentTouchFastMutual[channel]},{CurrentTouchFastSelf[channel]},{CurrentTouchState[channel]},{touchZstate}");
+                                sb.Append(Environment.NewLine);
+                                _capaDataFile[channel].Write(sb.ToString());
 
                                 //NextTouchStep();
                                 SetTouchStep(channel, XcpTouchStep.TouchFastMutualSend);
@@ -662,6 +686,12 @@ namespace DHSTesterXL
             _tickXcpElapse[channel].Reset();
             GSystem.CapaData[channel].Info($"//--- {DateTime.Now:yyyy-MM-dd HH:mm:sss.fff} CH.{channel + 1} [{ProductSettings.ProductInfo.PartNo}] Start cancel capacitance data ---");
 
+            // 파일 열기
+            string capaDataFileName = $"{DateTime.Now:yyMMdd-HHmmss}_ch{channel + 1}_{ProductSettings.ProductInfo.PartNo}_cancel.csv";
+            string capaDataFilePath = $"C:\\INFAC\\DHS_EOL_Data\\Capa\\{ProductSettings.ProductInfo.PartNo}\\{DateTime.Now:yyyy}\\{DateTime.Now:MM}\\{DateTime.Now:dd}";
+            _capaDataFile[channel].Open(capaDataFileName, capaDataFilePath);
+            _capaDataFile[channel].Write("Time,Fast Self, Slow Selft, Cancel State, Cancel Z Up\r\n");
+
             _xcpCancelStep[channel] = XcpCancelStep.Prepare;
             _retryCancel[channel] = 0;
             CancelStepExit[channel] = false;
@@ -699,6 +729,9 @@ namespace DHSTesterXL
 
             GSystem.CapaData[channel].Info($"//--- {DateTime.Now:yyyy-MM-dd HH:mm:sss.fff} CH.{channel + 1} [{ProductSettings.ProductInfo.PartNo}] Stop cancel capacitance data ---");
 
+            // 파일 닫기
+            _capaDataFile[channel].Close();
+
             // 수신 스레드를 다시 살린다.
             StartCanReceiveThread(channel);
 
@@ -711,15 +744,15 @@ namespace DHSTesterXL
         }
         private void XcpCancelStep_Prepare(int channel)
         {
-            if (!GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel) && !GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (!GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel) && !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
             {
-                GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, true);
+                GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, true);
             }
             NextCancelStep(channel);
         }
         private void XcpCancelStep_ConnectSend(int channel)
         {
-            if (!GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel) && !GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (!GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel) && !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
                 return;
             Send_XCPConnect(channel);
             _tickXcpCancelTimeout[channel].Reset();
@@ -817,9 +850,11 @@ namespace DHSTesterXL
                         {
                             if (receivedEvent.tagData.canRxOkMsg.data[0] == 0xFF)
                             {
-                                CurrentCancelFastSelf[channel]  = (int)(receivedEvent.tagData.canRxOkMsg.data[2] << 8);
-                                CurrentCancelFastSelf[channel] += (int)(receivedEvent.tagData.canRxOkMsg.data[1]);
-                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[3]:X2}h {receivedEvent.tagData.canRxOkMsg.data[4]:X2}h ({CurrentCancelFastSelf[channel]})");
+                                int bitIndexLO = 1;
+                                int bitIndexHI = 2;
+                                CurrentCancelFastSelf[channel]  = (int)(receivedEvent.tagData.canRxOkMsg.data[bitIndexHI] << 8);
+                                CurrentCancelFastSelf[channel] += (int)(receivedEvent.tagData.canRxOkMsg.data[bitIndexLO]);
+                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[bitIndexLO]:X2}h {receivedEvent.tagData.canRxOkMsg.data[bitIndexHI]:X2}h ({CurrentCancelFastSelf[channel]})");
                                 _retryCancel[channel] = 0;
                                 NextCancelStep(channel);
                                 break;
@@ -899,9 +934,11 @@ namespace DHSTesterXL
                         {
                             if (receivedEvent.tagData.canRxOkMsg.data[0] == 0xFF)
                             {
-                                CurrentCancelSlowSelf[channel] =  (int)(receivedEvent.tagData.canRxOkMsg.data[2] << 8);
-                                CurrentCancelSlowSelf[channel] += (int)(receivedEvent.tagData.canRxOkMsg.data[1]);
-                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[3]:X2}h {receivedEvent.tagData.canRxOkMsg.data[4]:X2}h ({CurrentCancelSlowSelf[channel]})");
+                                int bitIndexLO = 1;
+                                int bitIndexHI = 2;
+                                CurrentCancelSlowSelf[channel] =  (int)(receivedEvent.tagData.canRxOkMsg.data[bitIndexHI] << 8);
+                                CurrentCancelSlowSelf[channel] += (int)(receivedEvent.tagData.canRxOkMsg.data[bitIndexLO]);
+                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[bitIndexLO]:X2}h {receivedEvent.tagData.canRxOkMsg.data[bitIndexHI]:X2}h ({CurrentCancelSlowSelf[channel]})");
                                 _retryCancel[channel] = 0;
                                 NextCancelStep(channel);
                                 break;
@@ -982,7 +1019,7 @@ namespace DHSTesterXL
                             if (receivedEvent.tagData.canRxOkMsg.data[0] == 0xFF)
                             {
                                 CurrentCancelState[channel] = receivedEvent.tagData.canRxOkMsg.data[1];
-                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[3]:X2}h ({CurrentCancelState[channel]})");
+                                GSystem.CapaData[channel].Info($"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Rx {GetEventString(receivedEvent)}  Ok:UPLOAD data={receivedEvent.tagData.canRxOkMsg.data[1]:X2}h ({CurrentCancelState[channel]})");
 
                                 int intervalTime = (int)_tickXcpCancelInterval[channel].GetElapsedMilliseconds();
                                 _tickXcpCancelInterval[channel].Reset();
@@ -993,6 +1030,13 @@ namespace DHSTesterXL
                                 }
                                 int avgIntervalTime = (int)(XcpCancelIntervalList[channel].Average() + 0.5);
                                 OnUpdateCancelXcpData(channel, CurrentCancelFastSelf[channel], CurrentCancelSlowSelf[channel], CurrentCancelState[channel], avgIntervalTime);
+
+                                // 파일 저장
+                                string cancelZstate = GSystem.MiPLC.GetState1(channel, 6) ? "Y" : "N";
+                                StringBuilder sb = new StringBuilder();
+                                sb.Append($"{_tickXcpElapse[channel].GetTotalSeconds():F6},{CurrentCancelFastSelf[channel]},{CurrentCancelSlowSelf[channel]},{CurrentCancelState[channel]},{cancelZstate}");
+                                sb.Append(Environment.NewLine);
+                                _capaDataFile[channel].Write(sb.ToString());
 
                                 //NextCancelStep();
                                 SetCancelStep(channel, XcpCancelStep.CancelFastSelfSend); // 반복

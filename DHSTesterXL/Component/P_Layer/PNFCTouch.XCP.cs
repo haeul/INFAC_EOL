@@ -138,15 +138,15 @@ namespace DHSTesterXL
         }
         private void XcpTouchStep_Prepare(int channel)
         {
-            if (!GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel) && !GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (!GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel) && !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
             {
-                GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, true);
+                GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, true);
             }
             NextTouchStep(channel);
         }
         private void XcpTouchStep_ConnectSend(int channel)
         {
-            if (!GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel) && !GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (!GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel) && !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
                 return;
             Send_XCPConnect(channel);
             _tickXcpTouchTimeout[channel].Reset();
@@ -711,15 +711,15 @@ namespace DHSTesterXL
         }
         private void XcpCancelStep_Prepare(int channel)
         {
-            if (!GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel) && !GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (!GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel) && !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
             {
-                GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, true);
+                GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, true);
             }
             NextCancelStep(channel);
         }
         private void XcpCancelStep_ConnectSend(int channel)
         {
-            if (!GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel) && !GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (!GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel) && !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
                 return;
             Send_XCPConnect(channel);
             _tickXcpCancelTimeout[channel].Reset();

@@ -74,8 +74,9 @@ namespace DHSTesterXL
         private TickTimer[] _tickXcpElapse    = new TickTimer[ChannelCount] { new TickTimer(), new TickTimer() };
 
         private bool[] _isOpen              = new bool[ChannelCount] { false, false };
-        private bool[] _pauseNM             = new bool[ChannelCount] { false, false };
-        private bool[] _checkNFC            = new bool[ChannelCount] { false, false };
+        private bool[] _enableNM            = new bool[ChannelCount] { false, false };
+        private bool[] _enableNFC           = new bool[ChannelCount] { false, false };
+        private bool[] _enablePLight        = new bool[ChannelCount] { false, false };
         private int [] _retryCount          = new int [ChannelCount];
         private int [] _serialNumberRxCount = new int [ChannelCount];
         private int [] _rxsWinByteCount     = new int [ChannelCount];
@@ -112,7 +113,8 @@ namespace DHSTesterXL
         private short ShortResult_4_6 { get; set; }
         private short DartCurrent { get; set; }
         private int PLightTurnOnValue { get; set; }
-        private int PLightCurrentValue { get; set; }
+        private int PLightOffCurrentValue { get; set; }
+        private int PLightOnCurrentValue { get; set; }
         private int PLightAmbientValue { get; set; }
 
         public int Channel { get; set; }
@@ -274,6 +276,17 @@ namespace DHSTesterXL
             GSystem.TraceMessage($"Close Port            : [CH.{channel + 1}] {status}");
 
             return Task.FromResult(status);
+        }
+
+        // -------------------------------------------------------------------------------------------------
+        public bool OpenPortCOM(int channel)
+        {
+            return false;
+        }
+        // -------------------------------------------------------------------------------------------------
+        public void ClosePortCOM(int channel)
+        {
+            
         }
 
         // -------------------------------------------------------------------------------------------------
@@ -503,6 +516,21 @@ namespace DHSTesterXL
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
             };
             return WriteFrameExt(channel, id, dlc, data, logging, "CMD: WAKE_UP");
+        }
+
+        // -----------------------------------------------------------------------------------------------
+        public XL_Status Send_NFC(int channel, bool logging = false)
+        {
+            uint id = ProductSettings.NFC_ReqID;
+            XLDefine.XL_CANFD_DLC dlc = XLDefine.XL_CANFD_DLC.DLC_CAN_CANFD_8_BYTES;
+            byte[] data = new byte[32]
+            {
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+            };
+            return WriteFrameExt(channel, id, dlc, data, logging, "CMD: NFC_INPUT");
         }
 
         // -----------------------------------------------------------------------------------------------
@@ -910,6 +938,18 @@ namespace DHSTesterXL
             return statusResult;
         }
 
+        // -----------------------------------------------------------------------------------------------
+        public XL_Status Send_HardwireTest(int channel, bool logging = false)
+        {
+            uint id = ProductSettings.CanReqID;
+            XL_CANFD_DLC dlc = XL_CANFD_DLC.DLC_CAN_CANFD_8_BYTES;
+            byte[] data = new byte[8]
+            {
+                0x04, 0x2F, 0xF1, 0x11, 0x03, 0xAA, 0xAA, 0xAA
+            };
+            return WriteFrameStd(channel, id, dlc, data, logging, "CMD: HARDWIRE_TEST");
+        }
+
 
         // -----------------------------------------------------------------------------------------------
         // 수신 스레드
@@ -1063,6 +1103,18 @@ namespace DHSTesterXL
             _currTestStep[channel] = step;
             return _prevTestStep[channel];
         }
+        public TouchOnlyTestStep NextTouchOnlyTestStep(int channel)
+        {
+            throw new NotImplementedException();
+        }
+        public TouchOnlyTestStep GetTouchOnlyTestStep(int channel)
+        {
+            throw new NotImplementedException();
+        }
+        public TouchOnlyTestStep SetTouchOnlyTestStep(int channel, TouchOnlyTestStep step)
+        {
+            throw new NotImplementedException();
+        }
 
         public void StartTest(int channel)
         {
@@ -1104,7 +1156,7 @@ namespace DHSTesterXL
             while (!_testStepThreadExit[channel])
             {
                 Thread.Sleep(0);
-                if (!_pauseNM[channel])
+                if (_enableNM[channel])
                     WakeUpProc(channel);
                 TestStepTxProc(channel);
             }
@@ -1128,7 +1180,7 @@ namespace DHSTesterXL
             while (!_testStepThreadExit[channel])
             {
                 Thread.Sleep(0);
-                if (!_pauseNM[channel])
+                if (_enableNM[channel])
                     WakeUpProc(channel);
                 TestStepTxProc(channel);
             }
@@ -1145,9 +1197,14 @@ namespace DHSTesterXL
         {
             if (_tickWakeUpNM[channel].MoreThan(200))
             {
+                //GSystem.TraceMessage($"Send NM & NFC");
                 _tickWakeUpNM[channel].Reset();
                 // NM 명령 전송
                 Send_NM(channel);
+                if (_enableNFC[channel])
+                    Send_NFC(channel);
+                if (_enablePLight[channel])
+                    Send_PLight(channel, true); // P-Light ON
             }
         }
 

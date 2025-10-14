@@ -1,4 +1,5 @@
-﻿namespace DHSTesterXL.Forms
+﻿/*
+namespace DHSTesterXL.Forms
 {
     partial class FormVFlash
     {
@@ -181,3 +182,4 @@
         private System.Windows.Forms.Label labelMessage;
     }
 }
+*/

@@ -18,12 +18,45 @@ namespace DHSTesterXL
             LabelDataGridView.AutoGenerateColumns = false;
             LabelDataGridView.Columns.Clear();
             LabelDataGridView.Rows.Clear();
+            LabelDataGridView.RowTemplate.Height = 24;
             LabelDataGridView.AllowUserToAddRows = false;
             LabelDataGridView.AllowUserToDeleteRows = false;
             LabelDataGridView.RowHeadersVisible = false;
             LabelDataGridView.SelectionMode = DataGridViewSelectionMode.CellSelect;
             LabelDataGridView.MultiSelect = false;
             LabelDataGridView.EditMode = DataGridViewEditMode.EditOnEnter;
+            LabelDataGridView.EditingControlShowing += (s, e) =>
+            {
+                if (LabelDataGridView.CurrentCell == null) return;
+                var row = LabelDataGridView.CurrentRow;
+                var colName = LabelDataGridView.Columns[LabelDataGridView.CurrentCell.ColumnIndex].Name;
+
+                if (row?.Tag is RowKey key && key == RowKey.DM && colName == COL_SIZE &&
+                    e.Control is DataGridViewNumericUpDownEditingControl nud)
+                {
+                    // "한 변 mm" 입력: 1mm 스텝 
+                    nud.DecimalPlaces = 0;
+                    nud.Increment = 1M;
+                    nud.Minimum = 1M;
+                    nud.Maximum = 100M;
+                }
+                else if (row?.Tag is RowKey key2 && key2 == RowKey.DM && colName == COL_XSCALE &&
+                         e.Control is DataGridViewNumericUpDownEditingControl nudX)
+                {
+                    nudX.DecimalPlaces = 0;
+                    nudX.Increment = 1M;
+                    nudX.Minimum = 10M;
+                    nudX.Maximum = 144M;
+                }
+                else if (row?.Tag is RowKey key3 && key3 == RowKey.DM && colName == COL_YSCALE &&
+                         e.Control is DataGridViewNumericUpDownEditingControl nudY)
+                {
+                    nudY.DecimalPlaces = 0;
+                    nudY.Increment = 1M;
+                    nudY.Minimum = 10M;
+                    nudY.Maximum = 144M;
+                }
+            };
 
             // 라벨 규격(좌표/크기 범위용)
             decimal W = (decimal)Math.Max(1.0, _style.LabelWmm);
@@ -133,8 +166,6 @@ namespace DHSTesterXL
             };
             LabelDataGridView.Columns.Add(colYs);
 
-            // (회전 컬럼 완전 제거)
-
             // ── 행(9행) : 미리 생성 + Tag 지정
             int rLogo = LabelDataGridView.Rows.Add();
             int rBrand = LabelDataGridView.Rows.Add();
@@ -145,6 +176,14 @@ namespace DHSTesterXL
             int rLOT = LabelDataGridView.Rows.Add();
             int rSN = LabelDataGridView.Rows.Add();
             int rQR = LabelDataGridView.Rows.Add();
+            int rRating = LabelDataGridView.Rows.Add();
+            int rFCC = LabelDataGridView.Rows.Add();
+            int rIC = LabelDataGridView.Rows.Add();
+            int rItem1 = LabelDataGridView.Rows.Add();
+            int rItem2 = LabelDataGridView.Rows.Add();
+            int rItem3 = LabelDataGridView.Rows.Add();
+            int rItem4 = LabelDataGridView.Rows.Add();
+            int rItem5 = LabelDataGridView.Rows.Add();
 
             LabelDataGridView.Rows[rLogo].Tag = RowKey.Logo;
             LabelDataGridView.Rows[rBrand].Tag = RowKey.Brand;
@@ -154,7 +193,15 @@ namespace DHSTesterXL
             LabelDataGridView.Rows[rSW].Tag = RowKey.SW;
             LabelDataGridView.Rows[rLOT].Tag = RowKey.LOT;
             LabelDataGridView.Rows[rSN].Tag = RowKey.SN;
-            LabelDataGridView.Rows[rQR].Tag = RowKey.QR;
+            LabelDataGridView.Rows[rQR].Tag = RowKey.DM;
+            LabelDataGridView.Rows[rRating].Tag = RowKey.Rating;
+            LabelDataGridView.Rows[rFCC].Tag = RowKey.FCCID;
+            LabelDataGridView.Rows[rIC].Tag = RowKey.ICID;
+            LabelDataGridView.Rows[rItem1].Tag = RowKey.Item1;
+            LabelDataGridView.Rows[rItem2].Tag = RowKey.Item2;
+            LabelDataGridView.Rows[rItem3].Tag = RowKey.Item3;
+            LabelDataGridView.Rows[rItem4].Tag = RowKey.Item4;
+            LabelDataGridView.Rows[rItem5].Tag = RowKey.Item5;
 
             // 표시명
             LabelDataGridView.Rows[rLogo].Cells[COL_FIELD].Value = "Logo";
@@ -174,6 +221,16 @@ namespace DHSTesterXL
             var rowQR = LabelDataGridView.Rows[rQR];
             rowQR.Cells[COL_FIELD].Value = "QR";
             rowQR.Cells[COL_DATA].ReadOnly = true; // 자동 생성
+
+            LabelDataGridView.Rows[rRating].Cells[COL_FIELD].Value = "Rating";
+            LabelDataGridView.Rows[rFCC].Cells[COL_FIELD].Value = "FCC ID";
+            LabelDataGridView.Rows[rIC].Cells[COL_FIELD].Value = "IC ID";
+
+            LabelDataGridView.Rows[rItem1].Cells[COL_FIELD].Value = "Item1";
+            LabelDataGridView.Rows[rItem2].Cells[COL_FIELD].Value = "Item2";
+            LabelDataGridView.Rows[rItem3].Cells[COL_FIELD].Value = "Item3";
+            LabelDataGridView.Rows[rItem4].Cells[COL_FIELD].Value = "Item4";
+            LabelDataGridView.Rows[rItem5].Cells[COL_FIELD].Value = "Item5";
 
             // 이벤트
             LabelDataGridView.CurrentCellDirtyStateChanged -= LabelGrid_CurrentCellDirtyStateChanged;
@@ -204,7 +261,27 @@ namespace DHSTesterXL
             SetRow(RowKey.SN, "S/N", _style.SerialText ?? "", _style.SNx, _style.SNy, PositiveOr(_style.SNfont, 2.6), 1.0, 1.0);
 
             var qrData = BuildQrPayloadFromGrid();
-            SetRow(RowKey.QR, "QR", qrData, _style.QRx, _style.QRy, Math.Max(0.1, _style.QRModuleMm), 1.0, 1.0);
+
+            // 실제 인쇄 기준으로 환산: 모듈 도트(정수) × 모듈 수 × (25.4/DPI)
+            int modules = GetCurrentDmModulesFromUiOrAuto();
+            int moduleDots = Math.Max(1, MmToDots(Math.Max(0.1, _style.DMModuleMm), DEFAULT_DPI));
+            double sideMmActual = modules * (moduleDots * 25.4 / (double)DEFAULT_DPI);
+
+            // 그리드 'Size' 칸에 "한 변(mm)" 표시
+            SetRow(RowKey.DM, "DM", qrData, _style.DMx, _style.DMy, Math.Round(sideMmActual), 1.0, 1.0);
+
+            // 보기 포맷(원하면 0.0으로 소수 1자리)
+            var qrRow = GetRow(RowKey.DM);
+            if (qrRow != null) qrRow.Cells[COL_SIZE].Style.Format = "0";
+
+            SetRow(RowKey.Rating, "Rating", _style.RatingText ?? "", _style.RatingX, _style.RatingY, PositiveOr(_style.RatingFont, 2.6), 1, 1);
+            SetRow(RowKey.FCCID, "FCC ID", _style.FCCIDText ?? "", _style.FCCIDX, _style.FCCIDY, PositiveOr(_style.FCCIDFont, 2.6), 1, 1);
+            SetRow(RowKey.ICID, "IC ID", _style.ICIDText ?? "", _style.ICIDX, _style.ICIDY, PositiveOr(_style.ICIDFont, 2.6), 1, 1);
+            SetRow(RowKey.Item1, "Item1", _style.Item1Text ?? "", _style.Item1X, _style.Item1Y, PositiveOr(_style.Item1Font, 2.6), 1, 1);
+            SetRow(RowKey.Item2, "Item2", _style.Item2Text ?? "", _style.Item2X, _style.Item2Y, PositiveOr(_style.Item2Font, 2.6), 1, 1);
+            SetRow(RowKey.Item3, "Item3", _style.Item3Text ?? "", _style.Item3X, _style.Item3Y, PositiveOr(_style.Item3Font, 2.6), 1, 1);
+            SetRow(RowKey.Item4, "Item4", _style.Item4Text ?? "", _style.Item4X, _style.Item4Y, PositiveOr(_style.Item4Font, 2.6), 1, 1);
+            SetRow(RowKey.Item5, "Item5", _style.Item5Text ?? "", _style.Item5X, _style.Item5Y, PositiveOr(_style.Item5Font, 2.6), 1, 1);
 
             SetShow(RowKey.Logo, _style.ShowLogoPreview, _style.ShowLogoPrint);
             SetShow(RowKey.Brand, _style.ShowBrandPreview, _style.ShowBrandPrint);
@@ -214,7 +291,15 @@ namespace DHSTesterXL
             SetShow(RowKey.SW, _style.ShowSWPreview, _style.ShowSWPrint);
             SetShow(RowKey.LOT, _style.ShowLOTPreview, _style.ShowLOTPrint);
             SetShow(RowKey.SN, _style.ShowSNPreview, _style.ShowSNPrint);
-            SetShow(RowKey.QR, _style.ShowQRPreview, _style.ShowQRPrint);
+            SetShow(RowKey.DM, _style.ShowDMPreview, _style.ShowDMPrint);
+            SetShow(RowKey.Rating, _style.ShowRatingPreview, _style.ShowRatingPrint);
+            SetShow(RowKey.FCCID, _style.ShowFCCIDPreview, _style.ShowFCCIDPrint);
+            SetShow(RowKey.ICID, _style.ShowICIDPreview, _style.ShowICIDPrint);
+            SetShow(RowKey.Item1, _style.ShowItem1Preview, _style.ShowItem1Print);
+            SetShow(RowKey.Item2, _style.ShowItem2Preview, _style.ShowItem2Print);
+            SetShow(RowKey.Item3, _style.ShowItem3Preview, _style.ShowItem3Print);
+            SetShow(RowKey.Item4, _style.ShowItem4Preview, _style.ShowItem4Print);
+            SetShow(RowKey.Item5, _style.ShowItem5Preview, _style.ShowItem5Print);
 
             void SetRow(RowKey key, string name, string data, double x, double y, double size, double xs, double ys)
             {
@@ -306,14 +391,83 @@ namespace DHSTesterXL
                 _style.ShowSNPreview = B(GetRow(RowKey.SN)?.Cells[COL_SHOW_PREVIEW].Value);
                 _style.ShowSNPrint = B(GetRow(RowKey.SN)?.Cells[COL_SHOW_PRINT].Value);
             });
-            UpdateFromRow(RowKey.QR, (x, y, f, data) =>
+            UpdateFromRow(RowKey.DM, (x, y, sideMmTarget, data) =>
             {
-                _style.QRx = x; _style.QRy = y; _style.QRModuleMm = Math.Max(0.1, f);
-                _style.ShowQRPreview = B(GetRow(RowKey.QR)?.Cells[COL_SHOW_PREVIEW].Value);
-                _style.ShowQRPrint = B(GetRow(RowKey.QR)?.Cells[COL_SHOW_PRINT].Value);
+                _style.DMx = x;
+                _style.DMy = y;
+
+                double targetMm = Math.Max(1.0, Math.Round(sideMmTarget));
+                var pick = AutoPickDmByTarget(targetMm, DEFAULT_DPI);
+                int M = pick.M;
+                int h = pick.h;
+                double sideMmActual = pick.sideMmActual;
+
+                _style.DMModuleMm = h * 25.4 / (double)DEFAULT_DPI;
+
+                var rowQR = GetRow(RowKey.DM);
+                if (rowQR != null)
+                {
+                    rowQR.Cells[COL_XSCALE].Value = M.ToString("0");  // DM 열
+                    rowQR.Cells[COL_YSCALE].Value = M.ToString("0");  // DM 행
+                    rowQR.Cells[COL_SIZE].Value = Math.Round(sideMmActual).ToString("0"); // 정수 표시
+                    rowQR.Cells[COL_XSCALE].Style.Format = "0";
+                    rowQR.Cells[COL_YSCALE].Style.Format = "0";
+                    rowQR.Cells[COL_SIZE].Style.Format = "0";       // 포맷 정수
+                }
+
+                _style.ShowDMPreview = B(GetRow(RowKey.DM)?.Cells[COL_SHOW_PREVIEW].Value);
+                _style.ShowDMPrint = B(GetRow(RowKey.DM)?.Cells[COL_SHOW_PRINT].Value);
+            });
+            UpdateFromRow(RowKey.Rating, (x, y, f, data) => {
+                _style.RatingX = x; _style.RatingY = y; _style.RatingFont = f;
+                _style.RatingText = (data ?? "").Trim();
+                _style.ShowRatingPreview = B(GetRow(RowKey.Rating)?.Cells[COL_SHOW_PREVIEW].Value);
+                _style.ShowRatingPrint = B(GetRow(RowKey.Rating)?.Cells[COL_SHOW_PRINT].Value);
+            });
+            UpdateFromRow(RowKey.FCCID, (x, y, f, data) => {
+                _style.FCCIDX = x; _style.FCCIDY = y; _style.FCCIDFont = f;
+                _style.FCCIDText = (data ?? "").Trim();
+                _style.ShowFCCIDPreview = B(GetRow(RowKey.FCCID)?.Cells[COL_SHOW_PREVIEW].Value);
+                _style.ShowFCCIDPrint = B(GetRow(RowKey.FCCID)?.Cells[COL_SHOW_PRINT].Value);
+            });
+            UpdateFromRow(RowKey.ICID, (x, y, f, data) => {
+                _style.ICIDX = x; _style.ICIDY = y; _style.ICIDFont = f;
+                _style.ICIDText = (data ?? "").Trim();
+                _style.ShowICIDPreview = B(GetRow(RowKey.ICID)?.Cells[COL_SHOW_PREVIEW].Value);
+                _style.ShowICIDPrint = B(GetRow(RowKey.ICID)?.Cells[COL_SHOW_PRINT].Value);
+            });
+            UpdateFromRow(RowKey.Item1, (x, y, f, data) => {
+                _style.Item1X = x; _style.Item1Y = y; _style.Item1Font = f;
+                _style.Item1Text = (data ?? "").Trim();
+                _style.ShowItem1Preview = B(GetRow(RowKey.Item1)?.Cells[COL_SHOW_PREVIEW].Value);
+                _style.ShowItem1Print = B(GetRow(RowKey.Item1)?.Cells[COL_SHOW_PRINT].Value);
+            });
+            UpdateFromRow(RowKey.Item2, (x, y, f, data) => {
+                _style.Item2X = x; _style.Item2Y = y; _style.Item2Font = f;
+                _style.Item2Text = (data ?? "").Trim();
+                _style.ShowItem2Preview = B(GetRow(RowKey.Item2)?.Cells[COL_SHOW_PREVIEW].Value);
+                _style.ShowItem2Print = B(GetRow(RowKey.Item2)?.Cells[COL_SHOW_PRINT].Value);
+            });
+            UpdateFromRow(RowKey.Item3, (x, y, f, data) => {
+                _style.Item3X = x; _style.Item3Y = y; _style.Item3Font = f;
+                _style.Item3Text = (data ?? "").Trim();
+                _style.ShowItem3Preview = B(GetRow(RowKey.Item3)?.Cells[COL_SHOW_PREVIEW].Value);
+                _style.ShowItem3Print = B(GetRow(RowKey.Item3)?.Cells[COL_SHOW_PRINT].Value);
+            });
+            UpdateFromRow(RowKey.Item4, (x, y, f, data) => {
+                _style.Item4X = x; _style.Item4Y = y; _style.Item4Font = f;
+                _style.Item4Text = (data ?? "").Trim();
+                _style.ShowItem4Preview = B(GetRow(RowKey.Item4)?.Cells[COL_SHOW_PREVIEW].Value);
+                _style.ShowItem4Print = B(GetRow(RowKey.Item4)?.Cells[COL_SHOW_PRINT].Value);
+            });
+            UpdateFromRow(RowKey.Item5, (x, y, f, data) => {
+                _style.Item5X = x; _style.Item5Y = y; _style.Item5Font = f;
+                _style.Item5Text = (data ?? "").Trim();
+                _style.ShowItem5Preview = B(GetRow(RowKey.Item5)?.Cells[COL_SHOW_PREVIEW].Value);
+                _style.ShowItem5Print = B(GetRow(RowKey.Item5)?.Cells[COL_SHOW_PRINT].Value);
             });
 
-            RefreshQrDataCell();
+            RefreshDmDataCell();
         }
 
         // 로고 셀 더블클릭
@@ -449,9 +603,9 @@ namespace DHSTesterXL
             Preview.Invalidate();
         }
 
-        private void RefreshQrDataCell()
+        private void RefreshDmDataCell()
         {
-            var row = GetRow(RowKey.QR);
+            var row = GetRow(RowKey.DM);
             if (row != null)
                 row.Cells[COL_DATA].Value = BuildQrPayloadFromGrid();
         }

@@ -7,43 +7,24 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DHSTesterXL
 {
     public partial class FormProduct : Form
     {
-        private Point _labelCanReqID_HS_Location = new Point(5, 51);
-        private Point _labelCanResID_HS_Location = new Point(5, 79);
-        private Point _labelNM_ReqID_HS_Location = new Point(5, 107);
-        private Point _labelNM_ResID_HS_Location = new Point(5, 135);
-        private Point _checkPLightReqID_HS_Location = new Point(41, 165);
-        private Point _labelPLightResID_HS_Location = new Point(5, 193);
-        private Point _textCanReqID_HS_Location = new Point(175, 51);
-        private Point _textCanResID_HS_Location = new Point(175, 79);
-        private Point _textNM_ReqID_HS_Location = new Point(175, 107);
-        private Point _textNM_ResID_HS_Location = new Point(175, 135);
-        private Point _textPLightReqID_HS_Location = new Point(175, 163);
-        private Point _textPLightResID_HS_Location = new Point(175, 191);
+        private readonly int COL_No = 0;
+        private readonly int COL_Use = 1;
+        private readonly int COL_Item = 2;
+        private readonly int COL_Min = 3;
+        private readonly int COL_Max = 4;
+        private readonly int COL_Option = 5;
 
-        private Point _labelCanReqID_FD_Location = new Point(5, 247);
-        private Point _labelCanResID_FD_Location = new Point(5, 275);
-        private Point _labelNM_ReqID_FD_Location = new Point(5, 303);
-        private Point _labelNM_ResID_FD_Location = new Point(5, 331);
-        private Point _checkPLightReqID_FD_Location = new Point(41, 361);
-        private Point _labelPLightResID_FD_Location = new Point(5, 389);
-        private Point _textCanReqID_FD_Location = new Point(175, 247);
-        private Point _textCanResID_FD_Location = new Point(175, 275);
-        private Point _textNM_ReqID_FD_Location = new Point(175, 303);
-        private Point _textNM_ResID_FD_Location = new Point(175, 331);
-        private Point _textPLightReqID_FD_Location = new Point(175, 359);
-        private Point _textPLightResID_FD_Location = new Point(175, 387);
-
-        private readonly ProductConfig _tempProductSettings = new ProductConfig();
+        private ProductConfig _tempProductSettings = new ProductConfig();
         private bool _isModified = false;
 
         public string CurrentProductNo { get; set; }
@@ -59,21 +40,29 @@ namespace DHSTesterXL
 
             textProductName.TextChanged += (_, __) => CopyProductInfoToLabelTab();
             comboProductType.SelectionChangeCommitted += (_, __) => CopyProductInfoToLabelTab();
-            textTypeNo.TextChanged += (_, __) => CopyProductInfoToLabelTab();
+            textPLCRecipe.TextChanged += (_, __) => CopyProductInfoToLabelTab();
             textCarType.TextChanged += (_, __) => CopyProductInfoToLabelTab();
             textAlcNo.TextChanged += (_, __) => CopyProductInfoToLabelTab();
+
+            SetupEtcsDefaults();     // ← 기본값 세팅
+            WireUpEtcsEvents();      // ← 값 바뀌면 미리보기/그리드 갱신
         }
         partial void Label_Init();
 
-        private void FormProduct_Load(object sender, EventArgs e)
+        public void InitFromOutside()
         {
+            // 임시 ProductSettings를 사용한다.
+            _tempProductSettings = GSystem.ProductSettings;
+
             SetupProductInfo();
             SetupCommSettings();
             SetupGridTestList();
             SetupGridXcpList();
             SetupCommTypePosition(comboCommType.SelectedItem.ToString());
-            labelUartPort.Location = new Point(5, 5);
-            comboUartPort.Location = new Point(175, 5);
+            SetupTHDSettings();
+            SetupMasterSample();
+            //labelUartPort.Location = new Point(5, 5);
+            //comboUartPortNameCh1.Location = new Point(175, 5);
 
             // btnTest 버튼 숨기기/보이기
             btnTest.Visible = false;
@@ -81,12 +70,62 @@ namespace DHSTesterXL
             // 리스트에서 실제 품번을 하나 선택해 로드한다
             if (comboProductNo.Items.Count > 0)
             {
-                if (string.IsNullOrWhiteSpace(CurrentProductNo))
+                if (string.IsNullOrWhiteSpace(CurrentProductNo)) // null/빈 문자열 방지
                     CurrentProductNo = comboProductNo.Items[0].ToString();
 
                 comboProductNo.SelectedItem = CurrentProductNo;
                 ApplyProductNo(CurrentProductNo); // ← 파일 로드 + UI 갱신 + 라벨탭 갱신(마지막 줄)
             }
+        }
+
+        private void FormProduct_Load(object sender, EventArgs e)
+        {
+            panelUartSettings.Location = new Point(5, 60);
+
+            SetupProductInfo();
+            SetupCommSettings();
+            SetupGridTestList();
+            SetupGridXcpList();
+            SetupCommTypePosition(comboCommType.SelectedItem.ToString());
+            SetupTHDSettings();
+            SetupMasterSample();
+            //labelUartPort.Location = new Point(5, 5);
+            //comboUartPortNameCh1.Location = new Point(175, 5);
+
+            // btnTest 버튼 숨기기/보이기
+            btnTest.Visible = true;
+
+            Label_Init(); // 라벨 탭 초기화(이벤트 연결)
+
+            textProductName.TextChanged += (_, __) => CopyProductInfoToLabelTab();
+            comboProductType.SelectionChangeCommitted += (_, __) => CopyProductInfoToLabelTab();
+            textPLCRecipe.TextChanged += (_, __) => CopyProductInfoToLabelTab();
+            textCarType.TextChanged += (_, __) => CopyProductInfoToLabelTab();
+            textAlcNo.TextChanged += (_, __) => CopyProductInfoToLabelTab();
+
+            SetupEtcsDefaults();     // ← 기본값 세팅
+            WireUpEtcsEvents();      // ← 값 바뀌면 미리보기/그리드 갱신
+
+            // 리스트에서 실제 품번을 하나 선택해 로드한다
+            if (comboProductNo.Items.Count > 0)
+            {
+                if (string.IsNullOrWhiteSpace(CurrentProductNo)) // null/빈 문자열 방지
+                    CurrentProductNo = comboProductNo.Items[0].ToString();
+
+                comboProductNo.SelectedItem = CurrentProductNo;
+                ApplyProductNo(CurrentProductNo); // ← 파일 로드 + UI 갱신 + 라벨탭 갱신(마지막 줄)
+            }
+
+            if (GSystem.MasterTestCh1[0])
+                labelMaster1.ForeColor = Color.Blue;
+            if (GSystem.MasterTestCh1[1])
+                labelMaster2.ForeColor = Color.Blue;
+            if (GSystem.MasterTestCh1[2])
+                labelMaster3.ForeColor = Color.Blue;
+            if (GSystem.MasterTestCh1[3])
+                labelMaster4.ForeColor = Color.Blue;
+            if (GSystem.MasterTestCh1[4])
+                labelMaster5.ForeColor = Color.Blue;
         }
 
         private void FormProduct_Shown(object sender, EventArgs e)
@@ -96,7 +135,20 @@ namespace DHSTesterXL
 
         private void FormProduct_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            if (_isModified)
+            {
+                string caption = "저장 확인";
+                string message = "설정값이 변경된 항목이 있습니다. 닫기 전에 저장하시겠습니까?\n[예]\t저장 후 닫기\n[아니요]\t저장하지 않고 닫기\n[취소]\t닫기를 취소하고 화면으로 복귀\t";
+                DialogResult dialogResult = MessageBox.Show(this, message, caption, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                else if (dialogResult == DialogResult.Yes)
+                    SaveSettings();
+            }
+            NewProductNo = comboProductNo.SelectedItem.ToString();
         }
 
         private void FormProduct_FormClosed(object sender, FormClosedEventArgs e)
@@ -110,14 +162,13 @@ namespace DHSTesterXL
             comboProductNo.Items.Clear();
             foreach (string productNo in productNoList)
             {
-                if (string.IsNullOrWhiteSpace(productNo)) continue;
+                if (string.IsNullOrWhiteSpace(productNo)) continue; // null/빈 문자열 건너뜀
                 comboProductNo.Items.Add($"{productNo}");
             }
             // 선택 없으면 첫 번째 항목 자동 선택
             if (comboProductNo.SelectedIndex < 0 && comboProductNo.Items.Count > 0)
-                comboProductNo.SelectedIndex = 0;
+                comboProductNo.SelectedIndex = 0; // 공백 선택 방지
         }
-
         private void CopyProductInfoToLabelTab()
         {
             // 원본 값 꺼내기
@@ -162,22 +213,21 @@ namespace DHSTesterXL
                 {
                     if (comboProductNo2.DropDownStyle == ComboBoxStyle.DropDownList)
                     {
-                        comboProductNo2.Items.Add(partNo);
+                        comboProductNo2.Items.Add(partNo); // partNo가 null/공백이 아니어야 들어감
                         comboProductNo2.SelectedItem = partNo;
                     }
                     else
                     {
-                        comboProductNo2.Text = partNo;
+                        comboProductNo2.Text = partNo; // 빈 문자열이면 UI 표시 x
                     }
                 }
             }
 
-            // ▶ 라벨 탭 상태 갱신(텍스트박스 제거했으므로 스타일에만 기록)
+            // 라벨 탭 상태 갱신(텍스트박스 제거했으므로 스타일에만 기록)
             _style.PartText = partNo;     // 프리뷰/인쇄 시 이 값을 사용
             _isModified = true;
             Preview?.Invalidate();
         }
-
 
         private void SetupProductInfo()
         {
@@ -186,29 +236,24 @@ namespace DHSTesterXL
 
             textProductName.Text = _tempProductSettings.ProductInfo.PartName;
             comboProductType.SelectedItem = _tempProductSettings.ProductInfo.TypeName;
-            textTypeNo.Text = _tempProductSettings.ProductInfo.TypeNo;
+            textPLCRecipe.Text  = _tempProductSettings.ProductInfo.TypeNo;
             textCarType.Text = _tempProductSettings.ProductInfo.CarType;
-            textAlcNo.Text = _tempProductSettings.ProductInfo.AlcNo;
-
-            CopyProductInfoToLabelTab();
+            textAlcNo.Text   = _tempProductSettings.ProductInfo.AlcNo;
         }
-
         private void UpdateProductInfo()
         {
             textProductName.Text = _tempProductSettings.ProductInfo.PartName;
             comboProductType.SelectedItem = _tempProductSettings.ProductInfo.TypeName;
-            textTypeNo.Text = _tempProductSettings.ProductInfo.TypeNo;
+            textPLCRecipe.Text = _tempProductSettings.ProductInfo.TypeNo;
             textCarType.Text = _tempProductSettings.ProductInfo.CarType;
             textAlcNo.Text = _tempProductSettings.ProductInfo.AlcNo;
-
-            CopyProductInfoToLabelTab();
         }
         private void GetProductInfoValue()
         {
-            _tempProductSettings.ProductInfo.PartNo = comboProductNo.SelectedItem.ToString();
+            _tempProductSettings.ProductInfo.PartNo = comboProductNo.SelectedItem.ToString() ?? ""; // null 방지
             _tempProductSettings.ProductInfo.PartName = textProductName.Text;
             _tempProductSettings.ProductInfo.TypeName = comboProductType.SelectedItem.ToString();
-            _tempProductSettings.ProductInfo.TypeNo = textTypeNo.Text;
+            _tempProductSettings.ProductInfo.TypeNo = textPLCRecipe.Text;
             _tempProductSettings.ProductInfo.CarType = textCarType.Text;
             _tempProductSettings.ProductInfo.AlcNo = textAlcNo.Text;
         }
@@ -235,13 +280,59 @@ namespace DHSTesterXL
             textNM_ReqID.Text = _tempProductSettings.CommSettings.NM_ReqID;
             textNM_ResID.Text = _tempProductSettings.CommSettings.NM_ResID;
 
+            textNFC_ReqID.Text = _tempProductSettings.CommSettings.NFC_ReqID;
+            textNFC_ResID.Text = _tempProductSettings.CommSettings.NFC_ResID;
+
             checkPLightReqID.Checked = _tempProductSettings.CommSettings.PLightUse;
             textPLightReqID.Text = _tempProductSettings.CommSettings.PLightReqID;
             textPLightResID.Text = _tempProductSettings.CommSettings.PLightResID;
             textPLightReqID.Enabled = _tempProductSettings.CommSettings.PLightUse;
             textPLightResID.Enabled = _tempProductSettings.CommSettings.PLightUse;
 
-            //comboUartPort.SelectedItem = _tempProductSettings.CommSettings.UartPortName;
+            // 통신 포트
+            /*
+            string[] portList = System.IO.Ports.SerialPort.GetPortNames();
+            if (portList.Length > 0)
+            {
+                Array.Sort(portList);
+                comboUartPortNameCh1.Items.Clear();
+                comboUartPortNameCh1.Items.AddRange(portList);
+                comboUartPortNameCh2.Items.Clear();
+                comboUartPortNameCh2.Items.AddRange(portList);
+            }
+            if (_tempProductSettings.CommSettings.UartPortNameCh1 == null)
+                _tempProductSettings.CommSettings.UartPortNameCh1 = comboUartPortNameCh1.Items[0].ToString();
+            comboUartPortNameCh1.SelectedItem = _tempProductSettings.CommSettings.UartPortNameCh1;
+            if (comboUartPortNameCh1.SelectedItem == null)
+                comboUartPortNameCh1.SelectedIndex = 0;
+            if (_tempProductSettings.CommSettings.UartPortNameCh2 == null)
+                _tempProductSettings.CommSettings.UartPortNameCh2 = comboUartPortNameCh2.Items[0].ToString();
+            comboUartPortNameCh2.SelectedItem = _tempProductSettings.CommSettings.UartPortNameCh2;
+            if (comboUartPortNameCh2.SelectedItem == null)
+                comboUartPortNameCh2.SelectedIndex = 0;
+            */
+
+            // 통신 속도
+            comboUartBaudrateCh1.Items.Clear();
+            comboUartBaudrateCh2.Items.Clear();
+            foreach (int baud in GDefines.COM_BAUDRATE)
+            {
+                comboUartBaudrateCh1.Items.Add(baud.ToString());
+                comboUartBaudrateCh2.Items.Add(baud.ToString());
+            }
+            comboUartBaudrateCh1.SelectedItem = _tempProductSettings.CommSettings.UartBaudrateCh1.ToString();
+            comboUartBaudrateCh2.SelectedItem = _tempProductSettings.CommSettings.UartBaudrateCh2.ToString();
+
+            if (_tempProductSettings.CommSettings.CommType == "UART")
+            {
+                panelUartSettings.Visible = true;
+                panelNfcSettings.Visible = false;
+            }
+            else
+            {
+                panelUartSettings.Visible = false;
+                panelNfcSettings.Visible = true;
+            }
         }
         private void UpdateCommSettings()
         {
@@ -263,13 +354,19 @@ namespace DHSTesterXL
             textNM_ReqID.Text = _tempProductSettings.CommSettings.NM_ReqID;
             textNM_ResID.Text = _tempProductSettings.CommSettings.NM_ResID;
 
+            textNFC_ReqID.Text = _tempProductSettings.CommSettings.NFC_ReqID;
+            textNFC_ResID.Text = _tempProductSettings.CommSettings.NFC_ResID;
+
             checkPLightReqID.Checked = _tempProductSettings.CommSettings.PLightUse;
             textPLightReqID.Text = _tempProductSettings.CommSettings.PLightReqID;
             textPLightResID.Text = _tempProductSettings.CommSettings.PLightResID;
             textPLightReqID.Enabled = _tempProductSettings.CommSettings.PLightUse;
             textPLightResID.Enabled = _tempProductSettings.CommSettings.PLightUse;
 
-            //comboUartPort.SelectedItem = _tempProductSettings.CommSettings.UartPortName;
+            comboUartPortNameCh1.SelectedItem = _tempProductSettings.CommSettings.UartPortNameCh1;
+            comboUartBaudrateCh1.SelectedItem = _tempProductSettings.CommSettings.UartBaudrateCh1.ToString();
+            comboUartPortNameCh2.SelectedItem = _tempProductSettings.CommSettings.UartPortNameCh2;
+            comboUartBaudrateCh2.SelectedItem = _tempProductSettings.CommSettings.UartBaudrateCh2.ToString();
         }
         private void GetCommSettingsValue()
         {
@@ -292,11 +389,17 @@ namespace DHSTesterXL
             _tempProductSettings.CommSettings.NM_ReqID = textNM_ReqID.Text;
             _tempProductSettings.CommSettings.NM_ResID = textNM_ResID.Text;
 
+            _tempProductSettings.CommSettings.NFC_ReqID = textNFC_ReqID.Text;
+            _tempProductSettings.CommSettings.NFC_ResID = textNFC_ResID.Text;
+
             _tempProductSettings.CommSettings.PLightUse = checkPLightReqID.Checked;
             _tempProductSettings.CommSettings.PLightReqID = textPLightReqID.Text;
             _tempProductSettings.CommSettings.PLightResID = textPLightResID.Text;
 
-            //_tempProductSettings.CommSettings.UartPortName = comboUartPort.SelectedItem.ToString();
+            _tempProductSettings.CommSettings.UartPortNameCh1 = comboUartPortNameCh1.SelectedItem.ToString();
+            _tempProductSettings.CommSettings.UartBaudrateCh1 = Convert.ToInt32(comboUartBaudrateCh1.SelectedItem.ToString());
+            _tempProductSettings.CommSettings.UartPortNameCh2 = comboUartPortNameCh2.SelectedItem.ToString();
+            _tempProductSettings.CommSettings.UartBaudrateCh2 = Convert.ToInt32(comboUartBaudrateCh2.SelectedItem.ToString());
         }
 
         private void SetupGridTestList()
@@ -305,33 +408,40 @@ namespace DHSTesterXL
             {
                 TestSpec testSpec = _tempProductSettings.GetTestItemSpec((TestItems)i);
                 gridTestList.Rows.Add();
-                gridTestList[0, i].Value = (i + 1).ToString();
-                gridTestList[1, i].Value = testSpec.Use;
+                gridTestList[COL_No, i].Value = (i + 1).ToString();
+                gridTestList[COL_Use, i].Value = testSpec.Use;
                 if ((TestItems)i == TestItems.SerialNumber || (TestItems)i == TestItems.Manufacture)
                 {
                     // Name
-                    gridTestList[2, i].Value = $"{testSpec.Name} ({GDefines.TEST_ITEM_OPTION[testSpec.Option]})";
+                    gridTestList[COL_Item, i].Value = $"{testSpec.Name} ({GDefines.TEST_ITEM_OPTION[testSpec.Option]})";
                     // Option
-                    gridTestList[5, i].Value = testSpec.Option.ToString();
+                    gridTestList[COL_Option, i].Value = testSpec.Option.ToString();
+                }
+                else if ((TestItems)i == TestItems.LockSen)
+                {
+                    // Name
+                    gridTestList[COL_Item, i].Value = $"{testSpec.Name} ({GDefines.TEST_TOUCH_OPTION[testSpec.Option]})";
+                    // Option
+                    gridTestList[COL_Option, i].Value = testSpec.Option.ToString();
                 }
                 else
                 {
                     // Name
-                    gridTestList[2, i].Value = testSpec.Name;
+                    gridTestList[COL_Item, i].Value = testSpec.Name;
                 }
                 switch (testSpec.DataType)
                 {
                     case 0:
-                        gridTestList[3, i].Value = testSpec.MinValue.ToString("F1");
-                        gridTestList[4, i].Value = testSpec.MaxValue.ToString("F1");
+                        gridTestList[COL_Min, i].Value = testSpec.MinValue.ToString("F1");
+                        gridTestList[COL_Max, i].Value = testSpec.MaxValue.ToString("F1");
                         break;
                     case 1:
-                        gridTestList[3, i].Value = testSpec.MinValue.ToString();
-                        gridTestList[4, i].Value = testSpec.MaxValue.ToString();
+                        gridTestList[COL_Min, i].Value = testSpec.MinValue.ToString();
+                        gridTestList[COL_Max, i].Value = testSpec.MaxValue.ToString();
                         break;
                     case 2:
-                        gridTestList[3, i].Value = testSpec.MinString;
-                        gridTestList[4, i].Value = testSpec.MaxString;
+                        gridTestList[COL_Min, i].Value = testSpec.MinString;
+                        gridTestList[COL_Max, i].Value = testSpec.MaxString;
                         break;
                     default: break;
                 }
@@ -343,33 +453,40 @@ namespace DHSTesterXL
             for (int i = 0; i < (int)TestItems.Count; i++)
             {
                 TestSpec testSpec = _tempProductSettings.GetTestItemSpec((TestItems)i);
-                gridTestList[0, i].Value = (i + 1).ToString();
-                gridTestList[1, i].Value = testSpec.Use;
+                gridTestList[COL_No, i].Value = (i + 1).ToString();
+                gridTestList[COL_Use, i].Value = testSpec.Use;
                 if ((TestItems)i == TestItems.SerialNumber || (TestItems)i == TestItems.Manufacture)
                 {
                     // Name
-                    gridTestList[2, i].Value = $"{testSpec.Name} ({GDefines.TEST_ITEM_OPTION[testSpec.Option]})";
+                    gridTestList[COL_Item, i].Value = $"{testSpec.Name} ({GDefines.TEST_ITEM_OPTION[testSpec.Option]})";
                     // Option
-                    gridTestList[5, i].Value = testSpec.Option.ToString();
+                    gridTestList[COL_Option, i].Value = testSpec.Option.ToString();
+                }
+                else if ((TestItems)i == TestItems.LockSen)
+                {
+                    // Name
+                    gridTestList[COL_Item, i].Value = $"{testSpec.Name} ({GDefines.TEST_TOUCH_OPTION[testSpec.Option]})";
+                    // Option
+                    gridTestList[COL_Option, i].Value = testSpec.Option.ToString();
                 }
                 else
                 {
                     // Name
-                    gridTestList[2, i].Value = testSpec.Name;
+                    gridTestList[COL_Item, i].Value = testSpec.Name;
                 }
                 switch (testSpec.DataType)
                 {
                     case 0:
-                        gridTestList[3, i].Value = testSpec.MinValue.ToString("F1");
-                        gridTestList[4, i].Value = testSpec.MaxValue.ToString("F1");
+                        gridTestList[COL_Min, i].Value = testSpec.MinValue.ToString("F1");
+                        gridTestList[COL_Max, i].Value = testSpec.MaxValue.ToString("F1");
                         break;
                     case 1:
-                        gridTestList[3, i].Value = testSpec.MinValue.ToString();
-                        gridTestList[4, i].Value = testSpec.MaxValue.ToString();
+                        gridTestList[COL_Min, i].Value = testSpec.MinValue.ToString();
+                        gridTestList[COL_Max, i].Value = testSpec.MaxValue.ToString();
                         break;
                     case 2:
-                        gridTestList[3, i].Value = testSpec.MinString;
-                        gridTestList[4, i].Value = testSpec.MaxString;
+                        gridTestList[COL_Min, i].Value = testSpec.MinString;
+                        gridTestList[COL_Max, i].Value = testSpec.MaxString;
                         break;
                     default: break;
                 }
@@ -381,26 +498,26 @@ namespace DHSTesterXL
             for (int i = 0; i < (int)TestItems.Count; i++)
             {
                 TestSpec testSpec = _tempProductSettings.GetTestItemSpec((TestItems)i);
-                testSpec.Use = Convert.ToBoolean(gridTestList[1, i].Value);
+                testSpec.Use = Convert.ToBoolean(gridTestList[COL_Use, i].Value);
                 //testSpec.Name = gridTestList[2, i].Value.ToString();
-                if ((TestItems)i == TestItems.SerialNumber || (TestItems)i == TestItems.Manufacture)
+                if ((TestItems)i == TestItems.SerialNumber || (TestItems)i == TestItems.Manufacture || (TestItems)i == TestItems.LockSen)
                 {
                     // Option
-                    testSpec.Option = Convert.ToUInt16(gridTestList[5, i].Value.ToString());
+                    testSpec.Option = Convert.ToUInt16(gridTestList[COL_Option, i].Value.ToString());
                 }
                 switch (testSpec.DataType)
                 {
                     case 0:
-                        testSpec.MinValue = Convert.ToDouble(gridTestList[3, i].Value.ToString());
-                        testSpec.MaxValue = Convert.ToDouble(gridTestList[4, i].Value.ToString());
+                        testSpec.MinValue = Convert.ToDouble(gridTestList[COL_Min, i].Value.ToString());
+                        testSpec.MaxValue = Convert.ToDouble(gridTestList[COL_Max, i].Value.ToString());
                         break;
                     case 1:
-                        testSpec.MinValue = Convert.ToDouble(gridTestList[3, i].Value.ToString());
-                        testSpec.MaxValue = Convert.ToDouble(gridTestList[4, i].Value.ToString());
+                        testSpec.MinValue = Convert.ToDouble(gridTestList[COL_Min, i].Value.ToString());
+                        testSpec.MaxValue = Convert.ToDouble(gridTestList[COL_Max, i].Value.ToString());
                         break;
                     case 2:
-                        testSpec.MinString = gridTestList[3, i].Value.ToString();
-                        testSpec.MaxString = gridTestList[4, i].Value.ToString();
+                        testSpec.MinString = gridTestList[COL_Min, i].Value.ToString();
+                        testSpec.MaxString = gridTestList[COL_Max, i].Value.ToString();
                         break;
                     default: break;
                 }
@@ -473,6 +590,58 @@ namespace DHSTesterXL
             // XCP ECU Addr
             _tempProductSettings.XCPAddress.EcuAddr = textXcpEcuAddr.Text;
         }
+        private void SetupMasterSample()
+        {
+            checkUseMasterSample.Checked = _tempProductSettings.ProductInfo.UseMasterSample;
+            checkUseProductBarcode.Checked = _tempProductSettings.ProductInfo.UseProductBarcode;
+            checkUseTrayInterlock.Checked = _tempProductSettings.ProductInfo.UseTrayInterlock;
+            checkUseLabelPrint.Checked = _tempProductSettings.ProductInfo.UseLabelPrint;
+            numericMasterCount.Value = _tempProductSettings.MasterSample.MasterCount;
+            textMasterType1.Text = _tempProductSettings.MasterSample.MasterType1;
+            textMasterType2.Text = _tempProductSettings.MasterSample.MasterType2;
+            textMasterType3.Text = _tempProductSettings.MasterSample.MasterType3;
+            textMasterType4.Text = _tempProductSettings.MasterSample.MasterType4;
+            textMasterType5.Text = _tempProductSettings.MasterSample.MasterType5;
+            textMasterBarcode1.Text = _tempProductSettings.MasterSample.MasterBarcode1;
+            textMasterBarcode2.Text = _tempProductSettings.MasterSample.MasterBarcode2;
+            textMasterBarcode3.Text = _tempProductSettings.MasterSample.MasterBarcode3;
+            textMasterBarcode4.Text = _tempProductSettings.MasterSample.MasterBarcode4;
+            textMasterBarcode5.Text = _tempProductSettings.MasterSample.MasterBarcode5;
+        }
+        private void GetMasterSampleValue()
+        {
+            _tempProductSettings.ProductInfo.UseMasterSample = checkUseMasterSample.Checked;
+            _tempProductSettings.ProductInfo.UseProductBarcode = checkUseProductBarcode.Checked;
+            _tempProductSettings.ProductInfo.UseTrayInterlock = checkUseTrayInterlock.Checked;
+            _tempProductSettings.ProductInfo.UseLabelPrint = checkUseLabelPrint.Checked;
+            _tempProductSettings.MasterSample.MasterCount = (int)numericMasterCount.Value;
+            _tempProductSettings.MasterSample.MasterType1 = textMasterType1.Text;
+            _tempProductSettings.MasterSample.MasterType2 = textMasterType2.Text;
+            _tempProductSettings.MasterSample.MasterType3 = textMasterType3.Text;
+            _tempProductSettings.MasterSample.MasterType4 = textMasterType4.Text;
+            _tempProductSettings.MasterSample.MasterType5 = textMasterType5.Text;
+            _tempProductSettings.MasterSample.MasterBarcode1 = textMasterBarcode1.Text;
+            _tempProductSettings.MasterSample.MasterBarcode2 = textMasterBarcode2.Text;
+            _tempProductSettings.MasterSample.MasterBarcode3 = textMasterBarcode3.Text;
+            _tempProductSettings.MasterSample.MasterBarcode4 = textMasterBarcode4.Text;
+            _tempProductSettings.MasterSample.MasterBarcode5 = textMasterBarcode5.Text;
+        }
+
+        private void SetupTHDSettings()
+        {
+            textThdTouchFastMutual.Text = _tempProductSettings.THDSettings.TouchFastMutual.ToString();
+            textThdTouchFastSelf.Text = _tempProductSettings.THDSettings.TouchFastSelf.ToString();
+            textThdCancelFastSelf.Text = _tempProductSettings.THDSettings.CancelFastSelf.ToString();
+            textThdCancelSlowSelf.Text = _tempProductSettings.THDSettings.CancelSlowSelf.ToString();
+        }
+
+        private void GetTHDSettings()
+        {
+            _tempProductSettings.THDSettings.TouchFastMutual = Convert.ToInt32(textThdTouchFastMutual.Text, 10);
+            _tempProductSettings.THDSettings.TouchFastSelf = Convert.ToInt32(textThdTouchFastSelf.Text, 10);
+            _tempProductSettings.THDSettings.CancelFastSelf = Convert.ToInt32(textThdCancelFastSelf.Text, 10);
+            _tempProductSettings.THDSettings.CancelSlowSelf = Convert.ToInt32(textThdCancelSlowSelf.Text, 10);
+        }
 
         private void ApplyProductNo(string productNo)
         {
@@ -482,9 +651,10 @@ namespace DHSTesterXL
             _tempProductSettings.Load(productFilePath, GSystem.SystemData.GeneralSettings.ProductFolder);
             CurrentProductNo = productNo;
             SetupProductInfo();
-            UpdateCommSettings();
+            SetupCommSettings();
             UpdateGridTestList();
             UpdateGridXcpList();
+            SetupMasterSample();
             _isModified = false;
 
             this.LoadFromProduct(_tempProductSettings);
@@ -570,14 +740,18 @@ namespace DHSTesterXL
             GetCommSettingsValue();
             GetGridTestListValue();
             GetGridXcpListValue();
-            // ✅ 라벨 그리드 → _style 반영(그리고 ApplyToProduct에서 라벨 섹션 복사)
+            GetMasterSampleValue();
+            GetTHDSettings();
+            // 라벨 그리드 → _style 반영(그리고 ApplyToProduct에서 라벨 섹션 복사)
             GetGridLabelValue();
             this.ApplyToProduct(_tempProductSettings); // Label 탭 정보 회수
             GSystem.ProductSettings.ProductInfo = _tempProductSettings.ProductInfo;
             GSystem.ProductSettings.CommSettings = _tempProductSettings.CommSettings;
             GSystem.ProductSettings.TestItemSpecs = _tempProductSettings.TestItemSpecs;
             GSystem.ProductSettings.XCPAddress = _tempProductSettings.XCPAddress;
+            GSystem.ProductSettings.MasterSample = _tempProductSettings.MasterSample;
             GSystem.ProductSettings.TestInfo = _tempProductSettings.TestInfo;
+            GSystem.ProductSettings.THDSettings = _tempProductSettings.THDSettings;
             GSystem.ProductSettings.LabelPrint = _tempProductSettings.LabelPrint; // 라벨 섹션 복사
             string productSettingsFileName = _tempProductSettings.ProductInfo.PartNo + GSystem.JSON_EXT;
             GSystem.ProductSettings.Save(productSettingsFileName, GSystem.SystemData.GeneralSettings.ProductFolder);
@@ -586,31 +760,11 @@ namespace DHSTesterXL
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            if (_isModified)
-            {
-                string caption = "저장 확인";
-                string message = "설정값이 변경된 항목이 있습니다. 닫기 전에 저장하시겠습니까?\n[예]\t저장 후 닫기\n[아니요]\t저장하지 않고 닫기\n[취소]\t닫기를 취소하고 화면으로 복귀\t";
-                DialogResult dialogResult = MessageBox.Show(this, message, caption, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (dialogResult == DialogResult.Cancel) return;
-                else if (dialogResult == DialogResult.Yes) SaveSettings();
-            }
-            NewProductNo = comboProductNo.SelectedItem.ToString();
             Close();
         }
 
         private void comboCommType_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            // Enable/Disable
-            //if (comboCommType.SelectedIndex == 0)
-            //{
-            //    // CAN
-            //    SetupCommTypePosition(comboCommType.SelectedItem.ToString());
-            //}
-            //else if (comboCommType.SelectedIndex == 1)
-            //{
-            //    // CAN FD
-            //    SetupCommTypePosition(comboCommType.SelectedItem.ToString());
-            //}
             SetupCommTypePosition(comboCommType.SelectedItem.ToString());
         }
 
@@ -618,93 +772,58 @@ namespace DHSTesterXL
         {
             if (commType == "CAN")
             {
+                panelUartSettings.Visible = false;
+                panelNfcSettings.Visible = true;
+
                 labelCanArbBitRate.Visible = true;
+                labelCanArbTseg1  .Visible = false;
+                labelCanArbTseg2  .Visible = false;
+                labelCanArbSjw    .Visible = false;
                 labelCanDatBitRate.Visible = false;
-                textCanArbBitRate.Visible = true;
-                textCanDatBitRate.Visible = false;
+                labelCanDatTseg1  .Visible = false;
+                labelCanDatTseg2  .Visible = false;
+                labelCanDatSjw    .Visible = false;
 
-                labelUartPort.Visible = false;
-                comboUartPort.Visible = false;
+                textCanArbBitRate .Visible = true;
+                textCanArbTseg1   .Visible = false;
+                textCanArbTseg2   .Visible = false;
+                textCanArbSjw     .Visible = false;
+                textCanDatBitRate .Visible = false;
+                textCanDatTseg1   .Visible = false;
+                textCanDatTseg2   .Visible = false;
+                textCanDatSjw     .Visible = false;
 
-                //labelCanArbTseg1  .Visible = false;
-                //labelCanArbTseg2  .Visible = false;
-                //labelCanArbSjw    .Visible = false;
-                //labelCanDatBitRate.Visible = false;
-                //labelCanDatTseg1  .Visible = false;
-                //labelCanDatTseg2  .Visible = false;
-                //labelCanDatSjw    .Visible = false;
-
-                //textCanArbTseg1  .Visible = false;
-                //textCanArbTseg2  .Visible = false;
-                //textCanArbSjw    .Visible = false;
-                //textCanDatBitRate.Visible = false;
-                //textCanDatTseg1  .Visible = false;
-                //textCanDatTseg2  .Visible = false;
-                //textCanDatSjw    .Visible = false;
-
-                labelCanArbBitRate.Text = "Bit Rate [bit/s]";
-                //labelCanReqID.Location    = _labelCanReqID_HS_Location;
-                //labelCanResID.Location    = _labelCanResID_HS_Location;
-                //labelNM_ReqID.Location    = _labelNM_ReqID_HS_Location;
-                //labelNM_ResID.Location    = _labelNM_ResID_HS_Location;
-                //checkPLightReqID.Location = _checkPLightReqID_HS_Location;
-                //labelPLightResID.Location = _labelPLightResID_HS_Location;
-                //textCanReqID.Location     = _textCanReqID_HS_Location;
-                //textCanResID.Location     = _textCanResID_HS_Location;
-                //textNM_ReqID.Location     = _textNM_ReqID_HS_Location;
-                //textNM_ResID.Location     = _textNM_ResID_HS_Location;
-                //textPLightReqID.Location  = _textPLightReqID_HS_Location;
-                //textPLightResID.Location  = _textPLightResID_HS_Location;
+                labelCanArbBitRate.Text   = "Bit Rate [bit/s]";
             }
             else if (commType == "CAN FD")
             {
+                panelUartSettings.Visible = false;
+                panelNfcSettings.Visible = true;
+
                 labelCanArbBitRate.Visible = true;
+                labelCanArbTseg1  .Visible = true;
+                labelCanArbTseg2  .Visible = true;
+                labelCanArbSjw    .Visible = true;
                 labelCanDatBitRate.Visible = true;
-                textCanArbBitRate.Visible = true;
-                textCanDatBitRate.Visible = true;
+                labelCanDatTseg1  .Visible = true;
+                labelCanDatTseg2  .Visible = true;
+                labelCanDatSjw    .Visible = true;
 
-                labelUartPort.Visible = false;
-                comboUartPort.Visible = false;
+                textCanArbBitRate .Visible = true;
+                textCanArbTseg1   .Visible = true;
+                textCanArbTseg2   .Visible = true;
+                textCanArbSjw     .Visible = true;
+                textCanDatBitRate .Visible = true;
+                textCanDatTseg1   .Visible = true;
+                textCanDatTseg2   .Visible = true;
+                textCanDatSjw     .Visible = true;
 
-                //labelCanArbTseg1  .Visible = true;
-                //labelCanArbTseg2  .Visible = true;
-                //labelCanArbSjw    .Visible = true;
-                //labelCanDatBitRate.Visible = true;
-                //labelCanDatTseg1  .Visible = true;
-                //labelCanDatTseg2  .Visible = true;
-                //labelCanDatSjw    .Visible = true;
-
-                //textCanArbTseg1  .Visible = true;
-                //textCanArbTseg2  .Visible = true;
-                //textCanArbSjw    .Visible = true;
-                //textCanDatBitRate.Visible = true;
-                //textCanDatTseg1  .Visible = true;
-                //textCanDatTseg2  .Visible = true;
-                //textCanDatSjw    .Visible = true;
-
-                labelCanArbBitRate.Text = "Arbitration Bit Rate [bit/s]";
-                //labelCanReqID.Location    = _labelCanReqID_FD_Location;
-                //labelCanResID.Location    = _labelCanResID_FD_Location;
-                //labelNM_ReqID.Location    = _labelNM_ReqID_FD_Location;
-                //labelNM_ResID.Location    = _labelNM_ResID_FD_Location;
-                //checkPLightReqID.Location = _checkPLightReqID_FD_Location;
-                //labelPLightResID.Location = _labelPLightResID_FD_Location;
-                //textCanReqID.Location     = _textCanReqID_FD_Location;
-                //textCanResID.Location     = _textCanResID_FD_Location;
-                //textNM_ReqID.Location     = _textNM_ReqID_FD_Location;
-                //textNM_ResID.Location     = _textNM_ResID_FD_Location;
-                //textPLightReqID.Location  = _textPLightReqID_FD_Location;
-                //textPLightResID.Location  = _textPLightResID_FD_Location;
+                labelCanArbBitRate.Text   = "Arbitration Bit Rate [bit/s]";
             }
             else if (commType == "UART")
             {
-                labelUartPort.Visible = true;
-                comboUartPort.Visible = true;
-
-                labelCanArbBitRate.Visible = false;
-                labelCanDatBitRate.Visible = false;
-                textCanArbBitRate.Visible = false;
-                textCanDatBitRate.Visible = false;
+                panelUartSettings.Visible = true;
+                panelNfcSettings.Visible = false;
             }
         }
 
@@ -768,6 +887,10 @@ namespace DHSTesterXL
             _isModified = true;
         }
 
+        private void comboConnType_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            _isModified = true;
+        }
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
             _isModified = true;
@@ -793,6 +916,22 @@ namespace DHSTesterXL
                             else
                             {
                                 dataGrid.Rows[e.RowIndex].Cells[2].Value = $"{testSpec.Name} ({GDefines.TEST_ITEM_OPTION[1]})"; // RO
+                                if (option != 1)
+                                    dataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 1;
+                            }
+                        }
+                        if ((TestItems)e.RowIndex == TestItems.LockSen)
+                        {
+                            TestSpec testSpec = _tempProductSettings.GetTestItemSpec((TestItems)e.RowIndex);
+                            int option = Convert.ToUInt16(dataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                            // Option이 0일때 Capacitance, 그 외에는 Hardwire
+                            if (option == 0)
+                            {
+                                dataGrid.Rows[e.RowIndex].Cells[2].Value = $"{testSpec.Name} ({GDefines.TEST_TOUCH_OPTION[0]})"; // Capacitance
+                            }
+                            else
+                            {
+                                dataGrid.Rows[e.RowIndex].Cells[2].Value = $"{testSpec.Name} ({GDefines.TEST_TOUCH_OPTION[1]})"; // Hardwire
                                 if (option != 1)
                                     dataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 1;
                             }
@@ -829,7 +968,7 @@ namespace DHSTesterXL
 
             _isModified = true;
         }
-
+        
         private void textID_KeyDown(object sender, KeyEventArgs e)
         {
             if (sender is System.Windows.Forms.TextBox textBox)
@@ -897,6 +1036,58 @@ namespace DHSTesterXL
             {
                 //GSystem.SystemData.DedicatedCtrlSettings.PortName = comboBox.SelectedItem.ToString();
                 //GSystem.TraceMessage($"DedicatedCtrlSettings.PortName = {GSystem.SystemData.DedicatedCtrlSettings.PortName}");
+            }
+        }
+
+        private void labelProductNo_DoubleClick(object sender, EventArgs e)
+        {
+            // 검사 수량 초기화
+            string caption = "초기화";
+            string message = "검사 수량을 초기화 하시겠습니까?";
+            if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                _tempProductSettings.TestInfo.TestCountTot = 0;
+                _tempProductSettings.TestInfo.OkCountTot = 0;
+                _tempProductSettings.TestInfo.NgCountTot = 0;
+                _tempProductSettings.TestInfo.NgRateTot = 0;
+                _tempProductSettings.TestInfo.SerialNumTot = 0;
+                _tempProductSettings.TestInfo.TestCountCh1 = 0;
+                _tempProductSettings.TestInfo.OkCountCh1 = 0;
+                _tempProductSettings.TestInfo.NgCountCh1 = 0;
+                _tempProductSettings.TestInfo.NgRateCh1 = 0;
+                _tempProductSettings.TestInfo.SerialNumCh1 = 0;
+                _tempProductSettings.TestInfo.TestCountCh2 = 0;
+                _tempProductSettings.TestInfo.OkCountCh2 = 0;
+                _tempProductSettings.TestInfo.NgCountCh2 = 0;
+                _tempProductSettings.TestInfo.NgRateCh2 = 0;
+                _tempProductSettings.TestInfo.SerialNumCh2 = 0;
+                SaveSettings();
+            }
+        }
+
+        private void labelProductName_DoubleClick(object sender, EventArgs e)
+        {
+            // 검사 수량 초기화
+            string caption = "불량 초기화";
+            string message = "불량 수량을 초기화 하시겠습니까?";
+            if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                _tempProductSettings.TestInfo.TestCountCh1 -= _tempProductSettings.TestInfo.OkCountCh1;
+                _tempProductSettings.TestInfo.NgCountCh1 = 0;
+                _tempProductSettings.TestInfo.NgRateCh1 = 0;
+                _tempProductSettings.TestInfo.SerialNumCh1 = _tempProductSettings.TestInfo.OkCountTot - 1;
+
+                _tempProductSettings.TestInfo.TestCountCh2 = _tempProductSettings.TestInfo.OkCountCh2;
+                _tempProductSettings.TestInfo.NgCountCh2 = 0;
+                _tempProductSettings.TestInfo.NgRateCh2 = 0;
+                _tempProductSettings.TestInfo.SerialNumCh2 = _tempProductSettings.TestInfo.OkCountTot;
+
+                _tempProductSettings.TestInfo.TestCountTot = _tempProductSettings.TestInfo.OkCountTot;
+                _tempProductSettings.TestInfo.NgCountTot = 0;
+                _tempProductSettings.TestInfo.NgRateTot = 0;
+                _tempProductSettings.TestInfo.SerialNumTot = _tempProductSettings.TestInfo.OkCountTot;
+
+                SaveSettings();
             }
         }
     }

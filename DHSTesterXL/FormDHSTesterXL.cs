@@ -34,7 +34,28 @@ namespace DHSTesterXL
 {
     public partial class FormDHSTesterXL : MetroFramework.Forms.MetroForm
     {
+        private readonly int COL_No = 0;
+        private readonly int COL_Item = 1;
+        private readonly int COL_Min = 2;
+        private readonly int COL_Max = 3;
+        private readonly int COL_Result = 4;
+
+        private bool currPLC_I_StartCh1 = false;
+        private bool prevPLC_I_StartCh1 = false;
+        private bool currPLC_I_StartCh2 = false;
+        private bool prevPLC_I_StartCh2 = false;
+
         public string CurrentProductNo { get; set; }
+        public bool IsTestStartCh1 { get; set; } = false;
+        public bool IsTestStartCh2 { get; set; } = false;
+        public bool EnableBottomControls { get; set; } = false;
+
+        public string TrayBarcode { get; set; }
+        public string ProductBarcode { get; set; }
+        public int Channel { get; set; } = 0;
+
+        FormBarcode formBarcodeCh1 = null;
+        FormBarcode formBarcodeCh2 = null;
 
         public FormDHSTesterXL()
         {
@@ -51,12 +72,21 @@ namespace DHSTesterXL
         {
             //metroStyleManager.Theme = MetroFramework.MetroThemeStyle.Dark;
             metroStyleManager.Style = MetroFramework.MetroColorStyle.Orange;
+            //this.WindowState = FormWindowState.Maximized;
 
             // 시스템데이터 로딩
             GSystem.Initialize(this);
+            //// 품목 설정 화면 전역 객체
+            //GSystem.ProductForm = new FormProduct
+            //{
+            //    CurrentProductNo = GSystem.SystemData.ProductSettings.LastProductNo
+            //};
+            //GSystem.ProductForm.InitFromOutside();
+            //GSystem.ProductForm.Show();
 
             // 델리게이터 
             GSystem.MainFormMessageBox = MainFormMessageBox;
+            GSystem.BarcodeResetAndPopUp = BarcodeResetAndPopUp;
 
             // 전용 컨트롤러 연결
             if (GSystem.ConnectDedicatedCTRL())
@@ -76,16 +106,29 @@ namespace DHSTesterXL
             GSystem.SetButtonForeColor(buttonPowerCh1, Color.Black, Color.DimGray);
             GSystem.SetButtonForeColor(buttonStartCh1, Color.Black, Color.DimGray);
             GSystem.SetButtonForeColor(buttonLockCh1, Color.Black, Color.DimGray);
+            GSystem.SetButtonForeColor(buttonTestCh1, Color.Black, Color.DimGray);
 
             GSystem.SetButtonForeColor(buttonPowerCh2, Color.Black, Color.DimGray);
             GSystem.SetButtonForeColor(buttonStartCh2, Color.Black, Color.DimGray);
             GSystem.SetButtonForeColor(buttonLockCh2, Color.Black, Color.DimGray);
+            GSystem.SetButtonForeColor(buttonTestCh2, Color.Black, Color.DimGray);
+
+            formBarcodeCh1 = new FormBarcode()
+            {
+                TopMost = true
+            };
+            formBarcodeCh1.Hide();
+            formBarcodeCh2 = new FormBarcode()
+            {
+                TopMost = true
+            };
+            formBarcodeCh2.Hide();
 
             // 업데이트 타이머 실행
             timerUpdate.Start();
         }
 
-        private async void FormDHSTesterXL_Shown(object sender, EventArgs e)
+        private void FormDHSTesterXL_Shown(object sender, EventArgs e)
         {
             // Product 폴더가 없으면 선택
             if (!Directory.Exists(GSystem.SystemData.GeneralSettings.ProductFolder))
@@ -177,72 +220,117 @@ namespace DHSTesterXL
                 GSystem.SystemData.Save();
             }
 
+            // 로그인
+            FormLogin formLogin = new FormLogin();
+            formLogin.AdminMode = true;
+            if (formLogin.ShowDialog() == DialogResult.OK)
+            {
+                GSystem.AdminMode = formLogin.AdminMode;
+                // 사용자 모드 변경
+                ChangeUserMode(GSystem.AdminMode);
+                // 사용자 모드에 따라 하단 컨트롤을 표시한다.
+                SetEnableBottomControls(GSystem.AdminMode);
+            }
+            else
+            {
+                // 기본. 작업자
+                GSystem.AdminMode = false;
+                ChangeUserMode(GSystem.AdminMode);
+            }
+
+            // 지그 바코드 스캔
+            FormJigBarcode formJigBarcode = new FormJigBarcode();
+            if (formJigBarcode.ShowDialog() == DialogResult.OK)
+            {
+                string jigProductFileName = formJigBarcode.JigBarcode + GSystem.JSON_EXT;
+                string productFilePath = Path.Combine(GSystem.SystemData.GeneralSettings.ProductFolder, jigProductFileName);
+
+                if (File.Exists(productFilePath))
+                {
+                    // 파일 있음...품번 선택
+                    GSystem.SystemData.ProductSettings.LastProductNo = formJigBarcode.JigBarcode;
+                    GSystem.SystemData.Save();
+                }
+                else
+                {
+                    // 파일이 없으면 이전 품번 로딩
+                }
+            }
+            else
+            {
+                // 지그 바코드 스캔을 취소하면 이전 품번 로딩
+            }
+
             // 품번 로딩
-            GSystem.ProductSettings.Load(GSystem.SystemData.ProductSettings.LastProductNo + GSystem.JSON_EXT, GSystem.SystemData.GeneralSettings.ProductFolder);
+            LoadProduct(GSystem.SystemData.ProductSettings.LastProductNo);
 
-            // CAN/UART 통신 방식이 달라도 동일 방법으로 사용되어야 한다.
-            // UART 사양도 IDHSModel 인터페이스를 상속받아야 한다.
-            if (GSystem.ProductSettings.CommSettings.CommType == "CAN")
+            // Master sample
+            if (GSystem.ProductSettings.MasterSample.MasterCount > 0)
             {
-                GSystem.DHSModel = new PNFCTouch();
+                if (GSystem.ProductSettings.MasterSample.MasterType1 != "")
+                {
+                    if (GSystem.ProductSettings.MasterSample.MasterTestDate1 != DateTime.Now.ToString("yyyy-MM-dd"))
+                        GSystem.ProductSettings.MasterSample.MasterCheck1 = false;
+                }
+                else
+                {
+                    GSystem.ProductSettings.MasterSample.MasterCheck1 = false;
+                    GSystem.ProductSettings.MasterSample.MasterTestDate1 = string.Empty;
+                }
+                if (GSystem.ProductSettings.MasterSample.MasterType2 != "")
+                {
+                    if (GSystem.ProductSettings.MasterSample.MasterTestDate2 != DateTime.Now.ToString("yyyy-MM-dd"))
+                        GSystem.ProductSettings.MasterSample.MasterCheck2 = false;
+                }
+                else
+                {
+                    GSystem.ProductSettings.MasterSample.MasterCheck2 = false;
+                    GSystem.ProductSettings.MasterSample.MasterTestDate2 = string.Empty;
+                }
+                if (GSystem.ProductSettings.MasterSample.MasterType3 != "")
+                {
+                    if (GSystem.ProductSettings.MasterSample.MasterTestDate3 != DateTime.Now.ToString("yyyy-MM-dd"))
+                        GSystem.ProductSettings.MasterSample.MasterCheck3 = false;
+                }
+                else
+                {
+                    GSystem.ProductSettings.MasterSample.MasterCheck3 = false;
+                    GSystem.ProductSettings.MasterSample.MasterTestDate3 = string.Empty;
+                }
+                if (GSystem.ProductSettings.MasterSample.MasterType4 != "")
+                {
+                    if (GSystem.ProductSettings.MasterSample.MasterTestDate4 != DateTime.Now.ToString("yyyy-MM-dd"))
+                        GSystem.ProductSettings.MasterSample.MasterCheck4 = false;
+                }
+                else
+                {
+                    GSystem.ProductSettings.MasterSample.MasterCheck4 = false;
+                    GSystem.ProductSettings.MasterSample.MasterTestDate4 = string.Empty;
+                }
+                if (GSystem.ProductSettings.MasterSample.MasterType5 != "")
+                {
+                    if (GSystem.ProductSettings.MasterSample.MasterTestDate5 != DateTime.Now.ToString("yyyy-MM-dd"))
+                        GSystem.ProductSettings.MasterSample.MasterCheck5 = false;
+                }
+                else
+                {
+                    GSystem.ProductSettings.MasterSample.MasterCheck5 = false;
+                    GSystem.ProductSettings.MasterSample.MasterTestDate5 = string.Empty;
+                }
             }
-            else if (GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
+            else
             {
-                GSystem.DHSModel = new PNFCTouchFD();
+                GSystem.ProductSettings.MasterSample.MasterCheck1 = false;
+                GSystem.ProductSettings.MasterSample.MasterCheck2 = false;
+                GSystem.ProductSettings.MasterSample.MasterCheck3 = false;
+                GSystem.ProductSettings.MasterSample.MasterCheck4 = false;
+                GSystem.ProductSettings.MasterSample.MasterCheck5 = false;
+                GSystem.ProductSettings.MasterSample.MasterTestDate1 = string.Empty;
+                GSystem.ProductSettings.MasterSample.MasterTestDate2 = string.Empty;
+                GSystem.ProductSettings.MasterSample.MasterTestDate3 = string.Empty;
+                GSystem.ProductSettings.MasterSample.MasterTestDate4 = string.Empty;
+                GSystem.ProductSettings.MasterSample.MasterTestDate5 = string.Empty;
             }
-            else if (GSystem.ProductSettings.CommSettings.CommType == "UART")
-            {
-                GSystem.DHSModel = new PTouchOnly();
-            }
-
-            //if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
-            //{
-            //    // can, can fd 사양
-            //    if (await CanXL.LoadDriver() == XLDefine.XL_Status.XL_SUCCESS)
-            //    {
-            //        TraceMessage($"CanXL.LoadDriver() : Success.");
-
-            //        for (int ch = 0; ch < GSystem.ChannelCount; ch++)
-            //        {
-            //            if (await GSystem.DHSModel.OpenPort(ch) == XLDefine.XL_Status.XL_SUCCESS)
-            //            {
-            //                TraceMessage($"GSystem.DHSModel.OpenPort(CH{ch + 1}) : Success.");
-            //            }
-            //            else
-            //            {
-            //                TraceMessage($"GSystem.DHSModel.OpenPort(CH{ch + 1}) : Failed.");
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        TraceMessage($"CanXL.LoadDriver() : Failed.");
-            //    }
-            //}
-            //else
-            //{
-            //    // uart 사양
-            //}
-            // 이벤트핸들러
-            GSystem.DHSModel.TestItemsList = GSystem.ProductSettings.GetEnableTestItemsList();
-            GSystem.DHSModel.TestStateChanged += OnTestStateChanged;
-            GSystem.DHSModel.TestStepProgressChanged += OnTestStepProgressChanged;
-            GSystem.DHSModel.RxsWinDataChanged += OnRxsWinDataChanged;
-            GSystem.DHSModel.TouchXcpDataChanged += OnUpdateTouchXcpData;
-            GSystem.DHSModel.CancelXcpDataChanged += OnUpdateCancelXcpData;
-            GSystem.DHSModel.ShowFullProofMessage += OnShowFullProofMessage;
-
-            SetupGridProductInfo();
-            SetupGridTestListCh1();
-            SetupGridTestListCh2();
-            SetupTestCount();
-            SetupConnectorCount();
-
-            UpdateTestState(CH1, TestStates.Ready);
-            UpdateTestState(CH2, TestStates.Ready);
-
-            // 기본 사용자는 작업자
-            ChangeUserMode(GSystem.AdminMode);
         }
 
         private void FormDHSTesterXL_FormClosing(object sender, FormClosingEventArgs e)
@@ -270,6 +358,13 @@ namespace DHSTesterXL
                 }
                 CanXL.UnloadDriver();
             }
+            else
+            {
+                for (int ch = 0; ch < GSystem.ChannelCount; ch++)
+                {
+                    GSystem.DHSModel.ClosePortCOM(ch);
+                }
+            }
         }
 
         private void FormDHSTesterXL_FormClosed(object sender, FormClosedEventArgs e)
@@ -290,6 +385,178 @@ namespace DHSTesterXL
                 return;
             }
             MessageBox.Show(message, caption, buttons, icon);
+        }
+
+        private async void LoadProduct(string productNo)
+        {
+            string productFileName = productNo + GSystem.JSON_EXT;
+
+            // DHSModel이 이미 로딩되어 있으면 언로딩한다
+            if (GSystem.DHSModel != null)
+            {
+                // 이벤트핸들러
+                GSystem.DHSModel.TestStateChanged -= OnTestStateChanged;
+                GSystem.DHSModel.TestStepProgressChanged -= OnTestStepProgressChanged;
+                GSystem.DHSModel.RxsWinDataChanged -= OnRxsWinDataChanged;
+                GSystem.DHSModel.TouchXcpDataChanged -= OnUpdateTouchXcpData;
+                GSystem.DHSModel.CancelXcpDataChanged -= OnUpdateCancelXcpData;
+                GSystem.DHSModel.ShowFullProofMessage -= OnShowFullProofMessage;
+
+                if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
+                {
+                    for (int ch = 0; ch < GSystem.ChannelCount; ch++)
+                    {
+                        await GSystem.DHSModel.ClosePort(ch);
+                    }
+                }
+                else
+                {
+                    for (int ch = 0; ch < GSystem.ChannelCount; ch++)
+                    {
+                        GSystem.DHSModel.ClosePortCOM(ch);
+                    }
+                }
+            }
+
+            // 품번 로딩
+            GSystem.ProductSettings.Load(productFileName, GSystem.SystemData.GeneralSettings.ProductFolder);
+            GSystem.SystemData.ProductSettings.LastProductNo = productNo;
+            GSystem.SystemData.Save();
+
+            // CAN/UART 통신 방식이 달라도 동일 방법으로 사용되어야 한다.
+            // UART 사양도 IDHSModel 인터페이스를 상속받아야 한다.
+            if (GSystem.ProductSettings.CommSettings.CommType == "CAN")
+            {
+                GSystem.DHSModel = new PNFCTouch();
+            }
+            else if (GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
+            {
+                GSystem.DHSModel = new PNFCTouchFD();
+            }
+            else if (GSystem.ProductSettings.CommSettings.CommType == "UART")
+            {
+                GSystem.DHSModel = new PTouchOnly();
+            }
+
+            if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
+            {
+                // can, can fd 사양
+                if (await CanXL.LoadDriver() == XLDefine.XL_Status.XL_SUCCESS)
+                {
+                    TraceMessage($"CanXL.LoadDriver() : Success.");
+
+                    for (int ch = 0; ch < GSystem.ChannelCount; ch++)
+                    {
+                        if (await GSystem.DHSModel.OpenPort(ch) == XLDefine.XL_Status.XL_SUCCESS)
+                        {
+                            TraceMessage($"GSystem.DHSModel.OpenPort(CH{ch + 1}) : Success.");
+                        }
+                        else
+                        {
+                            TraceMessage($"GSystem.DHSModel.OpenPort(CH{ch + 1}) : Failed.");
+                        }
+                        // THD 설정 load
+                        SetupTHDSettings(ch);
+                    }
+                }
+                else
+                {
+                    TraceMessage($"CanXL.LoadDriver() : Failed.");
+                }
+            }
+            else
+            {
+                // uart 사양
+                for (int ch = 0; ch < GSystem.ChannelCount; ch++)
+                {
+                    if (GSystem.DHSModel.OpenPortCOM(ch))
+                    {
+                        TraceMessage($"GSystem.DHSModel.OpenPortCOM(CH{ch + 1}) : Success.");
+                    }
+                    else
+                    {
+                        TraceMessage($"GSystem.DHSModel.OpenPortCOM(CH{ch + 1}) : Failed.");
+                    }
+                }
+            }
+
+            // 이벤트핸들러
+            GSystem.DHSModel.TestItemsList = GSystem.ProductSettings.GetEnableTestItemsList();
+            GSystem.DHSModel.TestStateChanged += OnTestStateChanged;
+            GSystem.DHSModel.TestStepProgressChanged += OnTestStepProgressChanged;
+            GSystem.DHSModel.RxsWinDataChanged += OnRxsWinDataChanged;
+            GSystem.DHSModel.TouchXcpDataChanged += OnUpdateTouchXcpData;
+            GSystem.DHSModel.CancelXcpDataChanged += OnUpdateCancelXcpData;
+            GSystem.DHSModel.ShowFullProofMessage += OnShowFullProofMessage;
+
+            SetupGridProductInfo();
+            SetupGridTestListCh1();
+            SetupGridTestListCh2();
+            SetupTestCount();
+            SetupConnectorCount();
+
+            UpdateTestState(CH1, TestStates.Ready);
+            UpdateTestState(CH2, TestStates.Ready);
+
+            // PLC Recipe 변경
+            int recipeNo = Convert.ToInt16(GSystem.ProductSettings.ProductInfo.TypeNo);
+            if (GSystem.MiPLC.IsConnect)
+                await Task.Run(() => GSystem.ChangePLCRecipeAsync(recipeNo));
+
+            // TODO: 마스터샘플 처리. 품번에 따라 마스터샘플 인터락을 따로 관리해야 한다.
+            // 1) 1일 1회 마스터 검사.
+            // 2) 당일 검사한 마스터샘플은 다시 검사하지 않는다.
+            // 3) 품번이 전환되면 마스텀샘플 검사를 하지 않은 품번은 마스터 검사를 진행하고
+            //    마스터샘플을 검사한 품번은 마스터 검사를 하지 않는다.
+        }
+
+        private void BarcodeResetAndPopUp(int channel)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new BarcodeResetAndPopUpDelegate(BarcodeResetAndPopUp), channel);
+                return;
+            }
+            if (channel == CH1)
+            {
+                textBarcodeCh1.Text = string.Empty;
+                if (GSystem.ProductSettings.ProductInfo.UseProductBarcode)
+                {
+                    FormBarcode formBarcode = new FormBarcode();
+                    formBarcode.Channel = channel;
+                    formBarcode.TopMost = true;
+                    formBarcode.StartPosition = FormStartPosition.Manual;
+                    formBarcode.Location = new Point(10, 240);
+                    formBarcode.TrayBarcode = GSystem.TrayBarcode;
+                    if (formBarcode.ShowDialog() == DialogResult.OK)
+                    {
+                        GSystem.TraceMessage($"Barcode = {formBarcode.ProductBarcode}");
+                        GSystem.TrayBarcode = formBarcode.TrayBarcode;
+                        GSystem.ProductBarcode[CH1] = formBarcode.ProductBarcode;
+                        textBarcodeCh1.Text = formBarcode.ProductBarcode;
+                    }
+                }
+            }
+            else
+            {
+                textBarcodeCh2.Text = string.Empty;
+                if (GSystem.ProductSettings.ProductInfo.UseProductBarcode)
+                {
+                    FormBarcode formBarcode = new FormBarcode();
+                    formBarcode.Channel = channel;
+                    formBarcode.TopMost = true;
+                    formBarcode.StartPosition = FormStartPosition.Manual;
+                    formBarcode.Location = new Point(600, 240);
+                    formBarcode.TrayBarcode = GSystem.TrayBarcode;
+                    if (formBarcode.ShowDialog() == DialogResult.OK)
+                    {
+                        GSystem.TraceMessage($"Barcode = {formBarcode.ProductBarcode}");
+                        GSystem.TrayBarcode = formBarcode.TrayBarcode;
+                        GSystem.ProductBarcode[CH2] = formBarcode.ProductBarcode;
+                        textBarcodeCh2.Text = formBarcode.ProductBarcode;
+                    }
+                }
+            }
         }
 
         private void SetupGridProductInfo()
@@ -326,6 +593,12 @@ namespace DHSTesterXL
             gridProductInfo.Rows[rowIndex++].Cells[1].Value = GSystem.ProductSettings.ProductInfo.AlcNo;
 
             gridProductInfo.CurrentCell = null;
+
+            // checkbox
+            checkUseMasterSample.Checked = GSystem.ProductSettings.ProductInfo.UseMasterSample;
+            checkUseProductBarcode.Checked = GSystem.ProductSettings.ProductInfo.UseProductBarcode;
+            checkUseLabelPrint.Checked = GSystem.ProductSettings.ProductInfo.UseLabelPrint;
+            checkUseRepeatTest.Checked = GSystem.ProductSettings.ProductInfo.UseLabelPrint;
         }
 
         private void UpdateGridProductInfo()
@@ -335,6 +608,11 @@ namespace DHSTesterXL
             gridProductInfo.Rows[rowIndex++].Cells[1].Value = GSystem.ProductSettings.ProductInfo.TypeName;
             gridProductInfo.Rows[rowIndex++].Cells[1].Value = GSystem.ProductSettings.ProductInfo.CarType;
             gridProductInfo.Rows[rowIndex++].Cells[1].Value = GSystem.ProductSettings.ProductInfo.AlcNo;
+            // checkbox
+            checkUseMasterSample.Checked = GSystem.ProductSettings.ProductInfo.UseMasterSample;
+            checkUseProductBarcode.Checked = GSystem.ProductSettings.ProductInfo.UseProductBarcode;
+            checkUseLabelPrint.Checked = GSystem.ProductSettings.ProductInfo.UseLabelPrint;
+            checkUseRepeatTest.Checked = GSystem.ProductSettings.ProductInfo.UseLabelPrint;
         }
 
         private void gridProductInfo_SelectionChanged(object sender, EventArgs e)
@@ -358,53 +636,55 @@ namespace DHSTesterXL
                 if (selectedValue != null)
                 {
                     // 품번 파일을 읽은 후 화면을 업데이트 한다.
-                    string selectProductFileName = selectedValue.ToString() + GSystem.JSON_EXT;
-                    ProductConfig productSettings = ProductConfig.GetInstance();
-                    productSettings.Load(selectProductFileName, GSystem.SystemData.GeneralSettings.ProductFolder);
-                    GSystem.SystemData.ProductSettings.LastProductNo = selectedValue.ToString();
-                    GSystem.SystemDataSave();
+                    LoadProduct(selectedValue.ToString());
+                    //string selectProductFileName = selectedValue.ToString() + GSystem.JSON_EXT;
+                    //ProductConfig productSettings = ProductConfig.GetInstance();
+                    //productSettings.Load(selectProductFileName, GSystem.SystemData.GeneralSettings.ProductFolder);
+                    //GSystem.SystemData.ProductSettings.LastProductNo = selectedValue.ToString();
+                    //GSystem.SystemDataSave();
 
-                    if (productSettings.CommSettings.CommType == "CAN" || productSettings.CommSettings.CommType == "CAN FD")
-                    {
-                        // Close
-                        GSystem.DHSModel.TestStateChanged -= OnTestStateChanged;
-                        GSystem.DHSModel.TestStepProgressChanged -= OnTestStepProgressChanged;
-                        GSystem.DHSModel.RxsWinDataChanged -= OnRxsWinDataChanged;
-                        GSystem.DHSModel.TouchXcpDataChanged -= OnUpdateTouchXcpData;
-                        GSystem.DHSModel.CancelXcpDataChanged -= OnUpdateCancelXcpData;
-                        GSystem.DHSModel.ShowFullProofMessage -= OnShowFullProofMessage;
-                        for (int ch = 0; ch < ChannelCount; ch++)
-                        {
-                            GSystem.DHSModel.ClosePort(ch);
-                        }
-                        // 
-                        if (productSettings.CommSettings.CommType == "CAN")
-                        {
-                            GSystem.DHSModel = new PNFCTouch();
-                        }
-                        else if (productSettings.CommSettings.CommType == "CAN FD")
-                        {
-                            GSystem.DHSModel = new PNFCTouchFD();
-                        }
-                        // Open
-                        for (int ch = 0; ch < ChannelCount; ch++)
-                        {
-                            GSystem.DHSModel.OpenPort(ch);
-                        }
-                        GSystem.DHSModel.TestItemsList = GSystem.ProductSettings.GetEnableTestItemsList();
-                        GSystem.DHSModel.TestStateChanged += OnTestStateChanged;
-                        GSystem.DHSModel.TestStepProgressChanged += OnTestStepProgressChanged;
-                        GSystem.DHSModel.RxsWinDataChanged += OnRxsWinDataChanged;
-                        GSystem.DHSModel.TouchXcpDataChanged += OnUpdateTouchXcpData;
-                        GSystem.DHSModel.CancelXcpDataChanged += OnUpdateCancelXcpData;
-                        GSystem.DHSModel.ShowFullProofMessage += OnShowFullProofMessage;
-                    }
+                    //if (productSettings.CommSettings.CommType == "CAN" || productSettings.CommSettings.CommType == "CAN FD")
+                    //{
+                    //    // Close
+                    //    GSystem.DHSModel.TestStateChanged -= OnTestStateChanged;
+                    //    GSystem.DHSModel.TestStepProgressChanged -= OnTestStepProgressChanged;
+                    //    GSystem.DHSModel.RxsWinDataChanged -= OnRxsWinDataChanged;
+                    //    GSystem.DHSModel.TouchXcpDataChanged -= OnUpdateTouchXcpData;
+                    //    GSystem.DHSModel.CancelXcpDataChanged -= OnUpdateCancelXcpData;
+                    //    GSystem.DHSModel.ShowFullProofMessage -= OnShowFullProofMessage;
+                    //    for (int ch = 0; ch < ChannelCount; ch++)
+                    //    {
+                    //        GSystem.DHSModel.ClosePort(ch);
+                    //    }
+                    //    // 
+                    //    if (productSettings.CommSettings.CommType == "CAN")
+                    //    {
+                    //        GSystem.DHSModel = new PNFCTouch();
+                    //    }
+                    //    else if (productSettings.CommSettings.CommType == "CAN FD")
+                    //    {
+                    //        GSystem.DHSModel = new PNFCTouchFD();
+                    //    }
+                    //    // Open
+                    //    for (int ch = 0; ch < ChannelCount; ch++)
+                    //    {
+                    //        GSystem.DHSModel.OpenPort(ch);
+                    //        SetupTHDSettings(ch);
+                    //    }
+                    //    GSystem.DHSModel.TestItemsList = GSystem.ProductSettings.GetEnableTestItemsList();
+                    //    GSystem.DHSModel.TestStateChanged += OnTestStateChanged;
+                    //    GSystem.DHSModel.TestStepProgressChanged += OnTestStepProgressChanged;
+                    //    GSystem.DHSModel.RxsWinDataChanged += OnRxsWinDataChanged;
+                    //    GSystem.DHSModel.TouchXcpDataChanged += OnUpdateTouchXcpData;
+                    //    GSystem.DHSModel.CancelXcpDataChanged += OnUpdateCancelXcpData;
+                    //    GSystem.DHSModel.ShowFullProofMessage += OnShowFullProofMessage;
+                    //}
 
-                    // 
-                    GSystem.DHSModel.TestItemsList = GSystem.ProductSettings.GetEnableTestItemsList();
-                    SetupGridProductInfo();
-                    SetupGridTestListCh1();
-                    SetupGridTestListCh2();
+                    //// 
+                    //GSystem.DHSModel.TestItemsList = GSystem.ProductSettings.GetEnableTestItemsList();
+                    //SetupGridProductInfo();
+                    //SetupGridTestListCh1();
+                    //SetupGridTestListCh2();
                 }
             }
         }
@@ -419,31 +699,31 @@ namespace DHSTesterXL
             foreach (var testItem in GSystem.DHSModel.TestItemsList)
             {
                 gridTestListCh1.Rows.Add();
-                gridTestListCh1[0, rowIndex].Value = (rowIndex + 1).ToString();
-                gridTestListCh1[1, rowIndex].Value = testItem.Use;
+                gridTestListCh1[COL_No, rowIndex].Value = (rowIndex + 1).ToString();
+                //gridTestListCh1[1, rowIndex].Value = testItem.Use;
                 if (testItem.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.SerialNumber] || testItem.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.Manufacture])
                 {
                     // Name
-                    gridTestListCh1[2, rowIndex].Value = $"{testItem.Name} ({GDefines.TEST_ITEM_OPTION[testItem.Option]})";
+                    gridTestListCh1[COL_Item, rowIndex].Value = $"{testItem.Name} ({GDefines.TEST_ITEM_OPTION[testItem.Option]})";
                 }
                 else
                 {
                     // Name
-                    gridTestListCh1[2, rowIndex].Value = testItem.Name;
+                    gridTestListCh1[COL_Item, rowIndex].Value = testItem.Name;
                 }
                 switch (testItem.DataType)
                 {
                     case 0:
-                        gridTestListCh1[3, rowIndex].Value = testItem.MinValue.ToString("F1");
-                        gridTestListCh1[4, rowIndex].Value = testItem.MaxValue.ToString("F1");
+                        gridTestListCh1[COL_Min, rowIndex].Value = testItem.MinValue.ToString("F1");
+                        gridTestListCh1[COL_Max, rowIndex].Value = testItem.MaxValue.ToString("F1");
                         break;
                     case 1:
-                        gridTestListCh1[3, rowIndex].Value = testItem.MinValue.ToString();
-                        gridTestListCh1[4, rowIndex].Value = testItem.MaxValue.ToString();
+                        gridTestListCh1[COL_Min, rowIndex].Value = testItem.MinValue.ToString();
+                        gridTestListCh1[COL_Max, rowIndex].Value = testItem.MaxValue.ToString();
                         break;
                     case 2:
-                        gridTestListCh1[3, rowIndex].Value = testItem.MinString;
-                        gridTestListCh1[4, rowIndex].Value = testItem.MaxString;
+                        gridTestListCh1[COL_Min, rowIndex].Value = testItem.MinString;
+                        gridTestListCh1[COL_Max, rowIndex].Value = testItem.MaxString;
                         break;
                     default: break;
                 }
@@ -461,31 +741,31 @@ namespace DHSTesterXL
             foreach (var testItem in GSystem.DHSModel.TestItemsList)
             {
                 TestSpec testSpec = GSystem.ProductSettings.GetTestItemSpec((TestItems)rowIndex);
-                gridTestListCh1[0, rowIndex].Value = (rowIndex + 1).ToString();
-                gridTestListCh1[1, rowIndex].Value = testSpec.Use;
+                gridTestListCh1[COL_No, rowIndex].Value = (rowIndex + 1).ToString();
+                //gridTestListCh1[1, rowIndex].Value = testSpec.Use;
                 if (testItem.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.SerialNumber] || testItem.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.Manufacture])
                 {
                     // Name
-                    gridTestListCh1[2, rowIndex].Value = $"{testSpec.Name} ({GDefines.TEST_ITEM_OPTION[testSpec.Option]})";
+                    gridTestListCh1[COL_Item, rowIndex].Value = $"{testSpec.Name} ({GDefines.TEST_ITEM_OPTION[testSpec.Option]})";
                 }
                 else
                 {
                     // Name
-                    gridTestListCh1[2, rowIndex].Value = testSpec.Name;
+                    gridTestListCh1[COL_Item, rowIndex].Value = testSpec.Name;
                 }
                 switch (testSpec.DataType)
                 {
                     case 0:
-                        gridTestListCh1[3, rowIndex].Value = testSpec.MinValue.ToString("F1");
-                        gridTestListCh1[4, rowIndex].Value = testSpec.MaxValue.ToString("F1");
+                        gridTestListCh1[COL_Min, rowIndex].Value = testSpec.MinValue.ToString("F1");
+                        gridTestListCh1[COL_Max, rowIndex].Value = testSpec.MaxValue.ToString("F1");
                         break;
                     case 1:
-                        gridTestListCh1[3, rowIndex].Value = testSpec.MinValue.ToString();
-                        gridTestListCh1[4, rowIndex].Value = testSpec.MaxValue.ToString();
+                        gridTestListCh1[COL_Min, rowIndex].Value = testSpec.MinValue.ToString();
+                        gridTestListCh1[COL_Max, rowIndex].Value = testSpec.MaxValue.ToString();
                         break;
                     case 2:
-                        gridTestListCh1[3, rowIndex].Value = testSpec.MinString;
-                        gridTestListCh1[4, rowIndex].Value = testSpec.MaxString;
+                        gridTestListCh1[COL_Min, rowIndex].Value = testSpec.MinString;
+                        gridTestListCh1[COL_Max, rowIndex].Value = testSpec.MaxString;
                         break;
                     default: break;
                 }
@@ -508,31 +788,31 @@ namespace DHSTesterXL
             foreach (var testItem in GSystem.DHSModel.TestItemsList)
             {
                 gridTestListCh2.Rows.Add();
-                gridTestListCh2[0, rowIndex].Value = (rowIndex + 1).ToString();
-                gridTestListCh2[1, rowIndex].Value = testItem.Use;
+                gridTestListCh2[COL_No, rowIndex].Value = (rowIndex + 1).ToString();
+                //gridTestListCh2[1, rowIndex].Value = testItem.Use;
                 if (testItem.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.SerialNumber] || testItem.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.Manufacture])
                 {
                     // Name
-                    gridTestListCh2[2, rowIndex].Value = $"{testItem.Name} ({GDefines.TEST_ITEM_OPTION[testItem.Option]})";
+                    gridTestListCh2[COL_Item, rowIndex].Value = $"{testItem.Name} ({GDefines.TEST_ITEM_OPTION[testItem.Option]})";
                 }
                 else
                 {
                     // Name
-                    gridTestListCh2[2, rowIndex].Value = testItem.Name;
+                    gridTestListCh2[COL_Item, rowIndex].Value = testItem.Name;
                 }
                 switch (testItem.DataType)
                 {
                     case 0:
-                        gridTestListCh2[3, rowIndex].Value = testItem.MinValue.ToString("F1");
-                        gridTestListCh2[4, rowIndex].Value = testItem.MaxValue.ToString("F1");
+                        gridTestListCh2[COL_Min, rowIndex].Value = testItem.MinValue.ToString("F1");
+                        gridTestListCh2[COL_Max, rowIndex].Value = testItem.MaxValue.ToString("F1");
                         break;
                     case 1:
-                        gridTestListCh2[3, rowIndex].Value = testItem.MinValue.ToString();
-                        gridTestListCh2[4, rowIndex].Value = testItem.MaxValue.ToString();
+                        gridTestListCh2[COL_Min, rowIndex].Value = testItem.MinValue.ToString();
+                        gridTestListCh2[COL_Max, rowIndex].Value = testItem.MaxValue.ToString();
                         break;
                     case 2:
-                        gridTestListCh2[3, rowIndex].Value = testItem.MinString;
-                        gridTestListCh2[4, rowIndex].Value = testItem.MaxString;
+                        gridTestListCh2[COL_Min, rowIndex].Value = testItem.MinString;
+                        gridTestListCh2[COL_Max, rowIndex].Value = testItem.MaxString;
                         break;
                     default: break;
                 }
@@ -550,31 +830,31 @@ namespace DHSTesterXL
             foreach (var testItem in GSystem.DHSModel.TestItemsList)
             {
                 TestSpec testSpec = GSystem.ProductSettings.GetTestItemSpec((TestItems)rowIndex);
-                gridTestListCh2[0, rowIndex].Value = (rowIndex + 1).ToString();
-                gridTestListCh2[1, rowIndex].Value = testSpec.Use;
+                gridTestListCh2[COL_No, rowIndex].Value = (rowIndex + 1).ToString();
+                //gridTestListCh2[1, rowIndex].Value = testSpec.Use;
                 if (testItem.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.SerialNumber] || testItem.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.Manufacture])
                 {
                     // Name
-                    gridTestListCh2[2, rowIndex].Value = $"{testSpec.Name} ({GDefines.TEST_ITEM_OPTION[testSpec.Option]})";
+                    gridTestListCh2[COL_Item, rowIndex].Value = $"{testSpec.Name} ({GDefines.TEST_ITEM_OPTION[testSpec.Option]})";
                 }
                 else
                 {
                     // Name
-                    gridTestListCh2[2, rowIndex].Value = testSpec.Name;
+                    gridTestListCh2[COL_Item, rowIndex].Value = testSpec.Name;
                 }
                 switch (testSpec.DataType)
                 {
                     case 0:
-                        gridTestListCh2[3, rowIndex].Value = testSpec.MinValue.ToString("F1");
-                        gridTestListCh2[4, rowIndex].Value = testSpec.MaxValue.ToString("F1");
+                        gridTestListCh2[COL_Min, rowIndex].Value = testSpec.MinValue.ToString("F1");
+                        gridTestListCh2[COL_Max, rowIndex].Value = testSpec.MaxValue.ToString("F1");
                         break;
                     case 1:
-                        gridTestListCh2[3, rowIndex].Value = testSpec.MinValue.ToString();
-                        gridTestListCh2[4, rowIndex].Value = testSpec.MaxValue.ToString();
+                        gridTestListCh2[COL_Min, rowIndex].Value = testSpec.MinValue.ToString();
+                        gridTestListCh2[COL_Max, rowIndex].Value = testSpec.MaxValue.ToString();
                         break;
                     case 2:
-                        gridTestListCh2[3, rowIndex].Value = testSpec.MinString;
-                        gridTestListCh2[4, rowIndex].Value = testSpec.MaxString;
+                        gridTestListCh2[COL_Min, rowIndex].Value = testSpec.MinString;
+                        gridTestListCh2[COL_Max, rowIndex].Value = testSpec.MaxString;
                         break;
                     default: break;
                 }
@@ -600,37 +880,87 @@ namespace DHSTesterXL
                 if (statusDCtrl.ForeColor != Color.Green)
                     statusDCtrl.ForeColor = Color.Green;
 
-                if (GSystem.DedicatedCTRL.GetLockSignalCh1())
+                if (!GSystem.MiPLC.GetState2(CH1, (int)PLC_State2_Bit.ErrorOccurred))
                 {
-                    if (buttonLockCh1.ForeColor != Color.LimeGreen)
+                    currPLC_I_StartCh1 = GSystem.MiPLC.GetAutoTestStart(CH1);
+                    if (currPLC_I_StartCh1 && !prevPLC_I_StartCh1)
                     {
-                        GSystem.SetButtonForeColor(buttonLockCh1, Color.LimeGreen);
-                        GSystem.DedicatedCTRL.LockLampStateCh1(true);
+                        prevPLC_I_StartCh1 = currPLC_I_StartCh1;
+                        if (GSystem.ProductSettings.ProductInfo.UseProductBarcode)
+                        {
+                            if (textBarcodeCh1.Text != "")
+                            {
+                                if (textBarcodeCh1.Text == GSystem.ProductSettings.MasterSample.MasterBarcode1 ||
+                                    textBarcodeCh1.Text == GSystem.ProductSettings.MasterSample.MasterBarcode2 ||
+                                    textBarcodeCh1.Text == GSystem.ProductSettings.MasterSample.MasterBarcode3 ||
+                                    textBarcodeCh1.Text == GSystem.ProductSettings.MasterSample.MasterBarcode4 ||
+                                    textBarcodeCh1.Text == GSystem.ProductSettings.MasterSample.MasterBarcode5)
+                                {
+                                    if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
+                                    {
+                                        if (GSystem.DHSModel.GetTestStep(CH1) == NFCTouchTestStep.Standby)
+                                            StartTest(CH1);
+                                    }
+                                    else
+                                    {
+                                        if (GSystem.DHSModel.GetTouchOnlyTestStep(CH1) == TouchOnlyTestStep.Standby)
+                                        {
+                                            // Start...
+                                            StartTest(CH1);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
+                                    {
+                                        if (GSystem.DHSModel.GetTestStep(CH1) == NFCTouchTestStep.Standby)
+                                        {
+                                            if (CheckMasterSampleTest(CH1))
+                                                StartTest(CH1);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (GSystem.DHSModel.GetTouchOnlyTestStep(CH1) == TouchOnlyTestStep.Standby)
+                                        {
+                                            // Start...
+                                            StartTest(CH1);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                string caption = "바코드 읽기";
+                                string message = "검사를 시작하기 전 바코드를 읽어주세요.";
+                                MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                GSystem.BarcodeResetAndPopUp?.Invoke(CH1);
+                            }
+                        }
+                        else
+                        {
+                            if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
+                            {
+                                if (GSystem.DHSModel.GetTestStep(CH1) == NFCTouchTestStep.Standby)
+                                {
+                                    if (CheckMasterSampleTest(CH1))
+                                        StartTest(CH1);
+                                }
+                            }
+                            else
+                            {
+                                if (GSystem.DHSModel.GetTouchOnlyTestStep(CH1) == TouchOnlyTestStep.Standby)
+                                {
+                                    // Start...
+                                    StartTest(CH1);
+                                }
+                            }
+                        }
                     }
-                }
-                else
-                {
-                    if (buttonLockCh1.ForeColor != Color.DimGray)
+                    else
                     {
-                        GSystem.SetButtonForeColor(buttonLockCh1, Color.DimGray);
-                        GSystem.DedicatedCTRL.LockLampStateCh1(false);
-                    }
-                }
-
-                if (GSystem.DedicatedCTRL.GetLockSignalCh2())
-                {
-                    if (buttonLockCh2.ForeColor != Color.LimeGreen)
-                    {
-                        GSystem.SetButtonForeColor(buttonLockCh2, Color.LimeGreen);
-                        GSystem.DedicatedCTRL.LockLampStateCh2(true);
-                    }
-                }
-                else
-                {
-                    if (buttonLockCh2.ForeColor != Color.DimGray)
-                    {
-                        GSystem.SetButtonForeColor(buttonLockCh2, Color.DimGray);
-                        GSystem.DedicatedCTRL.LockLampStateCh2(false);
+                        prevPLC_I_StartCh1 = currPLC_I_StartCh1;
                     }
                 }
 
@@ -638,34 +968,118 @@ namespace DHSTesterXL
                 {
                     labelTimeValueCh1.Text = $"{GSystem.TimerTestTime[CH1].GetElapsedSeconds():F1} sec";
                     if (buttonStartCh1.ForeColor != Color.DodgerBlue)
-                    {
                         GSystem.SetButtonForeColor(buttonStartCh1, Color.DodgerBlue);
-                        GSystem.DedicatedCTRL.SetStartLampStateCh1(true);
-                    }
                 }
                 else
                 {
                     if (buttonStartCh1.ForeColor != Color.DimGray)
-                    {
                         GSystem.SetButtonForeColor(buttonStartCh1, Color.DimGray);
-                        GSystem.DedicatedCTRL.SetStartLampStateCh1(false);
-                    }
                 }
 
-                if (GSystem.DedicatedCTRL.GetCompleteActiveCurrentCh1() || GSystem.DedicatedCTRL.GetCompleteActiveCurrentCh1())
+                if (GSystem.DedicatedCTRL.GetCompleteActivePowerOnCh1())
                 {
                     if (buttonPowerCh1.ForeColor != Color.OrangeRed)
-                    {
                         GSystem.SetButtonForeColor(buttonPowerCh1, Color.OrangeRed);
-                        GSystem.DedicatedCTRL.PowerLampStateCh1(true);
-                    }
                 }
                 else
                 {
                     if (buttonPowerCh1.ForeColor != Color.DimGray)
-                    {
                         GSystem.SetButtonForeColor(buttonPowerCh1, Color.DimGray);
-                        GSystem.DedicatedCTRL.PowerLampStateCh1(false);
+                }
+
+                if (GSystem.DedicatedCTRL.GetLockSignalCh1())
+                {
+                    if (buttonLockCh1.ForeColor != Color.LimeGreen)
+                        GSystem.SetButtonForeColor(buttonLockCh1, Color.LimeGreen);
+                }
+                else
+                {
+                    if (buttonLockCh1.ForeColor != Color.DimGray)
+                        GSystem.SetButtonForeColor(buttonLockCh1, Color.DimGray);
+                }
+
+
+                if (!GSystem.MiPLC.GetState2(CH2, (int)PLC_State2_Bit.ErrorOccurred))
+                {
+                    currPLC_I_StartCh2 = GSystem.MiPLC.GetAutoTestStart(CH2);
+                    if (currPLC_I_StartCh2 && !prevPLC_I_StartCh2)
+                    {
+                        prevPLC_I_StartCh2 = currPLC_I_StartCh2;
+                        if (GSystem.ProductSettings.ProductInfo.UseProductBarcode)
+                        {
+                            if (textBarcodeCh2.Text != "")
+                            {
+                                if (textBarcodeCh2.Text == GSystem.ProductSettings.MasterSample.MasterBarcode1 ||
+                                    textBarcodeCh2.Text == GSystem.ProductSettings.MasterSample.MasterBarcode2 ||
+                                    textBarcodeCh2.Text == GSystem.ProductSettings.MasterSample.MasterBarcode3 ||
+                                    textBarcodeCh2.Text == GSystem.ProductSettings.MasterSample.MasterBarcode4 ||
+                                    textBarcodeCh2.Text == GSystem.ProductSettings.MasterSample.MasterBarcode5)
+                                {
+                                    if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
+                                    {
+                                        if (GSystem.DHSModel.GetTestStep(CH2) == NFCTouchTestStep.Standby)
+                                            StartTest(CH2);
+                                    }
+                                    else
+                                    {
+                                        if (GSystem.DHSModel.GetTouchOnlyTestStep(CH1) == TouchOnlyTestStep.Standby)
+                                        {
+                                            // Start...
+                                            StartTest(CH2);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
+                                    {
+                                        if (GSystem.DHSModel.GetTestStep(CH2) == NFCTouchTestStep.Standby)
+                                        {
+                                            if (CheckMasterSampleTest(CH2))
+                                                StartTest(CH2);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (GSystem.DHSModel.GetTouchOnlyTestStep(CH1) == TouchOnlyTestStep.Standby)
+                                        {
+                                            // Start...
+                                            StartTest(CH2);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                string caption = "바코드 읽기";
+                                string message = "검사를 시작하기 전 바코드를 읽어주세요.";
+                                MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                GSystem.BarcodeResetAndPopUp?.Invoke(CH2);
+                            }
+                        }
+                        else
+                        {
+                            if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
+                            {
+                                if (GSystem.DHSModel.GetTestStep(CH2) == NFCTouchTestStep.Standby)
+                                {
+                                    if (CheckMasterSampleTest(CH2))
+                                        StartTest(CH2);
+                                }
+                            }
+                            else
+                            {
+                                if (GSystem.DHSModel.GetTouchOnlyTestStep(CH1) == TouchOnlyTestStep.Standby)
+                                {
+                                    // Start...
+                                    StartTest(CH2);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        prevPLC_I_StartCh2 = currPLC_I_StartCh2;
                     }
                 }
 
@@ -673,35 +1087,36 @@ namespace DHSTesterXL
                 {
                     labelTimeValueCh2.Text = $"{GSystem.TimerTestTime[CH2].GetElapsedSeconds():F1} sec";
                     if (buttonStartCh2.ForeColor != Color.DodgerBlue)
-                    {
                         GSystem.SetButtonForeColor(buttonStartCh2, Color.DodgerBlue);
-                        GSystem.DedicatedCTRL.SetStartLampStateCh2(true);
-                    }
                 }
                 else
                 {
                     if (buttonStartCh2.ForeColor != Color.DimGray)
-                    {
                         GSystem.SetButtonForeColor(buttonStartCh2, Color.DimGray);
-                        GSystem.DedicatedCTRL.SetStartLampStateCh2(false);
-                    }
+                    if (IsTestStartCh2)
+                        IsTestStartCh2 = false;
                 }
 
-                if (GSystem.DedicatedCTRL.GetCompleteActiveCurrentCh2() || GSystem.DedicatedCTRL.GetCompleteActiveCurrentCh2())
+                if (GSystem.DedicatedCTRL.GetCompleteActivePowerOnCh2())
                 {
                     if (buttonPowerCh2.ForeColor != Color.OrangeRed)
-                    {
                         GSystem.SetButtonForeColor(buttonPowerCh2, Color.OrangeRed);
-                        GSystem.DedicatedCTRL.PowerLampStateCh2(true);
-                    }
                 }
                 else
                 {
                     if (buttonPowerCh2.ForeColor != Color.DimGray)
-                    {
                         GSystem.SetButtonForeColor(buttonPowerCh2, Color.DimGray);
-                        GSystem.DedicatedCTRL.PowerLampStateCh2(false);
-                    }
+                }
+
+                if (GSystem.DedicatedCTRL.GetLockSignalCh2())
+                {
+                    if (buttonLockCh2.ForeColor != Color.LimeGreen)
+                        GSystem.SetButtonForeColor(buttonLockCh2, Color.LimeGreen);
+                }
+                else
+                {
+                    if (buttonLockCh2.ForeColor != Color.DimGray)
+                        GSystem.SetButtonForeColor(buttonLockCh2, Color.DimGray);
                 }
             }
             else
@@ -776,23 +1191,39 @@ namespace DHSTesterXL
                 MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        /* 실제 실행시 주석 제거 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private void buttonFunction_Click(object sender, EventArgs e)
         {
             FormVFlash formVFlash = new FormVFlash();
             formVFlash.ShowDialog();
         }
+        */
 
         private void buttonSettings_Click(object sender, EventArgs e)
         {
             FormSettings formSettings = new FormSettings();
+            formSettings.TopMost = true;
             formSettings.Show();
         }
 
-        private void buttonLog_Click(object sender, EventArgs e)
+        private async void buttonLog_Click(object sender, EventArgs e)
         {
             //FormLogData formLogData = new FormLogData();
             //formLogData.ShowDialog();
+
+            // FOR_TEST
+            //GSystem.ProductForm.PrintTo("ZDesigner ZD421-203dpi ZPL");
+            await Task.Run(() => Touch_hardwire_test());
+            // END_TEST
+        }
+
+        private async void Touch_hardwire_test()
+        {
+            GSystem.DHSModel.Send_ExtendedSession(GSystem.CH1);
+            await Task.Delay(10);
+            GSystem.DHSModel.Send_ExtendedSession(GSystem.CH1);
+            await Task.Delay(10);
+            GSystem.DHSModel.Send_HardwireTest(GSystem.CH1);
         }
 
         private void SetupConnectorCount()
@@ -801,38 +1232,38 @@ namespace DHSTesterXL
             uint maxCount = GSystem.SystemData.ConnectorNFCTouch1Ch1.MaxCount;
             uint warnCount = GSystem.SystemData.ConnectorNFCTouch1Ch1.WarnCount;
             uint useCount = GSystem.SystemData.ConnectorNFCTouch1Ch1.UseCount;
-            labelNfcTouch1SetCh1.Text = $"{maxCount:N0} ({warnCount:N0})";
+            labelNfcTouch1SetCh1.Text = $"{maxCount:N0}";
             labelNfcTouch1ValueCh1.Text = useCount.ToString("N0");
 
             maxCount = GSystem.SystemData.ConnectorNFCTouch2Ch1.MaxCount;
             warnCount = GSystem.SystemData.ConnectorNFCTouch2Ch1.WarnCount;
             useCount = GSystem.SystemData.ConnectorNFCTouch2Ch1.UseCount;
-            labelNfcTouch2SetCh1.Text = $"{maxCount:N0} ({warnCount:N0})";
+            labelNfcTouch2SetCh1.Text = $"{maxCount:N0}";
             labelNfcTouch2ValueCh1.Text = useCount.ToString("N0");
 
             maxCount = GSystem.SystemData.ConnectorTouchOnlyCh1.MaxCount;
             warnCount = GSystem.SystemData.ConnectorTouchOnlyCh1.WarnCount;
             useCount = GSystem.SystemData.ConnectorTouchOnlyCh1.UseCount;
-            labelTouchOnlySetCh1.Text = $"{maxCount:N0} ({warnCount:N0})";
+            labelTouchOnlySetCh1.Text = $"{maxCount:N0}";
             labelTouchOnlyValueCh1.Text = useCount.ToString("N0");
 
             // Ch2
             maxCount = GSystem.SystemData.ConnectorNFCTouch1Ch2.MaxCount;
             warnCount = GSystem.SystemData.ConnectorNFCTouch1Ch2.WarnCount;
             useCount = GSystem.SystemData.ConnectorNFCTouch1Ch2.UseCount;
-            labelNfcTouch1SetCh2.Text = $"{maxCount:N0} ({warnCount:N0})";
+            labelNfcTouch1SetCh2.Text = $"{maxCount:N0}";
             labelNfcTouch1ValueCh2.Text = useCount.ToString("N0");
 
             maxCount = GSystem.SystemData.ConnectorNFCTouch2Ch2.MaxCount;
             warnCount = GSystem.SystemData.ConnectorNFCTouch2Ch2.WarnCount;
             useCount = GSystem.SystemData.ConnectorNFCTouch2Ch2.UseCount;
-            labelNfcTouch2SetCh2.Text = $"{maxCount:N0} ({warnCount:N0})";
+            labelNfcTouch2SetCh2.Text = $"{maxCount:N0}";
             labelNfcTouch2ValueCh2.Text = useCount.ToString("N0");
 
             maxCount = GSystem.SystemData.ConnectorTouchOnlyCh2.MaxCount;
             warnCount = GSystem.SystemData.ConnectorTouchOnlyCh2.WarnCount;
             useCount = GSystem.SystemData.ConnectorTouchOnlyCh2.UseCount;
-            labelTouchOnlySetCh2.Text = $"{maxCount:N0} ({warnCount:N0})";
+            labelTouchOnlySetCh2.Text = $"{maxCount:N0}";
             labelTouchOnlyValueCh2.Text = useCount.ToString("N0");
         }
 
@@ -867,6 +1298,8 @@ namespace DHSTesterXL
                 if (!statusCanDriver.Enabled) statusCanDriver.Enabled = true;
                 if (!statusCanCh1.Enabled) statusCanCh1.Enabled = true;
                 if (!statusCanCh2.Enabled) statusCanCh2.Enabled = true;
+                if (statusComCh1.Enabled) statusComCh1.Enabled = false;
+                if (statusComCh2.Enabled) statusComCh2.Enabled = false;
 
                 if (CanXL.IsLoaded)
                 {
@@ -908,6 +1341,33 @@ namespace DHSTesterXL
                 if (statusCanDriver.Enabled) statusCanDriver.Enabled = false;
                 if (statusCanCh1.Enabled) statusCanCh1.Enabled = false;
                 if (statusCanCh2.Enabled) statusCanCh2.Enabled = false;
+                if (!statusComCh1.Enabled) statusComCh1.Enabled = true;
+                if (!statusComCh2.Enabled) statusComCh2.Enabled = true;
+
+                // UART 사양
+                if (GSystem.DHSModel != null)
+                {
+                    if (GSystem.DHSModel.IsOpen(CH1))
+                    {
+                        if (statusComCh1.ForeColor != Color.Green)
+                            statusComCh1.ForeColor = Color.Green;
+                    }
+                    else
+                    {
+                        if (statusComCh1.ForeColor != Color.OrangeRed)
+                            statusComCh1.ForeColor = Color.OrangeRed;
+                    }
+                    if (GSystem.DHSModel.IsOpen(CH2))
+                    {
+                        if (statusComCh2.ForeColor != Color.Green)
+                            statusComCh2.ForeColor = Color.Green;
+                    }
+                    else
+                    {
+                        if (statusComCh2.ForeColor != Color.OrangeRed)
+                            statusComCh2.ForeColor = Color.OrangeRed;
+                    }
+                }
             }
 
             if (DedicatedCTRL.IsOpen)
@@ -962,8 +1422,8 @@ namespace DHSTesterXL
                 labelOkValueTotal.Text = GSystem.ProductSettings.TestInfo.OkCountTot.ToString("N0");
             if (labelNgValueTotal.Text != GSystem.ProductSettings.TestInfo.NgCountTot.ToString("N0"))
                 labelNgValueTotal.Text = GSystem.ProductSettings.TestInfo.NgCountTot.ToString("N0");
-            if (labelRateValueTotal.Text != (GSystem.ProductSettings.TestInfo.NgRateTot.ToString("F01") + " %"))
-                labelRateValueTotal.Text = GSystem.ProductSettings.TestInfo.NgRateTot.ToString("F01") + " %";
+            if (labelRateValueTotal.Text != GSystem.ProductSettings.TestInfo.NgRateTot.ToString("F01"))
+                labelRateValueTotal.Text = GSystem.ProductSettings.TestInfo.NgRateTot.ToString("F01");
             if (labelSerialValueTotal.Text != GSystem.ProductSettings.TestInfo.SerialNumTot.ToString("D04"))
                 labelSerialValueTotal.Text = GSystem.ProductSettings.TestInfo.SerialNumTot.ToString("D04");
 
@@ -973,8 +1433,8 @@ namespace DHSTesterXL
                 labelOkValueCh1.Text = GSystem.ProductSettings.TestInfo.OkCountCh1.ToString("N0");
             if (labelNgValueCh1.Text != GSystem.ProductSettings.TestInfo.NgCountCh1.ToString("N0"))
                 labelNgValueCh1.Text = GSystem.ProductSettings.TestInfo.NgCountCh1.ToString("N0");
-            if (labelRateValueCh1.Text != (GSystem.ProductSettings.TestInfo.NgRateCh1.ToString("F01") + " %"))
-                labelRateValueCh1.Text = GSystem.ProductSettings.TestInfo.NgRateCh1.ToString("F01") + " %";
+            if (labelRateValueCh1.Text != GSystem.ProductSettings.TestInfo.NgRateCh1.ToString("F01"))
+                labelRateValueCh1.Text = GSystem.ProductSettings.TestInfo.NgRateCh1.ToString("F01");
             if (labelSerialValueCh1.Text != GSystem.ProductSettings.TestInfo.SerialNumCh1.ToString("D04"))
                 labelSerialValueCh1.Text = GSystem.ProductSettings.TestInfo.SerialNumCh1.ToString("D04");
 
@@ -984,18 +1444,26 @@ namespace DHSTesterXL
                 labelOkValueCh2.Text = GSystem.ProductSettings.TestInfo.OkCountCh2.ToString("N0");
             if (labelNgValueCh2.Text != GSystem.ProductSettings.TestInfo.NgCountCh2.ToString("N0"))
                 labelNgValueCh2.Text = GSystem.ProductSettings.TestInfo.NgCountCh2.ToString("N0");
-            if (labelRateValueCh2.Text != (GSystem.ProductSettings.TestInfo.NgRateCh2.ToString("F01") + " %"))
-                labelRateValueCh2.Text = GSystem.ProductSettings.TestInfo.NgRateCh2.ToString("F01") + " %";
+            if (labelRateValueCh2.Text != GSystem.ProductSettings.TestInfo.NgRateCh2.ToString("F01"))
+                labelRateValueCh2.Text = GSystem.ProductSettings.TestInfo.NgRateCh2.ToString("F01");
             if (labelSerialValueCh2.Text != GSystem.ProductSettings.TestInfo.SerialNumCh2.ToString("D04"))
                 labelSerialValueCh2.Text = GSystem.ProductSettings.TestInfo.SerialNumCh2.ToString("D04");
         }
 
+        private void SetupTHDSettings(int channel)
+        {
+            thdTouchFastMutual[channel] = GSystem.ProductSettings.THDSettings.TouchFastMutual;
+            thdTouchFastSelf[channel] = GSystem.ProductSettings.THDSettings.TouchFastSelf;
+            thdCancelFastSelf[channel] = GSystem.ProductSettings.THDSettings.CancelFastSelf;
+            thdCancelSlowSelf[channel] = GSystem.ProductSettings.THDSettings.CancelSlowSelf;
+        }
+
         private Task TogglePowerCh1()
         {
-            if (GSystem.DedicatedCTRL.GetCompleteActiveCurrentCh1())
+            if (GSystem.DedicatedCTRL.GetCompleteActivePowerOnCh1())
             {
                 // ON -> OFF
-                GSystem.DedicatedCTRL.SetCommandActiveCurrentCh1(false);
+                GSystem.DedicatedCTRL.SetCommandActivePowerOnCh1(false);
                 GSystem.DedicatedCTRL.SetCommandTestInitCh1(true);
                 while (!GSystem.DedicatedCTRL.GetCommandTestInitCh1() || !GSystem.DedicatedCTRL.GetCompleteTestInitCh1())
                 {
@@ -1007,17 +1475,17 @@ namespace DHSTesterXL
             {
                 // OFF -> ON
                 GSystem.DedicatedCTRL.SetCommandTestInitCh1(false);
-                GSystem.DedicatedCTRL.SetCommandActiveCurrentCh1(true);
+                GSystem.DedicatedCTRL.SetCommandActivePowerOnCh1(true);
             }
             return Task.CompletedTask;
         }
 
         private Task TogglePowerCh2()
         {
-            if (GSystem.DedicatedCTRL.GetCompleteActiveCurrentCh2())
+            if (GSystem.DedicatedCTRL.GetCompleteActivePowerOnCh2())
             {
                 // ON -> OFF
-                GSystem.DedicatedCTRL.SetCommandActiveCurrentCh2(false);
+                GSystem.DedicatedCTRL.SetCommandActivePowerOnCh2(false);
                 GSystem.DedicatedCTRL.SetCommandTestInitCh2(true);
                 while (!GSystem.DedicatedCTRL.GetCommandTestInitCh2() || !GSystem.DedicatedCTRL.GetCompleteTestInitCh2())
                 {
@@ -1029,67 +1497,125 @@ namespace DHSTesterXL
             {
                 // OFF -> ON
                 GSystem.DedicatedCTRL.SetCommandTestInitCh2(false);
-                GSystem.DedicatedCTRL.SetCommandActiveCurrentCh2(true);
+                GSystem.DedicatedCTRL.SetCommandActivePowerOnCh2(true);
             }
             return Task.CompletedTask;
         }
 
         private async void buttonPowerCh1_Click(object sender, EventArgs e)
         {
+            if (!GSystem.AdminMode)
+                return;
             await Task.Run(() => TogglePowerCh1());
         }
 
         private async void buttonPowerCh2_Click(object sender, EventArgs e)
         {
+            if (!GSystem.AdminMode)
+                return;
             await Task.Run(() => TogglePowerCh2());
         }
 
         private void buttonStartCh1_Click(object sender, EventArgs e)
         {
-            if (GSystem.DHSModel.GetTestStep(CH1) < NFCTouchTestStep.Prepare)
+            if (!GSystem.AdminMode)
+                return;
+            if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
             {
-                string caption = "테스트 시작";
-                string message = "CH.1의 테스트를 시작하시겠습니까?";
-                if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                    return;
-                // Start...
-                StartTest(CH1);
+                if (GSystem.DHSModel.GetTestStep(CH1) < NFCTouchTestStep.Prepare)
+                {
+                    string caption = "테스트 시작";
+                    string message = "CH.1의 테스트를 시작하시겠습니까?";
+                    if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
+                    // Start...
+                    StartTest(CH1);
+                }
+                else
+                {
+                    string caption = "테스트 중지";
+                    string message = "CH.1의 테스트를 중지하시겠습니까?";
+                    if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
+                    // Stop
+                    StopTest(CH1);
+                }
             }
             else
             {
-                string caption = "테스트 중지";
-                string message = "CH.1의 테스트를 중지하시겠습니까?";
-                if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                    return;
-                // Stop
-                StopTest(CH1);
+                if (GSystem.DHSModel.GetTouchOnlyTestStep(CH1) < TouchOnlyTestStep.Prepare)
+                {
+                    string caption = "테스트 시작";
+                    string message = "CH.1의 테스트를 시작하시겠습니까?";
+                    if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
+                    // Start...
+                    StartTest(CH1);
+                }
+                else
+                {
+                    string caption = "테스트 중지";
+                    string message = "CH.1의 테스트를 중지하시겠습니까?";
+                    if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
+                    // Stop
+                    StopTest(CH1);
+                }
             }
         }
 
         private void buttonStartCh2_Click(object sender, EventArgs e)
         {
-            if (GSystem.DHSModel.GetTestStep(CH2) < NFCTouchTestStep.Prepare)
+            if (!GSystem.AdminMode)
+                return;
+            if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
             {
-                string caption = "테스트 시작";
-                string message = "CH.2의 테스트를 시작하시겠습니까?";
-                if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                    return;
-                // Start...
-                StartTest(CH2);
+                if (GSystem.DHSModel.GetTestStep(CH2) < NFCTouchTestStep.Prepare)
+                {
+                    string caption = "테스트 시작";
+                    string message = "CH.2의 테스트를 시작하시겠습니까?";
+                    if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
+                    // Start...
+                    StartTest(CH2);
+                }
+                else
+                {
+                    string caption = "테스트 중지";
+                    string message = "CH.2의 테스트를 중지하시겠습니까?";
+                    if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
+                    // Stop
+                    StopTest(CH2);
+                }
             }
             else
             {
-                string caption = "테스트 중지";
-                string message = "CH.2의 테스트를 중지하시겠습니까?";
-                if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                    return;
-                // Stop
-                StopTest(CH2);
+                if (GSystem.DHSModel.GetTouchOnlyTestStep(CH2) < TouchOnlyTestStep.Prepare)
+                {
+                    string caption = "테스트 시작";
+                    string message = "CH.2의 테스트를 시작하시겠습니까?";
+                    if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
+                    // Start...
+                    StartTest(CH2);
+                }
+                else
+                {
+                    string caption = "테스트 중지";
+                    string message = "CH.2의 테스트를 중지하시겠습니까?";
+                    if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
+                    // Stop
+                    StopTest(CH2);
+                }
             }
         }
 
         private void buttonTestCh1_Click(object sender, EventArgs e)
         {
+            if (!GSystem.AdminMode)
+                return;
             FormXcpData formXcpData = new FormXcpData();
             formXcpData.Channel = CH1;
             formXcpData.ShowDialog();
@@ -1108,11 +1634,16 @@ namespace DHSTesterXL
 
             //GSystem.DHSModel.Send_PLight(CH1, true, true);
 
+            //await Task.Run(() => Touch_hardwire_test());
+
+
             // END_TEST
         }
 
         private void buttonTestCh2_Click(object sender, EventArgs e)
         {
+            if (!GSystem.AdminMode)
+                return;
             FormXcpData formXcpData = new FormXcpData();
             formXcpData.Channel = CH2;
             formXcpData.ShowDialog();
@@ -1224,8 +1755,8 @@ namespace DHSTesterXL
             {
                 for (int i = 0; i < gridTestListCh1.Rows.Count; i++)
                 {
-                    gridTestListCh1[5, i].Value = string.Empty;
-                    gridTestListCh1[5, i].Style.BackColor = GetPerformStateColor(PerformState.Ready);
+                    gridTestListCh1[COL_Result, i].Value = string.Empty;
+                    gridTestListCh1[COL_Result, i].Style.BackColor = GetPerformStateColor(PerformState.Ready);
                 }
                 if (textRxswinValueCh1.Text != string.Empty)
                 {
@@ -1236,8 +1767,8 @@ namespace DHSTesterXL
             {
                 for (int i = 0; i < gridTestListCh2.Rows.Count; i++)
                 {
-                    gridTestListCh2[5, i].Value = string.Empty;
-                    gridTestListCh2[5, i].Style.BackColor = GetPerformStateColor(PerformState.Ready);
+                    gridTestListCh2[COL_Result, i].Value = string.Empty;
+                    gridTestListCh2[COL_Result, i].Style.BackColor = GetPerformStateColor(PerformState.Ready);
                 }
                 if (textRxswinValueCh2.Text != string.Empty)
                 {
@@ -1347,10 +1878,11 @@ namespace DHSTesterXL
                     {
                         for (int rowIndex = 0; rowIndex < gridTestListCh1.RowCount; rowIndex++)
                         {
-                            if (gridTestListCh1[2, rowIndex].Value.ToString().IndexOf(testName) >= 0)
+                            if (gridTestListCh1[COL_Item, rowIndex].Value.ToString().IndexOf(testName) >= 0)
                             {
-                                gridTestListCh1[5, rowIndex].Value = result;
-                                gridTestListCh1[5, rowIndex].Style.BackColor = GetTestStepStateColor(state);
+                                gridTestListCh1[COL_Result, rowIndex].Value = result;
+                                gridTestListCh1[COL_Result, rowIndex].Style.ForeColor = GetTestStepStateForeColor(state);
+                                gridTestListCh1[COL_Result, rowIndex].Style.BackColor = GetTestStepStateBackColor(state);
                                 break;
                             }
                         }
@@ -1359,10 +1891,11 @@ namespace DHSTesterXL
                     {
                         for (int rowIndex = 0; rowIndex < gridTestListCh2.RowCount; rowIndex++)
                         {
-                            if (gridTestListCh2[2, rowIndex].Value.ToString().IndexOf(testName) >= 0)
+                            if (gridTestListCh2[COL_Item, rowIndex].Value.ToString().IndexOf(testName) >= 0)
                             {
-                                gridTestListCh2[5, rowIndex].Value = result;
-                                gridTestListCh2[5, rowIndex].Style.BackColor = GetTestStepStateColor(state);
+                                gridTestListCh2[COL_Result, rowIndex].Value = result;
+                                gridTestListCh2[COL_Result, rowIndex].Style.ForeColor = GetTestStepStateForeColor(state);
+                                gridTestListCh2[COL_Result, rowIndex].Style.BackColor = GetTestStepStateBackColor(state);
                                 break;
                             }
                         }
@@ -1371,7 +1904,20 @@ namespace DHSTesterXL
             }
         }
 
-        private Color GetTestStepStateColor(TestStates state)
+        private Color GetTestStepStateForeColor(TestStates state)
+        {
+            switch (state)
+            {
+                case TestStates.Ready: return Color.DimGray;
+                case TestStates.Running: return Color.White;
+                case TestStates.Pass: return Color.Black;
+                case TestStates.Failed: return Color.White;
+                default:
+                    return Color.White;
+            }
+        }
+
+        private Color GetTestStepStateBackColor(TestStates state)
         {
             switch (state)
             {
@@ -1467,28 +2013,34 @@ namespace DHSTesterXL
             }
         }
 
+        //private TickTimer[] _tickTouchTimeout = new TickTimer[GSystem.ChannelCount];
+        //private void OnStartTouchXcpData(object sender, EventArgs e)
+        //{
+        //    XcpDataEventArgs xcpTouchCancelArgs = e as XcpDataEventArgs;
+        //    _tickTouchTimeout[xcpTouchCancelArgs.Channel].Reset();
+        //}
         private void OnUpdateTouchXcpData(object sender, EventArgs e)
         {
             XcpDataEventArgs xcpTouchCancelArgs = e as XcpDataEventArgs;
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action<int, int, int, int, float, int, int>(UpdateTouchXcpData), 
-                    xcpTouchCancelArgs.Channel, 
-                    xcpTouchCancelArgs.TouchFastMutual, 
-                    xcpTouchCancelArgs.TouchFastSelf, 
-                    xcpTouchCancelArgs.TouchSlowSelf, 
-                    xcpTouchCancelArgs.TouchComboRate, 
-                    xcpTouchCancelArgs.TouchState, 
+                this.Invoke(new Action<int, int, int, int, float, int, int>(UpdateTouchXcpData),
+                    xcpTouchCancelArgs.Channel,
+                    xcpTouchCancelArgs.TouchFastMutual,
+                    xcpTouchCancelArgs.TouchFastSelf,
+                    xcpTouchCancelArgs.TouchSlowSelf,
+                    xcpTouchCancelArgs.TouchComboRate,
+                    xcpTouchCancelArgs.TouchState,
                     xcpTouchCancelArgs.IntervalTime);
             }
             else
             {
-                UpdateTouchXcpData(xcpTouchCancelArgs.Channel, 
-                    xcpTouchCancelArgs.TouchFastMutual, 
-                    xcpTouchCancelArgs.TouchFastSelf, 
-                    xcpTouchCancelArgs.TouchSlowSelf, 
-                    xcpTouchCancelArgs.TouchComboRate, 
-                    xcpTouchCancelArgs.TouchState, 
+                UpdateTouchXcpData(xcpTouchCancelArgs.Channel,
+                    xcpTouchCancelArgs.TouchFastMutual,
+                    xcpTouchCancelArgs.TouchFastSelf,
+                    xcpTouchCancelArgs.TouchSlowSelf,
+                    xcpTouchCancelArgs.TouchComboRate,
+                    xcpTouchCancelArgs.TouchState,
                     xcpTouchCancelArgs.IntervalTime);
             }
         }
@@ -1573,14 +2125,18 @@ namespace DHSTesterXL
 
             if (channel == CH1)
             {
-                labelTouchFastMutualValueCh1.Text = touchFastMutual.ToString();
-                labelTouchFastSelfValueCh1.Text = touchFastSelf.ToString();
+                //labelTouchFastMutualValueCh1.Text = touchFastMutual.ToString();
+                //labelTouchFastSelfValueCh1.Text = touchFastSelf.ToString();
+                labelTouchFastMutualValueCh1.Text = $"{touchFastMutual}({deltaTouchFastMutual[channel]})";
+                labelTouchFastSelfValueCh1.Text = $"{touchFastSelf}({deltaTouchFastSelf[channel]})";
                 labelTouchStateValueCh1.Text = $"{intervalTime} ms";
             }
             else
             {
-                labelTouchFastMutualValueCh2.Text = touchFastMutual.ToString();
-                labelTouchFastSelfValueCh2.Text = touchFastSelf.ToString();
+                //labelTouchFastMutualValueCh2.Text = touchFastMutual.ToString();
+                //labelTouchFastSelfValueCh2.Text = touchFastSelf.ToString();
+                labelTouchFastMutualValueCh2.Text = $"{touchFastMutual}({deltaTouchFastMutual[channel]})";
+                labelTouchFastSelfValueCh2.Text = $"{touchFastSelf}({deltaTouchFastSelf[channel]})";
                 labelTouchStateValueCh2.Text = $"{intervalTime} ms";
             }
         }
@@ -1653,14 +2209,18 @@ namespace DHSTesterXL
 
             if (channel == CH1)
             {
-                labelCancelFastSelfValueCh1.Text = cancelFastSelf.ToString();
-                labelCancelSlowSelfValueCh1.Text = cancelSlowSelf.ToString();
+                //labelCancelFastSelfValueCh1.Text = cancelFastSelf.ToString();
+                //labelCancelSlowSelfValueCh1.Text = cancelSlowSelf.ToString();
+                labelCancelFastSelfValueCh1.Text = $"{cancelFastSelf}({deltaCancelFastSelf[channel]})";
+                labelCancelSlowSelfValueCh1.Text = $"{cancelSlowSelf}({deltaCancelSlowSelf[channel]})";
                 labelCancelStateValueCh1.Text = $"{intervalTime} ms";
             }
             else
             {
-                labelCancelFastSelfValueCh2.Text = cancelFastSelf.ToString();
-                labelCancelSlowSelfValueCh2.Text = cancelSlowSelf.ToString();
+                //labelCancelFastSelfValueCh2.Text = cancelFastSelf.ToString();
+                //labelCancelSlowSelfValueCh2.Text = cancelSlowSelf.ToString();
+                labelCancelFastSelfValueCh2.Text = $"{cancelFastSelf}({deltaCancelFastSelf[channel]})";
+                labelCancelSlowSelfValueCh2.Text = $"{cancelSlowSelf}({deltaCancelSlowSelf[channel]})";
                 labelCancelStateValueCh2.Text = $"{intervalTime} ms";
             }
         }
@@ -1723,6 +2283,32 @@ namespace DHSTesterXL
             }
         }
 
+        private void OnBarcodePopup(object sender, EventArgs e)
+        {
+            BarcodeEventArgs eventArgs = e as BarcodeEventArgs;
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<int, int, int, string, string>(BarcodePopup),
+                    eventArgs.Channel,
+                    eventArgs.TrayMaxCount,
+                    eventArgs.ProductCount,
+                    eventArgs.TrayBarcode,
+                    eventArgs.ProductBarcode);
+            }
+            else
+            {
+                BarcodePopup(eventArgs.Channel,
+                    eventArgs.TrayMaxCount,
+                    eventArgs.ProductCount,
+                    eventArgs.TrayBarcode,
+                    eventArgs.ProductBarcode);
+            }
+        }
+        private void BarcodePopup(int channel, int trayMaxCount, int productCount, string trayBarcode, string productBarcode)
+        {
+
+        }
+
         private void timerBlinkCh1_Tick(object sender, EventArgs e)
         {
             if (labelFullProofMessageCh1.BackColor == Color.Gray)
@@ -1780,11 +2366,15 @@ namespace DHSTesterXL
 
         private void timerTest_Tick(object sender, EventArgs e)
         {
-            GSystem.DHSModel.Send_NM(CH1);
+            GSystem.DHSModel.Send_NM(Channel);
+            //GSystem.DHSModel.Send_NFC(Channel);
         }
 
         private void buttonLockCh1_Click(object sender, EventArgs e)
         {
+            if (!GSystem.AdminMode)
+                return;
+            Channel = GSystem.CH1;
             if (timerTest.Enabled)
             {
                 timerTest.Stop();
@@ -1800,5 +2390,307 @@ namespace DHSTesterXL
         {
             GSystem.DHSModel.Send_PLight(CH1, checkPLight.Checked, true);
         }
+
+        private void buttonLockCh2_Click(object sender, EventArgs e)
+        {
+            if (!GSystem.AdminMode)
+                return;
+            Channel = GSystem.CH2;
+            if (timerTest.Enabled)
+            {
+                timerTest.Stop();
+            }
+            else
+            {
+                timerTest.Interval = 300;
+                timerTest.Start();
+            }
+        }
+
+        private void buttonBarcodeCh1_Click(object sender, EventArgs e)
+        {
+            //FormBarcode formBarcode = new FormBarcode();
+            //formBarcode.Channel = CH1;
+            //if (formBarcode.ShowDialog() == DialogResult.OK)
+            //{
+            //    GSystem.TrayBarcode[CH1] = formBarcode.TrayBarcode;
+            //    GSystem.ProductBarcode[CH1] = formBarcode.ProductBarcode;
+            //    textBarcodeCh1.Text = formBarcode.ProductBarcode;
+            //}
+
+            GSystem.BarcodeResetAndPopUp?.Invoke(CH1);
+        }
+
+        private void buttonBarcodeCh2_Click(object sender, EventArgs e)
+        {
+            //FormBarcode formBarcode = new FormBarcode();
+            //formBarcode.Channel = CH2;
+            //if (formBarcode.ShowDialog() == DialogResult.OK)
+            //{
+            //    GSystem.TrayBarcode[CH2] = formBarcode.TrayBarcode;
+            //    GSystem.ProductBarcode[CH2] = formBarcode.ProductBarcode;
+            //    textBarcodeCh2.Text = formBarcode.ProductBarcode;
+            //}
+            GSystem.BarcodeResetAndPopUp?.Invoke(CH2);
+        }
+
+        private void labelVersion_DoubleClick(object sender, EventArgs e)
+        {
+            // 하단 인디케이터 컨트롤 표시/감추기
+            EnableBottomControls = !EnableBottomControls;
+            SetEnableBottomControls(EnableBottomControls);
+        }
+
+        private void SetEnableBottomControls(bool enableControl)
+        {
+            // 하단 인디케이터 컨트롤 표시/감추기
+            //buttonPowerCh1.Visible = enableControl;
+            //buttonStartCh1.Visible = enableControl;
+            //buttonLockCh1.Visible = enableControl;
+            //buttonTestCh1.Visible = enableControl;
+            labelTouchTitleCh1.Visible = enableControl;
+            labelTouchFastMutualTitleCh1.Visible = enableControl;
+            labelTouchFastSelfTitleCh1.Visible = enableControl;
+            labelTouchFastMutualValueCh1.Visible = enableControl;
+            labelTouchFastSelfValueCh1.Visible = enableControl;
+            labelCancelTitleCh1.Visible = enableControl;
+            labelCancelFastSelfTitleCh1.Visible = enableControl;
+            labelCancelSlowSelfTitleCh1.Visible = enableControl;
+            labelCancelFastSelfValueCh1.Visible = enableControl;
+            labelCancelSlowSelfValueCh1.Visible = enableControl;
+            labelLowCurrentTitleCh1.Visible = enableControl;
+            labelLowCurrentValueCh1.Visible = enableControl;
+            labelHighCurrentTitleCh1.Visible = enableControl;
+            labelHighCurrentValueCh1.Visible = enableControl;
+            textRxswinValueCh1.Visible = enableControl;
+
+            //buttonPowerCh2.Visible = enableControl;
+            //buttonStartCh2.Visible = enableControl;
+            //buttonLockCh2.Visible = enableControl;
+            //buttonTestCh2.Visible = enableControl;
+            labelTouchTitleCh2.Visible = enableControl;
+            labelTouchFastMutualTitleCh2.Visible = enableControl;
+            labelTouchFastSelfTitleCh2.Visible = enableControl;
+            labelTouchFastMutualValueCh2.Visible = enableControl;
+            labelTouchFastSelfValueCh2.Visible = enableControl;
+            labelCancelTitleCh2.Visible = enableControl;
+            labelCancelFastSelfTitleCh2.Visible = enableControl;
+            labelCancelSlowSelfTitleCh2.Visible = enableControl;
+            labelCancelFastSelfValueCh2.Visible = enableControl;
+            labelCancelSlowSelfValueCh2.Visible = enableControl;
+            labelLowCurrentTitleCh2.Visible = enableControl;
+            labelLowCurrentValueCh2.Visible = enableControl;
+            labelHighCurrentTitleCh2.Visible = enableControl;
+            labelHighCurrentValueCh2.Visible = enableControl;
+            textRxswinValueCh2.Visible = enableControl;
+        }
+
+        private bool CheckMasterSampleTest(int channel)
+        {
+            // 마스터샘플 테스트 진행 여부에 따라 메시지 표시
+            if (GSystem.ProductSettings.ProductInfo.UseMasterSample)
+            {
+                if (GSystem.ProductSettings.MasterSample.MasterCount > 0)
+                {
+                    bool masterSampleOK = false;
+
+                    if (channel == CH1)
+                    {
+                        int masterCount = 0;
+                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        {
+                            if (GSystem.ProductSettings.MasterSample.MasterType1 != "")
+                            {
+                                masterCount++;
+                                masterSampleOK = GSystem.MasterTestCh1[0];
+                            }
+                        }
+                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        {
+                            if (GSystem.ProductSettings.MasterSample.MasterType2 != "")
+                            {
+                                masterCount++;
+                                masterSampleOK = GSystem.MasterTestCh1[1];
+                            }
+                        }
+                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        {
+                            if (GSystem.ProductSettings.MasterSample.MasterType3 != "")
+                            {
+                                masterCount++;
+                                masterSampleOK = GSystem.MasterTestCh1[2];
+                            }
+                        }
+                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        {
+                            if (GSystem.ProductSettings.MasterSample.MasterType4 != "")
+                            {
+                                masterCount++;
+                                masterSampleOK = GSystem.MasterTestCh1[3];
+                            }
+                        }
+                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        {
+                            if (GSystem.ProductSettings.MasterSample.MasterType5 != "")
+                            {
+                                masterCount++;
+                                masterSampleOK = GSystem.MasterTestCh1[4];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        int masterCount = 0;
+                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        {
+                            if (GSystem.ProductSettings.MasterSample.MasterType1 != "")
+                            {
+                                masterCount++;
+                                masterSampleOK = GSystem.MasterTestCh2[0];
+                            }
+                        }
+                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        {
+                            if (GSystem.ProductSettings.MasterSample.MasterType2 != "")
+                            {
+                                masterCount++;
+                                masterSampleOK = GSystem.MasterTestCh2[1];
+                            }
+                        }
+                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        {
+                            if (GSystem.ProductSettings.MasterSample.MasterType3 != "")
+                            {
+                                masterCount++;
+                                masterSampleOK = GSystem.MasterTestCh2[2];
+                            }
+                        }
+                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        {
+                            if (GSystem.ProductSettings.MasterSample.MasterType4 != "")
+                            {
+                                masterCount++;
+                                masterSampleOK = GSystem.MasterTestCh2[3];
+                            }
+                        }
+                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        {
+                            if (GSystem.ProductSettings.MasterSample.MasterType5 != "")
+                            {
+                                masterCount++;
+                                masterSampleOK = GSystem.MasterTestCh2[4];
+                            }
+                        }
+                    }
+
+                    if (!masterSampleOK)
+                    {
+                        string caption = "마스터 샘플 검사";
+                        string message = "마스터 샘플 검사를 진행하지 않았습니다.\n제품 검사 전 마스터 샘플 검사를 진행해 주십시오.";
+                        MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        GSystem.BarcodeResetAndPopUp?.Invoke(channel);
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        private void labelCountTitleTotal_DoubleClick(object sender, EventArgs e)
+        {
+            // 검사 수량 초기화
+            if (GSystem.AdminMode)
+            {
+                string caption = "초기화";
+                string message = "검사 수량을 초기화 하시겠습니까?";
+                if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    GSystem.ProductSettings.TestInfo.TestCountTot = 0;
+                    GSystem.ProductSettings.TestInfo.OkCountTot = 0;
+                    GSystem.ProductSettings.TestInfo.NgCountTot = 0;
+                    GSystem.ProductSettings.TestInfo.NgRateTot = 0;
+                    GSystem.ProductSettings.TestInfo.SerialNumTot = 0;
+                    GSystem.ProductSettings.TestInfo.TestCountCh1 = 0;
+                    GSystem.ProductSettings.TestInfo.OkCountCh1 = 0;
+                    GSystem.ProductSettings.TestInfo.NgCountCh1 = 0;
+                    GSystem.ProductSettings.TestInfo.NgRateCh1 = 0;
+                    GSystem.ProductSettings.TestInfo.SerialNumCh1 = 0;
+                    GSystem.ProductSettings.TestInfo.TestCountCh2 = 0;
+                    GSystem.ProductSettings.TestInfo.OkCountCh2 = 0;
+                    GSystem.ProductSettings.TestInfo.NgCountCh2 = 0;
+                    GSystem.ProductSettings.TestInfo.NgRateCh2 = 0;
+                    GSystem.ProductSettings.TestInfo.SerialNumCh2 = 0;
+                    GSystem.ProductSettings.Save(GSystem.ProductSettings.GetFileName(), GSystem.SystemData.GeneralSettings.ProductFolder);
+                }
+            }
+        }
+
+        private void labelNgTitleTotal_DoubleClick(object sender, EventArgs e)
+        {
+            // 검사 수량 초기화
+            if (GSystem.AdminMode)
+            {
+                string caption = "불량 초기화";
+                string message = "불량 수량을 초기화 하시겠습니까?";
+                if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    GSystem.ProductSettings.TestInfo.TestCountCh1 -= GSystem.ProductSettings.TestInfo.OkCountCh1;
+                    GSystem.ProductSettings.TestInfo.NgCountCh1 = 0;
+                    GSystem.ProductSettings.TestInfo.NgRateCh1 = 0;
+                    GSystem.ProductSettings.TestInfo.SerialNumCh1 = GSystem.ProductSettings.TestInfo.OkCountTot - 1;
+                    GSystem.ProductSettings.TestInfo.TestCountCh2 = GSystem.ProductSettings.TestInfo.OkCountCh2;
+                    GSystem.ProductSettings.TestInfo.NgCountCh2 = 0;
+                    GSystem.ProductSettings.TestInfo.NgRateCh2 = 0;
+                    GSystem.ProductSettings.TestInfo.SerialNumCh2 = GSystem.ProductSettings.TestInfo.OkCountTot;
+                    GSystem.ProductSettings.TestInfo.TestCountTot = GSystem.ProductSettings.TestInfo.OkCountTot;
+                    GSystem.ProductSettings.TestInfo.NgCountTot = 0;
+                    GSystem.ProductSettings.TestInfo.NgRateTot = 0;
+                    GSystem.ProductSettings.TestInfo.SerialNumTot = GSystem.ProductSettings.TestInfo.OkCountTot;
+                    GSystem.ProductSettings.Save(GSystem.ProductSettings.GetFileName(), GSystem.SystemData.GeneralSettings.ProductFolder);
+                }
+            }
+        }
+
+        private void gridProductInfo_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == 0 && e.ColumnIndex == 0)
+            {
+                // 지그 바코드 스캔
+                FormJigBarcode formJigBarcode = new FormJigBarcode();
+                if (formJigBarcode.ShowDialog() == DialogResult.OK)
+                {
+                    string jigProductFileName = formJigBarcode.JigBarcode + GSystem.JSON_EXT;
+                    string productFilePath = Path.Combine(GSystem.SystemData.GeneralSettings.ProductFolder, jigProductFileName);
+
+                    if (File.Exists(productFilePath))
+                    {
+                        // 파일 있음...품번 선택
+                        GSystem.SystemData.ProductSettings.LastProductNo = formJigBarcode.JigBarcode;
+                        GSystem.SystemData.Save();
+
+                        // 품번 로딩
+                        LoadProduct(GSystem.SystemData.ProductSettings.LastProductNo);
+                    }
+                    else
+                    {
+                        // 파일이 없으면 이전 품번 로딩
+                        string message = $"스캔한 지그 바코드에 해당하는 품번 파일이 없습니다.\n확인하시고 다시 시도해 주십시오.";
+                        string caption = $"품번 파일 오류";
+                        MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void buttonManual_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+
+/*
+
+
+
+*/

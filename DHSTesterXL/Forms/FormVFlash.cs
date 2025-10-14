@@ -1,4 +1,5 @@
-﻿using GSCommon;
+﻿/*
+using GSCommon;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -116,7 +117,7 @@ namespace DHSTesterXL.Forms
 
                     TickTimer tickTimer = new TickTimer();
                     tickTimer.Start();
-                    GSystem.DedicatedCTRL.SetCommandActiveCurrentCh1(false);
+                    GSystem.DedicatedCTRL.SetCommandActivePowerOnCh1(false);
                     GSystem.DedicatedCTRL.SetCommandTestInitCh1(true);
                     while (!GSystem.DedicatedCTRL.GetCommandTestInitCh1() || !GSystem.DedicatedCTRL.GetCompleteTestInitCh1())
                     {
@@ -138,8 +139,8 @@ namespace DHSTesterXL.Forms
         {
             GSystem.TraceMessage("PowerOnAndWakeUp start...");
             // 전원 OFF
-            GSystem.DedicatedCTRL.SetCommandActiveCurrentCh1(false);
-            GSystem.DedicatedCTRL.SetCommandActiveCurrentCh1(false);
+            GSystem.DedicatedCTRL.SetCommandActivePowerOnCh1(false);
+            GSystem.DedicatedCTRL.SetCommandActivePowerOnCh1(false);
             GSystem.DedicatedCTRL.SetCommandTestInitCh1(true);
             while (!GSystem.DedicatedCTRL.GetCommandTestInitCh1() || !GSystem.DedicatedCTRL.GetCompleteTestInitCh1())
             {
@@ -148,8 +149,8 @@ namespace DHSTesterXL.Forms
             GSystem.DedicatedCTRL.SetCommandTestInitCh1(false);
             await Task.Delay(100);
             // 전원 ON
-            GSystem.DedicatedCTRL.SetCommandActiveCurrentCh1(true);
-            while (!GSystem.DedicatedCTRL.GetCommandActiveCurrentCh1() || !GSystem.DedicatedCTRL.GetCompleteActiveCurrentCh1())
+            GSystem.DedicatedCTRL.SetCommandActivePowerOnCh1(true);
+            while (!GSystem.DedicatedCTRL.GetCommandActivePowerOnCh1() || !GSystem.DedicatedCTRL.GetCompleteActivePowerOnCh1())
             {
                 // 전원 ON 대기
                 token.ThrowIfCancellationRequested();
@@ -278,3 +279,4 @@ namespace DHSTesterXL.Forms
         }
     }
 }
+*/

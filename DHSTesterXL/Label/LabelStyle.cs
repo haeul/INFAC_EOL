@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static DHSTesterXL.FormProduct;
+﻿using System.ComponentModel;
 
 namespace DHSTesterXL
 {
@@ -23,7 +17,7 @@ namespace DHSTesterXL
 
         // ───────── 텍스트/로고 SSOT ─────────
         // 로고(동적 이미지)
-        public string LogoImagePath { get; set; } = "";      // 로고 파일 경로
+        public string LogoImagePath { get; set; } = "D:\\INFAC\\DHS_EOL_V3\\DHSTesterXL\\Images";      // 로고 파일 경로
         public double LogoX { get; set; } = 9.0;
         public double LogoY { get; set; } = 0.0;
         // public double LogoW { get; set; } = 10.0; // 로고 기본 가로(mm)
@@ -31,7 +25,7 @@ namespace DHSTesterXL
         public double LogoScaleX { get; set; } = 1.0;
         public double LogoScaleY { get; set; } = 1.0;
         public bool LogoKeepAspect { get; set; } = false;   // 비율 유지
-        public string LogoZplName { get; set; } = "LOGO.GRF"; // (옵션) ZPL 저장명
+        public string LogoZplName { get; set; } = "CE_logo.png"; // (옵션) ZPL 저장명
 
         // 고정 텍스트
         public string PartText { get; set; } = "82657-DC000";
@@ -69,17 +63,58 @@ namespace DHSTesterXL
         public double SNy { get; set; } = 12.0;
         public double SNfont { get; set; } = 2.6;
 
-        // QR (모듈 크기를 mm로 제어)
-        public bool ShowQRPreview { get; set; } = true;
-        public bool ShowQRPrint { get; set; } = true;
-        public double QRx { get; set; } = 1.0;
-        public double QRy { get; set; } = 1.0;
-        public double QRModuleMm { get; set; } = 0.1; // 모듈(셀) 한 변의 mm (203dpi 기준 0.5~1.0 권장)
+        // DM (모듈 크기를 mm로 제어)
+        public double DMx { get; set; } = 1.0;
+        public double DMy { get; set; } = 1.0;
+        public double DMModuleMm { get; set; } = 0.5; // 모듈(셀) 한 변의 mm (203dpi 기준 0.5~1.0 권장)
+        public int DMScale { get; set; } = 3; // 1~10, 기본 3
 
-        // Pb 절대 좌표(좌상단 기준) - 이미 반영돼 있다면 OK
-        public double BadgeX { get; set; } = 55.0; // (LabelW=60, margin=1, dia=5 일 때 60-1-5=54)
+        // Pb 절대 좌표(좌상단 기준)
+        public double BadgeX { get; set; } = 55.0;
         public double BadgeY { get; set; } = 1.0;
         public double BadgeDiameter { get; set; } = 4.0;
+
+        // ───── Rating / FCC / IC ─────
+        public string RatingText { get; set; } = "Rating:12V, 0.5A";
+        public double RatingX { get; set; } = 24.0;
+        public double RatingY { get; set; } = 0.8;
+        public double RatingFont { get; set; } = 2.6;
+
+        public string FCCIDText { get; set; } = "FCC ID:";
+        public double FCCIDX { get; set; } = 2.0;
+        public double FCCIDY { get; set; } = 9.6;
+        public double FCCIDFont { get; set; } = 2.6;
+
+        public string ICIDText { get; set; } = "IC ID:";
+        public double ICIDX { get; set; } = 2.0;
+        public double ICIDY { get; set; } = 11.0;
+        public double ICIDFont { get; set; } = 2.6;
+
+        // ───── 고정 텍스트 항목 (Item1~5) ─────
+        public string Item1Text { get; set; } = "Item1:";
+        public double Item1X { get; set; } = 2.0;
+        public double Item1Y { get; set; } = 11.0;
+        public double Item1Font { get; set; } = 2.6;
+
+        public string Item2Text { get; set; } = "Item2:";
+        public double Item2X { get; set; } = 2.0;
+        public double Item2Y { get; set; } = 11.0;
+        public double Item2Font { get; set; } = 2.6;
+
+        public string Item3Text { get; set; } = "Item3:";
+        public double Item3X { get; set; } = 2.0;
+        public double Item3Y { get; set; } = 11.0;
+        public double Item3Font { get; set; } = 2.6;
+
+        public string Item4Text { get; set; } = "Item4:";
+        public double Item4X { get; set; } = 2.0;
+        public double Item4Y { get; set; } = 11.0;
+        public double Item4Font { get; set; } = 2.6;
+
+        public string Item5Text { get; set; } = "Item5:";
+        public double Item5X { get; set; } = 2.0;
+        public double Item5Y { get; set; } = 11.0;
+        public double Item5Font { get; set; } = 2.6;
 
 
         // ───────── 요소별 표시 플래그(미리보기/인쇄 분리) ─────────
@@ -108,6 +143,36 @@ namespace DHSTesterXL
         public bool ShowSNPreview { get; set; } = true;
         public bool ShowSNPrint { get; set; } = true;
 
+        // ───────── DM ─────────
+        public bool ShowDMPreview { get; set; } = true;
+        public bool ShowDMPrint { get; set; } = true;
+
+        // ───────── Rating / FCC /IC ─────────
+        public bool ShowRatingPreview { get; set; } = true;
+        public bool ShowRatingPrint { get; set; } = true;
+
+        public bool ShowFCCIDPreview { get; set; } = true;
+        public bool ShowFCCIDPrint { get; set; } = true;
+
+        public bool ShowICIDPreview { get; set; } = true;
+        public bool ShowICIDPrint { get; set; } = true;
+
+        // ───── 고정 텍스트 항목 (Item1~5) ─────
+        public bool ShowItem1Preview { get; set; } = true;
+        public bool ShowItem1Print { get; set; } = true;
+
+        public bool ShowItem2Preview { get; set; } = true;
+        public bool ShowItem2Print { get; set; } = true;
+
+        public bool ShowItem3Preview { get; set; } = true;
+        public bool ShowItem3Print { get; set; } = true;
+
+        public bool ShowItem4Preview { get; set; } = true;
+        public bool ShowItem4Print { get; set; } = true;
+
+        public bool ShowItem5Preview { get; set; } = true;
+        public bool ShowItem5Print { get; set; } = true;
+
         // ───────── (선택) 그리드 바인딩용 아이템 ─────────
         public BindingList<LabelRow> Items { get; set; } = new BindingList<LabelRow>();
     }
@@ -122,7 +187,7 @@ namespace DHSTesterXL
 
         public double Xmm { get; set; }              // X 좌표(mm)
         public double Ymm { get; set; }              // Y 좌표(mm)
-        public int RotDeg { get; set; } = 0;         // 회전(0/90/180/270)
+        // public int RotDeg { get; set; } = 0;         // 회전(0/90/180/270)
 
         public double SizeMm { get; set; } = 2.6;    // 텍스트: 폰트높이(mm), DM: 모듈(mm)
         public double ScaleX { get; set; } = 1.0;    // X 비율

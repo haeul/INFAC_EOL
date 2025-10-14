@@ -18,7 +18,12 @@ namespace DHSTesterXL
         public string Password { get; set; }
         public string ProductFolder { get; set; } = string.Empty;
         public string VFlashFolder { get; set; } = string.Empty;
-        public string ResultFolder { get; set; } = string.Empty;
+        public string DataFolderAll { get; set; } = string.Empty;
+        public string DataFolderPass { get; set; } = string.Empty;
+        public string DataFolderBack { get; set; } = string.Empty;
+        public string DataFolderRepeat { get; set; } = string.Empty;
+        public bool LogDelete { get; set; } = false;
+        public int LogExpDate { get; set; } = 50;
 
         public GGeneralSettings()
         {
@@ -76,15 +81,15 @@ namespace DHSTesterXL
             StopBit = 1;
         }
     }
-
+    
     public class GPLCSettings
     {
-        public string IPAddress { get; set; }
+        public string IPAddress { get; set;}
         public int PortNumber { get; set; }
         public bool AutoConnect { get; set; }
         public string DeviceCode { get; set; }
         public int StartAddress { get; set; }
-
+        
         public GPLCSettings()
         {
             IPAddress = "192.168.219.3";
@@ -180,11 +185,11 @@ namespace DHSTesterXL
                 {
                     // 파일이 있으면 파일을 읽는다.
                     GSystemDataJson jsonData = JsonConvert.DeserializeObject<GSystemDataJson>(File.ReadAllText(filePathName));
-                    GeneralSettings = jsonData.GeneralSettings;
-                    ProductSettings = jsonData.ProductSettings;
+                    GeneralSettings       = jsonData.GeneralSettings      ;
+                    ProductSettings       = jsonData.ProductSettings      ;
                     DedicatedCtrlSettings = jsonData.DedicatedCtrlSettings;
-                    RelayModuleSettings = jsonData.RelayModuleSettings;
-                    PLCSettings = jsonData.PLCSettings;
+                    RelayModuleSettings   = jsonData.RelayModuleSettings  ;
+                    PLCSettings           = jsonData.PLCSettings          ;
                     ConnectorNFCTouch1Ch1 = jsonData.ConnectorNFCTouch1Ch1;
                     ConnectorNFCTouch2Ch1 = jsonData.ConnectorNFCTouch2Ch1;
                     ConnectorTouchOnlyCh1 = jsonData.ConnectorTouchOnlyCh1;
@@ -196,11 +201,11 @@ namespace DHSTesterXL
                 {
                     // 파일이 없으면 기본 값으로 파일을 생성한다.
                     GSystemDataJson jsonData = new GSystemDataJson();
-                    jsonData.GeneralSettings = GeneralSettings;
-                    jsonData.ProductSettings = ProductSettings;
+                    jsonData.GeneralSettings       = GeneralSettings      ;
+                    jsonData.ProductSettings       = ProductSettings      ;
                     jsonData.DedicatedCtrlSettings = DedicatedCtrlSettings;
-                    jsonData.RelayModuleSettings = RelayModuleSettings;
-                    jsonData.PLCSettings = PLCSettings;
+                    jsonData.RelayModuleSettings   = RelayModuleSettings  ;
+                    jsonData.PLCSettings           = PLCSettings          ;
                     jsonData.ConnectorNFCTouch1Ch1 = ConnectorNFCTouch1Ch1;
                     jsonData.ConnectorNFCTouch2Ch1 = ConnectorNFCTouch2Ch1;
                     jsonData.ConnectorTouchOnlyCh1 = ConnectorTouchOnlyCh1;
@@ -229,11 +234,11 @@ namespace DHSTesterXL
                 string filePathName = Path.Combine(filePath, fileName);
 
                 GSystemDataJson jsonData = new GSystemDataJson();
-                jsonData.GeneralSettings = GeneralSettings;
-                jsonData.ProductSettings = ProductSettings;
+                jsonData.GeneralSettings       = GeneralSettings      ;
+                jsonData.ProductSettings       = ProductSettings      ;
                 jsonData.DedicatedCtrlSettings = DedicatedCtrlSettings;
-                jsonData.RelayModuleSettings = RelayModuleSettings;
-                jsonData.PLCSettings = PLCSettings;
+                jsonData.RelayModuleSettings   = RelayModuleSettings  ;
+                jsonData.PLCSettings           = PLCSettings          ;
                 jsonData.ConnectorNFCTouch1Ch1 = ConnectorNFCTouch1Ch1;
                 jsonData.ConnectorNFCTouch2Ch1 = ConnectorNFCTouch2Ch1;
                 jsonData.ConnectorTouchOnlyCh1 = ConnectorTouchOnlyCh1;

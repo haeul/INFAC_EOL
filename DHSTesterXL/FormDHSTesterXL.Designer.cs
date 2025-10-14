@@ -30,12 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDHSTesterXL));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.labelCountTitleTotal = new System.Windows.Forms.Label();
             this.labelOkTitleTotal = new System.Windows.Forms.Label();
             this.labelNgTitleTotal = new System.Windows.Forms.Label();
@@ -52,7 +52,6 @@
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gridTestListCh1 = new System.Windows.Forms.DataGridView();
             this.colNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colUse = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colFunction = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colMin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,6 +73,10 @@
             this.labelSerialValueCh1 = new System.Windows.Forms.Label();
             this.labelTimeValueCh1 = new System.Windows.Forms.Label();
             this.panelBaseCh1 = new System.Windows.Forms.Panel();
+            this.textBarcodeCh1 = new System.Windows.Forms.TextBox();
+            this.labelFullProofMessageCh1 = new System.Windows.Forms.Label();
+            this.panelStatusBaseCh1 = new System.Windows.Forms.Panel();
+            this.panelStatusCh1 = new System.Windows.Forms.Panel();
             this.labelHighCurrentTitleCh1 = new System.Windows.Forms.Label();
             this.labelLowCurrentTitleCh1 = new System.Windows.Forms.Label();
             this.labelLowCurrentValueCh1 = new System.Windows.Forms.Label();
@@ -81,6 +84,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.checkPLight = new System.Windows.Forms.CheckBox();
             this.textRxswinValueCh1 = new System.Windows.Forms.TextBox();
+            this.buttonBarcodeCh1 = new System.Windows.Forms.Button();
             this.buttonTestCh1 = new System.Windows.Forms.Button();
             this.buttonLockCh1 = new System.Windows.Forms.Button();
             this.buttonStartCh1 = new System.Windows.Forms.Button();
@@ -119,22 +123,28 @@
             this.statusCanDriver = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusCanCh1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusCanCh2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusComCh1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusComCh2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusDCtrl = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusPLC = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelBaseCh2 = new System.Windows.Forms.Panel();
+            this.textBarcodeCh2 = new System.Windows.Forms.TextBox();
+            this.labelFullProofMessageCh2 = new System.Windows.Forms.Label();
+            this.panelStatusBaseCh2 = new System.Windows.Forms.Panel();
+            this.panelStatusCh2 = new System.Windows.Forms.Panel();
+            this.buttonPowerCh2 = new System.Windows.Forms.Button();
             this.labelHighCurrentTitleCh2 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.labelLowCurrentTitleCh2 = new System.Windows.Forms.Label();
             this.labelLowCurrentValueCh2 = new System.Windows.Forms.Label();
             this.textRxswinValueCh2 = new System.Windows.Forms.TextBox();
+            this.buttonBarcodeCh2 = new System.Windows.Forms.Button();
             this.labelHighCurrentValueCh2 = new System.Windows.Forms.Label();
             this.buttonTestCh2 = new System.Windows.Forms.Button();
             this.buttonStartCh2 = new System.Windows.Forms.Button();
             this.buttonLockCh2 = new System.Windows.Forms.Button();
-            this.buttonPowerCh2 = new System.Windows.Forms.Button();
             this.gridTestListCh2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -184,6 +194,7 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.buttonSettings = new System.Windows.Forms.Button();
             this.buttonProduct = new System.Windows.Forms.Button();
+            this.buttonManual = new System.Windows.Forms.Button();
             this.buttonFunction = new System.Windows.Forms.Button();
             this.labelTime = new System.Windows.Forms.Label();
             this.labelDate = new System.Windows.Forms.Label();
@@ -193,29 +204,30 @@
             this.buttonLogin = new System.Windows.Forms.Button();
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.panelStatusBaseCh1 = new System.Windows.Forms.Panel();
-            this.panelStatusCh1 = new System.Windows.Forms.Panel();
-            this.labelFullProofMessageCh1 = new System.Windows.Forms.Label();
-            this.panelStatusBaseCh2 = new System.Windows.Forms.Panel();
-            this.panelStatusCh2 = new System.Windows.Forms.Panel();
-            this.labelFullProofMessageCh2 = new System.Windows.Forms.Label();
             this.timerBlinkCh1 = new System.Windows.Forms.Timer(this.components);
             this.timerBlinkCh2 = new System.Windows.Forms.Timer(this.components);
             this.timerTest = new System.Windows.Forms.Timer(this.components);
-            this.buttonManual = new System.Windows.Forms.Button();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.checkUseRepeatTest = new System.Windows.Forms.CheckBox();
+            this.checkUseLabelPrint = new System.Windows.Forms.CheckBox();
+            this.checkUseProductBarcode = new System.Windows.Forms.CheckBox();
+            this.checkUseMasterSample = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridProductInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridTestListCh1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelBaseCh1.SuspendLayout();
+            this.panelStatusBaseCh1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelBaseCh2.SuspendLayout();
+            this.panelStatusBaseCh2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridTestListCh2)).BeginInit();
             this.panel4.SuspendLayout();
-            this.panelStatusBaseCh1.SuspendLayout();
-            this.panelStatusBaseCh2.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelCountTitleTotal
@@ -224,6 +236,7 @@
             resources.ApplyResources(this.labelCountTitleTotal, "labelCountTitleTotal");
             this.labelCountTitleTotal.ForeColor = System.Drawing.Color.DimGray;
             this.labelCountTitleTotal.Name = "labelCountTitleTotal";
+            this.labelCountTitleTotal.DoubleClick += new System.EventHandler(this.labelCountTitleTotal_DoubleClick);
             // 
             // labelOkTitleTotal
             // 
@@ -238,6 +251,7 @@
             resources.ApplyResources(this.labelNgTitleTotal, "labelNgTitleTotal");
             this.labelNgTitleTotal.ForeColor = System.Drawing.Color.DimGray;
             this.labelNgTitleTotal.Name = "labelNgTitleTotal";
+            this.labelNgTitleTotal.DoubleClick += new System.EventHandler(this.labelNgTitleTotal_DoubleClick);
             // 
             // labelRateTitleTotal
             // 
@@ -312,15 +326,16 @@
             this.gridProductInfo.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.gridProductInfo.RowHeadersVisible = false;
             this.gridProductInfo.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.gridProductInfo.RowTemplate.Height = 23;
+            this.gridProductInfo.RowTemplate.Height = 20;
+            this.gridProductInfo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridProductInfo_CellClick);
             this.gridProductInfo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridProductInfo_CellValueChanged);
             this.gridProductInfo.CurrentCellDirtyStateChanged += new System.EventHandler(this.gridProductInfo_CurrentCellDirtyStateChanged);
             this.gridProductInfo.SelectionChanged += new System.EventHandler(this.gridProductInfo_SelectionChanged);
             // 
             // colTitle
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colTitle.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colTitle.DefaultCellStyle = dataGridViewCellStyle1;
             resources.ApplyResources(this.colTitle, "colTitle");
             this.colTitle.Name = "colTitle";
             this.colTitle.ReadOnly = true;
@@ -330,8 +345,8 @@
             // colName
             // 
             this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.colName.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.colName.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(this.colName, "colName");
             this.colName.Name = "colName";
             this.colName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -345,35 +360,34 @@
             this.gridTestListCh1.AllowUserToResizeRows = false;
             this.gridTestListCh1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridTestListCh1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridTestListCh1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridTestListCh1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            resources.ApplyResources(this.gridTestListCh1, "gridTestListCh1");
             this.gridTestListCh1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridTestListCh1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colNo,
-            this.colUse,
             this.colFunction,
             this.colMin,
             this.colMax,
             this.colValue});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridTestListCh1.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridTestListCh1.DefaultCellStyle = dataGridViewCellStyle4;
             this.gridTestListCh1.GridColor = System.Drawing.Color.LightGray;
-            resources.ApplyResources(this.gridTestListCh1, "gridTestListCh1");
             this.gridTestListCh1.Name = "gridTestListCh1";
             this.gridTestListCh1.RowHeadersVisible = false;
-            this.gridTestListCh1.RowTemplate.Height = 23;
+            this.gridTestListCh1.RowTemplate.Height = 21;
             this.gridTestListCh1.SelectionChanged += new System.EventHandler(this.GridTestListCh1_SelectionChanged);
             // 
             // colNo
@@ -383,13 +397,6 @@
             this.colNo.ReadOnly = true;
             this.colNo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // colUse
-            // 
-            resources.ApplyResources(this.colUse, "colUse");
-            this.colUse.Name = "colUse";
-            this.colUse.ReadOnly = true;
-            this.colUse.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // colFunction
             // 
@@ -543,6 +550,7 @@
             // panelBaseCh1
             // 
             this.panelBaseCh1.BackColor = System.Drawing.Color.LightGray;
+            this.panelBaseCh1.Controls.Add(this.textBarcodeCh1);
             this.panelBaseCh1.Controls.Add(this.labelFullProofMessageCh1);
             this.panelBaseCh1.Controls.Add(this.panelStatusBaseCh1);
             this.panelBaseCh1.Controls.Add(this.labelHighCurrentTitleCh1);
@@ -551,6 +559,7 @@
             this.panelBaseCh1.Controls.Add(this.labelHighCurrentValueCh1);
             this.panelBaseCh1.Controls.Add(this.panel2);
             this.panelBaseCh1.Controls.Add(this.textRxswinValueCh1);
+            this.panelBaseCh1.Controls.Add(this.buttonBarcodeCh1);
             this.panelBaseCh1.Controls.Add(this.buttonTestCh1);
             this.panelBaseCh1.Controls.Add(this.buttonLockCh1);
             this.panelBaseCh1.Controls.Add(this.buttonStartCh1);
@@ -601,6 +610,31 @@
             resources.ApplyResources(this.panelBaseCh1, "panelBaseCh1");
             this.panelBaseCh1.Name = "panelBaseCh1";
             // 
+            // textBarcodeCh1
+            // 
+            this.textBarcodeCh1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.textBarcodeCh1, "textBarcodeCh1");
+            this.textBarcodeCh1.Name = "textBarcodeCh1";
+            // 
+            // labelFullProofMessageCh1
+            // 
+            this.labelFullProofMessageCh1.BackColor = System.Drawing.SystemColors.Control;
+            resources.ApplyResources(this.labelFullProofMessageCh1, "labelFullProofMessageCh1");
+            this.labelFullProofMessageCh1.Name = "labelFullProofMessageCh1";
+            // 
+            // panelStatusBaseCh1
+            // 
+            this.panelStatusBaseCh1.BackColor = System.Drawing.Color.LightGray;
+            this.panelStatusBaseCh1.Controls.Add(this.panelStatusCh1);
+            resources.ApplyResources(this.panelStatusBaseCh1, "panelStatusBaseCh1");
+            this.panelStatusBaseCh1.Name = "panelStatusBaseCh1";
+            // 
+            // panelStatusCh1
+            // 
+            this.panelStatusCh1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            resources.ApplyResources(this.panelStatusCh1, "panelStatusCh1");
+            this.panelStatusCh1.Name = "panelStatusCh1";
+            // 
             // labelHighCurrentTitleCh1
             // 
             this.labelHighCurrentTitleCh1.BackColor = System.Drawing.SystemColors.Control;
@@ -646,6 +680,16 @@
             this.textRxswinValueCh1.ForeColor = System.Drawing.Color.Black;
             this.textRxswinValueCh1.Name = "textRxswinValueCh1";
             // 
+            // buttonBarcodeCh1
+            // 
+            this.buttonBarcodeCh1.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonBarcodeCh1.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.buttonBarcodeCh1, "buttonBarcodeCh1");
+            this.buttonBarcodeCh1.ForeColor = System.Drawing.Color.Black;
+            this.buttonBarcodeCh1.Name = "buttonBarcodeCh1";
+            this.buttonBarcodeCh1.UseVisualStyleBackColor = false;
+            this.buttonBarcodeCh1.Click += new System.EventHandler(this.buttonBarcodeCh1_Click);
+            // 
             // buttonTestCh1
             // 
             this.buttonTestCh1.BackColor = System.Drawing.SystemColors.Control;
@@ -662,7 +706,6 @@
             this.buttonLockCh1.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(this.buttonLockCh1, "buttonLockCh1");
             this.buttonLockCh1.ForeColor = System.Drawing.Color.Black;
-            this.buttonLockCh1.Image = global::DHSTesterXL.Properties.Resources.outline_radio_button_unchecked_black_24dp;
             this.buttonLockCh1.Name = "buttonLockCh1";
             this.buttonLockCh1.UseVisualStyleBackColor = false;
             this.buttonLockCh1.Click += new System.EventHandler(this.buttonLockCh1_Click);
@@ -898,6 +941,8 @@
             this.statusCanDriver,
             this.statusCanCh1,
             this.statusCanCh2,
+            this.statusComCh1,
+            this.statusComCh2,
             this.statusDCtrl,
             this.statusPLC});
             resources.ApplyResources(this.statusStrip, "statusStrip");
@@ -940,6 +985,24 @@
             this.statusCanCh2.ForeColor = System.Drawing.Color.OrangeRed;
             this.statusCanCh2.Name = "statusCanCh2";
             // 
+            // statusComCh1
+            // 
+            this.statusComCh1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            resources.ApplyResources(this.statusComCh1, "statusComCh1");
+            this.statusComCh1.ForeColor = System.Drawing.Color.Green;
+            this.statusComCh1.Name = "statusComCh1";
+            // 
+            // statusComCh2
+            // 
+            this.statusComCh2.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            resources.ApplyResources(this.statusComCh2, "statusComCh2");
+            this.statusComCh2.ForeColor = System.Drawing.Color.Green;
+            this.statusComCh2.Name = "statusComCh2";
+            // 
             // statusDCtrl
             // 
             resources.ApplyResources(this.statusDCtrl, "statusDCtrl");
@@ -963,6 +1026,7 @@
             // panelBaseCh2
             // 
             this.panelBaseCh2.BackColor = System.Drawing.Color.LightGray;
+            this.panelBaseCh2.Controls.Add(this.textBarcodeCh2);
             this.panelBaseCh2.Controls.Add(this.labelFullProofMessageCh2);
             this.panelBaseCh2.Controls.Add(this.panelStatusBaseCh2);
             this.panelBaseCh2.Controls.Add(this.buttonPowerCh2);
@@ -971,6 +1035,7 @@
             this.panelBaseCh2.Controls.Add(this.labelLowCurrentTitleCh2);
             this.panelBaseCh2.Controls.Add(this.labelLowCurrentValueCh2);
             this.panelBaseCh2.Controls.Add(this.textRxswinValueCh2);
+            this.panelBaseCh2.Controls.Add(this.buttonBarcodeCh2);
             this.panelBaseCh2.Controls.Add(this.labelHighCurrentValueCh2);
             this.panelBaseCh2.Controls.Add(this.buttonTestCh2);
             this.panelBaseCh2.Controls.Add(this.buttonStartCh2);
@@ -1021,6 +1086,41 @@
             resources.ApplyResources(this.panelBaseCh2, "panelBaseCh2");
             this.panelBaseCh2.Name = "panelBaseCh2";
             // 
+            // textBarcodeCh2
+            // 
+            this.textBarcodeCh2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.textBarcodeCh2, "textBarcodeCh2");
+            this.textBarcodeCh2.Name = "textBarcodeCh2";
+            // 
+            // labelFullProofMessageCh2
+            // 
+            this.labelFullProofMessageCh2.BackColor = System.Drawing.SystemColors.Control;
+            resources.ApplyResources(this.labelFullProofMessageCh2, "labelFullProofMessageCh2");
+            this.labelFullProofMessageCh2.Name = "labelFullProofMessageCh2";
+            // 
+            // panelStatusBaseCh2
+            // 
+            this.panelStatusBaseCh2.BackColor = System.Drawing.Color.LightGray;
+            this.panelStatusBaseCh2.Controls.Add(this.panelStatusCh2);
+            resources.ApplyResources(this.panelStatusBaseCh2, "panelStatusBaseCh2");
+            this.panelStatusBaseCh2.Name = "panelStatusBaseCh2";
+            // 
+            // panelStatusCh2
+            // 
+            this.panelStatusCh2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            resources.ApplyResources(this.panelStatusCh2, "panelStatusCh2");
+            this.panelStatusCh2.Name = "panelStatusCh2";
+            // 
+            // buttonPowerCh2
+            // 
+            this.buttonPowerCh2.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonPowerCh2.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.buttonPowerCh2, "buttonPowerCh2");
+            this.buttonPowerCh2.ForeColor = System.Drawing.Color.Black;
+            this.buttonPowerCh2.Name = "buttonPowerCh2";
+            this.buttonPowerCh2.UseVisualStyleBackColor = false;
+            this.buttonPowerCh2.Click += new System.EventHandler(this.buttonPowerCh2_Click);
+            // 
             // labelHighCurrentTitleCh2
             // 
             this.labelHighCurrentTitleCh2.BackColor = System.Drawing.SystemColors.Control;
@@ -1051,6 +1151,16 @@
             resources.ApplyResources(this.textRxswinValueCh2, "textRxswinValueCh2");
             this.textRxswinValueCh2.ForeColor = System.Drawing.Color.Black;
             this.textRxswinValueCh2.Name = "textRxswinValueCh2";
+            // 
+            // buttonBarcodeCh2
+            // 
+            this.buttonBarcodeCh2.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonBarcodeCh2.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.buttonBarcodeCh2, "buttonBarcodeCh2");
+            this.buttonBarcodeCh2.ForeColor = System.Drawing.Color.Black;
+            this.buttonBarcodeCh2.Name = "buttonBarcodeCh2";
+            this.buttonBarcodeCh2.UseVisualStyleBackColor = false;
+            this.buttonBarcodeCh2.Click += new System.EventHandler(this.buttonBarcodeCh2_Click);
             // 
             // labelHighCurrentValueCh2
             // 
@@ -1084,19 +1194,9 @@
             this.buttonLockCh2.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(this.buttonLockCh2, "buttonLockCh2");
             this.buttonLockCh2.ForeColor = System.Drawing.Color.Black;
-            this.buttonLockCh2.Image = global::DHSTesterXL.Properties.Resources.outline_radio_button_unchecked_black_24dp;
             this.buttonLockCh2.Name = "buttonLockCh2";
             this.buttonLockCh2.UseVisualStyleBackColor = false;
-            // 
-            // buttonPowerCh2
-            // 
-            this.buttonPowerCh2.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonPowerCh2.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.buttonPowerCh2, "buttonPowerCh2");
-            this.buttonPowerCh2.ForeColor = System.Drawing.Color.Black;
-            this.buttonPowerCh2.Name = "buttonPowerCh2";
-            this.buttonPowerCh2.UseVisualStyleBackColor = false;
-            this.buttonPowerCh2.Click += new System.EventHandler(this.buttonPowerCh2_Click);
+            this.buttonLockCh2.Click += new System.EventHandler(this.buttonLockCh2_Click);
             // 
             // gridTestListCh2
             // 
@@ -1106,35 +1206,34 @@
             this.gridTestListCh2.AllowUserToResizeRows = false;
             this.gridTestListCh2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridTestListCh2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridTestListCh2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridTestListCh2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            resources.ApplyResources(this.gridTestListCh2, "gridTestListCh2");
             this.gridTestListCh2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridTestListCh2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
-            this.dataGridViewCheckBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5});
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridTestListCh2.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridTestListCh2.DefaultCellStyle = dataGridViewCellStyle6;
             this.gridTestListCh2.GridColor = System.Drawing.Color.LightGray;
-            resources.ApplyResources(this.gridTestListCh2, "gridTestListCh2");
             this.gridTestListCh2.Name = "gridTestListCh2";
             this.gridTestListCh2.RowHeadersVisible = false;
-            this.gridTestListCh2.RowTemplate.Height = 23;
+            this.gridTestListCh2.RowTemplate.Height = 21;
             this.gridTestListCh2.SelectionChanged += new System.EventHandler(this.GridTestListCh2_SelectionChanged);
             // 
             // dataGridViewTextBoxColumn1
@@ -1144,13 +1243,6 @@
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // dataGridViewCheckBoxColumn1
-            // 
-            resources.ApplyResources(this.dataGridViewCheckBoxColumn1, "dataGridViewCheckBoxColumn1");
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
-            this.dataGridViewCheckBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -1515,6 +1607,17 @@
             this.buttonProduct.UseVisualStyleBackColor = false;
             this.buttonProduct.Click += new System.EventHandler(this.buttonProduct_Click);
             // 
+            // buttonManual
+            // 
+            this.buttonManual.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonManual.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.buttonManual, "buttonManual");
+            this.buttonManual.ForeColor = System.Drawing.Color.DimGray;
+            this.buttonManual.Image = global::DHSTesterXL.Properties.Resources.outline_download_black_24dp;
+            this.buttonManual.Name = "buttonManual";
+            this.buttonManual.UseVisualStyleBackColor = false;
+            this.buttonManual.Click += new System.EventHandler(this.buttonManual_Click);
+            // 
             // buttonFunction
             // 
             this.buttonFunction.BackColor = System.Drawing.SystemColors.Control;
@@ -1524,7 +1627,7 @@
             this.buttonFunction.Image = global::DHSTesterXL.Properties.Resources.outline_download_black_24dp;
             this.buttonFunction.Name = "buttonFunction";
             this.buttonFunction.UseVisualStyleBackColor = false;
-            this.buttonFunction.Click += new System.EventHandler(this.buttonFunction_Click);
+            //this.buttonFunction.Click += new System.EventHandler(this.buttonFunction_Click); 주석 제거!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // 
             // labelTime
             // 
@@ -1546,6 +1649,7 @@
             resources.ApplyResources(this.labelVersion, "labelVersion");
             this.labelVersion.ForeColor = System.Drawing.Color.DimGray;
             this.labelVersion.Name = "labelVersion";
+            this.labelVersion.DoubleClick += new System.EventHandler(this.labelVersion_DoubleClick);
             // 
             // labelUserMode
             // 
@@ -1578,44 +1682,6 @@
             // 
             this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
             // 
-            // panelStatusBaseCh1
-            // 
-            this.panelStatusBaseCh1.BackColor = System.Drawing.Color.LightGray;
-            this.panelStatusBaseCh1.Controls.Add(this.panelStatusCh1);
-            resources.ApplyResources(this.panelStatusBaseCh1, "panelStatusBaseCh1");
-            this.panelStatusBaseCh1.Name = "panelStatusBaseCh1";
-            // 
-            // panelStatusCh1
-            // 
-            this.panelStatusCh1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
-            resources.ApplyResources(this.panelStatusCh1, "panelStatusCh1");
-            this.panelStatusCh1.Name = "panelStatusCh1";
-            // 
-            // labelFullProofMessageCh1
-            // 
-            this.labelFullProofMessageCh1.BackColor = System.Drawing.SystemColors.Control;
-            resources.ApplyResources(this.labelFullProofMessageCh1, "labelFullProofMessageCh1");
-            this.labelFullProofMessageCh1.Name = "labelFullProofMessageCh1";
-            // 
-            // panelStatusBaseCh2
-            // 
-            this.panelStatusBaseCh2.BackColor = System.Drawing.Color.LightGray;
-            this.panelStatusBaseCh2.Controls.Add(this.panelStatusCh2);
-            resources.ApplyResources(this.panelStatusBaseCh2, "panelStatusBaseCh2");
-            this.panelStatusBaseCh2.Name = "panelStatusBaseCh2";
-            // 
-            // panelStatusCh2
-            // 
-            this.panelStatusCh2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
-            resources.ApplyResources(this.panelStatusCh2, "panelStatusCh2");
-            this.panelStatusCh2.Name = "panelStatusCh2";
-            // 
-            // labelFullProofMessageCh2
-            // 
-            this.labelFullProofMessageCh2.BackColor = System.Drawing.SystemColors.Control;
-            resources.ApplyResources(this.labelFullProofMessageCh2, "labelFullProofMessageCh2");
-            this.labelFullProofMessageCh2.Name = "labelFullProofMessageCh2";
-            // 
             // timerBlinkCh1
             // 
             this.timerBlinkCh1.Tick += new System.EventHandler(this.timerBlinkCh1_Tick);
@@ -1628,20 +1694,56 @@
             // 
             this.timerTest.Tick += new System.EventHandler(this.timerTest_Tick);
             // 
-            // buttonManual
+            // panel5
             // 
-            this.buttonManual.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonManual.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.buttonManual, "buttonManual");
-            this.buttonManual.ForeColor = System.Drawing.Color.DimGray;
-            this.buttonManual.Image = global::DHSTesterXL.Properties.Resources.outline_download_black_24dp;
-            this.buttonManual.Name = "buttonManual";
-            this.buttonManual.UseVisualStyleBackColor = false;
+            this.panel5.BackColor = System.Drawing.Color.LightGray;
+            this.panel5.Controls.Add(this.panel6);
+            resources.ApplyResources(this.panel5, "panel5");
+            this.panel5.Name = "panel5";
+            // 
+            // panel6
+            // 
+            resources.ApplyResources(this.panel6, "panel6");
+            this.panel6.BackColor = System.Drawing.SystemColors.Control;
+            this.panel6.Controls.Add(this.checkUseRepeatTest);
+            this.panel6.Controls.Add(this.checkUseLabelPrint);
+            this.panel6.Controls.Add(this.checkUseProductBarcode);
+            this.panel6.Controls.Add(this.checkUseMasterSample);
+            this.panel6.Name = "panel6";
+            // 
+            // checkUseRepeatTest
+            // 
+            this.checkUseRepeatTest.AutoCheck = false;
+            resources.ApplyResources(this.checkUseRepeatTest, "checkUseRepeatTest");
+            this.checkUseRepeatTest.Name = "checkUseRepeatTest";
+            this.checkUseRepeatTest.UseVisualStyleBackColor = true;
+            // 
+            // checkUseLabelPrint
+            // 
+            this.checkUseLabelPrint.AutoCheck = false;
+            resources.ApplyResources(this.checkUseLabelPrint, "checkUseLabelPrint");
+            this.checkUseLabelPrint.Name = "checkUseLabelPrint";
+            this.checkUseLabelPrint.UseVisualStyleBackColor = true;
+            // 
+            // checkUseProductBarcode
+            // 
+            this.checkUseProductBarcode.AutoCheck = false;
+            resources.ApplyResources(this.checkUseProductBarcode, "checkUseProductBarcode");
+            this.checkUseProductBarcode.Name = "checkUseProductBarcode";
+            this.checkUseProductBarcode.UseVisualStyleBackColor = true;
+            // 
+            // checkUseMasterSample
+            // 
+            this.checkUseMasterSample.AutoCheck = false;
+            resources.ApplyResources(this.checkUseMasterSample, "checkUseMasterSample");
+            this.checkUseMasterSample.Name = "checkUseMasterSample";
+            this.checkUseMasterSample.UseVisualStyleBackColor = true;
             // 
             // FormDHSTesterXL
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.panel5);
             this.Controls.Add(this.panelBaseCh1);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.statusStrip);
@@ -1666,16 +1768,19 @@
             this.panel1.ResumeLayout(false);
             this.panelBaseCh1.ResumeLayout(false);
             this.panelBaseCh1.PerformLayout();
+            this.panelStatusBaseCh1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.panelBaseCh2.ResumeLayout(false);
             this.panelBaseCh2.PerformLayout();
+            this.panelStatusBaseCh2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridTestListCh2)).EndInit();
             this.panel4.ResumeLayout(false);
-            this.panelStatusBaseCh1.ResumeLayout(false);
-            this.panelStatusBaseCh2.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1764,18 +1869,6 @@
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.Label labelUserMode;
         private System.Windows.Forms.Label labelTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNo;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn colUse;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colFunction;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colMin;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colMax;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colValue;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.Timer timerUpdate;
         private System.Windows.Forms.Button buttonLockCh1;
         private System.Windows.Forms.Button buttonStartCh2;
@@ -1849,6 +1942,28 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colName;
         private System.Windows.Forms.ToolStripStatusLabel statusPLC;
         private System.Windows.Forms.Button buttonManual;
+        private System.Windows.Forms.TextBox textBarcodeCh1;
+        private System.Windows.Forms.TextBox textBarcodeCh2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFunction;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMax;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colValue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.Button buttonBarcodeCh1;
+        private System.Windows.Forms.Button buttonBarcodeCh2;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.CheckBox checkUseLabelPrint;
+        private System.Windows.Forms.CheckBox checkUseProductBarcode;
+        private System.Windows.Forms.CheckBox checkUseMasterSample;
+        private System.Windows.Forms.CheckBox checkUseRepeatTest;
+        private System.Windows.Forms.ToolStripStatusLabel statusComCh1;
+        private System.Windows.Forms.ToolStripStatusLabel statusComCh2;
     }
 }
 

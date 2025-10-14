@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DHSTesterXL
 {
-    public partial class FormProduct
+    public static class LabelPrinter
     {
         // ───────────────────── 프린터 RAW 전송 ─────────────────────
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
@@ -12,21 +12,31 @@ namespace DHSTesterXL
         {
             [MarshalAs(UnmanagedType.LPStr)] public string pDocName;
             [MarshalAs(UnmanagedType.LPStr)] public string pOutputFile;
-            [MarshalAs(UnmanagedType.LPStr)] public string pDataType;
+            [MarshalAs(UnmanagedType.LPStr)] public string pDataType;   // RAW
         }
 
         [DllImport("winspool.Drv", EntryPoint = "OpenPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true)]
         private static extern bool OpenPrinter(string szPrinter, out IntPtr hPrinter, IntPtr pd);
-        [DllImport("winspool.Drv", SetLastError = true)] private static extern bool ClosePrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", SetLastError = true)]
+        private static extern bool ClosePrinter(IntPtr hPrinter);
+
         [DllImport("winspool.Drv", EntryPoint = "StartDocPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true)]
         private static extern bool StartDocPrinter(IntPtr hPrinter, int level, [In, MarshalAs(UnmanagedType.LPStruct)] DOCINFOA di);
-        [DllImport("winspool.Drv", SetLastError = true)] private static extern bool EndDocPrinter(IntPtr hPrinter);
-        [DllImport("winspool.Drv", SetLastError = true)] private static extern bool StartPagePrinter(IntPtr hPrinter);
-        [DllImport("winspool.Drv", SetLastError = true)] private static extern bool EndPagePrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", SetLastError = true)]
+        private static extern bool EndDocPrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", SetLastError = true)]
+        private static extern bool StartPagePrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", SetLastError = true)]
+        private static extern bool EndPagePrinter(IntPtr hPrinter);
+
         [DllImport("winspool.Drv", SetLastError = true)]
         private static extern bool WritePrinter(IntPtr hPrinter, IntPtr pBytes, int dwCount, out int dwWritten);
 
-        private static bool SendRawToPrinter(string printerName, string zpl)
+        public static bool SendRawToPrinter(string printerName, string zpl)
         {
             IntPtr hPrinter;
 

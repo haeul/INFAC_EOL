@@ -153,6 +153,8 @@ namespace DHSTesterXL.Forms
                     {
                         // 신규 파일 생성
                         GSystem.ProductSettings.Load(productFileName, GSystem.SystemData.GeneralSettings.ProductFolder);
+                        GSystem.ProductSettings.ProductInfo.PartNo = productNo;
+                        GSystem.ProductSettings.Save(productFileName, GSystem.SystemData.GeneralSettings.ProductFolder);
                     }
                     catch (Exception ex)
                     {

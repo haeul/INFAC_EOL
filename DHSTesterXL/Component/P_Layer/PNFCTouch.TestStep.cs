@@ -43,9 +43,9 @@ namespace DHSTesterXL
                 case NFCTouchTestStep.DarkCurrentStart            : NFCTouchTestStep_DarkCurrentStart            (channel); break;
                 case NFCTouchTestStep.DarkCurrentUpdate           : NFCTouchTestStep_DarkCurrentUpdate           (channel); break;
                 case NFCTouchTestStep.DarkCurrentComplete         : NFCTouchTestStep_DarkCurrentComplete         (channel); break;
-                case NFCTouchTestStep.LowPowerOff                 : NFCTouchTestStep_LowPowerOff                 (channel); break;
-                case NFCTouchTestStep.LowPowerOffWait             : NFCTouchTestStep_LowPowerOffWait             (channel); break;
-                case NFCTouchTestStep.HighPowerOn                 : NFCTouchTestStep_HighPowerOn                 (channel); break;
+                //case NFCTouchTestStep.LowPowerOff                 : NFCTouchTestStep_LowPowerOff                 (channel); break;
+                //case NFCTouchTestStep.LowPowerOffWait             : NFCTouchTestStep_LowPowerOffWait             (channel); break;
+                //case NFCTouchTestStep.HighPowerOn                 : NFCTouchTestStep_HighPowerOn                 (channel); break;
                 case NFCTouchTestStep.PLightTurnOnSend            : NFCTouchTestStep_PLightTurnOnSend            (channel); break;
                 case NFCTouchTestStep.PLightCurrentSend           : NFCTouchTestStep_PLightCurrentSend           (channel); break;
                 case NFCTouchTestStep.PLightAmbientSend           : NFCTouchTestStep_PLightAmbientSend           (channel); break;
@@ -103,8 +103,8 @@ namespace DHSTesterXL
                 case NFCTouchTestStep.SerialNumGeneratekeyWait    : NFCTouchTestStep_SerialNumGeneratekeyWait    (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.SerialNumWriteWait          : NFCTouchTestStep_SerialNumWriteWait          (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.SerialNumReadWait           : NFCTouchTestStep_SerialNumReadWait           (channel, rxCanID, ref receivedEvent); break;
-                case NFCTouchTestStep.HighPowerOnWait             : NFCTouchTestStep_HighPowerOnWait             (channel, rxCanID, ref receivedEvent); break;
-                case NFCTouchTestStep.HighPowerWakeUpWait         : NFCTouchTestStep_HighPowerWakeUpWait         (channel, rxCanID, ref receivedEvent); break;
+                //case NFCTouchTestStep.HighPowerOnWait             : NFCTouchTestStep_HighPowerOnWait             (channel, rxCanID, ref receivedEvent); break;
+                case NFCTouchTestStep.NmWakeUpWait                : NFCTouchTestStep_NmWakeUpWait                (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.PLightTurnOnWait            : NFCTouchTestStep_PLightTurnOnWait            (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.PLightCurrentWait           : NFCTouchTestStep_PLightCurrentWait           (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.PLightAmbientWait           : NFCTouchTestStep_PLightAmbientWait           (channel, rxCanID, ref receivedEvent); break;
@@ -159,7 +159,8 @@ namespace DHSTesterXL
             _overalResult[channel].PLightTurnOn.Init();
             _overalResult[channel].PLightCurrent.Init();
             _overalResult[channel].PLightAmbient.Init();
-            _overalResult[channel].Touch.Init();
+            _overalResult[channel].LockSen.Init();
+            _overalResult[channel].LockCan.Init();
             _overalResult[channel].Cancel.Init();
             _overalResult[channel].SecurityBit.Init();
             _overalResult[channel].NFC.Init();
@@ -188,7 +189,8 @@ namespace DHSTesterXL
             _overalResult[channel].PLightTurnOn    .Use = ProductSettings.TestItemSpecs.PLightTurnOn    .Use;
             _overalResult[channel].PLightCurrent   .Use = ProductSettings.TestItemSpecs.PLightCurrent   .Use;
             _overalResult[channel].PLightAmbient   .Use = ProductSettings.TestItemSpecs.PLightAmbient   .Use;
-            _overalResult[channel].Touch           .Use = ProductSettings.TestItemSpecs.Touch           .Use;
+            _overalResult[channel].LockSen         .Use = ProductSettings.TestItemSpecs.LockSen         .Use;
+            _overalResult[channel].LockCan         .Use = ProductSettings.TestItemSpecs.LockCan         .Use;
             _overalResult[channel].Cancel          .Use = ProductSettings.TestItemSpecs.Cancel          .Use;
             _overalResult[channel].SecurityBit     .Use = ProductSettings.TestItemSpecs.SecurityBit     .Use;
             _overalResult[channel].NFC             .Use = ProductSettings.TestItemSpecs.NFC             .Use;
@@ -230,13 +232,7 @@ namespace DHSTesterXL
             GSystem.TimerTestTime[channel].Start();
             // 검사 시작 시간 저장
             _testStartTime[channel] = DateTime.Now;
-            // Low Power를 사용하는 테스트 항목이 없으면 High Power로 바로 전환한다.
-            if (!GSystem.ProductSettings.TestItemSpecs.Short_1_2.Use && !GSystem.ProductSettings.TestItemSpecs.SerialNumber.Use &&
-                !GSystem.ProductSettings.TestItemSpecs.DarkCurrent.Use && !GSystem.ProductSettings.TestItemSpecs.PLightTurnOn.Use &&
-                !GSystem.ProductSettings.TestItemSpecs.PLightCurrent.Use && !GSystem.ProductSettings.TestItemSpecs.PLightAmbient.Use)
-                SetTestStep(channel, NFCTouchTestStep.HighPowerOn);
-            else
-                NextTestStep(channel);
+            NextTestStep(channel);
         }
         private void NFCTouchTestStep_ShortTestStart(int channel)
         {
@@ -445,33 +441,26 @@ namespace DHSTesterXL
             OnTestStepProgressChanged(channel, _overalResult[channel].Short_4_6);
             GSystem.Logger.Info ($"[CH.{channel + 1}] Pin Short Test Complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Pin Short Test Complete");
-
-            // Low Power를 사용하는 테스트 항목이 없으면 High Power로 바로 전환한다.
-            if (!GSystem.ProductSettings.TestItemSpecs.SerialNumber.Use && !GSystem.ProductSettings.TestItemSpecs.DarkCurrent.Use &&
-                !GSystem.ProductSettings.TestItemSpecs.PLightTurnOn.Use && !GSystem.ProductSettings.TestItemSpecs.PLightCurrent.Use &&
-                !GSystem.ProductSettings.TestItemSpecs.PLightAmbient.Use)
-                SetTestStep(channel, NFCTouchTestStep.HighPowerOn);
-            else
-                NextTestStep(channel);
+            NextTestStep(channel);
         }
         private void NFCTouchTestStep_LowPowerOn(int channel)
         {
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Low Power On]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Low Power On]");
-            GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, true);
+            GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, true);
             NextTestStep(channel);
         }
         private void NFCTouchTestStep_LowPowerOnWait(int channel)
         {
             // 완료 대기
-            if (!GSystem.DedicatedCTRL.GetCommandActiveCurrent(channel) || !GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (!GSystem.DedicatedCTRL.GetCommandActivePowerOn(channel) || !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
                 return;
             GSystem.Logger.Info ($"[CH.{channel + 1}] Low Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Low Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] Low Power On Complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Low Power On Complete");
-            GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, false);
+            GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, false);
             NextTestStep(channel);
             _retryCount[channel] = 0;
         }
@@ -976,7 +965,7 @@ namespace DHSTesterXL
             if (!GSystem.ProductSettings.TestItemSpecs.DarkCurrent.Use)
             {
                 // 다음 측정 항목으로 이동
-                SetTestStep(channel, NFCTouchTestStep.LowPowerOff);
+                SetTestStep(channel, NFCTouchTestStep.PLightTurnOnSend);
                 return;
             }
             _tickStepElapse[channel].Reset();
@@ -987,10 +976,10 @@ namespace DHSTesterXL
             _overalResult[channel].DarkCurrent.Value = "";
             _overalResult[channel].DarkCurrent.Result = "측정 중";
             OnTestStepProgressChanged(channel, _overalResult[channel].DarkCurrent);
-            if (!GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (!GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
             {
-                GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, true);
-                GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, false);
+                GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, true);
+                GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, false);
             }
             // NM 중지
             _pauseNM[channel] = true;
@@ -1034,14 +1023,14 @@ namespace DHSTesterXL
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Low Power Off]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Low Power Off]");
-            GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, false);
+            GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, false);
             GSystem.DedicatedCTRL.SetCommandTestInit(channel, true);
             NextTestStep(channel);
         }
         private void NFCTouchTestStep_LowPowerOffWait(int channel)
         {
             // 완료 대기
-            if (GSystem.DedicatedCTRL.GetCommandActiveCurrent(channel) || GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (GSystem.DedicatedCTRL.GetCommandActivePowerOn(channel) || GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
                 return;
             if (!GSystem.DedicatedCTRL.GetCommandTestInit(channel) || !GSystem.DedicatedCTRL.GetCompleteTestInit(channel))
                 return;
@@ -1058,14 +1047,14 @@ namespace DHSTesterXL
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [High Power On]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [High Power On]");
             GSystem.DedicatedCTRL.SetCommandTestInit(channel, false);
-            GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, false);
-            GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, true);
+            GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, false);
+            GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, true);
             NextTestStep(channel);
         }
         private void NFCTouchTestStep_HighPowerOnWait(int channel, uint rxCanID, ref XLClass.xl_event receivedEvent)
         {
             // 완료 대기
-            if (!GSystem.DedicatedCTRL.GetCommandActiveCurrent(channel) || !GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (!GSystem.DedicatedCTRL.GetCommandActivePowerOn(channel) || !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
                 return;
             GSystem.Logger.Info ($"[CH.{channel + 1}] High Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] High Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
@@ -1076,7 +1065,7 @@ namespace DHSTesterXL
             _checkNFC[channel] = true;
             NextTestStep(channel);
         }
-        private void NFCTouchTestStep_HighPowerWakeUpWait(int channel, uint rxCanID, ref XLClass.xl_event receivedEvent)
+        private void NFCTouchTestStep_NmWakeUpWait(int channel, uint rxCanID, ref XLClass.xl_event receivedEvent)
         {
             //
             // TODO: WakeUp 타임아웃 처리
@@ -1308,7 +1297,7 @@ namespace DHSTesterXL
         private void NFCTouchTestStep_TouchCapacitanceStart(int channel)
         {
             // 측정 USE 판단
-            if (!GSystem.ProductSettings.TestItemSpecs.Touch.Use)
+            if (!GSystem.ProductSettings.TestItemSpecs.LockSen.Use)
             {
                 // 다음 측정 항목으로 이동
                 SetTestStep(channel, NFCTouchTestStep.CancelCapacitanceStart);
@@ -1318,11 +1307,11 @@ namespace DHSTesterXL
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Touch Capacitance]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Touch Capacitance]");
-            _overalResult[channel].Touch.State = TestStates.Running;
-            _overalResult[channel].Touch.Value = "";
-            _overalResult[channel].Touch.Result = "측정 중";
+            _overalResult[channel].LockSen.State = TestStates.Running;
+            _overalResult[channel].LockSen.Value = "";
+            _overalResult[channel].LockSen.Result = "측정 중";
             // 동작 상태 표시
-            OnTestStepProgressChanged(channel, _overalResult[channel].Touch);
+            OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
 
             GSystem.isTouchFirstExecute[channel] = true;
             GSystem.isTouchFastMutualIdleAverage[channel] = false;
@@ -1370,12 +1359,12 @@ namespace DHSTesterXL
                 GSystem.TraceMessage($"[CH.{channel + 1}] Touch Capacitance Complete");
                 // 간이검사기의 특징 : 사람이 검출하기 때문에 여기까지 왔으면 OK, EOL 설비에서는 다르다
                 // 결과 판정
-                TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.Touch;
-                _overalResult[channel].Touch.State = TestStates.Pass;
-                _overalResult[channel].Touch.Value = $"{GSystem.deltaTouchFastMutual[channel]},{GSystem.deltaTouchFastSelf[channel]}";
-                _overalResult[channel].Touch.Result = $"{testSpec.MaxValue}";
+                TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.LockSen;
+                _overalResult[channel].LockSen.State = TestStates.Pass;
+                _overalResult[channel].LockSen.Value = $"{GSystem.deltaTouchFastMutual[channel]},{GSystem.deltaTouchFastSelf[channel]}";
+                _overalResult[channel].LockSen.Result = $"{testSpec.MaxValue}";
                 // 동작 상태 표시
-                OnTestStepProgressChanged(channel, _overalResult[channel].Touch);
+                OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
                 SetTestStep(channel, NFCTouchTestStep.CancelCapacitanceStart);
                 _tickStepInterval[channel].Reset();
             }
@@ -1395,11 +1384,11 @@ namespace DHSTesterXL
                     GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance Timeout!");
                     GSystem.TraceMessage($"[CH.{channel + 1}] Touch Capacitance Timeout!");
                     // 결과 판정
-                    _overalResult[channel].Touch.State = TestStates.Failed;
-                    _overalResult[channel].Touch.Value = "";
-                    _overalResult[channel].Touch.Result = "Timeout";
+                    _overalResult[channel].LockSen.State = TestStates.Failed;
+                    _overalResult[channel].LockSen.Value = "";
+                    _overalResult[channel].LockSen.Result = "Timeout";
                     // 동작 상태 표시
-                    OnTestStepProgressChanged(channel, _overalResult[channel].Touch);
+                    OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
                     SetTestStep(channel, NFCTouchTestStep.CancelCapacitanceStart);
                 }
             }
@@ -2845,16 +2834,16 @@ namespace DHSTesterXL
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step [Power Off]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step [Power Off]");
-            GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, false);
-            GSystem.DedicatedCTRL.SetCommandActiveCurrent(channel, false);
+            GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, false);
+            GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, false);
             NextTestStep(channel);
         }
         private void NFCTouchTestStep_PowerOffWait(int channel)
         {
             // 완료 대기
-            if (GSystem.DedicatedCTRL.GetCommandActiveCurrent(channel) || GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (GSystem.DedicatedCTRL.GetCommandActivePowerOn(channel) || GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
                 return;
-            if (GSystem.DedicatedCTRL.GetCommandActiveCurrent(channel) || GSystem.DedicatedCTRL.GetCompleteActiveCurrent(channel))
+            if (GSystem.DedicatedCTRL.GetCommandActivePowerOn(channel) || GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
                 return;
             GSystem.Logger.Info ($"[CH.{channel + 1}] Power Off step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Power Off step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
@@ -2974,7 +2963,7 @@ namespace DHSTesterXL
                 DateTime saveDate = DateTime.Now;
                 //string suffix = "UFD";
                 string fileName = $"{saveDate.ToString("yyMMdd")}_{ProductSettings.ProductInfo.PartNo}_ch{channel + 1}.csv";
-                string filePath = $"{GSystem.SystemData.GeneralSettings.ResultFolder}\\{ProductSettings.ProductInfo.PartNo}\\{saveDate:yyyy}\\{saveDate:MM}";
+                string filePath = $"{GSystem.SystemData.GeneralSettings.DataFolderAll}\\{ProductSettings.ProductInfo.PartNo}\\{saveDate:yyyy}\\{saveDate:MM}";
                 string filePathName = Path.Combine(filePath, fileName);
 
                 GCsvFile csvFile = new GCsvFile();

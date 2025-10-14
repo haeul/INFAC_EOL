@@ -24,6 +24,71 @@ namespace DHSTesterXL
         SEEDKEY_FAIL = 1,
     };
 
+    public enum TouchOnlyTestStep
+    {
+        Standby = 0,
+        Prepare,
+        TestInitStart,
+        TestInitWait,
+        // Motion Loading
+        MotionLoadingStart,
+        MotionLoadingWait,
+        ShortTestStart,
+        ShortTestWait,
+        LowPowerOn,
+        LowPowerOnWait,
+        WakeUpSend,
+        WakeUpWait,
+        DarkCurrentStart,
+        DarkCurrentUpdate,
+        DarkCurrentComplete,
+        // Motion Move to Touch Y
+        MotionMoveTouchStart,
+        MotionMoveTouchWait,
+        // Touch
+        TouchLockStart,
+        TouchLockPrepare,
+        TouchLockWait,
+        TouchLockRetry,
+        MotionTouchZUpStart,
+        MotionTouchZUpWait,
+        // Cancel
+        TouchCancelStart,
+        TouchCancelPrepare,
+        TouchCancelWait,
+        // Lock/Cancel
+        LockCancelStart,
+        LockCancelPrepare,
+        LockCancelWait,
+        LowPowerOff,
+        LowPowerOffWait,
+        ActivePowerOn,
+        ActivePowerOnWait,
+        BootModeEnterStart,
+        BootModeEnterWait,
+        SWVersionSend,
+        SWVersionWait,
+        HWVersionSend,
+        HWVersionWait,
+        SerialNumReadSend,
+        SerialNumReadWait,
+        PartNumberSend,
+        PartNumberWait,
+        DTCEraseSend,
+        DTCEraseWait,
+        OperCurrentStart,
+        OperCurrentWait,
+        PowerOff,
+        PowerOffWait,
+        TestEndStart,
+        TestEndWait,
+        // Motion Unloading
+        MotionUnloadingStart,
+        MotionUnloadingWait,
+        Complete,
+        Count
+    }
+
     public enum NFCTouchTestStep
     {
         Standby = 0,
@@ -31,31 +96,37 @@ namespace DHSTesterXL
         TestInitStart,
         TestInitWait,
         // Motion_Loading
+        MotionLoadingStart,
+        MotionLoadingWait,
         ShortTestStart,
         ShortTestWait,
         LowPowerOn,
         LowPowerOnWait,
         WakeUpSend,
         WakeUpWait,
-        SerialNumPrepareSend,
-        SerialNumPrepareWait,
-        SerialNumSeedkeySend,
-        SerialNumSeedkeyWait,
-        SerialNumGenerateSeedkey,
-        SerialNumGeneratekeySend,
-        SerialNumGeneratekeyWait,
-        SerialNumWriteSend,
-        SerialNumWriteWait,
-        SerialNumReadSend,
-        SerialNumReadWait,
+        ManufacturePrepareSend,
+        ManufacturePrepareWait,
+        ManufactureSeedkeySend,
+        ManufactureSeedkeyWait,
+        ManufactureGenerateSeedkey,
+        ManufactureGeneratedKeySend,
+        ManufactureGeneratedKeyWait,
+        ManufactureWriteSend,
+        ManufactureWriteWait,
+        ManufactureReadSend,
+        ManufactureReadWait,
         DarkCurrentStart,
+        DarkCurrentWait,
         DarkCurrentUpdate,
         DarkCurrentComplete,
         LowPowerOff,
         LowPowerOffWait,
         HighPowerOn,
         HighPowerOnWait,
-        HighPowerWakeUpWait,
+        NmWakeUpWait,
+        PowerOnResetWait,
+        ExtendedSessionStart,
+        ExtendedSessionWait,
         PLightTurnOnSend,
         PLightTurnOnWait,
         PLightCurrentSend,
@@ -65,13 +136,49 @@ namespace DHSTesterXL
         PLightTurnOffSend,
         PLightTurnOffWait,
         // Touch 위치로 이동
+        MotionMoveTouchStart,
+        MotionMoveTouchWait,
+        TouchTestStart,
+
+        TouchCan_ZDownStart,
+        TouchCan_ZDownWait,
+        TouchCan_LockSenStart,
+        TouchCan_LockSenWait,
+        TouchCan_LockCanWait,
+        TouchCan_Retry,
+
+        TouchCap_ZDownStart,
+        TouchCap_ZDownWait,
+        TouchCap_LockSenStart,
+        TouchCap_LockSenWait,
+        TouchCap_LockCanWait,
+        TouchCap_Retry,
+
+        TouchLockStart,
+        MotionTouchZDownStart,
+        MotionTouchZDownWait,
+        TouchLockWait,
+        TouchLockRetry,
         TouchCapacitanceStart,
         TouchCapacitancePrepare,
         TouchCapacitanceWait,
+        MotionTouchZUpStart,
+        MotionTouchZUpWait,
         // Cancel 위치로 이동
+        MotionMoveCancelStart,
+        MotionMoveCancelWait,
         CancelCapacitanceStart,
         CancelCapacitancePrepare,
         CancelCapacitanceWait,
+        MotionCancelZDownStart,
+        MotionCancelZDownWait,
+        // NFC 위치로 이동
+        MotionMoveNFC_Start,
+        MotionMoveNFC_Wait,
+        NfcCheckStart,
+        NfcCheckWait,
+        MotionNFC_UpStart,
+        MotionNFC_UpWait,
         // Security
         XcpPrepareSend,
         XcpPrepareWait,
@@ -82,9 +189,6 @@ namespace DHSTesterXL
         SecurityUploadWait,
         XcpDisconnectSend,
         XcpDisconnectWait,
-        // NFC 위치로 이동
-        NfcCheckStart,
-        NfcCheckWait,
         DTCEraseSend,
         DTCEraseWait,
         HWVersionSend,
@@ -102,26 +206,35 @@ namespace DHSTesterXL
         BootExtendedWait,
         RxsWinSend,
         RxsWinWait,
-        ManufacturePrepareSend,
-        ManufacturePrepareWait,
-        ManufactureSeedkeySend,
-        ManufactureSeedkeyWait,
-        ManufactureGenerateSeedkey,
-        ManufactureGeneratedKeySend,
-        ManufactureGeneratedKeyWait,
-        ManufactureWriteSend,
-        ManufactureWriteWait,
-        ManufactureReadSend,
-        ManufactureReadWait,
         SupplierCodeSend,
         SupplierCodeWait,
         OperCurrentStart,
         OperCurrentWait,
+        SerialNumPrepareSend,
+        SerialNumPrepareWait,
+        SerialNumSeedkeySend,
+        SerialNumSeedkeyWait,
+        SerialNumGenerateSeedkey,
+        SerialNumGeneratekeySend,
+        SerialNumGeneratekeyWait,
+        SerialNumWriteSend,
+        SerialNumWriteWait,
+        SerialNumReadSend,
+        SerialNumReadWait,
         PowerOff,
         PowerOffWait,
         TestEndStart,
         TestEndWait,
+        // Unloading
+        MotionUnloadingStart,
+        MotionUnloadingWait,
         Complete,
+        // Unclamp
+        MotionUnclampForeStart,
+        MotionUnclampForeWait,
+        //JigUnloadingCheck,
+        //MotionUnclampBackStart,
+        //MotionUnclampBackWait,
         Count
     }
 
@@ -227,7 +340,14 @@ namespace DHSTesterXL
         public int IntervalTime { get; set; }
     }
 
-
+    public class BarcodeEventArgs : EventArgs
+    {
+        public int Channel { get; set; }
+        public int TrayMaxCount { get; set; }
+        public int ProductCount { get; set; }
+        public string TrayBarcode { get; set; }
+        public string ProductBarcode { get; set; }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -249,6 +369,8 @@ namespace DHSTesterXL
         List<TestSpec> TestItemsList { get; set; }
         Task<XL_Status> OpenPort(int channel);
         Task<XL_Status> ClosePort(int channel);
+        bool OpenPortCOM(int channel);
+        void ClosePortCOM(int channel);
         bool IsOpen(int channel);
 
         uint GetCanID(uint canId);
@@ -265,6 +387,7 @@ namespace DHSTesterXL
         XL_Status WriteFrameExt(int channel, UInt32 id, XL_CANFD_DLC dlc, byte[] data, bool logging = false, string remarks = "");
 
         XL_Status Send_NM(int channel, bool logging = false);
+        XL_Status Send_NFC(int channel, bool logging = false);
         XL_Status Send_DefaultSession(int channel, bool logging = false);
         XL_Status Send_ExtendedSession(int channel, bool logging = false);
         XL_Status Send_Bootloader(int channel, bool logging = false);
@@ -294,10 +417,14 @@ namespace DHSTesterXL
         XL_Status Send_ShortUpload(int channel, uint address, byte count, bool logging = false);
         XL_Status Send_SetMTA(int channel, uint address, bool logging = false, string remarks = "");
         XL_Status Send_Security(int channel, uint address, bool logging = false);
+        XL_Status Send_HardwireTest(int channel, bool logging = false);
 
         NFCTouchTestStep NextTestStep(int channel);
         NFCTouchTestStep GetTestStep(int channel);
         NFCTouchTestStep SetTestStep(int channel, NFCTouchTestStep step);
+        TouchOnlyTestStep NextTouchOnlyTestStep(int channel);
+        TouchOnlyTestStep GetTouchOnlyTestStep(int channel);
+        TouchOnlyTestStep SetTouchOnlyTestStep(int channel, TouchOnlyTestStep step);
         void StartTest(int channel);
         void StopTest(int channel);
         void CancelTest(int channel, bool cancel);

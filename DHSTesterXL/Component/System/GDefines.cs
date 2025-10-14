@@ -53,23 +53,48 @@ namespace DHSTesterXL
         //Short_4_5,
         Short_4_6,
         //Short_5_6,
-        SerialNumber,
+        Manufacture,
         DarkCurrent,
         PLightTurnOn,
         PLightCurrent,
         PLightAmbient,
-        Touch,
+        LockSen,
+        LockCan,
         Cancel,
-        SecurityBit,
         NFC,
+        SecurityBit,
         DTC_Erase,
         HW_Version,
         SW_Version,
         PartNumber,
         Bootloader,
         RXSWIN,
-        Manufacture,
         SupplierCode,
+        OperationCurrent,
+        SerialNumber,
+        Count
+    }
+
+    public enum TouchOnlyTestItems
+    {
+        Short_1_2 = 0,
+        Short_1_3,
+        Short_1_4,
+        Short_1_6,
+        Short_2_3,
+        Short_2_4,
+        Short_2_6,
+        Short_3_4,
+        Short_3_6,
+        Short_4_6,
+        DarkCurrent,
+        Touch,
+        Cancel,
+        SW_Version,
+        HW_Version,
+        SerialNumber,
+        PartNumber,
+        DTC_Erase,
         OperationCurrent,
         Count
     }
@@ -252,24 +277,25 @@ namespace DHSTesterXL
             //"Short 04-05",
             "Short 04-06",
             //"Short 05-06",
-            "Serial Number",
+            "Manufacture",
             "Dark Current",
             "P-Light CAN", // CAN 통신 회신
             "P-Light Current", // 전류
             "P-Light Sens", // 조도계
-            "Touch",
+            "LockSens",
+            "LockCan",
             "Cancel",
-            "Security",
             "NFC",
+            "Security",
             "DTC Erase",
             "HW Version",
             "SW Version",
             "Part Number",
             "Bootloader",
             "RXSWIN",
-            "Manufacture",
             "Supplier Code",
             "Operation Current",
+            "Serial Number",
         };
 
         public static string[] XCP_ADDRESS_NAME_STR = {
@@ -380,6 +406,18 @@ namespace DHSTesterXL
         {
             "WR", // W/R
             "RO", // R/O
+        };
+
+        public static readonly string[] TEST_TOUCH_OPTION =
+        {
+            "CAP", // Capacitance
+            "HW", // Hardwire
+        };
+
+        public static readonly char[] LOT_YEAR =
+        {
+            // 2023~
+            'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D'
         };
     }
 }

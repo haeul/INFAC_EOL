@@ -148,7 +148,7 @@ namespace DHSTesterXL.Forms
                         break;
                     case TestItems.PLightAmbient:
                         break;
-                    case TestItems.Touch:
+                    case TestItems.LockSen:
                         break;
                     case TestItems.Cancel:
                         break;

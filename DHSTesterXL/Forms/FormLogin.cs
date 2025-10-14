@@ -98,6 +98,7 @@ namespace DHSTesterXL
             else
             {
                 textPassword.Enabled = true;
+                textPassword.Focus();
             }
         }
     }

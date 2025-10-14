@@ -39,18 +39,20 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.comboProductNo = new System.Windows.Forms.ComboBox();
             this.textProductName = new System.Windows.Forms.TextBox();
-            this.textTypeNo = new System.Windows.Forms.TextBox();
+            this.textPLCRecipe = new System.Windows.Forms.TextBox();
             this.textCarType = new System.Windows.Forms.TextBox();
             this.textAlcNo = new System.Windows.Forms.TextBox();
             this.labelProductInfoTitle = new System.Windows.Forms.Label();
             this.panelProductInfo = new System.Windows.Forms.Panel();
             this.labelAlcNo = new System.Windows.Forms.Label();
+            this.labelTypeNo = new System.Windows.Forms.Label();
             this.labelCarType = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.labelProductType = new System.Windows.Forms.Label();
             this.labelProductName = new System.Windows.Forms.Label();
             this.labelProductNo = new System.Windows.Forms.Label();
+            this.comboConnType = new System.Windows.Forms.ComboBox();
             this.comboProductType = new System.Windows.Forms.ComboBox();
-            this.labelTypeNo = new System.Windows.Forms.Label();
             this.panelProductInfoFrame = new System.Windows.Forms.Panel();
             this.panelTestSettingsFrame = new System.Windows.Forms.Panel();
             this.panelTestSettings = new System.Windows.Forms.Panel();
@@ -65,43 +67,52 @@
             this.panelCommSettingsFrame = new System.Windows.Forms.Panel();
             this.panelCommSettings = new System.Windows.Forms.Panel();
             this.panelNfcSettings = new System.Windows.Forms.Panel();
+            this.textCanArbTseg1 = new System.Windows.Forms.TextBox();
+            this.textCanDatTseg1 = new System.Windows.Forms.TextBox();
+            this.textCanArbTseg2 = new System.Windows.Forms.TextBox();
+            this.labelCanDatBitRate = new System.Windows.Forms.Label();
+            this.textCanDatTseg2 = new System.Windows.Forms.TextBox();
+            this.labelCanArbBitRate = new System.Windows.Forms.Label();
+            this.textCanArbSjw = new System.Windows.Forms.TextBox();
+            this.textCanDatSjw = new System.Windows.Forms.TextBox();
+            this.textCanDatBitRate = new System.Windows.Forms.TextBox();
+            this.labelCanDatSjw = new System.Windows.Forms.Label();
+            this.textCanArbBitRate = new System.Windows.Forms.TextBox();
+            this.labelCanArbTseg1 = new System.Windows.Forms.Label();
+            this.labelCanArbTseg2 = new System.Windows.Forms.Label();
+            this.labelCanArbSjw = new System.Windows.Forms.Label();
+            this.labelCanDatTseg2 = new System.Windows.Forms.Label();
+            this.labelCanDatTseg1 = new System.Windows.Forms.Label();
+            this.panelUartSettings = new System.Windows.Forms.Panel();
+            this.comboUartBaudrateCh2 = new System.Windows.Forms.ComboBox();
+            this.comboUartBaudrateCh1 = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.comboUartPortNameCh2 = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.comboUartPortNameCh1 = new System.Windows.Forms.ComboBox();
+            this.labelUartPort = new System.Windows.Forms.Label();
+            this.labelCommSettingsTitle = new System.Windows.Forms.Label();
+            this.labelCommType = new System.Windows.Forms.Label();
+            this.comboCommType = new System.Windows.Forms.ComboBox();
             this.checkPLightReqID = new System.Windows.Forms.CheckBox();
             this.labelPLightResID = new System.Windows.Forms.Label();
             this.labelNM_ResID = new System.Windows.Forms.Label();
             this.labelNM_ReqID = new System.Windows.Forms.Label();
-            this.comboUartPort = new System.Windows.Forms.ComboBox();
             this.labelCanResID = new System.Windows.Forms.Label();
             this.labelCanReqID = new System.Windows.Forms.Label();
-            this.labelCanDatBitRate = new System.Windows.Forms.Label();
-            this.labelCanArbBitRate = new System.Windows.Forms.Label();
-            this.labelUartPort = new System.Windows.Forms.Label();
             this.textPLightResID = new System.Windows.Forms.TextBox();
             this.textPLightReqID = new System.Windows.Forms.TextBox();
             this.textNM_ResID = new System.Windows.Forms.TextBox();
             this.textNM_ReqID = new System.Windows.Forms.TextBox();
             this.textCanResID = new System.Windows.Forms.TextBox();
             this.textCanReqID = new System.Windows.Forms.TextBox();
-            this.textCanDatBitRate = new System.Windows.Forms.TextBox();
-            this.textCanArbBitRate = new System.Windows.Forms.TextBox();
-            this.labelCommSettingsTitle = new System.Windows.Forms.Label();
-            this.labelCommType = new System.Windows.Forms.Label();
-            this.comboCommType = new System.Windows.Forms.ComboBox();
-            this.labelCanDatSjw = new System.Windows.Forms.Label();
-            this.labelCanArbSjw = new System.Windows.Forms.Label();
-            this.labelCanDatTseg2 = new System.Windows.Forms.Label();
-            this.labelCanArbTseg2 = new System.Windows.Forms.Label();
-            this.labelCanDatTseg1 = new System.Windows.Forms.Label();
-            this.labelCanArbTseg1 = new System.Windows.Forms.Label();
-            this.textCanDatSjw = new System.Windows.Forms.TextBox();
-            this.textCanArbSjw = new System.Windows.Forms.TextBox();
-            this.textCanDatTseg2 = new System.Windows.Forms.TextBox();
-            this.textCanArbTseg2 = new System.Windows.Forms.TextBox();
-            this.textCanDatTseg1 = new System.Windows.Forms.TextBox();
-            this.textCanArbTseg1 = new System.Windows.Forms.TextBox();
             this.panelXCPAddressFrame = new System.Windows.Forms.Panel();
             this.panelXCPAddress = new System.Windows.Forms.Panel();
             this.radioXcpUse = new System.Windows.Forms.RadioButton();
             this.radioXcpNotUse = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelNfcInputID = new System.Windows.Forms.Label();
             this.labelXcpEcuAddr = new System.Windows.Forms.Label();
             this.labelXcpResID = new System.Windows.Forms.Label();
             this.gridXcpList = new System.Windows.Forms.DataGridView();
@@ -114,11 +125,96 @@
             this.textXcpReqID = new System.Windows.Forms.TextBox();
             this.textXcpEcuAddr = new System.Windows.Forms.TextBox();
             this.textXcpResID = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.textNFC_ReqID = new System.Windows.Forms.TextBox();
+            this.textNFC_ResID = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panelThdSettingsFrame = new System.Windows.Forms.Panel();
+            this.panelThdSettings = new System.Windows.Forms.Panel();
+            this.labelThdSettingsTitle = new System.Windows.Forms.Label();
+            this.textThdCancelSlowSelf = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textThdCancelFastSelf = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textThdTouchFastSelf = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textThdTouchFastMutual = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.txtEtcsCompanyAreaValue = new System.Windows.Forms.TextBox();
+            this.txtEtcsCTag = new System.Windows.Forms.TextBox();
+            this.txtEtcsInitialValue = new System.Windows.Forms.TextBox();
+            this.txtEtcsMTag = new System.Windows.Forms.TextBox();
+            this.txtEtcsSpecialValue = new System.Windows.Forms.TextBox();
+            this.txtEtcsATag = new System.Windows.Forms.TextBox();
+            this.txtEtcsTraceValue = new System.Windows.Forms.TextBox();
+            this.txtEtcsTTag = new System.Windows.Forms.TextBox();
+            this.txtEtcsEoValue = new System.Windows.Forms.TextBox();
+            this.txtEtcsETag = new System.Windows.Forms.TextBox();
+            this.txtEtcsSerialValue = new System.Windows.Forms.TextBox();
+            this.txtEtcsSTag = new System.Windows.Forms.TextBox();
+            this.txtEtcsPartNoValue = new System.Windows.Forms.TextBox();
+            this.txtEtcsPTag = new System.Windows.Forms.TextBox();
+            this.txtEtcsVendorValue = new System.Windows.Forms.TextBox();
+            this.txtEtcsVTag = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.txtEtcsCommEot = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txtEtcsCommGs = new System.Windows.Forms.TextBox();
+            this.txtEtcsCommRs = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.txtEtcsCommVersion = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtEtcsCommHeader = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.cmbPrinter = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label49 = new System.Windows.Forms.Label();
+            this.Preview = new System.Windows.Forms.Panel();
+            this.btnPreview = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.LabelDataGridView = new System.Windows.Forms.DataGridView();
+            this.ＳＷ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ｘ좌표 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ｙ좌표 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.회전 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.크기 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ｘ비율 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ｙ비율 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.데이터 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.numPrintQty = new System.Windows.Forms.NumericUpDown();
+            this.numPrintSpeed = new System.Windows.Forms.NumericUpDown();
+            this.numPrintDarkness = new System.Windows.Forms.NumericUpDown();
+            this.numLabelHeight = new System.Windows.Forms.NumericUpDown();
+            this.numLabelWidth = new System.Windows.Forms.NumericUpDown();
+            this.comboPrintDir = new System.Windows.Forms.ComboBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnTest = new System.Windows.Forms.Button();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
@@ -130,47 +226,35 @@
             this.textProductName2 = new System.Windows.Forms.TextBox();
             this.textAlcNo2 = new System.Windows.Forms.TextBox();
             this.textCarType2 = new System.Windows.Forms.TextBox();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.label50 = new System.Windows.Forms.Label();
-            this.label51 = new System.Windows.Forms.Label();
-            this.numSerialTo = new System.Windows.Forms.NumericUpDown();
-            this.numPrintQty = new System.Windows.Forms.NumericUpDown();
-            this.numPrintSpeed = new System.Windows.Forms.NumericUpDown();
-            this.numPrintDarkness = new System.Windows.Forms.NumericUpDown();
-            this.numSerialFrom = new System.Windows.Forms.NumericUpDown();
-            this.numLabelHeight = new System.Windows.Forms.NumericUpDown();
-            this.numLabelGap = new System.Windows.Forms.NumericUpDown();
-            this.numLabelWidth = new System.Windows.Forms.NumericUpDown();
-            this.comboPrintDir = new System.Windows.Forms.ComboBox();
-            this.label52 = new System.Windows.Forms.Label();
-            this.label53 = new System.Windows.Forms.Label();
-            this.label54 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
-            this.label58 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.cmbPrinter = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.LabelDataGridView = new System.Windows.Forms.DataGridView();
-            this.ＳＷ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ｘ좌표 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ｙ좌표 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.회전 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.크기 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ｘ비율 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ｙ비율 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.데이터 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.label49 = new System.Windows.Forms.Label();
-            this.Preview = new System.Windows.Forms.Panel();
-            this.btnPreview = new System.Windows.Forms.Button();
-            this.btnReset = new System.Windows.Forms.Button();
-            this.btnPrint = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnTest = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.checkUseLabelPrint = new System.Windows.Forms.CheckBox();
+            this.checkUseTrayInterlock = new System.Windows.Forms.CheckBox();
+            this.checkUseProductBarcode = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.checkUseMasterSample = new System.Windows.Forms.CheckBox();
+            this.numericMasterCount = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textMasterBarcode5 = new System.Windows.Forms.TextBox();
+            this.textMasterBarcode4 = new System.Windows.Forms.TextBox();
+            this.textMasterBarcode3 = new System.Windows.Forms.TextBox();
+            this.textMasterBarcode2 = new System.Windows.Forms.TextBox();
+            this.textMasterBarcode1 = new System.Windows.Forms.TextBox();
+            this.textMasterType5 = new System.Windows.Forms.TextBox();
+            this.labelMaster5 = new System.Windows.Forms.Label();
+            this.textMasterType4 = new System.Windows.Forms.TextBox();
+            this.labelMaster4 = new System.Windows.Forms.Label();
+            this.textMasterType3 = new System.Windows.Forms.TextBox();
+            this.labelMaster3 = new System.Windows.Forms.Label();
+            this.textMasterType2 = new System.Windows.Forms.TextBox();
+            this.labelMaster2 = new System.Windows.Forms.Label();
+            this.textMasterType1 = new System.Windows.Forms.TextBox();
+            this.labelMaster1 = new System.Windows.Forms.Label();
+            this.btnPrintFontTest = new System.Windows.Forms.Button();
             this.panelProductInfo.SuspendLayout();
             this.panelProductInfoFrame.SuspendLayout();
             this.panelTestSettingsFrame.SuspendLayout();
@@ -179,31 +263,40 @@
             this.panelCommSettingsFrame.SuspendLayout();
             this.panelCommSettings.SuspendLayout();
             this.panelNfcSettings.SuspendLayout();
+            this.panelUartSettings.SuspendLayout();
             this.panelXCPAddressFrame.SuspendLayout();
             this.panelXCPAddress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridXcpList)).BeginInit();
-            this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panelThdSettingsFrame.SuspendLayout();
+            this.panelThdSettings.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.panel11.SuspendLayout();
+            this.panel12.SuspendLayout();
+            this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LabelDataGridView)).BeginInit();
+            this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSerialTo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrintQty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrintSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrintDarkness)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numSerialFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLabelHeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numLabelGap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLabelWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LabelDataGridView)).BeginInit();
-            this.panel6.SuspendLayout();
-            this.panel7.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMasterCount)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonNew
             // 
-            this.buttonNew.Location = new System.Drawing.Point(10, 180);
+            this.buttonNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonNew.Location = new System.Drawing.Point(10, 233);
             this.buttonNew.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(80, 30);
@@ -214,7 +307,8 @@
             // 
             // buttonCopy
             // 
-            this.buttonCopy.Location = new System.Drawing.Point(95, 180);
+            this.buttonCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCopy.Location = new System.Drawing.Point(95, 233);
             this.buttonCopy.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonCopy.Name = "buttonCopy";
             this.buttonCopy.Size = new System.Drawing.Size(80, 30);
@@ -225,7 +319,8 @@
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(180, 180);
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDelete.Location = new System.Drawing.Point(180, 233);
             this.buttonDelete.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(80, 30);
@@ -237,7 +332,7 @@
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(1015, 822);
+            this.buttonSave.Location = new System.Drawing.Point(1005, 802);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(100, 30);
@@ -249,7 +344,7 @@
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.Location = new System.Drawing.Point(1124, 822);
+            this.buttonClose.Location = new System.Drawing.Point(1115, 802);
             this.buttonClose.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(100, 30);
@@ -262,49 +357,47 @@
             // 
             this.comboProductNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboProductNo.FormattingEnabled = true;
-            this.comboProductNo.Location = new System.Drawing.Point(100, 30);
+            this.comboProductNo.Location = new System.Drawing.Point(95, 30);
             this.comboProductNo.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.comboProductNo.Name = "comboProductNo";
-            this.comboProductNo.Size = new System.Drawing.Size(140, 23);
+            this.comboProductNo.Size = new System.Drawing.Size(165, 23);
             this.comboProductNo.TabIndex = 1;
             this.comboProductNo.DropDown += new System.EventHandler(this.comboProductNo_DropDown);
             this.comboProductNo.SelectionChangeCommitted += new System.EventHandler(this.comboProductNo_SelectionChangeCommitted);
             // 
             // textProductName
             // 
-            this.textProductName.Location = new System.Drawing.Point(100, 58);
+            this.textProductName.Location = new System.Drawing.Point(95, 58);
             this.textProductName.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textProductName.Name = "textProductName";
-            this.textProductName.Size = new System.Drawing.Size(140, 23);
+            this.textProductName.Size = new System.Drawing.Size(165, 23);
             this.textProductName.TabIndex = 2;
             this.textProductName.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
-            // textTypeNo
+            // textPLCRecipe
             // 
-            this.textTypeNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textTypeNo.Location = new System.Drawing.Point(141, 829);
-            this.textTypeNo.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.textTypeNo.Name = "textTypeNo";
-            this.textTypeNo.Size = new System.Drawing.Size(200, 23);
-            this.textTypeNo.TabIndex = 2;
-            this.textTypeNo.Visible = false;
-            this.textTypeNo.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textPLCRecipe.Location = new System.Drawing.Point(95, 170);
+            this.textPLCRecipe.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textPLCRecipe.Name = "textPLCRecipe";
+            this.textPLCRecipe.Size = new System.Drawing.Size(165, 23);
+            this.textPLCRecipe.TabIndex = 2;
+            this.textPLCRecipe.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // textCarType
             // 
-            this.textCarType.Location = new System.Drawing.Point(100, 114);
+            this.textCarType.Location = new System.Drawing.Point(95, 114);
             this.textCarType.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textCarType.Name = "textCarType";
-            this.textCarType.Size = new System.Drawing.Size(140, 23);
+            this.textCarType.Size = new System.Drawing.Size(165, 23);
             this.textCarType.TabIndex = 2;
             this.textCarType.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // textAlcNo
             // 
-            this.textAlcNo.Location = new System.Drawing.Point(100, 142);
+            this.textAlcNo.Location = new System.Drawing.Point(95, 142);
             this.textAlcNo.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textAlcNo.Name = "textAlcNo";
-            this.textAlcNo.Size = new System.Drawing.Size(140, 23);
+            this.textAlcNo.Size = new System.Drawing.Size(165, 23);
             this.textAlcNo.TabIndex = 2;
             this.textAlcNo.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
@@ -322,15 +415,22 @@
             // 
             // panelProductInfo
             // 
+            this.panelProductInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelProductInfo.BackColor = System.Drawing.SystemColors.Control;
             this.panelProductInfo.Controls.Add(this.labelAlcNo);
+            this.panelProductInfo.Controls.Add(this.labelTypeNo);
             this.panelProductInfo.Controls.Add(this.labelCarType);
             this.panelProductInfo.Controls.Add(this.buttonDelete);
+            this.panelProductInfo.Controls.Add(this.label10);
             this.panelProductInfo.Controls.Add(this.labelProductType);
+            this.panelProductInfo.Controls.Add(this.textPLCRecipe);
             this.panelProductInfo.Controls.Add(this.buttonCopy);
             this.panelProductInfo.Controls.Add(this.labelProductName);
             this.panelProductInfo.Controls.Add(this.buttonNew);
             this.panelProductInfo.Controls.Add(this.labelProductNo);
+            this.panelProductInfo.Controls.Add(this.comboConnType);
             this.panelProductInfo.Controls.Add(this.comboProductType);
             this.panelProductInfo.Controls.Add(this.comboProductNo);
             this.panelProductInfo.Controls.Add(this.labelProductInfoTitle);
@@ -339,7 +439,7 @@
             this.panelProductInfo.Controls.Add(this.textCarType);
             this.panelProductInfo.Location = new System.Drawing.Point(1, 1);
             this.panelProductInfo.Name = "panelProductInfo";
-            this.panelProductInfo.Size = new System.Drawing.Size(270, 220);
+            this.panelProductInfo.Size = new System.Drawing.Size(270, 273);
             this.panelProductInfo.TabIndex = 4;
             // 
             // labelAlcNo
@@ -352,6 +452,16 @@
             this.labelAlcNo.Text = "ALC 번호";
             this.labelAlcNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // labelTypeNo
+            // 
+            this.labelTypeNo.Location = new System.Drawing.Point(10, 170);
+            this.labelTypeNo.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.labelTypeNo.Name = "labelTypeNo";
+            this.labelTypeNo.Size = new System.Drawing.Size(80, 21);
+            this.labelTypeNo.TabIndex = 4;
+            this.labelTypeNo.Text = "PLC 레시피";
+            this.labelTypeNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // labelCarType
             // 
             this.labelCarType.Location = new System.Drawing.Point(10, 114);
@@ -361,6 +471,16 @@
             this.labelCarType.TabIndex = 4;
             this.labelCarType.Text = "차종";
             this.labelCarType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(10, 198);
+            this.label10.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(80, 21);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "커넥터 타입";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelProductType
             // 
@@ -381,6 +501,7 @@
             this.labelProductName.TabIndex = 4;
             this.labelProductName.Text = "품명";
             this.labelProductName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelProductName.DoubleClick += new System.EventHandler(this.labelProductName_DoubleClick);
             // 
             // labelProductNo
             // 
@@ -391,6 +512,24 @@
             this.labelProductNo.TabIndex = 4;
             this.labelProductNo.Text = "품번";
             this.labelProductNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelProductNo.DoubleClick += new System.EventHandler(this.labelProductNo_DoubleClick);
+            // 
+            // comboConnType
+            // 
+            this.comboConnType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboConnType.FormattingEnabled = true;
+            this.comboConnType.Items.AddRange(new object[] {
+            "None",
+            "JG NFC Touch",
+            "JG Touch Only",
+            "LQ2 NFC Touch",
+            "LQ2 Touch Only"});
+            this.comboConnType.Location = new System.Drawing.Point(95, 198);
+            this.comboConnType.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.comboConnType.Name = "comboConnType";
+            this.comboConnType.Size = new System.Drawing.Size(165, 23);
+            this.comboConnType.TabIndex = 1;
+            this.comboConnType.SelectionChangeCommitted += new System.EventHandler(this.comboConnType_SelectionChangeCommitted);
             // 
             // comboProductType
             // 
@@ -399,26 +538,22 @@
             this.comboProductType.Items.AddRange(new object[] {
             "NFC TOUCH LHD",
             "NFC TOUCH RHD",
+            "NFC TOUCH FRONT LH",
+            "NFC TOUCH FRONT RH",
+            "NFC TOUCH REAR LH",
+            "NFC TOUCH REAR RH",
             "TOUCH ONLY LHD",
-            "TOUCH ONLY RHD"});
-            this.comboProductType.Location = new System.Drawing.Point(100, 86);
+            "TOUCH ONLY RHD",
+            "TOUCH ONLY FRONT LH",
+            "TOUCH ONLY FRONT RH",
+            "TOUCH ONLY REAR LH",
+            "TOUCH ONLY REAR RH"});
+            this.comboProductType.Location = new System.Drawing.Point(95, 86);
             this.comboProductType.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.comboProductType.Name = "comboProductType";
-            this.comboProductType.Size = new System.Drawing.Size(140, 23);
+            this.comboProductType.Size = new System.Drawing.Size(165, 23);
             this.comboProductType.TabIndex = 1;
             this.comboProductType.SelectionChangeCommitted += new System.EventHandler(this.comboProductType_SelectionChangeCommitted);
-            // 
-            // labelTypeNo
-            // 
-            this.labelTypeNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelTypeNo.Location = new System.Drawing.Point(31, 829);
-            this.labelTypeNo.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.labelTypeNo.Name = "labelTypeNo";
-            this.labelTypeNo.Size = new System.Drawing.Size(100, 21);
-            this.labelTypeNo.TabIndex = 4;
-            this.labelTypeNo.Text = "유형(번호)";
-            this.labelTypeNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelTypeNo.Visible = false;
             // 
             // panelProductInfoFrame
             // 
@@ -427,7 +562,7 @@
             this.panelProductInfoFrame.Location = new System.Drawing.Point(10, 10);
             this.panelProductInfoFrame.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.panelProductInfoFrame.Name = "panelProductInfoFrame";
-            this.panelProductInfoFrame.Size = new System.Drawing.Size(272, 222);
+            this.panelProductInfoFrame.Size = new System.Drawing.Size(272, 275);
             this.panelProductInfoFrame.TabIndex = 5;
             // 
             // panelTestSettingsFrame
@@ -437,17 +572,20 @@
             this.panelTestSettingsFrame.Location = new System.Drawing.Point(294, 10);
             this.panelTestSettingsFrame.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.panelTestSettingsFrame.Name = "panelTestSettingsFrame";
-            this.panelTestSettingsFrame.Size = new System.Drawing.Size(552, 732);
+            this.panelTestSettingsFrame.Size = new System.Drawing.Size(552, 742);
             this.panelTestSettingsFrame.TabIndex = 6;
             // 
             // panelTestSettings
             // 
+            this.panelTestSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelTestSettings.BackColor = System.Drawing.SystemColors.Control;
             this.panelTestSettings.Controls.Add(this.gridTestList);
             this.panelTestSettings.Controls.Add(this.labelTestSettingsTitle);
             this.panelTestSettings.Location = new System.Drawing.Point(1, 1);
             this.panelTestSettings.Name = "panelTestSettings";
-            this.panelTestSettings.Size = new System.Drawing.Size(550, 730);
+            this.panelTestSettings.Size = new System.Drawing.Size(550, 740);
             this.panelTestSettings.TabIndex = 0;
             // 
             // gridTestList
@@ -466,7 +604,6 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.gridTestList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.gridTestList.ColumnHeadersHeight = 34;
             this.gridTestList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridTestList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colTestNo,
@@ -487,7 +624,6 @@
             this.gridTestList.Location = new System.Drawing.Point(10, 30);
             this.gridTestList.Name = "gridTestList";
             this.gridTestList.RowHeadersVisible = false;
-            this.gridTestList.RowHeadersWidth = 62;
             this.gridTestList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gridTestList.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.gridTestList.RowTemplate.Height = 23;
@@ -501,7 +637,6 @@
             // colTestNo
             // 
             this.colTestNo.HeaderText = "No";
-            this.colTestNo.MinimumWidth = 8;
             this.colTestNo.Name = "colTestNo";
             this.colTestNo.ReadOnly = true;
             this.colTestNo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -511,14 +646,12 @@
             // colTestUse
             // 
             this.colTestUse.HeaderText = "측정";
-            this.colTestUse.MinimumWidth = 8;
             this.colTestUse.Name = "colTestUse";
             this.colTestUse.Width = 50;
             // 
             // colTestFunction
             // 
             this.colTestFunction.HeaderText = "항목";
-            this.colTestFunction.MinimumWidth = 8;
             this.colTestFunction.Name = "colTestFunction";
             this.colTestFunction.ReadOnly = true;
             this.colTestFunction.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -528,7 +661,6 @@
             // colTestMin
             // 
             this.colTestMin.HeaderText = "최소값";
-            this.colTestMin.MinimumWidth = 8;
             this.colTestMin.Name = "colTestMin";
             this.colTestMin.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colTestMin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -537,7 +669,6 @@
             // colTestMax
             // 
             this.colTestMax.HeaderText = "최대값";
-            this.colTestMax.MinimumWidth = 8;
             this.colTestMax.Name = "colTestMax";
             this.colTestMax.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colTestMax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -547,7 +678,6 @@
             // 
             this.colTestOption.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colTestOption.HeaderText = "옵션";
-            this.colTestOption.MinimumWidth = 8;
             this.colTestOption.Name = "colTestOption";
             this.colTestOption.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colTestOption.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -568,136 +698,97 @@
             // 
             this.panelCommSettingsFrame.BackColor = System.Drawing.Color.LightGray;
             this.panelCommSettingsFrame.Controls.Add(this.panelCommSettings);
-            this.panelCommSettingsFrame.Location = new System.Drawing.Point(10, 250);
+            this.panelCommSettingsFrame.Location = new System.Drawing.Point(10, 295);
             this.panelCommSettingsFrame.Name = "panelCommSettingsFrame";
-            this.panelCommSettingsFrame.Size = new System.Drawing.Size(272, 492);
+            this.panelCommSettingsFrame.Size = new System.Drawing.Size(272, 297);
             this.panelCommSettingsFrame.TabIndex = 7;
             // 
             // panelCommSettings
             // 
             this.panelCommSettings.BackColor = System.Drawing.SystemColors.Control;
             this.panelCommSettings.Controls.Add(this.panelNfcSettings);
+            this.panelCommSettings.Controls.Add(this.panelUartSettings);
             this.panelCommSettings.Controls.Add(this.labelCommSettingsTitle);
             this.panelCommSettings.Controls.Add(this.labelCommType);
             this.panelCommSettings.Controls.Add(this.comboCommType);
             this.panelCommSettings.Location = new System.Drawing.Point(1, 1);
             this.panelCommSettings.Name = "panelCommSettings";
-            this.panelCommSettings.Size = new System.Drawing.Size(270, 490);
+            this.panelCommSettings.Size = new System.Drawing.Size(270, 295);
             this.panelCommSettings.TabIndex = 0;
             // 
             // panelNfcSettings
             // 
-            this.panelNfcSettings.Controls.Add(this.checkPLightReqID);
-            this.panelNfcSettings.Controls.Add(this.labelPLightResID);
-            this.panelNfcSettings.Controls.Add(this.labelNM_ResID);
-            this.panelNfcSettings.Controls.Add(this.labelNM_ReqID);
-            this.panelNfcSettings.Controls.Add(this.comboUartPort);
-            this.panelNfcSettings.Controls.Add(this.labelCanResID);
-            this.panelNfcSettings.Controls.Add(this.labelCanReqID);
+            this.panelNfcSettings.Controls.Add(this.textCanArbTseg1);
+            this.panelNfcSettings.Controls.Add(this.textCanDatTseg1);
+            this.panelNfcSettings.Controls.Add(this.textCanArbTseg2);
             this.panelNfcSettings.Controls.Add(this.labelCanDatBitRate);
+            this.panelNfcSettings.Controls.Add(this.textCanDatTseg2);
             this.panelNfcSettings.Controls.Add(this.labelCanArbBitRate);
-            this.panelNfcSettings.Controls.Add(this.labelUartPort);
-            this.panelNfcSettings.Controls.Add(this.textPLightResID);
-            this.panelNfcSettings.Controls.Add(this.textPLightReqID);
-            this.panelNfcSettings.Controls.Add(this.textNM_ResID);
-            this.panelNfcSettings.Controls.Add(this.textNM_ReqID);
-            this.panelNfcSettings.Controls.Add(this.textCanResID);
-            this.panelNfcSettings.Controls.Add(this.textCanReqID);
+            this.panelNfcSettings.Controls.Add(this.textCanArbSjw);
+            this.panelNfcSettings.Controls.Add(this.textCanDatSjw);
             this.panelNfcSettings.Controls.Add(this.textCanDatBitRate);
+            this.panelNfcSettings.Controls.Add(this.labelCanDatSjw);
             this.panelNfcSettings.Controls.Add(this.textCanArbBitRate);
+            this.panelNfcSettings.Controls.Add(this.labelCanArbTseg1);
+            this.panelNfcSettings.Controls.Add(this.labelCanArbTseg2);
+            this.panelNfcSettings.Controls.Add(this.labelCanArbSjw);
+            this.panelNfcSettings.Controls.Add(this.labelCanDatTseg2);
+            this.panelNfcSettings.Controls.Add(this.labelCanDatTseg1);
             this.panelNfcSettings.Location = new System.Drawing.Point(5, 60);
             this.panelNfcSettings.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.panelNfcSettings.Name = "panelNfcSettings";
-            this.panelNfcSettings.Size = new System.Drawing.Size(260, 425);
+            this.panelNfcSettings.Size = new System.Drawing.Size(260, 230);
             this.panelNfcSettings.TabIndex = 5;
             // 
-            // checkPLightReqID
+            // textCanArbTseg1
             // 
-            this.checkPLightReqID.AutoSize = true;
-            this.checkPLightReqID.Location = new System.Drawing.Point(31, 194);
-            this.checkPLightReqID.Name = "checkPLightReqID";
-            this.checkPLightReqID.Size = new System.Drawing.Size(127, 19);
-            this.checkPLightReqID.TabIndex = 5;
-            this.checkPLightReqID.Text = "P-Light Request ID";
-            this.checkPLightReqID.UseVisualStyleBackColor = true;
-            this.checkPLightReqID.CheckedChanged += new System.EventHandler(this.checkPLightReqID_CheckedChanged);
+            this.textCanArbTseg1.Location = new System.Drawing.Point(165, 33);
+            this.textCanArbTseg1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textCanArbTseg1.Name = "textCanArbTseg1";
+            this.textCanArbTseg1.Size = new System.Drawing.Size(80, 23);
+            this.textCanArbTseg1.TabIndex = 2;
+            this.textCanArbTseg1.Text = "63";
+            this.textCanArbTseg1.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
-            // labelPLightResID
+            // textCanDatTseg1
             // 
-            this.labelPLightResID.Location = new System.Drawing.Point(35, 220);
-            this.labelPLightResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.labelPLightResID.Name = "labelPLightResID";
-            this.labelPLightResID.Size = new System.Drawing.Size(120, 21);
-            this.labelPLightResID.TabIndex = 4;
-            this.labelPLightResID.Tag = "";
-            this.labelPLightResID.Text = "P-Light Response ID";
-            this.labelPLightResID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.textCanDatTseg1.Location = new System.Drawing.Point(165, 145);
+            this.textCanDatTseg1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textCanDatTseg1.Name = "textCanDatTseg1";
+            this.textCanDatTseg1.Size = new System.Drawing.Size(80, 23);
+            this.textCanDatTseg1.TabIndex = 2;
+            this.textCanDatTseg1.Text = "14";
+            this.textCanDatTseg1.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
-            // labelNM_ResID
+            // textCanArbTseg2
             // 
-            this.labelNM_ResID.Location = new System.Drawing.Point(35, 164);
-            this.labelNM_ResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.labelNM_ResID.Name = "labelNM_ResID";
-            this.labelNM_ResID.Size = new System.Drawing.Size(120, 21);
-            this.labelNM_ResID.TabIndex = 4;
-            this.labelNM_ResID.Tag = "";
-            this.labelNM_ResID.Text = "NM Response ID";
-            this.labelNM_ResID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelNM_ReqID
-            // 
-            this.labelNM_ReqID.Location = new System.Drawing.Point(35, 136);
-            this.labelNM_ReqID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.labelNM_ReqID.Name = "labelNM_ReqID";
-            this.labelNM_ReqID.Size = new System.Drawing.Size(120, 21);
-            this.labelNM_ReqID.TabIndex = 4;
-            this.labelNM_ReqID.Tag = "";
-            this.labelNM_ReqID.Text = "NM Request ID";
-            this.labelNM_ReqID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // comboUartPort
-            // 
-            this.comboUartPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboUartPort.FormattingEnabled = true;
-            this.comboUartPort.Location = new System.Drawing.Point(165, 283);
-            this.comboUartPort.Name = "comboUartPort";
-            this.comboUartPort.Size = new System.Drawing.Size(80, 23);
-            this.comboUartPort.TabIndex = 5;
-            this.comboUartPort.Visible = false;
-            this.comboUartPort.DropDown += new System.EventHandler(this.comboUartPort_DropDown);
-            this.comboUartPort.SelectionChangeCommitted += new System.EventHandler(this.comboUartPort_SelectionChangeCommitted);
-            // 
-            // labelCanResID
-            // 
-            this.labelCanResID.Location = new System.Drawing.Point(35, 108);
-            this.labelCanResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.labelCanResID.Name = "labelCanResID";
-            this.labelCanResID.Size = new System.Drawing.Size(120, 21);
-            this.labelCanResID.TabIndex = 4;
-            this.labelCanResID.Tag = "";
-            this.labelCanResID.Text = "CAN Response ID";
-            this.labelCanResID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelCanReqID
-            // 
-            this.labelCanReqID.Location = new System.Drawing.Point(35, 80);
-            this.labelCanReqID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.labelCanReqID.Name = "labelCanReqID";
-            this.labelCanReqID.Size = new System.Drawing.Size(120, 21);
-            this.labelCanReqID.TabIndex = 4;
-            this.labelCanReqID.Tag = "";
-            this.labelCanReqID.Text = "CAN Request ID";
-            this.labelCanReqID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.textCanArbTseg2.Location = new System.Drawing.Point(165, 61);
+            this.textCanArbTseg2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textCanArbTseg2.Name = "textCanArbTseg2";
+            this.textCanArbTseg2.Size = new System.Drawing.Size(80, 23);
+            this.textCanArbTseg2.TabIndex = 2;
+            this.textCanArbTseg2.Text = "16";
+            this.textCanArbTseg2.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // labelCanDatBitRate
             // 
-            this.labelCanDatBitRate.Location = new System.Drawing.Point(5, 33);
+            this.labelCanDatBitRate.Location = new System.Drawing.Point(5, 117);
             this.labelCanDatBitRate.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.labelCanDatBitRate.Name = "labelCanDatBitRate";
             this.labelCanDatBitRate.Size = new System.Drawing.Size(150, 21);
             this.labelCanDatBitRate.TabIndex = 4;
             this.labelCanDatBitRate.Text = "Data Bit Rate [bit/s]";
             this.labelCanDatBitRate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textCanDatTseg2
+            // 
+            this.textCanDatTseg2.Location = new System.Drawing.Point(165, 173);
+            this.textCanDatTseg2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textCanDatTseg2.Name = "textCanDatTseg2";
+            this.textCanDatTseg2.Size = new System.Drawing.Size(80, 23);
+            this.textCanDatTseg2.TabIndex = 2;
+            this.textCanDatTseg2.Text = "5";
+            this.textCanDatTseg2.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // labelCanArbBitRate
             // 
@@ -709,104 +800,45 @@
             this.labelCanArbBitRate.Text = "Arbitration Bit Rate [bit/s]";
             this.labelCanArbBitRate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // labelUartPort
+            // textCanArbSjw
             // 
-            this.labelUartPort.Location = new System.Drawing.Point(8, 283);
-            this.labelUartPort.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.labelUartPort.Name = "labelUartPort";
-            this.labelUartPort.Size = new System.Drawing.Size(147, 21);
-            this.labelUartPort.TabIndex = 4;
-            this.labelUartPort.Text = "COM Port";
-            this.labelUartPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelUartPort.Visible = false;
+            this.textCanArbSjw.Location = new System.Drawing.Point(165, 89);
+            this.textCanArbSjw.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textCanArbSjw.Name = "textCanArbSjw";
+            this.textCanArbSjw.Size = new System.Drawing.Size(80, 23);
+            this.textCanArbSjw.TabIndex = 2;
+            this.textCanArbSjw.Text = "16";
+            this.textCanArbSjw.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
-            // textPLightResID
+            // textCanDatSjw
             // 
-            this.textPLightResID.Location = new System.Drawing.Point(165, 220);
-            this.textPLightResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.textPLightResID.Name = "textPLightResID";
-            this.textPLightResID.Size = new System.Drawing.Size(80, 23);
-            this.textPLightResID.TabIndex = 2;
-            this.textPLightResID.Tag = "PLightResID";
-            this.textPLightResID.Text = "0x4000080";
-            this.textPLightResID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
-            this.textPLightResID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
-            this.textPLightResID.Leave += new System.EventHandler(this.textID_Leave);
-            // 
-            // textPLightReqID
-            // 
-            this.textPLightReqID.Location = new System.Drawing.Point(165, 192);
-            this.textPLightReqID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.textPLightReqID.Name = "textPLightReqID";
-            this.textPLightReqID.Size = new System.Drawing.Size(80, 23);
-            this.textPLightReqID.TabIndex = 2;
-            this.textPLightReqID.Tag = "PLightReqID";
-            this.textPLightReqID.Text = "0x3D4";
-            this.textPLightReqID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
-            this.textPLightReqID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
-            this.textPLightReqID.Leave += new System.EventHandler(this.textID_Leave);
-            // 
-            // textNM_ResID
-            // 
-            this.textNM_ResID.Location = new System.Drawing.Point(165, 164);
-            this.textNM_ResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.textNM_ResID.Name = "textNM_ResID";
-            this.textNM_ResID.Size = new System.Drawing.Size(80, 23);
-            this.textNM_ResID.TabIndex = 2;
-            this.textNM_ResID.Tag = "NM_ResID";
-            this.textNM_ResID.Text = "0x8000080";
-            this.textNM_ResID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
-            this.textNM_ResID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
-            this.textNM_ResID.Leave += new System.EventHandler(this.textID_Leave);
-            // 
-            // textNM_ReqID
-            // 
-            this.textNM_ReqID.Location = new System.Drawing.Point(165, 136);
-            this.textNM_ReqID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.textNM_ReqID.Name = "textNM_ReqID";
-            this.textNM_ReqID.Size = new System.Drawing.Size(80, 23);
-            this.textNM_ReqID.TabIndex = 2;
-            this.textNM_ReqID.Tag = "NM_ReqID";
-            this.textNM_ReqID.Text = "0x17FC0080";
-            this.textNM_ReqID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
-            this.textNM_ReqID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
-            this.textNM_ReqID.Leave += new System.EventHandler(this.textID_Leave);
-            // 
-            // textCanResID
-            // 
-            this.textCanResID.Location = new System.Drawing.Point(165, 108);
-            this.textCanResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.textCanResID.Name = "textCanResID";
-            this.textCanResID.Size = new System.Drawing.Size(80, 23);
-            this.textCanResID.TabIndex = 2;
-            this.textCanResID.Tag = "CanResID";
-            this.textCanResID.Text = "0x70A";
-            this.textCanResID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
-            this.textCanResID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
-            this.textCanResID.Leave += new System.EventHandler(this.textID_Leave);
-            // 
-            // textCanReqID
-            // 
-            this.textCanReqID.Location = new System.Drawing.Point(165, 80);
-            this.textCanReqID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.textCanReqID.Name = "textCanReqID";
-            this.textCanReqID.Size = new System.Drawing.Size(80, 23);
-            this.textCanReqID.TabIndex = 2;
-            this.textCanReqID.Tag = "CanRegID";
-            this.textCanReqID.Text = "0x702";
-            this.textCanReqID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
-            this.textCanReqID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
-            this.textCanReqID.Leave += new System.EventHandler(this.textID_Leave);
+            this.textCanDatSjw.Location = new System.Drawing.Point(165, 201);
+            this.textCanDatSjw.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textCanDatSjw.Name = "textCanDatSjw";
+            this.textCanDatSjw.Size = new System.Drawing.Size(80, 23);
+            this.textCanDatSjw.TabIndex = 2;
+            this.textCanDatSjw.Text = "4";
+            this.textCanDatSjw.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // textCanDatBitRate
             // 
-            this.textCanDatBitRate.Location = new System.Drawing.Point(165, 33);
+            this.textCanDatBitRate.Location = new System.Drawing.Point(165, 117);
             this.textCanDatBitRate.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.textCanDatBitRate.Name = "textCanDatBitRate";
             this.textCanDatBitRate.Size = new System.Drawing.Size(80, 23);
             this.textCanDatBitRate.TabIndex = 2;
             this.textCanDatBitRate.Text = "1000000";
             this.textCanDatBitRate.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            // 
+            // labelCanDatSjw
+            // 
+            this.labelCanDatSjw.Location = new System.Drawing.Point(5, 201);
+            this.labelCanDatSjw.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelCanDatSjw.Name = "labelCanDatSjw";
+            this.labelCanDatSjw.Size = new System.Drawing.Size(150, 21);
+            this.labelCanDatSjw.TabIndex = 4;
+            this.labelCanDatSjw.Text = "SJW";
+            this.labelCanDatSjw.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textCanArbBitRate
             // 
@@ -817,6 +849,160 @@
             this.textCanArbBitRate.TabIndex = 2;
             this.textCanArbBitRate.Text = "500000";
             this.textCanArbBitRate.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            // 
+            // labelCanArbTseg1
+            // 
+            this.labelCanArbTseg1.Location = new System.Drawing.Point(5, 33);
+            this.labelCanArbTseg1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelCanArbTseg1.Name = "labelCanArbTseg1";
+            this.labelCanArbTseg1.Size = new System.Drawing.Size(150, 21);
+            this.labelCanArbTseg1.TabIndex = 4;
+            this.labelCanArbTseg1.Text = "TSEG_1";
+            this.labelCanArbTseg1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelCanArbTseg2
+            // 
+            this.labelCanArbTseg2.Location = new System.Drawing.Point(5, 61);
+            this.labelCanArbTseg2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelCanArbTseg2.Name = "labelCanArbTseg2";
+            this.labelCanArbTseg2.Size = new System.Drawing.Size(150, 21);
+            this.labelCanArbTseg2.TabIndex = 4;
+            this.labelCanArbTseg2.Text = "TSEG_2";
+            this.labelCanArbTseg2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelCanArbSjw
+            // 
+            this.labelCanArbSjw.Location = new System.Drawing.Point(5, 89);
+            this.labelCanArbSjw.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelCanArbSjw.Name = "labelCanArbSjw";
+            this.labelCanArbSjw.Size = new System.Drawing.Size(150, 21);
+            this.labelCanArbSjw.TabIndex = 4;
+            this.labelCanArbSjw.Text = "SJW";
+            this.labelCanArbSjw.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelCanDatTseg2
+            // 
+            this.labelCanDatTseg2.Location = new System.Drawing.Point(5, 173);
+            this.labelCanDatTseg2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelCanDatTseg2.Name = "labelCanDatTseg2";
+            this.labelCanDatTseg2.Size = new System.Drawing.Size(150, 21);
+            this.labelCanDatTseg2.TabIndex = 4;
+            this.labelCanDatTseg2.Text = "TSEG_2";
+            this.labelCanDatTseg2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelCanDatTseg1
+            // 
+            this.labelCanDatTseg1.Location = new System.Drawing.Point(5, 145);
+            this.labelCanDatTseg1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelCanDatTseg1.Name = "labelCanDatTseg1";
+            this.labelCanDatTseg1.Size = new System.Drawing.Size(150, 21);
+            this.labelCanDatTseg1.TabIndex = 4;
+            this.labelCanDatTseg1.Text = "TSEG_1";
+            this.labelCanDatTseg1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // panelUartSettings
+            // 
+            this.panelUartSettings.Controls.Add(this.comboUartBaudrateCh2);
+            this.panelUartSettings.Controls.Add(this.comboUartBaudrateCh1);
+            this.panelUartSettings.Controls.Add(this.label17);
+            this.panelUartSettings.Controls.Add(this.label15);
+            this.panelUartSettings.Controls.Add(this.comboUartPortNameCh2);
+            this.panelUartSettings.Controls.Add(this.label16);
+            this.panelUartSettings.Controls.Add(this.comboUartPortNameCh1);
+            this.panelUartSettings.Controls.Add(this.labelUartPort);
+            this.panelUartSettings.Location = new System.Drawing.Point(5, 50);
+            this.panelUartSettings.Name = "panelUartSettings";
+            this.panelUartSettings.Size = new System.Drawing.Size(260, 230);
+            this.panelUartSettings.TabIndex = 6;
+            this.panelUartSettings.Visible = false;
+            // 
+            // comboUartBaudrateCh2
+            // 
+            this.comboUartBaudrateCh2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboUartBaudrateCh2.FormattingEnabled = true;
+            this.comboUartBaudrateCh2.Location = new System.Drawing.Point(165, 99);
+            this.comboUartBaudrateCh2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.comboUartBaudrateCh2.Name = "comboUartBaudrateCh2";
+            this.comboUartBaudrateCh2.Size = new System.Drawing.Size(80, 23);
+            this.comboUartBaudrateCh2.TabIndex = 5;
+            this.comboUartBaudrateCh2.DropDown += new System.EventHandler(this.comboUartPort_DropDown);
+            this.comboUartBaudrateCh2.SelectionChangeCommitted += new System.EventHandler(this.comboUartPort_SelectionChangeCommitted);
+            // 
+            // comboUartBaudrateCh1
+            // 
+            this.comboUartBaudrateCh1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboUartBaudrateCh1.FormattingEnabled = true;
+            this.comboUartBaudrateCh1.Location = new System.Drawing.Point(165, 33);
+            this.comboUartBaudrateCh1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.comboUartBaudrateCh1.Name = "comboUartBaudrateCh1";
+            this.comboUartBaudrateCh1.Size = new System.Drawing.Size(80, 23);
+            this.comboUartBaudrateCh1.TabIndex = 5;
+            this.comboUartBaudrateCh1.DropDown += new System.EventHandler(this.comboUartPort_DropDown);
+            this.comboUartBaudrateCh1.SelectionChangeCommitted += new System.EventHandler(this.comboUartPort_SelectionChangeCommitted);
+            // 
+            // label17
+            // 
+            this.label17.Location = new System.Drawing.Point(8, 99);
+            this.label17.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(147, 21);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "CH.2 통신 속도";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label15
+            // 
+            this.label15.Location = new System.Drawing.Point(8, 33);
+            this.label15.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(147, 21);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "CH.1 통신 속도";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // comboUartPortNameCh2
+            // 
+            this.comboUartPortNameCh2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboUartPortNameCh2.FormattingEnabled = true;
+            this.comboUartPortNameCh2.Location = new System.Drawing.Point(165, 71);
+            this.comboUartPortNameCh2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.comboUartPortNameCh2.Name = "comboUartPortNameCh2";
+            this.comboUartPortNameCh2.Size = new System.Drawing.Size(80, 23);
+            this.comboUartPortNameCh2.TabIndex = 5;
+            this.comboUartPortNameCh2.DropDown += new System.EventHandler(this.comboUartPort_DropDown);
+            this.comboUartPortNameCh2.SelectionChangeCommitted += new System.EventHandler(this.comboUartPort_SelectionChangeCommitted);
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(8, 71);
+            this.label16.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(147, 21);
+            this.label16.TabIndex = 4;
+            this.label16.Text = "CH.2 UART 포트";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // comboUartPortNameCh1
+            // 
+            this.comboUartPortNameCh1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboUartPortNameCh1.FormattingEnabled = true;
+            this.comboUartPortNameCh1.Location = new System.Drawing.Point(165, 5);
+            this.comboUartPortNameCh1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.comboUartPortNameCh1.Name = "comboUartPortNameCh1";
+            this.comboUartPortNameCh1.Size = new System.Drawing.Size(80, 23);
+            this.comboUartPortNameCh1.TabIndex = 5;
+            this.comboUartPortNameCh1.DropDown += new System.EventHandler(this.comboUartPort_DropDown);
+            this.comboUartPortNameCh1.SelectionChangeCommitted += new System.EventHandler(this.comboUartPort_SelectionChangeCommitted);
+            // 
+            // labelUartPort
+            // 
+            this.labelUartPort.Location = new System.Drawing.Point(8, 5);
+            this.labelUartPort.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelUartPort.Name = "labelUartPort";
+            this.labelUartPort.Size = new System.Drawing.Size(147, 21);
+            this.labelUartPort.TabIndex = 4;
+            this.labelUartPort.Text = "CH.1 UART 포트";
+            this.labelUartPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelCommSettingsTitle
             // 
@@ -851,129 +1037,153 @@
             this.comboCommType.Location = new System.Drawing.Point(100, 30);
             this.comboCommType.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.comboCommType.Name = "comboCommType";
-            this.comboCommType.Size = new System.Drawing.Size(140, 23);
+            this.comboCommType.Size = new System.Drawing.Size(150, 23);
             this.comboCommType.TabIndex = 1;
             this.comboCommType.SelectionChangeCommitted += new System.EventHandler(this.comboCommType_SelectionChangeCommitted);
             // 
-            // labelCanDatSjw
+            // checkPLightReqID
             // 
-            this.labelCanDatSjw.Location = new System.Drawing.Point(5, 173);
-            this.labelCanDatSjw.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.labelCanDatSjw.Name = "labelCanDatSjw";
-            this.labelCanDatSjw.Size = new System.Drawing.Size(160, 21);
-            this.labelCanDatSjw.TabIndex = 4;
-            this.labelCanDatSjw.Text = "SJW";
-            this.labelCanDatSjw.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkPLightReqID.Location = new System.Drawing.Point(118, 620);
+            this.checkPLightReqID.Name = "checkPLightReqID";
+            this.checkPLightReqID.Size = new System.Drawing.Size(120, 19);
+            this.checkPLightReqID.TabIndex = 5;
+            this.checkPLightReqID.Text = "P-Light 요청 ID";
+            this.checkPLightReqID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkPLightReqID.UseVisualStyleBackColor = true;
+            this.checkPLightReqID.CheckedChanged += new System.EventHandler(this.checkPLightReqID_CheckedChanged);
             // 
-            // labelCanArbSjw
+            // labelPLightResID
             // 
-            this.labelCanArbSjw.Location = new System.Drawing.Point(5, 61);
-            this.labelCanArbSjw.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.labelCanArbSjw.Name = "labelCanArbSjw";
-            this.labelCanArbSjw.Size = new System.Drawing.Size(160, 21);
-            this.labelCanArbSjw.TabIndex = 4;
-            this.labelCanArbSjw.Text = "SJW";
-            this.labelCanArbSjw.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelPLightResID.Location = new System.Drawing.Point(116, 646);
+            this.labelPLightResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelPLightResID.Name = "labelPLightResID";
+            this.labelPLightResID.Size = new System.Drawing.Size(120, 21);
+            this.labelPLightResID.TabIndex = 4;
+            this.labelPLightResID.Tag = "";
+            this.labelPLightResID.Text = "P-Light 응답 ID";
+            this.labelPLightResID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // labelCanDatTseg2
+            // labelNM_ResID
             // 
-            this.labelCanDatTseg2.Location = new System.Drawing.Point(5, 145);
-            this.labelCanDatTseg2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.labelCanDatTseg2.Name = "labelCanDatTseg2";
-            this.labelCanDatTseg2.Size = new System.Drawing.Size(160, 21);
-            this.labelCanDatTseg2.TabIndex = 4;
-            this.labelCanDatTseg2.Text = "TSEG_2";
-            this.labelCanDatTseg2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelNM_ResID.Location = new System.Drawing.Point(116, 534);
+            this.labelNM_ResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelNM_ResID.Name = "labelNM_ResID";
+            this.labelNM_ResID.Size = new System.Drawing.Size(120, 21);
+            this.labelNM_ResID.TabIndex = 4;
+            this.labelNM_ResID.Tag = "";
+            this.labelNM_ResID.Text = "NM 응답 ID";
+            this.labelNM_ResID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // labelCanArbTseg2
+            // labelNM_ReqID
             // 
-            this.labelCanArbTseg2.Location = new System.Drawing.Point(5, 33);
-            this.labelCanArbTseg2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.labelCanArbTseg2.Name = "labelCanArbTseg2";
-            this.labelCanArbTseg2.Size = new System.Drawing.Size(160, 21);
-            this.labelCanArbTseg2.TabIndex = 4;
-            this.labelCanArbTseg2.Text = "TSEG_2";
-            this.labelCanArbTseg2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelNM_ReqID.Location = new System.Drawing.Point(116, 506);
+            this.labelNM_ReqID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelNM_ReqID.Name = "labelNM_ReqID";
+            this.labelNM_ReqID.Size = new System.Drawing.Size(120, 21);
+            this.labelNM_ReqID.TabIndex = 4;
+            this.labelNM_ReqID.Tag = "";
+            this.labelNM_ReqID.Text = "NM 요청 ID";
+            this.labelNM_ReqID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // labelCanDatTseg1
+            // labelCanResID
             // 
-            this.labelCanDatTseg1.Location = new System.Drawing.Point(5, 117);
-            this.labelCanDatTseg1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.labelCanDatTseg1.Name = "labelCanDatTseg1";
-            this.labelCanDatTseg1.Size = new System.Drawing.Size(160, 21);
-            this.labelCanDatTseg1.TabIndex = 4;
-            this.labelCanDatTseg1.Text = "TSEG_1";
-            this.labelCanDatTseg1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelCanResID.Location = new System.Drawing.Point(116, 478);
+            this.labelCanResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelCanResID.Name = "labelCanResID";
+            this.labelCanResID.Size = new System.Drawing.Size(120, 21);
+            this.labelCanResID.TabIndex = 4;
+            this.labelCanResID.Tag = "";
+            this.labelCanResID.Text = "CAN 응답 ID";
+            this.labelCanResID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // labelCanArbTseg1
+            // labelCanReqID
             // 
-            this.labelCanArbTseg1.Location = new System.Drawing.Point(5, 5);
-            this.labelCanArbTseg1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.labelCanArbTseg1.Name = "labelCanArbTseg1";
-            this.labelCanArbTseg1.Size = new System.Drawing.Size(160, 21);
-            this.labelCanArbTseg1.TabIndex = 4;
-            this.labelCanArbTseg1.Text = "TSEG_1";
-            this.labelCanArbTseg1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelCanReqID.Location = new System.Drawing.Point(116, 450);
+            this.labelCanReqID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelCanReqID.Name = "labelCanReqID";
+            this.labelCanReqID.Size = new System.Drawing.Size(120, 21);
+            this.labelCanReqID.TabIndex = 4;
+            this.labelCanReqID.Tag = "";
+            this.labelCanReqID.Text = "CAN 요청 ID";
+            this.labelCanReqID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textCanDatSjw
+            // textPLightResID
             // 
-            this.textCanDatSjw.Location = new System.Drawing.Point(175, 173);
-            this.textCanDatSjw.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.textCanDatSjw.Name = "textCanDatSjw";
-            this.textCanDatSjw.Size = new System.Drawing.Size(140, 23);
-            this.textCanDatSjw.TabIndex = 2;
-            this.textCanDatSjw.Text = "4";
-            this.textCanDatSjw.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textPLightResID.Location = new System.Drawing.Point(246, 646);
+            this.textPLightResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textPLightResID.Name = "textPLightResID";
+            this.textPLightResID.Size = new System.Drawing.Size(80, 23);
+            this.textPLightResID.TabIndex = 2;
+            this.textPLightResID.Tag = "PLightResID";
+            this.textPLightResID.Text = "0x4000080";
+            this.textPLightResID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textPLightResID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
+            this.textPLightResID.Leave += new System.EventHandler(this.textID_Leave);
             // 
-            // textCanArbSjw
+            // textPLightReqID
             // 
-            this.textCanArbSjw.Location = new System.Drawing.Point(175, 61);
-            this.textCanArbSjw.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.textCanArbSjw.Name = "textCanArbSjw";
-            this.textCanArbSjw.Size = new System.Drawing.Size(140, 23);
-            this.textCanArbSjw.TabIndex = 2;
-            this.textCanArbSjw.Text = "16";
-            this.textCanArbSjw.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textPLightReqID.Location = new System.Drawing.Point(246, 618);
+            this.textPLightReqID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textPLightReqID.Name = "textPLightReqID";
+            this.textPLightReqID.Size = new System.Drawing.Size(80, 23);
+            this.textPLightReqID.TabIndex = 2;
+            this.textPLightReqID.Tag = "PLightReqID";
+            this.textPLightReqID.Text = "0x3D4";
+            this.textPLightReqID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textPLightReqID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
+            this.textPLightReqID.Leave += new System.EventHandler(this.textID_Leave);
             // 
-            // textCanDatTseg2
+            // textNM_ResID
             // 
-            this.textCanDatTseg2.Location = new System.Drawing.Point(175, 145);
-            this.textCanDatTseg2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.textCanDatTseg2.Name = "textCanDatTseg2";
-            this.textCanDatTseg2.Size = new System.Drawing.Size(140, 23);
-            this.textCanDatTseg2.TabIndex = 2;
-            this.textCanDatTseg2.Text = "5";
-            this.textCanDatTseg2.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textNM_ResID.Location = new System.Drawing.Point(246, 534);
+            this.textNM_ResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textNM_ResID.Name = "textNM_ResID";
+            this.textNM_ResID.Size = new System.Drawing.Size(80, 23);
+            this.textNM_ResID.TabIndex = 2;
+            this.textNM_ResID.Tag = "NM_ResID";
+            this.textNM_ResID.Text = "0x8000080";
+            this.textNM_ResID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textNM_ResID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
+            this.textNM_ResID.Leave += new System.EventHandler(this.textID_Leave);
             // 
-            // textCanArbTseg2
+            // textNM_ReqID
             // 
-            this.textCanArbTseg2.Location = new System.Drawing.Point(175, 33);
-            this.textCanArbTseg2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.textCanArbTseg2.Name = "textCanArbTseg2";
-            this.textCanArbTseg2.Size = new System.Drawing.Size(140, 23);
-            this.textCanArbTseg2.TabIndex = 2;
-            this.textCanArbTseg2.Text = "16";
-            this.textCanArbTseg2.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textNM_ReqID.Location = new System.Drawing.Point(246, 506);
+            this.textNM_ReqID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textNM_ReqID.Name = "textNM_ReqID";
+            this.textNM_ReqID.Size = new System.Drawing.Size(80, 23);
+            this.textNM_ReqID.TabIndex = 2;
+            this.textNM_ReqID.Tag = "NM_ReqID";
+            this.textNM_ReqID.Text = "0x17FC0080";
+            this.textNM_ReqID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textNM_ReqID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
+            this.textNM_ReqID.Leave += new System.EventHandler(this.textID_Leave);
             // 
-            // textCanDatTseg1
+            // textCanResID
             // 
-            this.textCanDatTseg1.Location = new System.Drawing.Point(175, 117);
-            this.textCanDatTseg1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.textCanDatTseg1.Name = "textCanDatTseg1";
-            this.textCanDatTseg1.Size = new System.Drawing.Size(140, 23);
-            this.textCanDatTseg1.TabIndex = 2;
-            this.textCanDatTseg1.Text = "14";
-            this.textCanDatTseg1.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textCanResID.Location = new System.Drawing.Point(246, 478);
+            this.textCanResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textCanResID.Name = "textCanResID";
+            this.textCanResID.Size = new System.Drawing.Size(80, 23);
+            this.textCanResID.TabIndex = 2;
+            this.textCanResID.Tag = "CanResID";
+            this.textCanResID.Text = "0x70A";
+            this.textCanResID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textCanResID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
+            this.textCanResID.Leave += new System.EventHandler(this.textID_Leave);
             // 
-            // textCanArbTseg1
+            // textCanReqID
             // 
-            this.textCanArbTseg1.Location = new System.Drawing.Point(175, 5);
-            this.textCanArbTseg1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.textCanArbTseg1.Name = "textCanArbTseg1";
-            this.textCanArbTseg1.Size = new System.Drawing.Size(140, 23);
-            this.textCanArbTseg1.TabIndex = 2;
-            this.textCanArbTseg1.Text = "63";
-            this.textCanArbTseg1.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textCanReqID.Location = new System.Drawing.Point(246, 450);
+            this.textCanReqID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textCanReqID.Name = "textCanReqID";
+            this.textCanReqID.Size = new System.Drawing.Size(80, 23);
+            this.textCanReqID.TabIndex = 2;
+            this.textCanReqID.Tag = "CanRegID";
+            this.textCanReqID.Text = "0x702";
+            this.textCanReqID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textCanReqID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
+            this.textCanReqID.Leave += new System.EventHandler(this.textID_Leave);
             // 
             // panelXCPAddressFrame
             // 
@@ -982,25 +1192,44 @@
             this.panelXCPAddressFrame.Location = new System.Drawing.Point(858, 10);
             this.panelXCPAddressFrame.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.panelXCPAddressFrame.Name = "panelXCPAddressFrame";
-            this.panelXCPAddressFrame.Size = new System.Drawing.Size(358, 732);
+            this.panelXCPAddressFrame.Size = new System.Drawing.Size(338, 742);
             this.panelXCPAddressFrame.TabIndex = 8;
             // 
             // panelXCPAddress
             // 
+            this.panelXCPAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelXCPAddress.BackColor = System.Drawing.SystemColors.Control;
+            this.panelXCPAddress.Controls.Add(this.checkPLightReqID);
             this.panelXCPAddress.Controls.Add(this.radioXcpUse);
             this.panelXCPAddress.Controls.Add(this.radioXcpNotUse);
+            this.panelXCPAddress.Controls.Add(this.label1);
+            this.panelXCPAddress.Controls.Add(this.labelNfcInputID);
+            this.panelXCPAddress.Controls.Add(this.labelPLightResID);
             this.panelXCPAddress.Controls.Add(this.labelXcpEcuAddr);
+            this.panelXCPAddress.Controls.Add(this.labelNM_ResID);
             this.panelXCPAddress.Controls.Add(this.labelXcpResID);
+            this.panelXCPAddress.Controls.Add(this.labelNM_ReqID);
             this.panelXCPAddress.Controls.Add(this.gridXcpList);
             this.panelXCPAddress.Controls.Add(this.labelXcpReqID);
+            this.panelXCPAddress.Controls.Add(this.labelCanResID);
             this.panelXCPAddress.Controls.Add(this.labelXCPAddressTitle);
+            this.panelXCPAddress.Controls.Add(this.labelCanReqID);
             this.panelXCPAddress.Controls.Add(this.textXcpReqID);
             this.panelXCPAddress.Controls.Add(this.textXcpEcuAddr);
             this.panelXCPAddress.Controls.Add(this.textXcpResID);
+            this.panelXCPAddress.Controls.Add(this.textCanReqID);
+            this.panelXCPAddress.Controls.Add(this.textNFC_ReqID);
+            this.panelXCPAddress.Controls.Add(this.textNFC_ResID);
+            this.panelXCPAddress.Controls.Add(this.textPLightResID);
+            this.panelXCPAddress.Controls.Add(this.textCanResID);
+            this.panelXCPAddress.Controls.Add(this.textPLightReqID);
+            this.panelXCPAddress.Controls.Add(this.textNM_ReqID);
+            this.panelXCPAddress.Controls.Add(this.textNM_ResID);
             this.panelXCPAddress.Location = new System.Drawing.Point(1, 1);
             this.panelXCPAddress.Name = "panelXCPAddress";
-            this.panelXCPAddress.Size = new System.Drawing.Size(356, 730);
+            this.panelXCPAddress.Size = new System.Drawing.Size(336, 740);
             this.panelXCPAddress.TabIndex = 0;
             // 
             // radioXcpUse
@@ -1008,10 +1237,10 @@
             this.radioXcpUse.AutoSize = true;
             this.radioXcpUse.Location = new System.Drawing.Point(20, 366);
             this.radioXcpUse.Name = "radioXcpUse";
-            this.radioXcpUse.Size = new System.Drawing.Size(70, 19);
+            this.radioXcpUse.Size = new System.Drawing.Size(75, 19);
             this.radioXcpUse.TabIndex = 6;
             this.radioXcpUse.TabStop = true;
-            this.radioXcpUse.Text = "XCP Use";
+            this.radioXcpUse.Text = "XCP 사용";
             this.radioXcpUse.UseVisualStyleBackColor = true;
             // 
             // radioXcpNotUse
@@ -1019,32 +1248,54 @@
             this.radioXcpNotUse.AutoSize = true;
             this.radioXcpNotUse.Location = new System.Drawing.Point(20, 338);
             this.radioXcpNotUse.Name = "radioXcpNotUse";
-            this.radioXcpNotUse.Size = new System.Drawing.Size(94, 19);
+            this.radioXcpNotUse.Size = new System.Drawing.Size(103, 19);
             this.radioXcpNotUse.TabIndex = 6;
             this.radioXcpNotUse.TabStop = true;
-            this.radioXcpNotUse.Text = "XCP Not Use";
+            this.radioXcpNotUse.Text = "XCP 사용 안함";
             this.radioXcpNotUse.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(116, 562);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(120, 21);
+            this.label1.TabIndex = 4;
+            this.label1.Tag = "";
+            this.label1.Text = "NFC 요청 ID";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelNfcInputID
+            // 
+            this.labelNfcInputID.Location = new System.Drawing.Point(116, 590);
+            this.labelNfcInputID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelNfcInputID.Name = "labelNfcInputID";
+            this.labelNfcInputID.Size = new System.Drawing.Size(120, 21);
+            this.labelNfcInputID.TabIndex = 4;
+            this.labelNfcInputID.Tag = "";
+            this.labelNfcInputID.Text = "NFC 응답 ID";
+            this.labelNfcInputID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelXcpEcuAddr
             // 
             this.labelXcpEcuAddr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelXcpEcuAddr.Location = new System.Drawing.Point(96, 393);
+            this.labelXcpEcuAddr.Location = new System.Drawing.Point(126, 393);
             this.labelXcpEcuAddr.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.labelXcpEcuAddr.Name = "labelXcpEcuAddr";
-            this.labelXcpEcuAddr.Size = new System.Drawing.Size(140, 21);
+            this.labelXcpEcuAddr.Size = new System.Drawing.Size(110, 21);
             this.labelXcpEcuAddr.TabIndex = 4;
-            this.labelXcpEcuAddr.Text = "XCP ECU Address";
+            this.labelXcpEcuAddr.Text = "XCP ECU 주소";
             this.labelXcpEcuAddr.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelXcpResID
             // 
             this.labelXcpResID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelXcpResID.Location = new System.Drawing.Point(96, 365);
+            this.labelXcpResID.Location = new System.Drawing.Point(126, 365);
             this.labelXcpResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.labelXcpResID.Name = "labelXcpResID";
-            this.labelXcpResID.Size = new System.Drawing.Size(140, 21);
+            this.labelXcpResID.Size = new System.Drawing.Size(110, 21);
             this.labelXcpResID.TabIndex = 4;
-            this.labelXcpResID.Text = "XCP Response ID";
+            this.labelXcpResID.Text = "XCP 응답 ID";
             this.labelXcpResID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // gridXcpList
@@ -1063,7 +1314,6 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.gridXcpList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.gridXcpList.ColumnHeadersHeight = 34;
             this.gridXcpList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridXcpList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colXcpNo,
@@ -1082,11 +1332,10 @@
             this.gridXcpList.Location = new System.Drawing.Point(10, 30);
             this.gridXcpList.Name = "gridXcpList";
             this.gridXcpList.RowHeadersVisible = false;
-            this.gridXcpList.RowHeadersWidth = 62;
             this.gridXcpList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gridXcpList.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.gridXcpList.RowTemplate.Height = 23;
-            this.gridXcpList.Size = new System.Drawing.Size(336, 300);
+            this.gridXcpList.Size = new System.Drawing.Size(316, 300);
             this.gridXcpList.TabIndex = 5;
             this.gridXcpList.Tag = "XCP";
             this.gridXcpList.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_CellValueChanged);
@@ -1094,7 +1343,6 @@
             // colXcpNo
             // 
             this.colXcpNo.HeaderText = "No";
-            this.colXcpNo.MinimumWidth = 8;
             this.colXcpNo.Name = "colXcpNo";
             this.colXcpNo.ReadOnly = true;
             this.colXcpNo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -1104,7 +1352,6 @@
             // colUse
             // 
             this.colUse.HeaderText = "사용";
-            this.colUse.MinimumWidth = 8;
             this.colUse.Name = "colUse";
             this.colUse.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colUse.Width = 50;
@@ -1112,7 +1359,6 @@
             // colXcpItem
             // 
             this.colXcpItem.HeaderText = "항목";
-            this.colXcpItem.MinimumWidth = 8;
             this.colXcpItem.Name = "colXcpItem";
             this.colXcpItem.ReadOnly = true;
             this.colXcpItem.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -1123,7 +1369,6 @@
             // 
             this.colXcpAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colXcpAddress.HeaderText = "주소";
-            this.colXcpAddress.MinimumWidth = 8;
             this.colXcpAddress.Name = "colXcpAddress";
             this.colXcpAddress.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colXcpAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -1131,12 +1376,12 @@
             // labelXcpReqID
             // 
             this.labelXcpReqID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelXcpReqID.Location = new System.Drawing.Point(96, 337);
+            this.labelXcpReqID.Location = new System.Drawing.Point(126, 337);
             this.labelXcpReqID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.labelXcpReqID.Name = "labelXcpReqID";
-            this.labelXcpReqID.Size = new System.Drawing.Size(140, 21);
+            this.labelXcpReqID.Size = new System.Drawing.Size(110, 21);
             this.labelXcpReqID.TabIndex = 4;
-            this.labelXcpReqID.Text = "XCP Request ID";
+            this.labelXcpReqID.Text = "XCP 요청 ID";
             this.labelXcpReqID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelXCPAddressTitle
@@ -1146,9 +1391,9 @@
             this.labelXCPAddressTitle.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.labelXCPAddressTitle.Location = new System.Drawing.Point(0, 0);
             this.labelXCPAddressTitle.Name = "labelXCPAddressTitle";
-            this.labelXCPAddressTitle.Size = new System.Drawing.Size(356, 20);
+            this.labelXCPAddressTitle.Size = new System.Drawing.Size(336, 20);
             this.labelXCPAddressTitle.TabIndex = 5;
-            this.labelXCPAddressTitle.Text = "XCP 주소";
+            this.labelXCPAddressTitle.Text = "주소 설정";
             this.labelXCPAddressTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textXcpReqID
@@ -1193,38 +1438,46 @@
             this.textXcpResID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
             this.textXcpResID.Leave += new System.EventHandler(this.textID_Leave);
             // 
-            // panel1
+            // textNFC_ReqID
             // 
-            this.panel1.Controls.Add(this.textCanArbTseg1);
-            this.panel1.Controls.Add(this.textCanDatTseg1);
-            this.panel1.Controls.Add(this.textCanArbTseg2);
-            this.panel1.Controls.Add(this.textCanDatTseg2);
-            this.panel1.Controls.Add(this.textCanArbSjw);
-            this.panel1.Controls.Add(this.textCanDatSjw);
-            this.panel1.Controls.Add(this.labelCanDatSjw);
-            this.panel1.Controls.Add(this.labelCanArbTseg1);
-            this.panel1.Controls.Add(this.labelCanArbSjw);
-            this.panel1.Controls.Add(this.labelCanDatTseg1);
-            this.panel1.Controls.Add(this.labelCanDatTseg2);
-            this.panel1.Controls.Add(this.labelCanArbTseg2);
-            this.panel1.Location = new System.Drawing.Point(412, 756);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(421, 265);
-            this.panel1.TabIndex = 9;
-            this.panel1.Visible = false;
+            this.textNFC_ReqID.Location = new System.Drawing.Point(246, 562);
+            this.textNFC_ReqID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textNFC_ReqID.Name = "textNFC_ReqID";
+            this.textNFC_ReqID.Size = new System.Drawing.Size(80, 23);
+            this.textNFC_ReqID.TabIndex = 2;
+            this.textNFC_ReqID.Tag = "NFC_ReqID";
+            this.textNFC_ReqID.Text = "0x8000050";
+            this.textNFC_ReqID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textNFC_ReqID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
+            this.textNFC_ReqID.Leave += new System.EventHandler(this.textID_Leave);
+            // 
+            // textNFC_ResID
+            // 
+            this.textNFC_ResID.Location = new System.Drawing.Point(246, 590);
+            this.textNFC_ResID.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textNFC_ResID.Name = "textNFC_ResID";
+            this.textNFC_ResID.Size = new System.Drawing.Size(80, 23);
+            this.textNFC_ResID.TabIndex = 2;
+            this.textNFC_ResID.Tag = "NFC_ResID";
+            this.textNFC_ResID.Text = "0x8000080";
+            this.textNFC_ResID.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textNFC_ResID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textID_KeyDown);
+            this.textNFC_ResID.Leave += new System.EventHandler(this.textID_Leave);
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(5, 5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1235, 780);
+            this.tabControl1.Size = new System.Drawing.Size(1215, 790);
             this.tabControl1.TabIndex = 10;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.panelThdSettingsFrame);
             this.tabPage1.Controls.Add(this.panelProductInfoFrame);
             this.tabPage1.Controls.Add(this.panelCommSettingsFrame);
             this.tabPage1.Controls.Add(this.panelXCPAddressFrame);
@@ -1232,18 +1485,138 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1227, 752);
+            this.tabPage1.Size = new System.Drawing.Size(1207, 762);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Product Settings";
+            this.tabPage1.Text = "품목 설정";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // panelThdSettingsFrame
+            // 
+            this.panelThdSettingsFrame.BackColor = System.Drawing.Color.LightGray;
+            this.panelThdSettingsFrame.Controls.Add(this.panelThdSettings);
+            this.panelThdSettingsFrame.Location = new System.Drawing.Point(10, 602);
+            this.panelThdSettingsFrame.Name = "panelThdSettingsFrame";
+            this.panelThdSettingsFrame.Size = new System.Drawing.Size(272, 150);
+            this.panelThdSettingsFrame.TabIndex = 9;
+            // 
+            // panelThdSettings
+            // 
+            this.panelThdSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelThdSettings.BackColor = System.Drawing.SystemColors.Control;
+            this.panelThdSettings.Controls.Add(this.labelThdSettingsTitle);
+            this.panelThdSettings.Controls.Add(this.textThdCancelSlowSelf);
+            this.panelThdSettings.Controls.Add(this.label5);
+            this.panelThdSettings.Controls.Add(this.textThdCancelFastSelf);
+            this.panelThdSettings.Controls.Add(this.label4);
+            this.panelThdSettings.Controls.Add(this.textThdTouchFastSelf);
+            this.panelThdSettings.Controls.Add(this.label3);
+            this.panelThdSettings.Controls.Add(this.textThdTouchFastMutual);
+            this.panelThdSettings.Controls.Add(this.label2);
+            this.panelThdSettings.Location = new System.Drawing.Point(1, 1);
+            this.panelThdSettings.Name = "panelThdSettings";
+            this.panelThdSettings.Size = new System.Drawing.Size(270, 148);
+            this.panelThdSettings.TabIndex = 5;
+            // 
+            // labelThdSettingsTitle
+            // 
+            this.labelThdSettingsTitle.BackColor = System.Drawing.Color.LightGray;
+            this.labelThdSettingsTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelThdSettingsTitle.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.labelThdSettingsTitle.Location = new System.Drawing.Point(0, 0);
+            this.labelThdSettingsTitle.Name = "labelThdSettingsTitle";
+            this.labelThdSettingsTitle.Size = new System.Drawing.Size(270, 20);
+            this.labelThdSettingsTitle.TabIndex = 4;
+            this.labelThdSettingsTitle.Text = "Capacitance THD 설정";
+            this.labelThdSettingsTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textThdCancelSlowSelf
+            // 
+            this.textThdCancelSlowSelf.Location = new System.Drawing.Point(170, 114);
+            this.textThdCancelSlowSelf.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textThdCancelSlowSelf.Name = "textThdCancelSlowSelf";
+            this.textThdCancelSlowSelf.Size = new System.Drawing.Size(80, 23);
+            this.textThdCancelSlowSelf.TabIndex = 2;
+            this.textThdCancelSlowSelf.Text = "500";
+            this.textThdCancelSlowSelf.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(10, 114);
+            this.label5.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(150, 21);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Cancel Slow Self";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textThdCancelFastSelf
+            // 
+            this.textThdCancelFastSelf.Location = new System.Drawing.Point(170, 86);
+            this.textThdCancelFastSelf.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textThdCancelFastSelf.Name = "textThdCancelFastSelf";
+            this.textThdCancelFastSelf.Size = new System.Drawing.Size(80, 23);
+            this.textThdCancelFastSelf.TabIndex = 2;
+            this.textThdCancelFastSelf.Text = "500";
+            this.textThdCancelFastSelf.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(10, 86);
+            this.label4.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(150, 21);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Cancel Fast Self";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textThdTouchFastSelf
+            // 
+            this.textThdTouchFastSelf.Location = new System.Drawing.Point(170, 58);
+            this.textThdTouchFastSelf.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textThdTouchFastSelf.Name = "textThdTouchFastSelf";
+            this.textThdTouchFastSelf.Size = new System.Drawing.Size(80, 23);
+            this.textThdTouchFastSelf.TabIndex = 2;
+            this.textThdTouchFastSelf.Text = "150";
+            this.textThdTouchFastSelf.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(10, 58);
+            this.label3.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(150, 21);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Touch Fast Self";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textThdTouchFastMutual
+            // 
+            this.textThdTouchFastMutual.Location = new System.Drawing.Point(170, 30);
+            this.textThdTouchFastMutual.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.textThdTouchFastMutual.Name = "textThdTouchFastMutual";
+            this.textThdTouchFastMutual.Size = new System.Drawing.Size(80, 23);
+            this.textThdTouchFastMutual.TabIndex = 2;
+            this.textThdTouchFastMutual.Text = "150";
+            this.textThdTouchFastMutual.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(10, 30);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(150, 21);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Touch Fast Mutual";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.btnTest);
-            this.tabPage2.Controls.Add(this.panel3);
-            this.tabPage2.Controls.Add(this.panel9);
+            this.tabPage2.Controls.Add(this.panel11);
             this.tabPage2.Controls.Add(this.cmbPrinter);
-            this.tabPage2.Controls.Add(this.label1);
+            this.tabPage2.Controls.Add(this.label6);
+            this.tabPage2.Controls.Add(this.panel7);
             this.tabPage2.Controls.Add(this.LabelDataGridView);
             this.tabPage2.Controls.Add(this.panel8);
             this.tabPage2.Controls.Add(this.panel6);
@@ -1251,14 +1624,721 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1227, 752);
+            this.tabPage2.Size = new System.Drawing.Size(1207, 762);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Label Settings";
+            this.tabPage2.Text = "라벨 설정";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // panel11
+            // 
+            this.panel11.BackColor = System.Drawing.Color.LightGray;
+            this.panel11.Controls.Add(this.panel12);
+            this.panel11.Location = new System.Drawing.Point(857, 231);
+            this.panel11.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(341, 492);
+            this.panel11.TabIndex = 106;
+            // 
+            // panel12
+            // 
+            this.panel12.BackColor = System.Drawing.SystemColors.Control;
+            this.panel12.Controls.Add(this.btnPrintFontTest);
+            this.panel12.Controls.Add(this.txtEtcsCompanyAreaValue);
+            this.panel12.Controls.Add(this.txtEtcsCTag);
+            this.panel12.Controls.Add(this.txtEtcsInitialValue);
+            this.panel12.Controls.Add(this.txtEtcsMTag);
+            this.panel12.Controls.Add(this.txtEtcsSpecialValue);
+            this.panel12.Controls.Add(this.txtEtcsATag);
+            this.panel12.Controls.Add(this.txtEtcsTraceValue);
+            this.panel12.Controls.Add(this.txtEtcsTTag);
+            this.panel12.Controls.Add(this.txtEtcsEoValue);
+            this.panel12.Controls.Add(this.txtEtcsETag);
+            this.panel12.Controls.Add(this.txtEtcsSerialValue);
+            this.panel12.Controls.Add(this.txtEtcsSTag);
+            this.panel12.Controls.Add(this.txtEtcsPartNoValue);
+            this.panel12.Controls.Add(this.txtEtcsPTag);
+            this.panel12.Controls.Add(this.txtEtcsVendorValue);
+            this.panel12.Controls.Add(this.txtEtcsVTag);
+            this.panel12.Controls.Add(this.label20);
+            this.panel12.Controls.Add(this.label19);
+            this.panel12.Controls.Add(this.label39);
+            this.panel12.Controls.Add(this.label38);
+            this.panel12.Controls.Add(this.label37);
+            this.panel12.Controls.Add(this.label36);
+            this.panel12.Controls.Add(this.label35);
+            this.panel12.Controls.Add(this.label34);
+            this.panel12.Controls.Add(this.label27);
+            this.panel12.Controls.Add(this.txtEtcsCommEot);
+            this.panel12.Controls.Add(this.label26);
+            this.panel12.Controls.Add(this.txtEtcsCommGs);
+            this.panel12.Controls.Add(this.txtEtcsCommRs);
+            this.panel12.Controls.Add(this.label25);
+            this.panel12.Controls.Add(this.txtEtcsCommVersion);
+            this.panel12.Controls.Add(this.label24);
+            this.panel12.Controls.Add(this.txtEtcsCommHeader);
+            this.panel12.Controls.Add(this.label21);
+            this.panel12.Controls.Add(this.label22);
+            this.panel12.Controls.Add(this.label23);
+            this.panel12.Location = new System.Drawing.Point(1, 1);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(337, 491);
+            this.panel12.TabIndex = 103;
+            // 
+            // txtEtcsCompanyAreaValue
+            // 
+            this.txtEtcsCompanyAreaValue.Location = new System.Drawing.Point(135, 344);
+            this.txtEtcsCompanyAreaValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsCompanyAreaValue.Name = "txtEtcsCompanyAreaValue";
+            this.txtEtcsCompanyAreaValue.Size = new System.Drawing.Size(192, 23);
+            this.txtEtcsCompanyAreaValue.TabIndex = 171;
+            // 
+            // txtEtcsCTag
+            // 
+            this.txtEtcsCTag.Location = new System.Drawing.Point(80, 344);
+            this.txtEtcsCTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsCTag.Name = "txtEtcsCTag";
+            this.txtEtcsCTag.Size = new System.Drawing.Size(48, 23);
+            this.txtEtcsCTag.TabIndex = 170;
+            // 
+            // txtEtcsInitialValue
+            // 
+            this.txtEtcsInitialValue.Location = new System.Drawing.Point(135, 313);
+            this.txtEtcsInitialValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsInitialValue.Name = "txtEtcsInitialValue";
+            this.txtEtcsInitialValue.Size = new System.Drawing.Size(192, 23);
+            this.txtEtcsInitialValue.TabIndex = 169;
+            // 
+            // txtEtcsMTag
+            // 
+            this.txtEtcsMTag.Location = new System.Drawing.Point(80, 313);
+            this.txtEtcsMTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsMTag.Name = "txtEtcsMTag";
+            this.txtEtcsMTag.Size = new System.Drawing.Size(48, 23);
+            this.txtEtcsMTag.TabIndex = 168;
+            // 
+            // txtEtcsSpecialValue
+            // 
+            this.txtEtcsSpecialValue.Location = new System.Drawing.Point(135, 282);
+            this.txtEtcsSpecialValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsSpecialValue.Name = "txtEtcsSpecialValue";
+            this.txtEtcsSpecialValue.Size = new System.Drawing.Size(192, 23);
+            this.txtEtcsSpecialValue.TabIndex = 167;
+            // 
+            // txtEtcsATag
+            // 
+            this.txtEtcsATag.Location = new System.Drawing.Point(80, 282);
+            this.txtEtcsATag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsATag.Name = "txtEtcsATag";
+            this.txtEtcsATag.Size = new System.Drawing.Size(48, 23);
+            this.txtEtcsATag.TabIndex = 166;
+            // 
+            // txtEtcsTraceValue
+            // 
+            this.txtEtcsTraceValue.Location = new System.Drawing.Point(135, 251);
+            this.txtEtcsTraceValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsTraceValue.Name = "txtEtcsTraceValue";
+            this.txtEtcsTraceValue.Size = new System.Drawing.Size(192, 23);
+            this.txtEtcsTraceValue.TabIndex = 165;
+            // 
+            // txtEtcsTTag
+            // 
+            this.txtEtcsTTag.Location = new System.Drawing.Point(80, 251);
+            this.txtEtcsTTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsTTag.Name = "txtEtcsTTag";
+            this.txtEtcsTTag.Size = new System.Drawing.Size(48, 23);
+            this.txtEtcsTTag.TabIndex = 164;
+            // 
+            // txtEtcsEoValue
+            // 
+            this.txtEtcsEoValue.Location = new System.Drawing.Point(135, 220);
+            this.txtEtcsEoValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsEoValue.Name = "txtEtcsEoValue";
+            this.txtEtcsEoValue.Size = new System.Drawing.Size(192, 23);
+            this.txtEtcsEoValue.TabIndex = 163;
+            // 
+            // txtEtcsETag
+            // 
+            this.txtEtcsETag.Location = new System.Drawing.Point(80, 220);
+            this.txtEtcsETag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsETag.Name = "txtEtcsETag";
+            this.txtEtcsETag.Size = new System.Drawing.Size(48, 23);
+            this.txtEtcsETag.TabIndex = 162;
+            // 
+            // txtEtcsSerialValue
+            // 
+            this.txtEtcsSerialValue.Location = new System.Drawing.Point(135, 189);
+            this.txtEtcsSerialValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsSerialValue.Name = "txtEtcsSerialValue";
+            this.txtEtcsSerialValue.Size = new System.Drawing.Size(192, 23);
+            this.txtEtcsSerialValue.TabIndex = 161;
+            // 
+            // txtEtcsSTag
+            // 
+            this.txtEtcsSTag.Location = new System.Drawing.Point(80, 189);
+            this.txtEtcsSTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsSTag.Name = "txtEtcsSTag";
+            this.txtEtcsSTag.Size = new System.Drawing.Size(48, 23);
+            this.txtEtcsSTag.TabIndex = 160;
+            // 
+            // txtEtcsPartNoValue
+            // 
+            this.txtEtcsPartNoValue.Location = new System.Drawing.Point(135, 158);
+            this.txtEtcsPartNoValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsPartNoValue.Name = "txtEtcsPartNoValue";
+            this.txtEtcsPartNoValue.Size = new System.Drawing.Size(192, 23);
+            this.txtEtcsPartNoValue.TabIndex = 159;
+            // 
+            // txtEtcsPTag
+            // 
+            this.txtEtcsPTag.Location = new System.Drawing.Point(80, 158);
+            this.txtEtcsPTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsPTag.Name = "txtEtcsPTag";
+            this.txtEtcsPTag.Size = new System.Drawing.Size(48, 23);
+            this.txtEtcsPTag.TabIndex = 158;
+            // 
+            // txtEtcsVendorValue
+            // 
+            this.txtEtcsVendorValue.Location = new System.Drawing.Point(135, 127);
+            this.txtEtcsVendorValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsVendorValue.Name = "txtEtcsVendorValue";
+            this.txtEtcsVendorValue.Size = new System.Drawing.Size(192, 23);
+            this.txtEtcsVendorValue.TabIndex = 157;
+            // 
+            // txtEtcsVTag
+            // 
+            this.txtEtcsVTag.Location = new System.Drawing.Point(80, 127);
+            this.txtEtcsVTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsVTag.Name = "txtEtcsVTag";
+            this.txtEtcsVTag.Size = new System.Drawing.Size(48, 23);
+            this.txtEtcsVTag.TabIndex = 156;
+            // 
+            // label20
+            // 
+            this.label20.Location = new System.Drawing.Point(2, 314);
+            this.label20.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(70, 21);
+            this.label20.TabIndex = 155;
+            this.label20.Text = "초도품구분";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label19
+            // 
+            this.label19.Location = new System.Drawing.Point(2, 345);
+            this.label19.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(70, 21);
+            this.label19.TabIndex = 154;
+            this.label19.Text = "업체영역";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label39
+            // 
+            this.label39.Location = new System.Drawing.Point(2, 128);
+            this.label39.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(70, 21);
+            this.label39.TabIndex = 152;
+            this.label39.Text = "업체코드";
+            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label38
+            // 
+            this.label38.Location = new System.Drawing.Point(2, 159);
+            this.label38.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(70, 21);
+            this.label38.TabIndex = 151;
+            this.label38.Text = "부품번호";
+            this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label37
+            // 
+            this.label37.Location = new System.Drawing.Point(2, 190);
+            this.label37.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(70, 21);
+            this.label37.TabIndex = 150;
+            this.label37.Text = "서열코드";
+            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label36
+            // 
+            this.label36.Location = new System.Drawing.Point(2, 221);
+            this.label36.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(70, 21);
+            this.label36.TabIndex = 149;
+            this.label36.Text = "EO번호";
+            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label35
+            // 
+            this.label35.Location = new System.Drawing.Point(2, 252);
+            this.label35.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(70, 21);
+            this.label35.TabIndex = 148;
+            this.label35.Text = "추적정보";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label34
+            // 
+            this.label34.Location = new System.Drawing.Point(2, 283);
+            this.label34.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(70, 21);
+            this.label34.TabIndex = 147;
+            this.label34.Text = "특이정보";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label27
+            // 
+            this.label27.Location = new System.Drawing.Point(0, 96);
+            this.label27.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(151, 21);
+            this.label27.TabIndex = 146;
+            this.label27.Text = "ETCS 유닛 (라벨상세설명)";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtEtcsCommEot
+            // 
+            this.txtEtcsCommEot.Location = new System.Drawing.Point(285, 56);
+            this.txtEtcsCommEot.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsCommEot.Name = "txtEtcsCommEot";
+            this.txtEtcsCommEot.Size = new System.Drawing.Size(42, 23);
+            this.txtEtcsCommEot.TabIndex = 145;
+            // 
+            // label26
+            // 
+            this.label26.Location = new System.Drawing.Point(255, 57);
+            this.label26.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(28, 21);
+            this.label26.TabIndex = 144;
+            this.label26.Text = "EOT";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtEtcsCommGs
+            // 
+            this.txtEtcsCommGs.Location = new System.Drawing.Point(141, 56);
+            this.txtEtcsCommGs.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsCommGs.Name = "txtEtcsCommGs";
+            this.txtEtcsCommGs.Size = new System.Drawing.Size(42, 23);
+            this.txtEtcsCommGs.TabIndex = 143;
+            // 
+            // txtEtcsCommRs
+            // 
+            this.txtEtcsCommRs.Location = new System.Drawing.Point(210, 56);
+            this.txtEtcsCommRs.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsCommRs.Name = "txtEtcsCommRs";
+            this.txtEtcsCommRs.Size = new System.Drawing.Size(42, 23);
+            this.txtEtcsCommRs.TabIndex = 142;
+            // 
+            // label25
+            // 
+            this.label25.Location = new System.Drawing.Point(116, 57);
+            this.label25.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(25, 21);
+            this.label25.TabIndex = 141;
+            this.label25.Text = "GS";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtEtcsCommVersion
+            // 
+            this.txtEtcsCommVersion.Location = new System.Drawing.Point(75, 56);
+            this.txtEtcsCommVersion.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsCommVersion.Name = "txtEtcsCommVersion";
+            this.txtEtcsCommVersion.Size = new System.Drawing.Size(42, 23);
+            this.txtEtcsCommVersion.TabIndex = 140;
+            // 
+            // label24
+            // 
+            this.label24.Location = new System.Drawing.Point(180, 57);
+            this.label24.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(28, 21);
+            this.label24.TabIndex = 139;
+            this.label24.Text = "RS";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtEtcsCommHeader
+            // 
+            this.txtEtcsCommHeader.Location = new System.Drawing.Point(30, 56);
+            this.txtEtcsCommHeader.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsCommHeader.Name = "txtEtcsCommHeader";
+            this.txtEtcsCommHeader.Size = new System.Drawing.Size(42, 23);
+            this.txtEtcsCommHeader.TabIndex = 138;
+            // 
+            // label21
+            // 
+            this.label21.Location = new System.Drawing.Point(2, 57);
+            this.label21.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(28, 21);
+            this.label21.TabIndex = 4;
+            this.label21.Text = "STX";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label22
+            // 
+            this.label22.Location = new System.Drawing.Point(0, 30);
+            this.label22.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(125, 21);
+            this.label22.TabIndex = 4;
+            this.label22.Text = "ETCS 유닛 (통신코드)";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label23
+            // 
+            this.label23.BackColor = System.Drawing.Color.LightGray;
+            this.label23.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label23.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label23.Location = new System.Drawing.Point(0, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(337, 20);
+            this.label23.TabIndex = 3;
+            this.label23.Text = "바코드 ETCS 설정";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cmbPrinter
+            // 
+            this.cmbPrinter.FormattingEnabled = true;
+            this.cmbPrinter.Location = new System.Drawing.Point(910, 190);
+            this.cmbPrinter.Name = "cmbPrinter";
+            this.cmbPrinter.Size = new System.Drawing.Size(275, 23);
+            this.cmbPrinter.TabIndex = 110;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label6.Location = new System.Drawing.Point(864, 195);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 12);
+            this.label6.TabIndex = 109;
+            this.label6.Text = "Printer";
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.SystemColors.Control;
+            this.panel7.Controls.Add(this.label49);
+            this.panel7.Controls.Add(this.Preview);
+            this.panel7.Controls.Add(this.btnPreview);
+            this.panel7.Controls.Add(this.btnReset);
+            this.panel7.Controls.Add(this.btnPrint);
+            this.panel7.Location = new System.Drawing.Point(858, 12);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(336, 206);
+            this.panel7.TabIndex = 4;
+            // 
+            // label49
+            // 
+            this.label49.BackColor = System.Drawing.Color.LightGray;
+            this.label49.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label49.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label49.Location = new System.Drawing.Point(0, 0);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(336, 20);
+            this.label49.TabIndex = 3;
+            this.label49.Text = "미리 보기";
+            this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Preview
+            // 
+            this.Preview.Location = new System.Drawing.Point(1, 22);
+            this.Preview.Margin = new System.Windows.Forms.Padding(2);
+            this.Preview.Name = "Preview";
+            this.Preview.Size = new System.Drawing.Size(335, 113);
+            this.Preview.TabIndex = 75;
+            // 
+            // btnPreview
+            // 
+            this.btnPreview.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnPreview.Location = new System.Drawing.Point(3, 139);
+            this.btnPreview.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPreview.Name = "btnPreview";
+            this.btnPreview.Size = new System.Drawing.Size(109, 35);
+            this.btnPreview.TabIndex = 60;
+            this.btnPreview.Text = "Preview";
+            this.btnPreview.UseVisualStyleBackColor = true;
+            // 
+            // btnReset
+            // 
+            this.btnReset.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnReset.Location = new System.Drawing.Point(115, 139);
+            this.btnReset.Margin = new System.Windows.Forms.Padding(2);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(109, 35);
+            this.btnReset.TabIndex = 91;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnPrint.Location = new System.Drawing.Point(228, 139);
+            this.btnPrint.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(109, 35);
+            this.btnPrint.TabIndex = 59;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            // 
+            // LabelDataGridView
+            // 
+            this.LabelDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.LabelDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ＳＷ,
+            this.Ｘ좌표,
+            this.Ｙ좌표,
+            this.회전,
+            this.크기,
+            this.Ｘ비율,
+            this.Ｙ비율,
+            this.데이터});
+            this.LabelDataGridView.Location = new System.Drawing.Point(10, 231);
+            this.LabelDataGridView.Name = "LabelDataGridView";
+            this.LabelDataGridView.RowHeadersWidth = 62;
+            this.LabelDataGridView.RowTemplate.Height = 30;
+            this.LabelDataGridView.Size = new System.Drawing.Size(835, 492);
+            this.LabelDataGridView.TabIndex = 108;
+            // 
+            // ＳＷ
+            // 
+            this.ＳＷ.HeaderText = "순번";
+            this.ＳＷ.MinimumWidth = 8;
+            this.ＳＷ.Name = "ＳＷ";
+            this.ＳＷ.Width = 150;
+            // 
+            // Ｘ좌표
+            // 
+            this.Ｘ좌표.HeaderText = "Ｘ좌표";
+            this.Ｘ좌표.MinimumWidth = 8;
+            this.Ｘ좌표.Name = "Ｘ좌표";
+            this.Ｘ좌표.Width = 150;
+            // 
+            // Ｙ좌표
+            // 
+            this.Ｙ좌표.HeaderText = "Ｙ좌표";
+            this.Ｙ좌표.MinimumWidth = 8;
+            this.Ｙ좌표.Name = "Ｙ좌표";
+            this.Ｙ좌표.Width = 150;
+            // 
+            // 회전
+            // 
+            this.회전.HeaderText = "회전";
+            this.회전.MinimumWidth = 8;
+            this.회전.Name = "회전";
+            this.회전.Width = 150;
+            // 
+            // 크기
+            // 
+            this.크기.HeaderText = "크기";
+            this.크기.MinimumWidth = 8;
+            this.크기.Name = "크기";
+            this.크기.Width = 150;
+            // 
+            // Ｘ비율
+            // 
+            this.Ｘ비율.HeaderText = "Ｘ비율";
+            this.Ｘ비율.MinimumWidth = 8;
+            this.Ｘ비율.Name = "Ｘ비율";
+            this.Ｘ비율.Width = 150;
+            // 
+            // Ｙ비율
+            // 
+            this.Ｙ비율.HeaderText = "Ｙ비율";
+            this.Ｙ비율.MinimumWidth = 8;
+            this.Ｙ비율.Name = "Ｙ비율";
+            this.Ｙ비율.Width = 150;
+            // 
+            // 데이터
+            // 
+            this.데이터.HeaderText = "데이터";
+            this.데이터.MinimumWidth = 8;
+            this.데이터.Name = "데이터";
+            this.데이터.Width = 150;
+            // 
+            // panel8
+            // 
+            this.panel8.BackColor = System.Drawing.Color.LightGray;
+            this.panel8.Controls.Add(this.panel9);
+            this.panel8.Location = new System.Drawing.Point(294, 11);
+            this.panel8.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(550, 207);
+            this.panel8.TabIndex = 107;
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.SystemColors.Control;
+            this.panel9.Controls.Add(this.numPrintQty);
+            this.panel9.Controls.Add(this.numPrintSpeed);
+            this.panel9.Controls.Add(this.numPrintDarkness);
+            this.panel9.Controls.Add(this.numLabelHeight);
+            this.panel9.Controls.Add(this.numLabelWidth);
+            this.panel9.Controls.Add(this.comboPrintDir);
+            this.panel9.Controls.Add(this.label52);
+            this.panel9.Controls.Add(this.label53);
+            this.panel9.Controls.Add(this.label54);
+            this.panel9.Controls.Add(this.label57);
+            this.panel9.Controls.Add(this.label58);
+            this.panel9.Controls.Add(this.label59);
+            this.panel9.Controls.Add(this.label55);
+            this.panel9.Location = new System.Drawing.Point(1, 0);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(548, 205);
+            this.panel9.TabIndex = 104;
+            // 
+            // numPrintQty
+            // 
+            this.numPrintQty.Location = new System.Drawing.Point(368, 151);
+            this.numPrintQty.Margin = new System.Windows.Forms.Padding(2);
+            this.numPrintQty.Name = "numPrintQty";
+            this.numPrintQty.Size = new System.Drawing.Size(160, 23);
+            this.numPrintQty.TabIndex = 132;
+            // 
+            // numPrintSpeed
+            // 
+            this.numPrintSpeed.Location = new System.Drawing.Point(368, 101);
+            this.numPrintSpeed.Margin = new System.Windows.Forms.Padding(2);
+            this.numPrintSpeed.Name = "numPrintSpeed";
+            this.numPrintSpeed.Size = new System.Drawing.Size(160, 23);
+            this.numPrintSpeed.TabIndex = 131;
+            // 
+            // numPrintDarkness
+            // 
+            this.numPrintDarkness.Location = new System.Drawing.Point(368, 51);
+            this.numPrintDarkness.Margin = new System.Windows.Forms.Padding(2);
+            this.numPrintDarkness.Name = "numPrintDarkness";
+            this.numPrintDarkness.Size = new System.Drawing.Size(160, 23);
+            this.numPrintDarkness.TabIndex = 130;
+            // 
+            // numLabelHeight
+            // 
+            this.numLabelHeight.Location = new System.Drawing.Point(99, 151);
+            this.numLabelHeight.Margin = new System.Windows.Forms.Padding(2);
+            this.numLabelHeight.Name = "numLabelHeight";
+            this.numLabelHeight.Size = new System.Drawing.Size(160, 23);
+            this.numLabelHeight.TabIndex = 128;
+            // 
+            // numLabelWidth
+            // 
+            this.numLabelWidth.Location = new System.Drawing.Point(99, 101);
+            this.numLabelWidth.Margin = new System.Windows.Forms.Padding(2);
+            this.numLabelWidth.Name = "numLabelWidth";
+            this.numLabelWidth.Size = new System.Drawing.Size(160, 23);
+            this.numLabelWidth.TabIndex = 126;
+            // 
+            // comboPrintDir
+            // 
+            this.comboPrintDir.FormattingEnabled = true;
+            this.comboPrintDir.Location = new System.Drawing.Point(99, 51);
+            this.comboPrintDir.Margin = new System.Windows.Forms.Padding(2);
+            this.comboPrintDir.Name = "comboPrintDir";
+            this.comboPrintDir.Size = new System.Drawing.Size(160, 23);
+            this.comboPrintDir.TabIndex = 125;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(285, 55);
+            this.label52.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(59, 15);
+            this.label52.TabIndex = 118;
+            this.label52.Text = "인쇄 농도";
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(285, 105);
+            this.label53.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(59, 15);
+            this.label53.TabIndex = 119;
+            this.label53.Text = "인쇄 속도";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(285, 155);
+            this.label54.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(59, 15);
+            this.label54.TabIndex = 120;
+            this.label54.Text = "인쇄 수량";
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(16, 155);
+            this.label57.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(59, 15);
+            this.label57.TabIndex = 122;
+            this.label57.Text = "라벨 높이";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(16, 105);
+            this.label58.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(59, 15);
+            this.label58.TabIndex = 123;
+            this.label58.Text = "라벨 너비";
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(16, 55);
+            this.label59.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(59, 15);
+            this.label59.TabIndex = 124;
+            this.label59.Text = "인쇄 방향";
+            // 
+            // label55
+            // 
+            this.label55.BackColor = System.Drawing.Color.LightGray;
+            this.label55.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label55.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label55.Location = new System.Drawing.Point(0, 0);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(548, 21);
+            this.label55.TabIndex = 3;
+            this.label55.Text = "인쇄 설정";
+            this.label55.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.LightGray;
+            this.panel6.Location = new System.Drawing.Point(857, 12);
+            this.panel6.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(341, 207);
+            this.panel6.TabIndex = 106;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.LightGray;
+            this.panel2.Controls.Add(this.panel3);
+            this.panel2.Location = new System.Drawing.Point(10, 11);
+            this.panel2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(272, 207);
+            this.panel2.TabIndex = 105;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.Control;
+            this.panel3.Controls.Add(this.btnTest);
             this.panel3.Controls.Add(this.label28);
             this.panel3.Controls.Add(this.label29);
             this.panel3.Controls.Add(this.label30);
@@ -1270,10 +2350,19 @@
             this.panel3.Controls.Add(this.textProductName2);
             this.panel3.Controls.Add(this.textAlcNo2);
             this.panel3.Controls.Add(this.textCarType2);
-            this.panel3.Location = new System.Drawing.Point(12, 11);
+            this.panel3.Location = new System.Drawing.Point(1, 1);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(270, 205);
-            this.panel3.TabIndex = 4;
+            this.panel3.TabIndex = 103;
+            // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(100, 170);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(140, 25);
+            this.btnTest.TabIndex = 137;
+            this.btnTest.Text = "TestButton";
+            this.btnTest.UseVisualStyleBackColor = true;
             // 
             // label28
             // 
@@ -1359,7 +2448,7 @@
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(270, 20);
             this.label33.TabIndex = 3;
-            this.label33.Text = "품번 설정";
+            this.label33.Text = "품목 정보";
             this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textProductName2
@@ -1386,425 +2475,332 @@
             this.textCarType2.Size = new System.Drawing.Size(140, 23);
             this.textCarType2.TabIndex = 2;
             // 
-            // panel9
-            // 
-            this.panel9.BackColor = System.Drawing.SystemColors.Control;
-            this.panel9.Controls.Add(this.label50);
-            this.panel9.Controls.Add(this.label51);
-            this.panel9.Controls.Add(this.numSerialTo);
-            this.panel9.Controls.Add(this.numPrintQty);
-            this.panel9.Controls.Add(this.numPrintSpeed);
-            this.panel9.Controls.Add(this.numPrintDarkness);
-            this.panel9.Controls.Add(this.numSerialFrom);
-            this.panel9.Controls.Add(this.numLabelHeight);
-            this.panel9.Controls.Add(this.numLabelGap);
-            this.panel9.Controls.Add(this.numLabelWidth);
-            this.panel9.Controls.Add(this.comboPrintDir);
-            this.panel9.Controls.Add(this.label52);
-            this.panel9.Controls.Add(this.label53);
-            this.panel9.Controls.Add(this.label54);
-            this.panel9.Controls.Add(this.label56);
-            this.panel9.Controls.Add(this.label57);
-            this.panel9.Controls.Add(this.label58);
-            this.panel9.Controls.Add(this.label59);
-            this.panel9.Controls.Add(this.label55);
-            this.panel9.Location = new System.Drawing.Point(293, 11);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(571, 207);
-            this.panel9.TabIndex = 4;
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(459, 73);
-            this.label50.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(12, 15);
-            this.label50.TabIndex = 134;
-            this.label50.Text = "-";
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(297, 71);
-            this.label51.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(59, 15);
-            this.label51.TabIndex = 117;
-            this.label51.Text = "일련 번호";
-            // 
-            // numSerialTo
-            // 
-            this.numSerialTo.Location = new System.Drawing.Point(477, 71);
-            this.numSerialTo.Margin = new System.Windows.Forms.Padding(2);
-            this.numSerialTo.Name = "numSerialTo";
-            this.numSerialTo.Size = new System.Drawing.Size(68, 23);
-            this.numSerialTo.TabIndex = 133;
-            // 
-            // numPrintQty
-            // 
-            this.numPrintQty.Location = new System.Drawing.Point(385, 147);
-            this.numPrintQty.Margin = new System.Windows.Forms.Padding(2);
-            this.numPrintQty.Name = "numPrintQty";
-            this.numPrintQty.Size = new System.Drawing.Size(160, 23);
-            this.numPrintQty.TabIndex = 132;
-            // 
-            // numPrintSpeed
-            // 
-            this.numPrintSpeed.Location = new System.Drawing.Point(385, 111);
-            this.numPrintSpeed.Margin = new System.Windows.Forms.Padding(2);
-            this.numPrintSpeed.Name = "numPrintSpeed";
-            this.numPrintSpeed.Size = new System.Drawing.Size(160, 23);
-            this.numPrintSpeed.TabIndex = 131;
-            // 
-            // numPrintDarkness
-            // 
-            this.numPrintDarkness.Location = new System.Drawing.Point(385, 34);
-            this.numPrintDarkness.Margin = new System.Windows.Forms.Padding(2);
-            this.numPrintDarkness.Name = "numPrintDarkness";
-            this.numPrintDarkness.Size = new System.Drawing.Size(160, 23);
-            this.numPrintDarkness.TabIndex = 130;
-            // 
-            // numSerialFrom
-            // 
-            this.numSerialFrom.Location = new System.Drawing.Point(385, 71);
-            this.numSerialFrom.Margin = new System.Windows.Forms.Padding(2);
-            this.numSerialFrom.Name = "numSerialFrom";
-            this.numSerialFrom.Size = new System.Drawing.Size(67, 23);
-            this.numSerialFrom.TabIndex = 129;
-            // 
-            // numLabelHeight
-            // 
-            this.numLabelHeight.Location = new System.Drawing.Point(111, 110);
-            this.numLabelHeight.Margin = new System.Windows.Forms.Padding(2);
-            this.numLabelHeight.Name = "numLabelHeight";
-            this.numLabelHeight.Size = new System.Drawing.Size(160, 23);
-            this.numLabelHeight.TabIndex = 128;
-            // 
-            // numLabelGap
-            // 
-            this.numLabelGap.Location = new System.Drawing.Point(111, 148);
-            this.numLabelGap.Margin = new System.Windows.Forms.Padding(2);
-            this.numLabelGap.Name = "numLabelGap";
-            this.numLabelGap.Size = new System.Drawing.Size(160, 23);
-            this.numLabelGap.TabIndex = 127;
-            // 
-            // numLabelWidth
-            // 
-            this.numLabelWidth.Location = new System.Drawing.Point(111, 73);
-            this.numLabelWidth.Margin = new System.Windows.Forms.Padding(2);
-            this.numLabelWidth.Name = "numLabelWidth";
-            this.numLabelWidth.Size = new System.Drawing.Size(160, 23);
-            this.numLabelWidth.TabIndex = 126;
-            // 
-            // comboPrintDir
-            // 
-            this.comboPrintDir.FormattingEnabled = true;
-            this.comboPrintDir.Location = new System.Drawing.Point(111, 34);
-            this.comboPrintDir.Margin = new System.Windows.Forms.Padding(2);
-            this.comboPrintDir.Name = "comboPrintDir";
-            this.comboPrintDir.Size = new System.Drawing.Size(161, 23);
-            this.comboPrintDir.TabIndex = 125;
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(297, 36);
-            this.label52.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(59, 15);
-            this.label52.TabIndex = 118;
-            this.label52.Text = "인쇄 농도";
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(297, 110);
-            this.label53.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(59, 15);
-            this.label53.TabIndex = 119;
-            this.label53.Text = "인쇄 속도";
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(297, 147);
-            this.label54.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(59, 15);
-            this.label54.TabIndex = 120;
-            this.label54.Text = "인쇄 수량";
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(28, 150);
-            this.label56.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(59, 15);
-            this.label56.TabIndex = 121;
-            this.label56.Text = "라벨 간격";
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(28, 112);
-            this.label57.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(59, 15);
-            this.label57.TabIndex = 122;
-            this.label57.Text = "라벨 높이";
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(28, 74);
-            this.label58.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(59, 15);
-            this.label58.TabIndex = 123;
-            this.label58.Text = "라벨 너비";
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(28, 37);
-            this.label59.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(59, 15);
-            this.label59.TabIndex = 124;
-            this.label59.Text = "인쇄 방향";
-            // 
-            // label55
-            // 
-            this.label55.BackColor = System.Drawing.Color.LightGray;
-            this.label55.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label55.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label55.Location = new System.Drawing.Point(0, 0);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(571, 21);
-            this.label55.TabIndex = 3;
-            this.label55.Text = "인쇄 설정";
-            this.label55.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cmbPrinter
-            // 
-            this.cmbPrinter.FormattingEnabled = true;
-            this.cmbPrinter.Location = new System.Drawing.Point(927, 193);
-            this.cmbPrinter.Name = "cmbPrinter";
-            this.cmbPrinter.Size = new System.Drawing.Size(287, 23);
-            this.cmbPrinter.TabIndex = 102;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(883, 197);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
-            this.label1.TabIndex = 101;
-            this.label1.Text = "Printer";
-            // 
-            // LabelDataGridView
-            // 
-            this.LabelDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.LabelDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ＳＷ,
-            this.Ｘ좌표,
-            this.Ｙ좌표,
-            this.회전,
-            this.크기,
-            this.Ｘ비율,
-            this.Ｙ비율,
-            this.데이터});
-            this.LabelDataGridView.Location = new System.Drawing.Point(10, 235);
-            this.LabelDataGridView.Margin = new System.Windows.Forms.Padding(2);
-            this.LabelDataGridView.Name = "LabelDataGridView";
-            this.LabelDataGridView.RowHeadersWidth = 62;
-            this.LabelDataGridView.RowTemplate.Height = 30;
-            this.LabelDataGridView.Size = new System.Drawing.Size(855, 508);
-            this.LabelDataGridView.TabIndex = 100;
-            // 
-            // ＳＷ
-            // 
-            this.ＳＷ.HeaderText = "순번";
-            this.ＳＷ.MinimumWidth = 8;
-            this.ＳＷ.Name = "ＳＷ";
-            this.ＳＷ.Width = 150;
-            // 
-            // Ｘ좌표
-            // 
-            this.Ｘ좌표.HeaderText = "Ｘ좌표";
-            this.Ｘ좌표.MinimumWidth = 8;
-            this.Ｘ좌표.Name = "Ｘ좌표";
-            this.Ｘ좌표.Width = 150;
-            // 
-            // Ｙ좌표
-            // 
-            this.Ｙ좌표.HeaderText = "Ｙ좌표";
-            this.Ｙ좌표.MinimumWidth = 8;
-            this.Ｙ좌표.Name = "Ｙ좌표";
-            this.Ｙ좌표.Width = 150;
-            // 
-            // 회전
-            // 
-            this.회전.HeaderText = "회전";
-            this.회전.MinimumWidth = 8;
-            this.회전.Name = "회전";
-            this.회전.Width = 150;
-            // 
-            // 크기
-            // 
-            this.크기.HeaderText = "크기";
-            this.크기.MinimumWidth = 8;
-            this.크기.Name = "크기";
-            this.크기.Width = 150;
-            // 
-            // Ｘ비율
-            // 
-            this.Ｘ비율.HeaderText = "Ｘ비율";
-            this.Ｘ비율.MinimumWidth = 8;
-            this.Ｘ비율.Name = "Ｘ비율";
-            this.Ｘ비율.Width = 150;
-            // 
-            // Ｙ비율
-            // 
-            this.Ｙ비율.HeaderText = "Ｙ비율";
-            this.Ｙ비율.MinimumWidth = 8;
-            this.Ｙ비율.Name = "Ｙ비율";
-            this.Ｙ비율.Width = 150;
-            // 
-            // 데이터
-            // 
-            this.데이터.HeaderText = "데이터";
-            this.데이터.MinimumWidth = 8;
-            this.데이터.Name = "데이터";
-            this.데이터.Width = 150;
-            // 
-            // panel8
-            // 
-            this.panel8.BackColor = System.Drawing.Color.LightGray;
-            this.panel8.Location = new System.Drawing.Point(292, 11);
-            this.panel8.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(573, 207);
-            this.panel8.TabIndex = 99;
-            // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.Color.LightGray;
-            this.panel6.Controls.Add(this.panel7);
-            this.panel6.Location = new System.Drawing.Point(875, 11);
-            this.panel6.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(341, 207);
-            this.panel6.TabIndex = 98;
-            // 
-            // panel7
-            // 
-            this.panel7.BackColor = System.Drawing.SystemColors.Control;
-            this.panel7.Controls.Add(this.label49);
-            this.panel7.Controls.Add(this.Preview);
-            this.panel7.Controls.Add(this.btnPreview);
-            this.panel7.Controls.Add(this.btnReset);
-            this.panel7.Controls.Add(this.btnPrint);
-            this.panel7.Location = new System.Drawing.Point(1, 1);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(340, 205);
-            this.panel7.TabIndex = 4;
-            // 
-            // label49
-            // 
-            this.label49.BackColor = System.Drawing.Color.LightGray;
-            this.label49.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label49.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label49.Location = new System.Drawing.Point(0, 0);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(340, 20);
-            this.label49.TabIndex = 3;
-            this.label49.Text = "Preview";
-            this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Preview
-            // 
-            this.Preview.Location = new System.Drawing.Point(-1, 22);
-            this.Preview.Margin = new System.Windows.Forms.Padding(2);
-            this.Preview.Name = "Preview";
-            this.Preview.Size = new System.Drawing.Size(339, 113);
-            this.Preview.TabIndex = 75;
-            // 
-            // btnPreview
-            // 
-            this.btnPreview.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnPreview.Location = new System.Drawing.Point(3, 139);
-            this.btnPreview.Margin = new System.Windows.Forms.Padding(2);
-            this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(109, 39);
-            this.btnPreview.TabIndex = 60;
-            this.btnPreview.Text = "Preview";
-            this.btnPreview.UseVisualStyleBackColor = true;
-            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
-            // 
-            // btnReset
-            // 
-            this.btnReset.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnReset.Location = new System.Drawing.Point(115, 139);
-            this.btnReset.Margin = new System.Windows.Forms.Padding(2);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(109, 39);
-            this.btnReset.TabIndex = 91;
-            this.btnReset.Text = "Reset";
-            this.btnReset.UseVisualStyleBackColor = true;
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnPrint.Location = new System.Drawing.Point(228, 139);
-            this.btnPrint.Margin = new System.Windows.Forms.Padding(2);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(109, 39);
-            this.btnPrint.TabIndex = 59;
-            this.btnPrint.Text = "Print";
-            this.btnPrint.UseVisualStyleBackColor = true;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.LightGray;
-            this.panel2.Location = new System.Drawing.Point(10, 11);
-            this.panel2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(272, 207);
-            this.panel2.TabIndex = 95;
-            // 
-            // btnTest
-            // 
-            this.btnTest.Location = new System.Drawing.Point(875, 235);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(113, 50);
-            this.btnTest.TabIndex = 136;
-            this.btnTest.Text = "TestButton";
-            this.btnTest.UseVisualStyleBackColor = true;
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.panel1);
+            this.tabPage3.Controls.Add(this.panel5);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1207, 762);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "마스터 샘플 설정";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.LightGray;
+            this.panel1.Controls.Add(this.panel4);
+            this.panel1.Location = new System.Drawing.Point(20, 260);
+            this.panel1.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(500, 220);
+            this.panel1.TabIndex = 9;
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.BackColor = System.Drawing.SystemColors.Control;
+            this.panel4.Controls.Add(this.checkUseLabelPrint);
+            this.panel4.Controls.Add(this.checkUseTrayInterlock);
+            this.panel4.Controls.Add(this.checkUseProductBarcode);
+            this.panel4.Controls.Add(this.label9);
+            this.panel4.Location = new System.Drawing.Point(1, 1);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(498, 218);
+            this.panel4.TabIndex = 0;
+            // 
+            // checkUseLabelPrint
+            // 
+            this.checkUseLabelPrint.AutoSize = true;
+            this.checkUseLabelPrint.Checked = true;
+            this.checkUseLabelPrint.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkUseLabelPrint.Location = new System.Drawing.Point(20, 80);
+            this.checkUseLabelPrint.Name = "checkUseLabelPrint";
+            this.checkUseLabelPrint.Size = new System.Drawing.Size(78, 19);
+            this.checkUseLabelPrint.TabIndex = 7;
+            this.checkUseLabelPrint.Text = "라벨 출력";
+            this.checkUseLabelPrint.UseVisualStyleBackColor = true;
+            // 
+            // checkUseTrayInterlock
+            // 
+            this.checkUseTrayInterlock.AutoSize = true;
+            this.checkUseTrayInterlock.Checked = true;
+            this.checkUseTrayInterlock.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkUseTrayInterlock.Location = new System.Drawing.Point(20, 55);
+            this.checkUseTrayInterlock.Name = "checkUseTrayInterlock";
+            this.checkUseTrayInterlock.Size = new System.Drawing.Size(102, 19);
+            this.checkUseTrayInterlock.TabIndex = 7;
+            this.checkUseTrayInterlock.Text = "트레이 인터락";
+            this.checkUseTrayInterlock.UseVisualStyleBackColor = true;
+            // 
+            // checkUseProductBarcode
+            // 
+            this.checkUseProductBarcode.AutoSize = true;
+            this.checkUseProductBarcode.Checked = true;
+            this.checkUseProductBarcode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkUseProductBarcode.Location = new System.Drawing.Point(20, 30);
+            this.checkUseProductBarcode.Name = "checkUseProductBarcode";
+            this.checkUseProductBarcode.Size = new System.Drawing.Size(90, 19);
+            this.checkUseProductBarcode.TabIndex = 7;
+            this.checkUseProductBarcode.Text = "품목 바코드";
+            this.checkUseProductBarcode.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.BackColor = System.Drawing.Color.LightGray;
+            this.label9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label9.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label9.Location = new System.Drawing.Point(0, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(498, 20);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "기타 설정";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.LightGray;
+            this.panel5.Controls.Add(this.panel10);
+            this.panel5.Location = new System.Drawing.Point(20, 20);
+            this.panel5.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(500, 220);
+            this.panel5.TabIndex = 10;
+            // 
+            // panel10
+            // 
+            this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel10.BackColor = System.Drawing.SystemColors.Control;
+            this.panel10.Controls.Add(this.checkUseMasterSample);
+            this.panel10.Controls.Add(this.numericMasterCount);
+            this.panel10.Controls.Add(this.label7);
+            this.panel10.Controls.Add(this.label8);
+            this.panel10.Controls.Add(this.textMasterBarcode5);
+            this.panel10.Controls.Add(this.textMasterBarcode4);
+            this.panel10.Controls.Add(this.textMasterBarcode3);
+            this.panel10.Controls.Add(this.textMasterBarcode2);
+            this.panel10.Controls.Add(this.textMasterBarcode1);
+            this.panel10.Controls.Add(this.textMasterType5);
+            this.panel10.Controls.Add(this.labelMaster5);
+            this.panel10.Controls.Add(this.textMasterType4);
+            this.panel10.Controls.Add(this.labelMaster4);
+            this.panel10.Controls.Add(this.textMasterType3);
+            this.panel10.Controls.Add(this.labelMaster3);
+            this.panel10.Controls.Add(this.textMasterType2);
+            this.panel10.Controls.Add(this.labelMaster2);
+            this.panel10.Controls.Add(this.textMasterType1);
+            this.panel10.Controls.Add(this.labelMaster1);
+            this.panel10.Location = new System.Drawing.Point(1, 1);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(498, 218);
+            this.panel10.TabIndex = 0;
+            // 
+            // checkUseMasterSample
+            // 
+            this.checkUseMasterSample.AutoSize = true;
+            this.checkUseMasterSample.Checked = true;
+            this.checkUseMasterSample.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkUseMasterSample.Location = new System.Drawing.Point(194, 32);
+            this.checkUseMasterSample.Name = "checkUseMasterSample";
+            this.checkUseMasterSample.Size = new System.Drawing.Size(118, 19);
+            this.checkUseMasterSample.TabIndex = 7;
+            this.checkUseMasterSample.Text = "마스터 샘플 검사";
+            this.checkUseMasterSample.UseVisualStyleBackColor = true;
+            // 
+            // numericMasterCount
+            // 
+            this.numericMasterCount.Location = new System.Drawing.Point(100, 30);
+            this.numericMasterCount.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericMasterCount.Name = "numericMasterCount";
+            this.numericMasterCount.Size = new System.Drawing.Size(80, 23);
+            this.numericMasterCount.TabIndex = 6;
+            this.numericMasterCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label7
+            // 
+            this.label7.BackColor = System.Drawing.Color.LightGray;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label7.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label7.Location = new System.Drawing.Point(0, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(498, 20);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "마스터 샘플";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(10, 30);
+            this.label8.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(80, 21);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "마스터 수량";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textMasterBarcode5
+            // 
+            this.textMasterBarcode5.Location = new System.Drawing.Point(190, 170);
+            this.textMasterBarcode5.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textMasterBarcode5.Name = "textMasterBarcode5";
+            this.textMasterBarcode5.Size = new System.Drawing.Size(280, 23);
+            this.textMasterBarcode5.TabIndex = 2;
+            // 
+            // textMasterBarcode4
+            // 
+            this.textMasterBarcode4.Location = new System.Drawing.Point(190, 142);
+            this.textMasterBarcode4.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textMasterBarcode4.Name = "textMasterBarcode4";
+            this.textMasterBarcode4.Size = new System.Drawing.Size(280, 23);
+            this.textMasterBarcode4.TabIndex = 2;
+            // 
+            // textMasterBarcode3
+            // 
+            this.textMasterBarcode3.Location = new System.Drawing.Point(190, 114);
+            this.textMasterBarcode3.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textMasterBarcode3.Name = "textMasterBarcode3";
+            this.textMasterBarcode3.Size = new System.Drawing.Size(280, 23);
+            this.textMasterBarcode3.TabIndex = 2;
+            // 
+            // textMasterBarcode2
+            // 
+            this.textMasterBarcode2.Location = new System.Drawing.Point(190, 86);
+            this.textMasterBarcode2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textMasterBarcode2.Name = "textMasterBarcode2";
+            this.textMasterBarcode2.Size = new System.Drawing.Size(280, 23);
+            this.textMasterBarcode2.TabIndex = 2;
+            // 
+            // textMasterBarcode1
+            // 
+            this.textMasterBarcode1.Location = new System.Drawing.Point(190, 58);
+            this.textMasterBarcode1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textMasterBarcode1.Name = "textMasterBarcode1";
+            this.textMasterBarcode1.Size = new System.Drawing.Size(280, 23);
+            this.textMasterBarcode1.TabIndex = 2;
+            // 
+            // textMasterType5
+            // 
+            this.textMasterType5.Location = new System.Drawing.Point(100, 170);
+            this.textMasterType5.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textMasterType5.Name = "textMasterType5";
+            this.textMasterType5.Size = new System.Drawing.Size(80, 23);
+            this.textMasterType5.TabIndex = 2;
+            // 
+            // labelMaster5
+            // 
+            this.labelMaster5.Location = new System.Drawing.Point(10, 170);
+            this.labelMaster5.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.labelMaster5.Name = "labelMaster5";
+            this.labelMaster5.Size = new System.Drawing.Size(80, 21);
+            this.labelMaster5.TabIndex = 4;
+            this.labelMaster5.Text = "제품 5";
+            this.labelMaster5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textMasterType4
+            // 
+            this.textMasterType4.Location = new System.Drawing.Point(100, 142);
+            this.textMasterType4.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textMasterType4.Name = "textMasterType4";
+            this.textMasterType4.Size = new System.Drawing.Size(80, 23);
+            this.textMasterType4.TabIndex = 2;
+            // 
+            // labelMaster4
+            // 
+            this.labelMaster4.Location = new System.Drawing.Point(10, 142);
+            this.labelMaster4.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.labelMaster4.Name = "labelMaster4";
+            this.labelMaster4.Size = new System.Drawing.Size(80, 21);
+            this.labelMaster4.TabIndex = 4;
+            this.labelMaster4.Text = "제품 4";
+            this.labelMaster4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textMasterType3
+            // 
+            this.textMasterType3.Location = new System.Drawing.Point(100, 114);
+            this.textMasterType3.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textMasterType3.Name = "textMasterType3";
+            this.textMasterType3.Size = new System.Drawing.Size(80, 23);
+            this.textMasterType3.TabIndex = 2;
+            // 
+            // labelMaster3
+            // 
+            this.labelMaster3.Location = new System.Drawing.Point(10, 114);
+            this.labelMaster3.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.labelMaster3.Name = "labelMaster3";
+            this.labelMaster3.Size = new System.Drawing.Size(80, 21);
+            this.labelMaster3.TabIndex = 4;
+            this.labelMaster3.Text = "제품 3";
+            this.labelMaster3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textMasterType2
+            // 
+            this.textMasterType2.Location = new System.Drawing.Point(100, 86);
+            this.textMasterType2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textMasterType2.Name = "textMasterType2";
+            this.textMasterType2.Size = new System.Drawing.Size(80, 23);
+            this.textMasterType2.TabIndex = 2;
+            // 
+            // labelMaster2
+            // 
+            this.labelMaster2.Location = new System.Drawing.Point(10, 86);
+            this.labelMaster2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.labelMaster2.Name = "labelMaster2";
+            this.labelMaster2.Size = new System.Drawing.Size(80, 21);
+            this.labelMaster2.TabIndex = 4;
+            this.labelMaster2.Text = "제품 2";
+            this.labelMaster2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textMasterType1
+            // 
+            this.textMasterType1.Location = new System.Drawing.Point(100, 58);
+            this.textMasterType1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textMasterType1.Name = "textMasterType1";
+            this.textMasterType1.Size = new System.Drawing.Size(80, 23);
+            this.textMasterType1.TabIndex = 2;
+            // 
+            // labelMaster1
+            // 
+            this.labelMaster1.Location = new System.Drawing.Point(10, 58);
+            this.labelMaster1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.labelMaster1.Name = "labelMaster1";
+            this.labelMaster1.Size = new System.Drawing.Size(80, 21);
+            this.labelMaster1.TabIndex = 4;
+            this.labelMaster1.Text = "제품 1";
+            this.labelMaster1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnPrintFontTest
+            // 
+            this.btnPrintFontTest.Location = new System.Drawing.Point(11, 385);
+            this.btnPrintFontTest.Name = "btnPrintFontTest";
+            this.btnPrintFontTest.Size = new System.Drawing.Size(140, 25);
+            this.btnPrintFontTest.TabIndex = 172;
+            this.btnPrintFontTest.Text = "TestButton";
+            this.btnPrintFontTest.UseVisualStyleBackColor = true;
+            this.btnPrintFontTest.Click += new System.EventHandler(this.btnPrintFontTest_Click);
             // 
             // FormProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1234, 861);
+            this.ClientSize = new System.Drawing.Size(1224, 841);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.labelTypeNo);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.textTypeNo);
             this.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormProduct";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Product Settings";
+            this.Text = "품목 설정";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormProduct_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormProduct_FormClosed);
             this.Load += new System.EventHandler(this.FormProduct_Load);
@@ -1819,33 +2815,43 @@
             this.panelCommSettings.ResumeLayout(false);
             this.panelNfcSettings.ResumeLayout(false);
             this.panelNfcSettings.PerformLayout();
+            this.panelUartSettings.ResumeLayout(false);
             this.panelXCPAddressFrame.ResumeLayout(false);
             this.panelXCPAddress.ResumeLayout(false);
             this.panelXCPAddress.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridXcpList)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.panelThdSettingsFrame.ResumeLayout(false);
+            this.panelThdSettings.ResumeLayout(false);
+            this.panelThdSettings.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.LabelDataGridView)).EndInit();
+            this.panel8.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSerialTo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrintQty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrintSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrintDarkness)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numSerialFrom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLabelHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numLabelGap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLabelWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LabelDataGridView)).EndInit();
-            this.panel6.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMasterCount)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -1858,7 +2864,7 @@
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.ComboBox comboProductNo;
         private System.Windows.Forms.TextBox textProductName;
-        private System.Windows.Forms.TextBox textTypeNo;
+        private System.Windows.Forms.TextBox textPLCRecipe;
         private System.Windows.Forms.TextBox textCarType;
         private System.Windows.Forms.TextBox textAlcNo;
         private System.Windows.Forms.Label labelProductInfoTitle;
@@ -1921,8 +2927,7 @@
         private System.Windows.Forms.TextBox textPLightResID;
         private System.Windows.Forms.Label labelXcpEcuAddr;
         private System.Windows.Forms.TextBox textXcpEcuAddr;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox comboUartPort;
+        private System.Windows.Forms.ComboBox comboUartPortNameCh1;
         private System.Windows.Forms.Label labelUartPort;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTestNo;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colTestUse;
@@ -1935,8 +2940,24 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colXcpItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn colXcpAddress;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelUartSettings;
+        private System.Windows.Forms.Panel panelThdSettingsFrame;
+        private System.Windows.Forms.Panel panelThdSettings;
+        private System.Windows.Forms.Label labelThdSettingsTitle;
+        private System.Windows.Forms.TextBox textThdCancelSlowSelf;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textThdCancelFastSelf;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textThdTouchFastSelf;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textThdTouchFastMutual;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelNfcInputID;
+        private System.Windows.Forms.TextBox textNFC_ResID;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textNFC_ReqID;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
@@ -1949,37 +2970,23 @@
         private System.Windows.Forms.TextBox textProductName2;
         private System.Windows.Forms.TextBox textAlcNo2;
         private System.Windows.Forms.TextBox textCarType2;
-        private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.Panel Preview;
-        private System.Windows.Forms.Button btnPreview;
-        private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Label label50;
-        private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.NumericUpDown numSerialTo;
         private System.Windows.Forms.NumericUpDown numPrintQty;
         private System.Windows.Forms.NumericUpDown numPrintSpeed;
         private System.Windows.Forms.NumericUpDown numPrintDarkness;
-        private System.Windows.Forms.NumericUpDown numSerialFrom;
         private System.Windows.Forms.NumericUpDown numLabelHeight;
-        private System.Windows.Forms.NumericUpDown numLabelGap;
         private System.Windows.Forms.NumericUpDown numLabelWidth;
         private System.Windows.Forms.ComboBox comboPrintDir;
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.Label label54;
-        private System.Windows.Forms.Label label56;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label55;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.DataGridView LabelDataGridView;
         private System.Windows.Forms.ComboBox cmbPrinter;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridView LabelDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn ＳＷ;
         private System.Windows.Forms.DataGridViewTextBoxColumn Ｘ좌표;
         private System.Windows.Forms.DataGridViewTextBoxColumn Ｙ좌표;
@@ -1988,7 +2995,90 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Ｘ비율;
         private System.Windows.Forms.DataGridViewTextBoxColumn Ｙ비율;
         private System.Windows.Forms.DataGridViewTextBoxColumn 데이터;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.Panel Preview;
+        private System.Windows.Forms.Button btnPreview;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.CheckBox checkUseProductBarcode;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.CheckBox checkUseMasterSample;
+        private System.Windows.Forms.NumericUpDown numericMasterCount;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textMasterBarcode5;
+        private System.Windows.Forms.TextBox textMasterBarcode4;
+        private System.Windows.Forms.TextBox textMasterBarcode3;
+        private System.Windows.Forms.TextBox textMasterBarcode2;
+        private System.Windows.Forms.TextBox textMasterBarcode1;
+        private System.Windows.Forms.TextBox textMasterType5;
+        private System.Windows.Forms.Label labelMaster5;
+        private System.Windows.Forms.TextBox textMasterType4;
+        private System.Windows.Forms.Label labelMaster4;
+        private System.Windows.Forms.TextBox textMasterType3;
+        private System.Windows.Forms.Label labelMaster3;
+        private System.Windows.Forms.TextBox textMasterType2;
+        private System.Windows.Forms.Label labelMaster2;
+        private System.Windows.Forms.TextBox textMasterType1;
+        private System.Windows.Forms.Label labelMaster1;
+        private System.Windows.Forms.ComboBox comboUartBaudrateCh1;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox comboUartBaudrateCh2;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ComboBox comboUartPortNameCh2;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckBox checkUseTrayInterlock;
         private System.Windows.Forms.Button btnTest;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox txtEtcsCommEot;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox txtEtcsCommGs;
+        private System.Windows.Forms.TextBox txtEtcsCommRs;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox txtEtcsCommVersion;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox txtEtcsCommHeader;
+        private System.Windows.Forms.TextBox txtEtcsVTag;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox txtEtcsCompanyAreaValue;
+        private System.Windows.Forms.TextBox txtEtcsCTag;
+        private System.Windows.Forms.TextBox txtEtcsInitialValue;
+        private System.Windows.Forms.TextBox txtEtcsMTag;
+        private System.Windows.Forms.TextBox txtEtcsSpecialValue;
+        private System.Windows.Forms.TextBox txtEtcsATag;
+        private System.Windows.Forms.TextBox txtEtcsTraceValue;
+        private System.Windows.Forms.TextBox txtEtcsTTag;
+        private System.Windows.Forms.TextBox txtEtcsEoValue;
+        private System.Windows.Forms.TextBox txtEtcsETag;
+        private System.Windows.Forms.TextBox txtEtcsSerialValue;
+        private System.Windows.Forms.TextBox txtEtcsSTag;
+        private System.Windows.Forms.TextBox txtEtcsPartNoValue;
+        private System.Windows.Forms.TextBox txtEtcsPTag;
+        private System.Windows.Forms.TextBox txtEtcsVendorValue;
+        private System.Windows.Forms.CheckBox checkUseLabelPrint;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox comboConnType;
+        private System.Windows.Forms.Button btnPrintFontTest;
     }
 }
