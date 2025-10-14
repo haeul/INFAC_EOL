@@ -321,17 +321,6 @@ namespace DHSTesterXL
             }
         }
 
-        private void RefreshSeqNumbers()
-        {
-            if (LabelDataGridView == null) return;
-            for (int i = 0; i < LabelDataGridView.Rows.Count; i++)
-            {
-                var row = LabelDataGridView.Rows[i];
-                if (!row.IsNewRow)
-                    row.Cells[COL_SEQ].Value = (i + 1).ToString();
-            }
-        }
-
         private void GetGridLabelValue()
         {
             if (LabelDataGridView == null || LabelDataGridView.Rows.Count < 4) return;
@@ -470,6 +459,24 @@ namespace DHSTesterXL
             RefreshDmDataCell();
         }
 
+        private void RefreshSeqNumbers()
+        {
+            if (LabelDataGridView == null) return;
+            for (int i = 0; i < LabelDataGridView.Rows.Count; i++)
+            {
+                var row = LabelDataGridView.Rows[i];
+                if (!row.IsNewRow)
+                    row.Cells[COL_SEQ].Value = (i + 1).ToString();
+            }
+        }
+
+        private void RefreshDmDataCell()
+        {
+            var row = GetRow(RowKey.DM);
+            if (row != null)
+                row.Cells[COL_DATA].Value = BuildQrPayloadFromGrid();
+        }
+
         // 로고 셀 더블클릭
         private void LabelGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -601,13 +608,6 @@ namespace DHSTesterXL
             if (_suppressPreview) return;
             GetGridLabelValue();
             Preview.Invalidate();
-        }
-
-        private void RefreshDmDataCell()
-        {
-            var row = GetRow(RowKey.DM);
-            if (row != null)
-                row.Cells[COL_DATA].Value = BuildQrPayloadFromGrid();
         }
     }
 }

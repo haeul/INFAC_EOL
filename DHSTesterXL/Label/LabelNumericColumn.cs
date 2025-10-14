@@ -39,6 +39,16 @@ namespace DHSTesterXL
         public override Type ValueType => typeof(decimal);
         public override object DefaultNewRowValue => 0M;
 
+        // 보기용 문자열 포맷
+        protected override object GetFormattedValue(object value, int rowIndex, ref DataGridViewCellStyle cellStyle,
+            TypeConverter valueTypeConverter, TypeConverter formattedValueTypeConverter, DataGridViewDataErrorContexts context)
+        {
+            string fmt = (cellStyle?.Format) ?? "0.###";
+            if (value is decimal d) return d.ToString(fmt);
+            if (value is double db) return ((decimal)db).ToString(fmt);
+            return base.GetFormattedValue(value, rowIndex, ref cellStyle, valueTypeConverter, formattedValueTypeConverter, context);
+        }
+
         public override void InitializeEditingControl(int rowIndex, object initialFormattedValue, DataGridViewCellStyle cellStyle)
         {
             base.InitializeEditingControl(rowIndex, initialFormattedValue, cellStyle);
@@ -67,16 +77,6 @@ namespace DHSTesterXL
                 if (cur > nud.Maximum) cur = nud.Maximum;
                 nud.Value = cur;
             }
-        }
-
-        // 보기용 문자열 포맷
-        protected override object GetFormattedValue(object value, int rowIndex, ref DataGridViewCellStyle cellStyle,
-            TypeConverter valueTypeConverter, TypeConverter formattedValueTypeConverter, DataGridViewDataErrorContexts context)
-        {
-            string fmt = (cellStyle?.Format) ?? "0.###";
-            if (value is decimal d) return d.ToString(fmt);
-            if (value is double db) return ((decimal)db).ToString(fmt);
-            return base.GetFormattedValue(value, rowIndex, ref cellStyle, valueTypeConverter, formattedValueTypeConverter, context);
         }
     }
 
@@ -112,8 +112,8 @@ namespace DHSTesterXL
             BackColor = style.BackColor;
         }
 
-        public object GetEditingControlFormattedValue(DataGridViewDataErrorContexts context) => Value.ToString();
         public void PrepareEditingControlForEdit(bool selectAll) { /* no-op */ }
+        public object GetEditingControlFormattedValue(DataGridViewDataErrorContexts context) => Value.ToString();
 
         // 화살표/페이지키는 NUD가 처리
         public bool EditingControlWantsInputKey(Keys keyData, bool gridWants)
