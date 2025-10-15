@@ -9,22 +9,22 @@ namespace DHSTesterXL
         // ───────────────────── 프린터 RAW 전송 ─────────────────────
         public static bool SendRawToPrinter(string printerName, string zpl)
         {
-            IntPtr hPrinter;
+            IntPtr printerHandle;
 
-            if (!OpenPrinter(printerName.Normalize(), out hPrinter, IntPtr.Zero))
+            if (!OpenPrinter(printerName.Normalize(), out printerHandle, IntPtr.Zero))
                 return false;
 
-            var docInfo = new DOCINFOA { pDocName = "ZPL Job", pDataType = "RAW" };
+            var printJobInfo = new DOCINFOA { pDocName = "ZPL Job", pDataType = "RAW" };
 
-            if (!StartDocPrinter(hPrinter, 1, docInfo))
+            if (!StartDocPrinter(printerHandle, 1, printJobInfo))
             {
-                ClosePrinter(hPrinter);
+                ClosePrinter(printerHandle);
                 return false;
             }
-            if (!StartPagePrinter(hPrinter))
+            if (!StartPagePrinter(printerHandle))
             {
-                EndDocPrinter(hPrinter);
-                ClosePrinter(hPrinter);
+                EndDocPrinter(printerHandle);
+                ClosePrinter(printerHandle);
                 return false;
             }
 
@@ -35,13 +35,13 @@ namespace DHSTesterXL
                 unmanagedBuffer = Marshal.AllocCoTaskMem(bytes.Length);
                 Marshal.Copy(bytes, 0, unmanagedBuffer, bytes.Length);
 
-                return WritePrinter(hPrinter, unmanagedBuffer, bytes.Length, out _);
+                return WritePrinter(printerHandle, unmanagedBuffer, bytes.Length, out _);
             }
             finally
             {
-                EndPagePrinter(hPrinter);
-                EndDocPrinter(hPrinter);
-                ClosePrinter(hPrinter);
+                EndPagePrinter(printerHandle);
+                EndDocPrinter(printerHandle);
+                ClosePrinter(printerHandle);
 
                 if (unmanagedBuffer != IntPtr.Zero)
                     Marshal.FreeCoTaskMem(unmanagedBuffer);

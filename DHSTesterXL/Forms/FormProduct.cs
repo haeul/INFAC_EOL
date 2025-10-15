@@ -44,8 +44,8 @@ namespace DHSTesterXL
             textCarType.TextChanged += (_, __) => CopyProductInfoToLabelTab();
             textAlcNo.TextChanged += (_, __) => CopyProductInfoToLabelTab();
 
-            SetupEtcsDefaults();     // ← 기본값 세팅
-            WireUpEtcsEvents();      // ← 값 바뀌면 미리보기/그리드 갱신
+            SetupEtcsDefaults();     // 기본값 세팅
+            WireUpEtcsEvents();      // 값 바뀌면 미리보기/그리드 갱신
         }
         partial void Label_Init();
 
@@ -103,8 +103,8 @@ namespace DHSTesterXL
             textCarType.TextChanged += (_, __) => CopyProductInfoToLabelTab();
             textAlcNo.TextChanged += (_, __) => CopyProductInfoToLabelTab();
 
-            SetupEtcsDefaults();     // ← 기본값 세팅
-            WireUpEtcsEvents();      // ← 값 바뀌면 미리보기/그리드 갱신
+            SetupEtcsDefaults();     // 기본값 세팅
+            WireUpEtcsEvents();      // 값 바뀌면 미리보기/그리드 갱신
 
             // 리스트에서 실제 품번을 하나 선택해 로드한다
             if (comboProductNo.Items.Count > 0)
@@ -113,7 +113,7 @@ namespace DHSTesterXL
                     CurrentProductNo = comboProductNo.Items[0].ToString();
 
                 comboProductNo.SelectedItem = CurrentProductNo;
-                ApplyProductNo(CurrentProductNo); // ← 파일 로드 + UI 갱신 + 라벨탭 갱신(마지막 줄)
+                ApplyProductNo(CurrentProductNo); // 파일 로드 + UI 갱신 + 라벨탭 갱신(마지막 줄)
             }
 
             if (GSystem.MasterTestCh1[0])

@@ -15,56 +15,56 @@ namespace DHSTesterXL
         // ───────────────────── 프리뷰 ─────────────────────
         private void Preview_Paint(object sender, PaintEventArgs e)
         {
-            var g = e.Graphics;
-            g.Clear(Color.White);
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            var graphics = e.Graphics;
+            graphics.Clear(Color.White);
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
-            Rectangle pr = Preview.ClientRectangle;
-            if (pr.Width <= 0 || pr.Height <= 0) return;
+            Rectangle previewBounds = Preview.ClientRectangle;
+            if (previewBounds.Width <= 0 || previewBounds.Height <= 0) return;
 
             // mm → px 스케일
-            float scaleX = (float)(pr.Width / _style.LabelWmm);
-            float scaleY = (float)(pr.Height / _style.LabelHmm);
+            float scaleX = (float)(previewBounds.Width / _style.LabelWmm);
+            float scaleY = (float)(previewBounds.Height / _style.LabelHmm);
             float mm2px = Math.Min(scaleX, scaleY);
 
             float labelWpx = (float)(_style.LabelWmm * mm2px);
             float labelHpx = (float)(_style.LabelHmm * mm2px);
 
-            float originX = pr.Left + (pr.Width - labelWpx) / 2f;
-            float originY = pr.Top + (pr.Height - labelHpx) / 2f;
+            float labelOriginX = previewBounds.Left + (previewBounds.Width - labelWpx) / 2f;
+            float labelOriginY = previewBounds.Top + (previewBounds.Height - labelHpx) / 2f;
 
-            var labelRect = new RectangleF(originX, originY, labelWpx, labelHpx);
+            var labelRect = new RectangleF(labelOriginX, labelOriginY, labelWpx, labelHpx);
             using (var bg = new SolidBrush(Color.White))
             using (var pen = new Pen(Color.Silver, 1f))
             using (var rounded = CreateRoundedRectPath(labelRect, _style.CornerRadiusPx))
             {
-                g.FillPath(bg, rounded);
-                g.DrawPath(pen, rounded);
+                graphics.FillPath(bg, rounded);
+                graphics.DrawPath(pen, rounded);
             }
 
             // 좌표 변환기(mm→px)
-            //float MMX(double mm) => originX + (float)(mm * mm2px);
-            //float MMY(double mm) => originY + (float)(mm * mm2px);
+            //float ConvertMmToPreviewX(double mm) => labelOriginX + (float)(mm * mm2px);
+            //float ConvertMmToPreviewY(double mm) => labelOriginY + (float)(mm * mm2px);
             const double NUDGE_Y_MM = 0.6; // 출력과 동일
-            float MMX(double mm)
+            float ConvertMmToPreviewX(double mm)
             {
-                int xDots = MmToDotsInt(mm, DEFAULT_DPI);
-                double xMmQ = DotsToMm(xDots, DEFAULT_DPI);
-                return originX + (float)(xMmQ * mm2px);
+                int quantizedXDots = MmToDotsInt(mm, DEFAULT_DPI);
+                double quantizedMillimeters = DotsToMm(quantizedXDots, DEFAULT_DPI);
+                return labelOriginX + (float)(quantizedMillimeters * mm2px);
             }
-            float MMY(double mm)
+            float ConvertMmToPreviewY(double mm)
             {
                 // ^LT 보정 추가
                 double mmWithLt = mm + NUDGE_Y_MM;
-                int yDots = MmToDotsInt(mmWithLt, DEFAULT_DPI);
-                double yMmQ = DotsToMm(yDots, DEFAULT_DPI);
-                return originY + (float)(yMmQ * mm2px);
+                int quantizedYDots = MmToDotsInt(mmWithLt, DEFAULT_DPI);
+                double quantizedMillimeters = DotsToMm(quantizedYDots, DEFAULT_DPI);
+                return labelOriginY + (float)(quantizedMillimeters * mm2px);
             }
 
 
             // 고정 요소(로고/브랜드/품번)
-            DrawLogoBrandPart(g, MMX, MMY, mm2px);
+            DrawLogoBrandPart(graphics, ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px);
 
             // HW
             if (_style.ShowHWPreview)
@@ -73,9 +73,9 @@ namespace DHSTesterXL
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
 
-                DrawTextTopLeft(g, GetGridText(RowKey.HW, _style.HWText),
+                DrawTextTopLeft(graphics, GetGridText(RowKey.HW, _style.HWText),
                                 _style.HWx, _style.HWy, PositiveOr(_style.HWfont, 2.6),
-                                MMX, MMY, mm2px, false, sx, sy);
+                                ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
 
             // SW
@@ -85,9 +85,9 @@ namespace DHSTesterXL
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
 
-                DrawTextTopLeft(g, GetGridText(RowKey.SW, _style.SWText),
+                DrawTextTopLeft(graphics, GetGridText(RowKey.SW, _style.SWText),
                                 _style.SWx, _style.SWy, PositiveOr(_style.SWfont, 2.6),
-                                MMX, MMY, mm2px, false, sx, sy);
+                                ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
             // LOT
             if (_style.ShowLOTPreview)
@@ -96,9 +96,9 @@ namespace DHSTesterXL
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
 
-                DrawTextTopLeft(g, GetGridText(RowKey.LOT, _style.LOTText),
+                DrawTextTopLeft(graphics, GetGridText(RowKey.LOT, _style.LOTText),
                                 _style.LOTx, _style.LOTy, PositiveOr(_style.LOTfont, 2.6),
-                                MMX, MMY, mm2px, false, sx, sy);
+                                ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
             // SN
             if (_style.ShowSNPreview)
@@ -107,9 +107,9 @@ namespace DHSTesterXL
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
 
-                DrawTextTopLeft(g, GetGridText(RowKey.SN, _style.SerialText),
+                DrawTextTopLeft(graphics, GetGridText(RowKey.SN, _style.SerialText),
                                 _style.SNx, _style.SNy, PositiveOr(_style.SNfont, 2.6),
-                                MMX, MMY, mm2px, false, sx, sy);
+                                ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
 
             // Pb 배지
@@ -119,7 +119,7 @@ namespace DHSTesterXL
                 double sx = ReadScaleCell(rPb, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(rPb, COL_YSCALE, 1.0);
 
-                DrawPbBadge(g, MMX, MMY, mm2px,
+                DrawPbBadge(graphics, ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px,
                             _style.BadgeDiameter, _style.BadgeX, _style.BadgeY,
                             sx, sy);
             }
@@ -127,21 +127,21 @@ namespace DHSTesterXL
             // DM 프리뷰
             if (_style.ShowDMPreview)
             {
-                var rQR = GetRow(RowKey.DM);
+                var rDM = GetRow(RowKey.DM);
 
                 // 1) DM은 출력 시 모듈 크기가 "정수 도트"로 양자화됨 → 프리뷰도 동일 규칙 적용
                 int moduleDots = Math.Max(1, MmToDots(Math.Max(0.1, _style.DMModuleMm), DEFAULT_DPI));
                 double moduleMmForPreview = moduleDots * (25.4 / (double)DEFAULT_DPI);
 
                 // 2) 그리드 X/Y를 DM 열/행(정수)로 활용(0 또는 범위 밖이면 자동)
-                int cols = (int)Math.Round(ReadScaleCell(rQR, COL_XSCALE, 0.0));
-                int rows = (int)Math.Round(ReadScaleCell(rQR, COL_YSCALE, 0.0));
+                int cols = (int)Math.Round(ReadScaleCell(rDM, COL_XSCALE, 0.0));
+                int rows = (int)Math.Round(ReadScaleCell(rDM, COL_YSCALE, 0.0));
                 if (cols < 10 || cols > 144) cols = 0;
                 if (rows < 10 || rows > 144) rows = 0;
 
                 // 3) 프리뷰 그리기 (모듈수 × 모듈mm)
                 DrawDataMatrixPreview(
-                    g, MMX, MMY, mm2px,
+                    graphics, ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px,
                     moduleMmForPreview,   // 양자화된 모듈 mm 사용(출력과 동일)
                     _style.DMx, _style.DMy,
                     cols, rows            // DM 열/행(0=자동)
@@ -154,9 +154,9 @@ namespace DHSTesterXL
                 var r = GetRow(RowKey.Rating);
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
-                DrawTextTopLeft(g, GetGridText(RowKey.Rating, _style.RatingText),
+                DrawTextTopLeft(graphics, GetGridText(RowKey.Rating, _style.RatingText),
                     _style.RatingX, _style.RatingY, PositiveOr(_style.RatingFont, 2.6),
-                    MMX, MMY, mm2px, false, sx, sy);
+                    ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
 
             // FCC ID
@@ -165,9 +165,9 @@ namespace DHSTesterXL
                 var r = GetRow(RowKey.FCCID);
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
-                DrawTextTopLeft(g, GetGridText(RowKey.FCCID, _style.FCCIDText),
+                DrawTextTopLeft(graphics, GetGridText(RowKey.FCCID, _style.FCCIDText),
                     _style.FCCIDX, _style.FCCIDY, PositiveOr(_style.FCCIDFont, 2.6),
-                    MMX, MMY, mm2px, false, sx, sy);
+                    ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
 
             // IC ID
@@ -176,9 +176,9 @@ namespace DHSTesterXL
                 var r = GetRow(RowKey.ICID);
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
-                DrawTextTopLeft(g, GetGridText(RowKey.ICID, _style.ICIDText),
+                DrawTextTopLeft(graphics, GetGridText(RowKey.ICID, _style.ICIDText),
                     _style.ICIDX, _style.ICIDY, PositiveOr(_style.ICIDFont, 2.6),
-                    MMX, MMY, mm2px, false, sx, sy);
+                    ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
 
             // Item1
@@ -187,9 +187,9 @@ namespace DHSTesterXL
                 var r = GetRow(RowKey.Item1);
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
-                DrawTextTopLeft(g, GetGridText(RowKey.Item1, _style.Item1Text),
+                DrawTextTopLeft(graphics, GetGridText(RowKey.Item1, _style.Item1Text),
                     _style.Item1X, _style.Item1Y, PositiveOr(_style.Item1Font, 2.6),
-                    MMX, MMY, mm2px, false, sx, sy);
+                    ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
             // Item2
             if (_style.ShowItem2Preview)
@@ -197,9 +197,9 @@ namespace DHSTesterXL
                 var r = GetRow(RowKey.Item1);
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
-                DrawTextTopLeft(g, GetGridText(RowKey.Item2, _style.Item2Text),
+                DrawTextTopLeft(graphics, GetGridText(RowKey.Item2, _style.Item2Text),
                     _style.Item2X, _style.Item2Y, PositiveOr(_style.Item2Font, 2.6),
-                    MMX, MMY, mm2px, false, sx, sy);
+                    ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
             // Item3
             if (_style.ShowItem3Preview)
@@ -207,9 +207,9 @@ namespace DHSTesterXL
                 var r = GetRow(RowKey.Item3);
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
-                DrawTextTopLeft(g, GetGridText(RowKey.Item3, _style.Item3Text),
+                DrawTextTopLeft(graphics, GetGridText(RowKey.Item3, _style.Item3Text),
                     _style.Item3X, _style.Item3Y, PositiveOr(_style.Item3Font, 2.6),
-                    MMX, MMY, mm2px, false, sx, sy);
+                    ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
             // Item4
             if (_style.ShowItem4Preview)
@@ -217,9 +217,9 @@ namespace DHSTesterXL
                 var r = GetRow(RowKey.Item4);
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
-                DrawTextTopLeft(g, GetGridText(RowKey.Item4, _style.Item4Text),
+                DrawTextTopLeft(graphics, GetGridText(RowKey.Item4, _style.Item4Text),
                     _style.Item4X, _style.Item4Y, PositiveOr(_style.Item4Font, 2.6),
-                    MMX, MMY, mm2px, false, sx, sy);
+                    ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
             // Item5
             if (_style.ShowItem5Preview)
@@ -227,17 +227,17 @@ namespace DHSTesterXL
                 var r = GetRow(RowKey.Item5);
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
-                DrawTextTopLeft(g, GetGridText(RowKey.Item5, _style.Item5Text),
+                DrawTextTopLeft(graphics, GetGridText(RowKey.Item5, _style.Item5Text),
                     _style.Item5X, _style.Item5Y, PositiveOr(_style.Item5Font, 2.6),
-                    MMX, MMY, mm2px, false, sx, sy);
+                    ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
 
         }
 
         /// <summary>로고/회사명/품번(프리뷰, 모두 좌상단 기준)</summary>
-        private void DrawLogoBrandPart(Graphics g,
-                                       Func<double, float> MMX,
-                                       Func<double, float> MMY,
+        private void DrawLogoBrandPart(Graphics graphics,
+                                       Func<double, float> ConvertMmToPreviewX,
+                                       Func<double, float> ConvertMmToPreviewY,
                                        float mm2px)
         {
             // 로고
@@ -252,24 +252,24 @@ namespace DHSTesterXL
                     double sx = ReadScaleCell(rLogo, COL_XSCALE, 1.0);
                     double sy = ReadScaleCell(rLogo, COL_YSCALE, 1.0);
 
-                    float leftPx = MMX(_style.LogoX);
-                    float topPx = MMY(_style.LogoY);
+                    float leftPx = ConvertMmToPreviewX(_style.LogoX);
+                    float topPx = ConvertMmToPreviewY(_style.LogoY);
 
                     double aspect = _logoBitmap.Width / (double)_logoBitmap.Height;
                     float hPx = (float)(_style.LogoH * sy * mm2px);
                     float wPx = (float)(_style.LogoH * aspect * sx * mm2px);
 
-                    var oldS = g.SmoothingMode;
-                    var oldI = g.InterpolationMode;
-                    g.SmoothingMode = SmoothingMode.HighQuality;
-                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    var originalSmoothing = graphics.SmoothingMode;
+                    var originalInterpolation = graphics.InterpolationMode;
+                    graphics.SmoothingMode = SmoothingMode.HighQuality;
+                    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-                    g.DrawImage(_logoBitmap,
+                    graphics.DrawImage(_logoBitmap,
                         new RectangleF(leftPx, topPx,
                                        Math.Max(1, wPx), Math.Max(1, hPx)));
 
-                    g.SmoothingMode = oldS;
-                    g.InterpolationMode = oldI;
+                    graphics.SmoothingMode = originalSmoothing;
+                    graphics.InterpolationMode = originalInterpolation;
                 }
             }
 
@@ -280,9 +280,9 @@ namespace DHSTesterXL
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
 
-                DrawTextTopLeft(g, _style.BrandText ?? "",
+                DrawTextTopLeft(graphics, _style.BrandText ?? "",
                     _style.BrandX, _style.BrandY, _style.BrandFont,
-                    MMX, MMY, mm2px, false, sx, sy);
+                    ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, false, sx, sy);
             }
 
             // 품번
@@ -295,89 +295,89 @@ namespace DHSTesterXL
 
                 if (_style.PartX > 0)
                 {
-                    DrawTextTopLeft(g, text,
+                    DrawTextTopLeft(graphics, text,
                         _style.PartX, _style.PartY, _style.PartFont,
-                        MMX, MMY, mm2px, true, sx, sy);
+                        ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, true, sx, sy);
                 }
                 else
                 {
                     // 중앙정렬(프리뷰) — 측정 기반
                     float fontPx = (float)(_style.PartFont * mm2px);
-                    float fontPt = Math.Max(1f, fontPx * 72f / g.DpiY);
+                    float fontPt = Math.Max(1f, fontPx * 72f / graphics.DpiY);
                     using (var font = new Font("Arial", fontPt, FontStyle.Bold))
                     {
-                        var sz = g.MeasureString(text, font);
-                        float centerPx = MMX(_style.LabelWmm / 2.0);
-                        float leftPx = centerPx - (float)(sz.Width * sx / 2.0);
-                        double leftMm = (leftPx - MMX(0)) / mm2px;
+                        var textSize = graphics.MeasureString(text, font);
+                        float centerPx = ConvertMmToPreviewX(_style.LabelWmm / 2.0);
+                        float leftPx = centerPx - (float)(textSize.Width * sx / 2.0);
+                        double leftMm = (leftPx - ConvertMmToPreviewX(0)) / mm2px;
 
-                        DrawTextTopLeft(g, text,
+                        DrawTextTopLeft(graphics, text,
                             leftMm, _style.PartY, _style.PartFont,
-                            MMX, MMY, mm2px, true, sx, sy);
+                            ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px, true, sx, sy);
                     }
                 }
             }
         }
 
         /// <summary> Pb 배지(프리뷰, 좌상단 기준) </summary>
-        private void DrawPbBadge(Graphics g,
-                                 Func<double, float> MMX, Func<double, float> MMY, float mm2px,
+        private void DrawPbBadge(Graphics graphics,
+                                 Func<double, float> ConvertMmToPreviewX, Func<double, float> ConvertMmToPreviewY, float mm2px,
                                  double diameterMm, double xMm, double yMm,
                                  double scaleX, double scaleY)
         {
-            float baseD = (float)(diameterMm * mm2px);
-            float x = MMX(xMm);
-            float y = MMY(yMm);
-            float w = baseD * (float)scaleX;
-            float h = baseD * (float)scaleY;
+            float baseDiameterPixels = (float)(diameterMm * mm2px);
+            float leftPixels = ConvertMmToPreviewX(xMm);
+            float topPixels = ConvertMmToPreviewY(yMm);
+            float widthPixels = baseDiameterPixels * (float)scaleX;
+            float heightPixels = baseDiameterPixels * (float)scaleY;
 
-            var rect = new RectangleF(x, y, w, h);
+            var badgeBounds = new RectangleF(leftPixels, topPixels, widthPixels, heightPixels);
 
             using (var fill = new SolidBrush(Color.Black))
-                g.FillEllipse(fill, rect);
+                graphics.FillEllipse(fill, badgeBounds);
             using (var pen = new Pen(Color.Black, Math.Max(1f, 1.2f * mm2px)))
-                g.DrawEllipse(pen, rect);
+                graphics.DrawEllipse(pen, badgeBounds);
 
-            float fontPx = Math.Min(w, h) * 0.58f;
-            float fontPt = fontPx * 72f / g.DpiY;
-            using (var font = new Font("Arial", Math.Max(1f, fontPt), FontStyle.Bold))
+            float fontPx = Math.Min(widthPixels, heightPixels) * 0.58f;
+            float fontPointSize = fontPx * 72f / graphics.DpiY;
+            using (var font = new Font("Arial", Math.Max(1f, fontPointSize), FontStyle.Bold))
             using (var textBrush = new SolidBrush(Color.White))
-            using (var fmt = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+            using (var textFormat = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
             {
-                g.DrawString("Pb", font, textBrush, rect, fmt);
+                graphics.DrawString("Pb", font, textBrush, badgeBounds, textFormat);
             }
         }
 
         // Data Matrix 프리뷰: sidePx = 모듈수 × 모듈픽셀
         private void DrawDataMatrixPreview(
-            Graphics g, Func<double, float> MMX, Func<double, float> MMY, float mm2px,
+            Graphics graphics, Func<double, float> ConvertMmToPreviewX, Func<double, float> ConvertMmToPreviewY, float mm2px,
             double moduleMm, double xMm, double yMm,
-            double colsIn, double rowsIn)
+            double columnCountInput, double rowCountInput)
         {
             // 모듈수(행/열) 결정: 지정값(10~144)이면 사용, 아니면 데이터 길이로 대략 추정
-            int cols = (int)Math.Round(colsIn);
-            int rows = (int)Math.Round(rowsIn);
+            int cols = (int)Math.Round(columnCountInput);
+            int rows = (int)Math.Round(rowCountInput);
             if (cols < 10 || cols > 144 || rows < 10 || rows > 144)
             {
-                int est = EstimateDmModulesFromData(BuildEtcsQrPayloadFromUi());
-                cols = rows = est;
+                int estimatedModuleCount = EstimateDmModulesFromData(BuildEtcsQrPayloadFromUi());
+                cols = rows = estimatedModuleCount;
             }
 
             float modulePx = (float)(moduleMm * mm2px);
             float sidePx = modulePx * Math.Max(cols, rows);
 
-            var rect = new RectangleF(MMX(xMm), MMY(yMm), sidePx, sidePx);
-            using (var pen = new Pen(Color.Black, 1f)) g.DrawRectangle(pen, rect.X, rect.Y, rect.Width, rect.Height);
+            var DmBounds = new RectangleF(ConvertMmToPreviewX(xMm), ConvertMmToPreviewY(yMm), sidePx, sidePx);
+            using (var pen = new Pen(Color.Black, 1f)) graphics.DrawRectangle(pen, DmBounds.X, DmBounds.Y, DmBounds.Width, DmBounds.Height);
 
             // 라벨
             float textPx = Math.Max(6f, Math.Min(sidePx * 0.28f, 28f));
-            float textPt = textPx * 72f / g.DpiY;
+            float textPt = textPx * 72f / graphics.DpiY;
 
             using (var font = new Font("Arial", textPt, FontStyle.Bold, GraphicsUnit.Point))
             using (var brush = new SolidBrush(Color.Black))
-            using (var fmt = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+            using (var textFormat = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
             {
-                g.DrawString("DM", font, brush, rect, fmt);
+                graphics.DrawString("DM", font, brush, DmBounds, textFormat);
             }
         }
 
@@ -396,15 +396,15 @@ namespace DHSTesterXL
             return Math.Min(144, 26 + (int)Math.Ceiling((len - 88) / 12.0));
         }
 
-        private static GraphicsPath CreateRoundedRectPath(RectangleF rect, float radius)
+        private static GraphicsPath CreateRoundedRectPath(RectangleF bounds, float radius)
         {
             var graphicsPath = new GraphicsPath();
             float diameter = radius * 2f;
 
-            graphicsPath.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
-            graphicsPath.AddArc(rect.Right - diameter, rect.Y, diameter, diameter, 270, 90);
-            graphicsPath.AddArc(rect.Right - diameter, rect.Bottom - diameter, diameter, diameter, 0, 90);
-            graphicsPath.AddArc(rect.X, rect.Bottom - diameter, diameter, diameter, 90, 90);
+            graphicsPath.AddArc(bounds.X, bounds.Y, diameter, diameter, 180, 90);
+            graphicsPath.AddArc(bounds.Right - diameter, bounds.Y, diameter, diameter, 270, 90);
+            graphicsPath.AddArc(bounds.Right - diameter, bounds.Bottom - diameter, diameter, diameter, 0, 90);
+            graphicsPath.AddArc(bounds.X, bounds.Bottom - diameter, diameter, diameter, 90, 90);
 
             graphicsPath.CloseFigure();
             return graphicsPath;
@@ -415,37 +415,37 @@ namespace DHSTesterXL
         /// - mmFont → px/pt 변환
         /// - 좌상단(X,Y)로 이동 후 Scale(X,Y) 적용
         /// </summary>
-        private static void DrawTextTopLeft(Graphics g, string text,
+        private static void DrawTextTopLeft(Graphics graphics, string text,
             double mmX, double mmY, double mmFont,
-            Func<double, float> MMX, Func<double, float> MMY, float mm2px,
+            Func<double, float> ConvertMmToPreviewX, Func<double, float> ConvertMmToPreviewY, float mm2px,
             bool bold, double scaleXRatio, double scaleYRatio)
         {
             //float fontPx = (float)(mmFont * mm2px);
-            //float fontPt = Math.Max(1f, fontPx * 72f / g.DpiY);
+            //float fontPointSize = Math.Max(1f, fontPx * 72f / graphics.DpiY);
 
             int hDots = Math.Max(1, MmToDotsInt(mmFont * scaleYRatio, DEFAULT_DPI));
             int wDots = Math.Max(1, (int)Math.Round(hDots * scaleXRatio));
             float hPx = (float)(DotsToMm(hDots, DEFAULT_DPI) * mm2px);
             // GDI 폰트 포인트로 변환
-            float fontPt = Math.Max(1f, hPx * 72f / g.DpiY);
+            float fontPt = Math.Max(1f, hPx * 72f / graphics.DpiY);
 
             using (var font = new Font("Arial", fontPt, bold ? FontStyle.Bold : FontStyle.Regular))
             using (var brush = new SolidBrush(Color.Black))
             {
-                var state = g.Save();
+                var graphicsState = graphics.Save();
                 try
                 {
-                    float xTop = MMX(mmX);
-                    float yTop = MMY(mmY);
+                    float xTop = ConvertMmToPreviewX(mmX);
+                    float yTop = ConvertMmToPreviewY(mmY);
 
-                    g.TranslateTransform(xTop, yTop);
+                    graphics.TranslateTransform(xTop, yTop);
                     if (Math.Abs(scaleXRatio - 1.0) > 1e-6 || Math.Abs(scaleYRatio - 1.0) > 1e-6)
-                        g.ScaleTransform((float)Math.Max(0.01, scaleXRatio),
+                        graphics.ScaleTransform((float)Math.Max(0.01, scaleXRatio),
                                          (float)Math.Max(0.01, scaleYRatio));
 
-                    g.DrawString(text, font, brush, 0f, 0f);
+                    graphics.DrawString(text, font, brush, 0f, 0f);
                 }
-                finally { g.Restore(state); }
+                finally { graphics.Restore(graphicsState); }
             }
         }
 
@@ -461,10 +461,10 @@ namespace DHSTesterXL
                 var path = ResolveLogoPath(_style.LogoImagePath);
                 if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
                 {
-                    using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    using (var tmp = new Bitmap(fs))
+                    using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    using (var temporaryBitmap = new Bitmap(fileStream))
                     {
-                        _logoBitmap = new Bitmap(tmp);
+                        _logoBitmap = new Bitmap(temporaryBitmap);
                     }
                 }
             }
@@ -481,11 +481,11 @@ namespace DHSTesterXL
             if (string.IsNullOrWhiteSpace(path)) return null;
             if (Path.IsPathRooted(path)) return File.Exists(path) ? path : null;
 
-            var inDefault = Path.Combine(DEFAULT_LOGO_DIR, path);
-            if (File.Exists(inDefault)) return inDefault;
+            var defaultDirectoryPath = Path.Combine(DEFAULT_LOGO_DIR, path);
+            if (File.Exists(defaultDirectoryPath)) return defaultDirectoryPath;
 
-            var inExeImages = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", path);
-            if (File.Exists(inExeImages)) return inExeImages;
+            var applicationImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", path);
+            if (File.Exists(applicationImagesPath)) return applicationImagesPath;
 
             return null;
         }

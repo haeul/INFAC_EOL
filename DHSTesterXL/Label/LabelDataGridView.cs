@@ -32,29 +32,29 @@ namespace DHSTesterXL
                 var colName = LabelDataGridView.Columns[LabelDataGridView.CurrentCell.ColumnIndex].Name;
 
                 if (row?.Tag is RowKey key && key == RowKey.DM && colName == COL_SIZE &&
-                    e.Control is DataGridViewNumericUpDownEditingControl nud)
+                    e.Control is DataGridViewNumericUpDownEditingControl numericEditor)
                 {
                     // "한 변 mm" 입력: 1mm 스텝 
-                    nud.DecimalPlaces = 0;
-                    nud.Increment = 1M;
-                    nud.Minimum = 1M;
-                    nud.Maximum = 100M;
+                    numericEditor.DecimalPlaces = 0;
+                    numericEditor.Increment = 1M;
+                    numericEditor.Minimum = 1M;
+                    numericEditor.Maximum = 100M;
                 }
                 else if (row?.Tag is RowKey key2 && key2 == RowKey.DM && colName == COL_XSCALE &&
-                         e.Control is DataGridViewNumericUpDownEditingControl nudX)
+                         e.Control is DataGridViewNumericUpDownEditingControl numericEditorX)
                 {
-                    nudX.DecimalPlaces = 0;
-                    nudX.Increment = 1M;
-                    nudX.Minimum = 10M;
-                    nudX.Maximum = 144M;
+                    numericEditorX.DecimalPlaces = 0;
+                    numericEditorX.Increment = 1M;
+                    numericEditorX.Minimum = 10M;
+                    numericEditorX.Maximum = 144M;
                 }
                 else if (row?.Tag is RowKey key3 && key3 == RowKey.DM && colName == COL_YSCALE &&
-                         e.Control is DataGridViewNumericUpDownEditingControl nudY)
+                         e.Control is DataGridViewNumericUpDownEditingControl numericEditorY)
                 {
-                    nudY.DecimalPlaces = 0;
-                    nudY.Increment = 1M;
-                    nudY.Minimum = 10M;
-                    nudY.Maximum = 144M;
+                    numericEditorY.DecimalPlaces = 0;
+                    numericEditorY.Increment = 1M;
+                    numericEditorY.Minimum = 10M;
+                    numericEditorY.Maximum = 144M;
                 }
             };
 
@@ -175,7 +175,7 @@ namespace DHSTesterXL
             int rSW = LabelDataGridView.Rows.Add();
             int rLOT = LabelDataGridView.Rows.Add();
             int rSN = LabelDataGridView.Rows.Add();
-            int rQR = LabelDataGridView.Rows.Add();
+            int rDM = LabelDataGridView.Rows.Add();
             int rRating = LabelDataGridView.Rows.Add();
             int rFCC = LabelDataGridView.Rows.Add();
             int rIC = LabelDataGridView.Rows.Add();
@@ -193,7 +193,7 @@ namespace DHSTesterXL
             LabelDataGridView.Rows[rSW].Tag = RowKey.SW;
             LabelDataGridView.Rows[rLOT].Tag = RowKey.LOT;
             LabelDataGridView.Rows[rSN].Tag = RowKey.SN;
-            LabelDataGridView.Rows[rQR].Tag = RowKey.DM;
+            LabelDataGridView.Rows[rDM].Tag = RowKey.DM;
             LabelDataGridView.Rows[rRating].Tag = RowKey.Rating;
             LabelDataGridView.Rows[rFCC].Tag = RowKey.FCCID;
             LabelDataGridView.Rows[rIC].Tag = RowKey.ICID;
@@ -218,9 +218,9 @@ namespace DHSTesterXL
             LabelDataGridView.Rows[rLOT].Cells[COL_FIELD].Value = "LOT";
             LabelDataGridView.Rows[rSN].Cells[COL_FIELD].Value = "S/N";
 
-            var rowQR = LabelDataGridView.Rows[rQR];
-            rowQR.Cells[COL_FIELD].Value = "QR";
-            rowQR.Cells[COL_DATA].ReadOnly = true; // 자동 생성
+            var rowDM = LabelDataGridView.Rows[rDM];
+            rowDM.Cells[COL_FIELD].Value = "Data Matrix";
+            rowDM.Cells[COL_DATA].ReadOnly = true; // 자동 생성
 
             LabelDataGridView.Rows[rRating].Cells[COL_FIELD].Value = "Rating";
             LabelDataGridView.Rows[rFCC].Cells[COL_FIELD].Value = "FCC ID";
@@ -260,7 +260,7 @@ namespace DHSTesterXL
             SetRow(RowKey.LOT, "LOT", _style.LOTText ?? "", _style.LOTx, _style.LOTy, PositiveOr(_style.LOTfont, 2.6), 1.0, 1.0);
             SetRow(RowKey.SN, "S/N", _style.SerialText ?? "", _style.SNx, _style.SNy, PositiveOr(_style.SNfont, 2.6), 1.0, 1.0);
 
-            var qrData = BuildQrPayloadFromGrid();
+            var dmData = BuildDmPayloadFromGrid();
 
             // 실제 인쇄 기준으로 환산: 모듈 도트(정수) × 모듈 수 × (25.4/DPI)
             int modules = GetCurrentDmModulesFromUiOrAuto();
@@ -268,11 +268,11 @@ namespace DHSTesterXL
             double sideMmActual = modules * (moduleDots * 25.4 / (double)DEFAULT_DPI);
 
             // 그리드 'Size' 칸에 "한 변(mm)" 표시
-            SetRow(RowKey.DM, "DM", qrData, _style.DMx, _style.DMy, Math.Round(sideMmActual), 1.0, 1.0);
+            SetRow(RowKey.DM, "DM", dmData, _style.DMx, _style.DMy, Math.Round(sideMmActual), 1.0, 1.0);
 
             // 보기 포맷(원하면 0.0으로 소수 1자리)
-            var qrRow = GetRow(RowKey.DM);
-            if (qrRow != null) qrRow.Cells[COL_SIZE].Style.Format = "0";
+            var dmRow = GetRow(RowKey.DM);
+            if (dmRow != null) dmRow.Cells[COL_SIZE].Style.Format = "0";
 
             SetRow(RowKey.Rating, "Rating", _style.RatingText ?? "", _style.RatingX, _style.RatingY, PositiveOr(_style.RatingFont, 2.6), 1, 1);
             SetRow(RowKey.FCCID, "FCC ID", _style.FCCIDText ?? "", _style.FCCIDX, _style.FCCIDY, PositiveOr(_style.FCCIDFont, 2.6), 1, 1);
@@ -301,7 +301,7 @@ namespace DHSTesterXL
             SetShow(RowKey.Item4, _style.ShowItem4Preview, _style.ShowItem4Print);
             SetShow(RowKey.Item5, _style.ShowItem5Preview, _style.ShowItem5Print);
 
-            void SetRow(RowKey key, string name, string data, double x, double y, double size, double xs, double ys)
+            void SetRow(RowKey key, string name, string data, double x, double y, double size, double xScale, double yScale)
             {
                 var row = LabelDataGridView.Rows.Cast<DataGridViewRow>().First(r => (RowKey)r.Tag == key);
                 row.Cells[COL_FIELD].Value = name;
@@ -309,8 +309,8 @@ namespace DHSTesterXL
                 row.Cells[COL_X].Value = x.ToString("0.###");
                 row.Cells[COL_Y].Value = y.ToString("0.###");
                 row.Cells[COL_SIZE].Value = size.ToString("0.###");
-                row.Cells[COL_XSCALE].Value = xs.ToString("0.###");
-                row.Cells[COL_YSCALE].Value = ys.ToString("0.###");
+                row.Cells[COL_XSCALE].Value = xScale.ToString("0.###");
+                row.Cells[COL_YSCALE].Value = yScale.ToString("0.###");
             }
             void SetShow(RowKey key, bool showPreview, bool showPrint)
             {
@@ -474,7 +474,7 @@ namespace DHSTesterXL
         {
             var row = GetRow(RowKey.DM);
             if (row != null)
-                row.Cells[COL_DATA].Value = BuildQrPayloadFromGrid();
+                row.Cells[COL_DATA].Value = BuildDmPayloadFromGrid();
         }
 
         // 로고 셀 더블클릭

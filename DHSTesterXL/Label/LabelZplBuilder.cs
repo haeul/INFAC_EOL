@@ -28,8 +28,8 @@ namespace DHSTesterXL
 
             // 인쇄 설정
             int darkness = Clamp(AsInt(numPrintDarkness?.Value, 0), 0, 30);
-            int qty = Math.Max(1, AsInt(numPrintQty?.Value, 1));
-            double ips; try { ips = Convert.ToDouble(numPrintSpeed?.Value ?? 0m); } catch { ips = 0.0; }
+            int printQauantity = Math.Max(1, AsInt(numPrintQty?.Value, 1));
+            double inchesPerSecond; try { inchesPerSecond = Convert.ToDouble(numPrintSpeed?.Value ?? 0m); } catch { inchesPerSecond = 0.0; }
 
             var sb = new StringBuilder();
             sb.AppendLine("~SD" + darkness);
@@ -44,8 +44,8 @@ namespace DHSTesterXL
             int lt = MmToDots(NUDGE_Y_MM, dpi);
             sb.AppendLine("^LT" + lt);
             sb.AppendLine("^LS0");
-            if (ips > 0) sb.AppendLine("^PR" + ((int)Math.Round(ips)));
-            sb.AppendLine("^PQ" + qty);
+            if (inchesPerSecond > 0) sb.AppendLine("^PR" + ((int)Math.Round(inchesPerSecond)));
+            sb.AppendLine("^PQ" + printQauantity);
 
             // ───────────────────── 로고 (^GFA, 좌상단 기준) ─────────────────────
             if (_style.ShowLogoPrint && !string.IsNullOrWhiteSpace(_style.LogoImagePath) && File.Exists(ResolveLogoPath(_style.LogoImagePath)))
@@ -61,20 +61,20 @@ namespace DHSTesterXL
                     int logoH = Math.Max(1, MmToDots(_style.LogoH * sy, dpi));
                     int logoW = Math.Max(1, MmToDots(_style.LogoH * aspect * sx, dpi));
 
-                    string gfa;
+                    string logoGraphicFieldData;
                     using (var canvas = new Bitmap(logoW, logoH))
-                    using (var g = Graphics.FromImage(canvas))
+                    using (var graphics = Graphics.FromImage(canvas))
                     {
-                        g.Clear(Color.White);
-                        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                        g.DrawImage(_logoBitmap, new Rectangle(0, 0, logoW, logoH));
-                        int bpr, rows;
-                        gfa = ToZplGFA(canvas, out bpr, out rows);
+                        graphics.Clear(Color.White);
+                        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        graphics.DrawImage(_logoBitmap, new Rectangle(0, 0, logoW, logoH));
+                        int bytePerRow, rowCount;
+                        logoGraphicFieldData = ToZplGFA(canvas, out bytePerRow, out rowCount);
                     }
 
                     int x = MmToDots(_style.LogoX, dpi);
                     int y = MmToDots(_style.LogoY, dpi);
-                    sb.AppendLine($"^FO{x},{y}{gfa}^FS");
+                    sb.AppendLine($"^FO{x},{y}{logoGraphicFieldData}^FS");
                 }
             }
 
@@ -222,12 +222,12 @@ namespace DHSTesterXL
 
                 // (옵션) 그리드의 X/Y 스케일 칸을 DM 열/행으로 활용 (정수, 10~144). 범위 밖이면 자동.
                 var r = GetRow(RowKey.DM);
-                int c = (int)Math.Round(ReadScaleCell(r, COL_XSCALE, 0.0));
-                int rr = (int)Math.Round(ReadScaleCell(r, COL_YSCALE, 0.0));
-                string colsStr = (c >= 10 && c <= 144) ? c.ToString() : "";
-                string rowsStr = (rr >= 10 && rr <= 144) ? rr.ToString() : "";
+                int columnCount = (int)Math.Round(ReadScaleCell(r, COL_XSCALE, 0.0));
+                int rowCount = (int)Math.Round(ReadScaleCell(r, COL_YSCALE, 0.0));
+                string colsStr = (columnCount >= 10 && columnCount <= 144) ? columnCount.ToString() : "";
+                string rowsStr = (rowCount >= 10 && rowCount <= 144) ? rowCount.ToString() : "";
 
-                // ^BX: N(정방향), h=모듈 도트, s=ECC(200=ECC200), c=열, r=행
+                // ^BX: N(정방향), h=모듈 도트, s=ECC(200=ECC200), columnCount=열, r=행
                 sb.AppendLine($"^FO{x},{y}^BXN,{moduleDots},200,{colsStr},{rowsStr}");
                 sb.AppendLine("^FH\\^FD" + dm + "^FS");   // "MA," 붙이지 않기   
             }
@@ -618,7 +618,7 @@ namespace DHSTesterXL
         }
 
         // DM 페이로드(그리드 데이터 모두 포함, key=value|... 형태)
-        private string BuildQrPayloadFromGrid()
+        private string BuildDmPayloadFromGrid()
         {   /*
             string brand = GetGridText(RowKey.Brand, _style.BrandText ?? "");
             string part = GetGridText(RowKey.Part, _style.PartText ?? "");

@@ -330,7 +330,7 @@ namespace DHSTesterXL
                 if (string.IsNullOrWhiteSpace(GSystem.SystemData?.GeneralSettings?.ProductFolder))
                     throw new InvalidOperationException("ProductFolder가 설정되지 않았습니다.");
 
-                // JSON 로드 → LabelPrint.Style 적용
+                // JSON 로드 LabelPrint.Style 적용
                 LabelStyle styleFromJson = null;
                 if (!string.IsNullOrWhiteSpace(partNo))
                 {
