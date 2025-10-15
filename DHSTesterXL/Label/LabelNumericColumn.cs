@@ -83,17 +83,6 @@ namespace DHSTesterXL
     // ───────────────── EditingControl ─────────────────
     public class DataGridViewNumericUpDownEditingControl : NumericUpDown, IDataGridViewEditingControl
     {
-        public DataGridView EditingControlDataGridView { get; set; }
-        public object EditingControlFormattedValue
-        {
-            get => Value.ToString();
-            set { if (value is string s && decimal.TryParse(s, out var d)) Value = Clamp(d); }
-        }
-        public int EditingControlRowIndex { get; set; }
-        public bool EditingControlValueChanged { get; set; }
-        public Cursor EditingPanelCursor => Cursors.IBeam;
-        public bool RepositionEditingControlOnValueChange => false;
-
         public DataGridViewNumericUpDownEditingControl()
         {
             BorderStyle = BorderStyle.FixedSingle;
@@ -105,6 +94,17 @@ namespace DHSTesterXL
             };
         }
 
+        public DataGridView EditingControlDataGridView { get; set; }
+        public object EditingControlFormattedValue
+        {
+            get => Value.ToString();
+            set { if (value is string s && decimal.TryParse(s, out var d)) Value = Clamp(d); }
+        }
+        public int EditingControlRowIndex { get; set; }
+        public bool EditingControlValueChanged { get; set; }
+        public Cursor EditingPanelCursor => Cursors.IBeam;
+        public bool RepositionEditingControlOnValueChange => false;
+
         public void ApplyCellStyleToEditingControl(DataGridViewCellStyle style)
         {
             Font = style.Font;
@@ -112,8 +112,8 @@ namespace DHSTesterXL
             BackColor = style.BackColor;
         }
 
-        public object GetEditingControlFormattedValue(DataGridViewDataErrorContexts context) => Value.ToString();
         public void PrepareEditingControlForEdit(bool selectAll) { /* no-op */ }
+        public object GetEditingControlFormattedValue(DataGridViewDataErrorContexts context) => Value.ToString();
 
         // 화살표/페이지키는 NUD가 처리
         public bool EditingControlWantsInputKey(Keys keyData, bool gridWants)
