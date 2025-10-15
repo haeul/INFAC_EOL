@@ -6,10 +6,7 @@ namespace DHSTesterXL
 {
     public static class LabelPrinter
     {
-<<<<<<< HEAD
-=======
         // ───────────────────── 프린터 RAW 전송 ─────────────────────
->>>>>>> origin/codex/improve-code-readability-6o28rr
         public static bool SendRawToPrinter(string printerName, string zpl)
         {
             IntPtr hPrinter;
@@ -51,10 +48,7 @@ namespace DHSTesterXL
             }
         }
 
-<<<<<<< HEAD
         // ───────────────────── 프린터 RAW 전송 ─────────────────────
-=======
->>>>>>> origin/codex/improve-code-readability-6o28rr
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         private class DOCINFOA
         {
