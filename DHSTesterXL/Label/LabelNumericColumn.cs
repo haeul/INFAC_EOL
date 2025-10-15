@@ -83,17 +83,6 @@ namespace DHSTesterXL
     // ───────────────── EditingControl ─────────────────
     public class DataGridViewNumericUpDownEditingControl : NumericUpDown, IDataGridViewEditingControl
     {
-        public DataGridView EditingControlDataGridView { get; set; }
-        public object EditingControlFormattedValue
-        {
-            get => Value.ToString();
-            set { if (value is string s && decimal.TryParse(s, out var d)) Value = Clamp(d); }
-        }
-        public int EditingControlRowIndex { get; set; }
-        public bool EditingControlValueChanged { get; set; }
-        public Cursor EditingPanelCursor => Cursors.IBeam;
-        public bool RepositionEditingControlOnValueChange => false;
-
         public DataGridViewNumericUpDownEditingControl()
         {
             BorderStyle = BorderStyle.FixedSingle;
@@ -104,6 +93,17 @@ namespace DHSTesterXL
                 EditingControlDataGridView?.NotifyCurrentCellDirty(true);
             };
         }
+
+        public DataGridView EditingControlDataGridView { get; set; }
+        public object EditingControlFormattedValue
+        {
+            get => Value.ToString();
+            set { if (value is string s && decimal.TryParse(s, out var d)) Value = Clamp(d); }
+        }
+        public int EditingControlRowIndex { get; set; }
+        public bool EditingControlValueChanged { get; set; }
+        public Cursor EditingPanelCursor => Cursors.IBeam;
+        public bool RepositionEditingControlOnValueChange => false;
 
         public void ApplyCellStyleToEditingControl(DataGridViewCellStyle style)
         {

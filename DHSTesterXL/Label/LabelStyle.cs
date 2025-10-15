@@ -175,6 +175,9 @@ namespace DHSTesterXL
 
         // ───────── (선택) 그리드 바인딩용 아이템 ─────────
         public BindingList<LabelRow> Items { get; set; } = new BindingList<LabelRow>();
+
+        // 얕은 복사(새 필드도 자동 포함)
+        public LabelStyle Clone() => (LabelStyle)this.MemberwiseClone();
     }
 
     // 라벨 편집용 그리드 행 타입(현재 구조 유지)
