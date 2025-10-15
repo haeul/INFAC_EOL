@@ -535,9 +535,9 @@ namespace DHSTesterXL
             // ───────────────────── 2) 가변 데이터 주입 ─────────────────────
             // (FormProductLabel.cs의 패턴에 맞춰 수치만 받아 접두사는 여기서 붙임)
             style.PartText = ps.ProductInfo?.PartNo ?? style.PartText ?? "";
-            style.HWText = $"HW:{(hwVersion ?? "").Trim()}";
-            style.SWText = $"SW:{(swVersion ?? "").Trim()}";
-            style.LOTText = (lotNumber ?? "").Trim();
+            style.HardwareText = $"HW:{(hwVersion ?? "").Trim()}";
+            style.SoftwareText = $"SW:{(swVersion ?? "").Trim()}";
+            style.LotText = (lotNumber ?? "").Trim();
             style.SerialText = (serialNumber ?? "").Trim();
 
             // ───────────────────── 3) 공통 유틸(로컬 함수로 캡슐화) ─────────────────────
@@ -568,12 +568,12 @@ namespace DHSTesterXL
 
             // ───────────────────── 4) 페이로드 준비 ─────────────────────
             string part = style.PartText ?? "";
-            string hw = style.HWText ?? "";
-            string sw = style.SWText ?? "";
-            string lotDisplay = BuildLotDisplay(style.LOTText, style.SerialText);
+            string hw = style.HardwareText ?? "";
+            string sw = style.SoftwareText ?? "";
+            string lotDisplay = BuildLotDisplay(style.LotText, style.SerialText);
 
             // QR 데이터: part|HW:..|SW:..|LOT-SN(둘 다 있을 때 하이픈 결합)
-            string lotToken = (style.LOTText ?? "").Trim();
+            string lotToken = (style.LotText ?? "").Trim();
             string snToken = (style.SerialText ?? "").Trim();
             string lotForQr = string.Join("-", new[] { lotToken, snToken }.Where(s => !string.IsNullOrWhiteSpace(s)));
 
@@ -581,22 +581,22 @@ namespace DHSTesterXL
             string qrData = AsciiSafeOneLine(Escape(qrRaw));
 
             // ───────────────────── 5) 치수/좌표 도트 변환 ─────────────────────
-            int PW = MmToDots(style.LabelWmm); // Print Width
-            int LL = MmToDots(style.LabelHmm); // Label Length
+            int PW = MmToDots(style.LabelWidthMm); // Print Width
+            int LL = MmToDots(style.LabelHeightMm); // Label Length
 
-            int brandX = MmToDots(style.BrandX), brandY = MmToDots(style.BrandY);
-            int brandH = MmToDots(style.BrandFont);
-            int partY = MmToDots(style.PartY), partH = MmToDots(style.PartFont);
+            int brandX = MmToDots(style.BrandXMm), brandY = MmToDots(style.BrandYMm);
+            int brandH = MmToDots(style.BrandFontMm);
+            int partY = MmToDots(style.PartYMm), partH = MmToDots(style.PartFontMm);
 
             // 회전/스케일은 UI 그리드에서만 관리하므로 여기서는 기본값(N, 1.0)
-            int xHW = MmToDots(style.HWx), yHW = MmToDots(style.HWy);
-            int hHW = MmToDots(style.HWfont > 0 ? style.HWfont : 2.6);
+            int xHW = MmToDots(style.HardwareXMm), yHW = MmToDots(style.HardwareYMm);
+            int hHW = MmToDots(style.HardwareFontMm > 0 ? style.HardwareFontMm : 2.6);
 
-            int xSW = MmToDots(style.SWx), ySW = MmToDots(style.SWy);
-            int hSW = MmToDots(style.SWfont > 0 ? style.SWfont : 2.6);
+            int xSW = MmToDots(style.SoftwareXMm), ySW = MmToDots(style.SoftwareYMm);
+            int hSW = MmToDots(style.SoftwareFontMm > 0 ? style.SoftwareFontMm : 2.6);
 
-            int xLOT = MmToDots(style.LOTx), yLOT = MmToDots(style.LOTy);
-            int hLOT = MmToDots(style.LOTfont > 0 ? style.LOTfont : 2.6);
+            int xLOT = MmToDots(style.LotXMm), yLOT = MmToDots(style.LotYMm);
+            int hLOT = MmToDots(style.LotFontMm > 0 ? style.LotFontMm : 2.6);
 
             // ───────────────────── 6) ZPL 조립 ─────────────────────
             var sb = new StringBuilder(1024);
@@ -665,16 +665,16 @@ namespace DHSTesterXL
             string snText = $"S/N:{(serialNumber ?? "").Trim()}";
 
             string fccText = null;
-            if (style.ShowFCCIDPrint)
+            if (style.IsFccIdPrintEnabled)
             {
-                var prefix = string.IsNullOrWhiteSpace(style.FCCIDText) ? "FCC ID:" : style.FCCIDText.Trim();
+                var prefix = string.IsNullOrWhiteSpace(style.FccIdText) ? "FCC ID:" : style.FccIdText.Trim();
                 if (!string.IsNullOrWhiteSpace(fccId)) fccText = $"{prefix} {fccId.Trim()}";
             }
 
             string icText = null;
-            if (style.ShowICIDPrint)
+            if (style.IsIcIdPrintEnabled)
             {
-                var prefix = string.IsNullOrWhiteSpace(style.ICIDText) ? "IC ID:" : style.ICIDText.Trim();
+                var prefix = string.IsNullOrWhiteSpace(style.IcIdText) ? "IC ID:" : style.IcIdText.Trim();
                 if (!string.IsNullOrWhiteSpace(icId)) icText = $"{prefix} {icId.Trim()}";
             }
 
@@ -682,22 +682,22 @@ namespace DHSTesterXL
             string dmData = AsciiSafeOneLine(Escape(dataMatrix ?? ""));
 
             // 4) 좌표/크기
-            int PW = MmToDots(style.LabelWmm);
-            int LL = MmToDots(style.LabelHmm);
+            int PW = MmToDots(style.LabelWidthMm);
+            int LL = MmToDots(style.LabelHeightMm);
 
-            int brandX = MmToDots(style.BrandX), brandY = MmToDots(style.BrandY);
-            int brandH = MmToDots(style.BrandFont);
+            int brandX = MmToDots(style.BrandXMm), brandY = MmToDots(style.BrandYMm);
+            int brandH = MmToDots(style.BrandFontMm);
 
-            int partX = MmToDots(style.PartX), partY = MmToDots(style.PartY);
-            int partH = MmToDots(style.PartFont);
+            int partX = MmToDots(style.PartXMm), partY = MmToDots(style.PartYMm);
+            int partH = MmToDots(style.PartFontMm);
 
-            int xHW = MmToDots(style.HWx), yHW = MmToDots(style.HWy), hHW = MmToDots(style.HWfont);
-            int xSW = MmToDots(style.SWx), ySW = MmToDots(style.SWy), hSW = MmToDots(style.SWfont);
-            int xLOT = MmToDots(style.LOTx), yLOT = MmToDots(style.LOTy), hLOT = MmToDots(style.LOTfont);
-            int xSN = MmToDots(style.SNx), ySN = MmToDots(style.SNy), hSN = MmToDots(style.SNfont);
+            int xHW = MmToDots(style.HardwareXMm), yHW = MmToDots(style.HardwareYMm), hHW = MmToDots(style.HardwareFontMm);
+            int xSW = MmToDots(style.SoftwareXMm), ySW = MmToDots(style.SoftwareYMm), hSW = MmToDots(style.SoftwareFontMm);
+            int xLOT = MmToDots(style.LotXMm), yLOT = MmToDots(style.LotYMm), hLOT = MmToDots(style.LotFontMm);
+            int xSN = MmToDots(style.SerialXMm), ySN = MmToDots(style.SerialYMm), hSN = MmToDots(style.SerialFontMm);
 
-            int xFCC = MmToDots(style.FCCIDX), yFCC = MmToDots(style.FCCIDY), hFCC = MmToDots(style.FCCIDFont);
-            int xIC = MmToDots(style.ICIDX), yIC = MmToDots(style.ICIDY), hIC = MmToDots(style.ICIDFont);
+            int xFCC = MmToDots(style.FccIdXMm), yFCC = MmToDots(style.FccIdYMm), hFCC = MmToDots(style.FccIdFontMm);
+            int xIC = MmToDots(style.IcIdXMm), yIC = MmToDots(style.IcIdYMm), hIC = MmToDots(style.IcIdFontMm);
 
             // DataMatrix 좌표/모듈
             double dmXmm = (style.QRx > 0 ? style.QRx : 1.0);
@@ -717,28 +717,28 @@ namespace DHSTesterXL
             zpl.AppendLine("^PQ1");
             zpl.AppendLine("^PR1");
 
-            if (style.ShowBrandPrint && !string.IsNullOrWhiteSpace(brandText))
+            if (style.IsBrandPrintEnabled && !string.IsNullOrWhiteSpace(brandText))
                 zpl.AppendLine($"^FO{brandX},{brandY}^A0N,{brandH},{brandH}^FD{Escape(brandText)}^FS");
 
-            if (style.ShowPartPrint && !string.IsNullOrWhiteSpace(partText))
+            if (style.IsPartPrintEnabled && !string.IsNullOrWhiteSpace(partText))
                 zpl.AppendLine($"^FO{partX},{partY}^A0N,{partH},{partH}^FD{Escape(partText)}^FS");
 
-            if (style.ShowHWPrint && !string.IsNullOrWhiteSpace(hwText))
+            if (style.IsHardwarePrintEnabled && !string.IsNullOrWhiteSpace(hwText))
                 zpl.AppendLine($"^FO{xHW},{yHW}^A0N,{hHW},{hHW}^FD{Escape(hwText)}^FS");
 
-            if (style.ShowSWPrint && !string.IsNullOrWhiteSpace(swText))
+            if (style.IsSoftwarePrintEnabled && !string.IsNullOrWhiteSpace(swText))
                 zpl.AppendLine($"^FO{xSW},{ySW}^A0N,{hSW},{hSW}^FD{Escape(swText)}^FS");
 
-            if (style.ShowLOTPrint && !string.IsNullOrWhiteSpace(lotText))
+            if (style.IsLotPrintEnabled && !string.IsNullOrWhiteSpace(lotText))
                 zpl.AppendLine($"^FO{xLOT},{yLOT}^A0N,{hLOT},{hLOT}^FD{Escape(lotText)}^FS");
 
-            if (style.ShowSNPrint && !string.IsNullOrWhiteSpace(snText))
+            if (style.IsSerialPrintEnabled && !string.IsNullOrWhiteSpace(snText))
                 zpl.AppendLine($"^FO{xSN},{ySN}^A0N,{hSN},{hSN}^FD{Escape(snText)}^FS");
 
-            if (style.ShowFCCIDPrint && !string.IsNullOrWhiteSpace(fccText))
+            if (style.IsFccIdPrintEnabled && !string.IsNullOrWhiteSpace(fccText))
                 zpl.AppendLine($"^FO{xFCC},{yFCC}^A0N,{hFCC},{hFCC}^FD{Escape(fccText)}^FS");
 
-            if (style.ShowICIDPrint && !string.IsNullOrWhiteSpace(icText))
+            if (style.IsIcIdPrintEnabled && !string.IsNullOrWhiteSpace(icText))
                 zpl.AppendLine($"^FO{xIC},{yIC}^A0N,{hIC},{hIC}^FD{Escape(icText)}^FS");
 
             if (style.ShowQRPrint && !string.IsNullOrWhiteSpace(dmData))

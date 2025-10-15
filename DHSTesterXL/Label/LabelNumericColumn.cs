@@ -18,12 +18,12 @@ namespace DHSTesterXL
 
         public override object Clone()
         {
-            var c = (LabelNumericColumn)base.Clone();
-            c.DecimalPlaces = DecimalPlaces;
-            c.Increment = Increment;
-            c.Minimum = Minimum;
-            c.Maximum = Maximum;
-            return c;
+            var clonedColumn = (LabelNumericColumn)base.Clone();
+            clonedColumn.DecimalPlaces = DecimalPlaces;
+            clonedColumn.Increment = Increment;
+            clonedColumn.Minimum = Minimum;
+            clonedColumn.Maximum = Maximum;
+            return clonedColumn;
         }
     }
 
@@ -43,29 +43,29 @@ namespace DHSTesterXL
         {
             base.InitializeEditingControl(rowIndex, initialFormattedValue, cellStyle);
 
-            var nud = DataGridView.EditingControl as DataGridViewNumericUpDownEditingControl;
-            var col = OwningColumn as LabelNumericColumn;
-            if (nud != null && col != null)
+            var numericEditor = DataGridView.EditingControl as DataGridViewNumericUpDownEditingControl;
+            var owningNumericColumn = OwningColumn as LabelNumericColumn;
+            if (numericEditor != null && owningNumericColumn != null)
             {
                 // 컬럼 설정 → 편집 컨트롤에 적용
-                nud.DecimalPlaces = col.DecimalPlaces;
-                nud.Increment = col.Increment;
-                nud.Minimum = col.Minimum;
-                nud.Maximum = col.Maximum;
+                numericEditor.DecimalPlaces = owningNumericColumn.DecimalPlaces;
+                numericEditor.Increment = owningNumericColumn.Increment;
+                numericEditor.Minimum = owningNumericColumn.Minimum;
+                numericEditor.Maximum = owningNumericColumn.Maximum;
             }
 
             // 현재 셀 값 → NUD
-            decimal cur = 0M;
-            var raw = this.Value ?? initialFormattedValue;
-            if (raw is decimal d) cur = d;
-            else if (raw is double dd) cur = (decimal)dd;
-            else if (raw is string s && decimal.TryParse(s, out var parsed)) cur = parsed;
+            decimal currentValue = 0M;
+            var rawValue = this.Value ?? initialFormattedValue;
+            if (rawValue is decimal decimalValue) currentValue = decimalValue;
+            else if (rawValue is double doubleValue) currentValue = (decimal)doubleValue;
+            else if (rawValue is string rawText && decimal.TryParse(rawText, out var parsedValue)) currentValue = parsedValue;
 
-            if (nud != null)
+            if (numericEditor != null)
             {
-                if (cur < nud.Minimum) cur = nud.Minimum;
-                if (cur > nud.Maximum) cur = nud.Maximum;
-                nud.Value = cur;
+                if (currentValue < numericEditor.Minimum) currentValue = numericEditor.Minimum;
+                if (currentValue > numericEditor.Maximum) currentValue = numericEditor.Maximum;
+                numericEditor.Value = currentValue;
             }
         }
 
@@ -73,9 +73,9 @@ namespace DHSTesterXL
         protected override object GetFormattedValue(object value, int rowIndex, ref DataGridViewCellStyle cellStyle,
             TypeConverter valueTypeConverter, TypeConverter formattedValueTypeConverter, DataGridViewDataErrorContexts context)
         {
-            string fmt = (cellStyle?.Format) ?? "0.###";
-            if (value is decimal d) return d.ToString(fmt);
-            if (value is double db) return ((decimal)db).ToString(fmt);
+            string formatString = (cellStyle?.Format) ?? "0.###";
+            if (value is decimal decimalValue) return decimalValue.ToString(formatString);
+            if (value is double doubleValue) return ((decimal)doubleValue).ToString(formatString);
             return base.GetFormattedValue(value, rowIndex, ref cellStyle, valueTypeConverter, formattedValueTypeConverter, context);
         }
     }
@@ -83,17 +83,6 @@ namespace DHSTesterXL
     // ───────────────── EditingControl ─────────────────
     public class DataGridViewNumericUpDownEditingControl : NumericUpDown, IDataGridViewEditingControl
     {
-        public DataGridView EditingControlDataGridView { get; set; }
-        public object EditingControlFormattedValue
-        {
-            get => Value.ToString();
-            set { if (value is string s && decimal.TryParse(s, out var d)) Value = Clamp(d); }
-        }
-        public int EditingControlRowIndex { get; set; }
-        public bool EditingControlValueChanged { get; set; }
-        public Cursor EditingPanelCursor => Cursors.IBeam;
-        public bool RepositionEditingControlOnValueChange => false;
-
         public DataGridViewNumericUpDownEditingControl()
         {
             BorderStyle = BorderStyle.FixedSingle;
@@ -105,6 +94,17 @@ namespace DHSTesterXL
             };
         }
 
+        public DataGridView EditingControlDataGridView { get; set; }
+        public object EditingControlFormattedValue
+        {
+            get => Value.ToString();
+            set { if (value is string s && decimal.TryParse(s, out var d)) Value = Clamp(d); }
+        }
+        public int EditingControlRowIndex { get; set; }
+        public bool EditingControlValueChanged { get; set; }
+        public Cursor EditingPanelCursor => Cursors.IBeam;
+        public bool RepositionEditingControlOnValueChange => false;
+
         public void ApplyCellStyleToEditingControl(DataGridViewCellStyle style)
         {
             Font = style.Font;
@@ -112,8 +112,8 @@ namespace DHSTesterXL
             BackColor = style.BackColor;
         }
 
-        public object GetEditingControlFormattedValue(DataGridViewDataErrorContexts context) => Value.ToString();
         public void PrepareEditingControlForEdit(bool selectAll) { /* no-op */ }
+        public object GetEditingControlFormattedValue(DataGridViewDataErrorContexts context) => Value.ToString();
 
         // 화살표/페이지키는 NUD가 처리
         public bool EditingControlWantsInputKey(Keys keyData, bool gridWants)
@@ -132,6 +132,6 @@ namespace DHSTesterXL
             }
         }
 
-        private decimal Clamp(decimal v) => Math.Min(Math.Max(v, Minimum), Maximum);
+        private decimal Clamp(decimal value) => Math.Min(Math.Max(value, Minimum), Maximum);
     }
 }
