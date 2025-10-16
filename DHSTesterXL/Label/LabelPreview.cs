@@ -359,7 +359,7 @@ namespace DHSTesterXL
             int rows = (int)Math.Round(rowCountInput);
             if (cols < 10 || cols > 144 || rows < 10 || rows > 144)
             {
-                int estimatedModuleCount = EstimateDmModulesFromData(BuildEtcsQrPayloadFromUi());
+                int estimatedModuleCount = EstimateDmModulesFromData(BuildEtcsDmPayloadFromUi());
                 cols = rows = estimatedModuleCount;
             }
 

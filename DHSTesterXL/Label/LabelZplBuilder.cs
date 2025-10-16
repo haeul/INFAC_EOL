@@ -218,7 +218,7 @@ namespace DHSTesterXL
                 int y = MmToDots(_style.DMy, dpi);
 
                 // DM 데이터: DM 때 쓰던 "MA," 접두어는 제거 (Data Matrix엔 모드 접두어 불필요)
-                string dm = BuildEtcsQrPayloadFromUi();  // ^FH\ 로 해석될 데이터
+                string dm = BuildEtcsDmPayloadFromUi();  // ^FH\ 로 해석될 데이터
 
                 // (옵션) 그리드의 X/Y 스케일 칸을 DM 열/행으로 활용 (정수, 10~144). 범위 밖이면 자동.
                 var r = GetRow(RowKey.DM);
@@ -316,7 +316,7 @@ namespace DHSTesterXL
         }
 
         // ───────────────────── H/KMC ETCS DM 페이로드 빌더 ─────────────────────
-        private string BuildEtcsQrPayloadFromUi()
+        private string BuildEtcsDmPayloadFromUi()
         {
             // UI 값(오른쪽 큰 칸: Value) 읽기
             string v = (txtEtcsVendorValue?.Text ?? "").Trim();          // V
@@ -349,7 +349,7 @@ namespace DHSTesterXL
             //if (!string.IsNullOrEmpty(e))
             sb.Append("E").Append(e);
 
-            // T (필수) - UI에서 한 칸으로 받음(yyMMdd + 4M + 7자리 등)
+            // T (필수) - UI에서 한 칸으로 받음
             sb.Append(GS).Append("T").Append(t).Append(a1).Append(m).Append(c);
 
             // 트레일러
@@ -394,7 +394,7 @@ namespace DHSTesterXL
             if (cols >= 10 && cols <= 144 && rows >= 10 && rows <= 144)
                 return Math.Max(cols, rows); // 정방형 기준
 
-            int len = DecodeZplFh(BuildEtcsQrPayloadFromUi()).Length;
+            int len = DecodeZplFh(BuildEtcsDmPayloadFromUi()).Length;
             foreach (var t in DM_CAP) if (len <= t.bytes) return t.modules;
             return 144; // 상한
         }
@@ -405,7 +405,7 @@ namespace DHSTesterXL
         // 현재 데이터(ETCS) 길이로 '필요 최소 모듈 수' 계산
         private int GetMinDmModulesNeeded()
         {
-            int len = DecodeZplFh(BuildEtcsQrPayloadFromUi()).Length;
+            int len = DecodeZplFh(BuildEtcsDmPayloadFromUi()).Length;
             foreach (var t in DM_CAP)
                 if (len <= t.bytes) return t.modules;
             return 144;
@@ -644,7 +644,7 @@ namespace DHSTesterXL
             Add("SN", sn);
             if (!string.IsNullOrWhiteSpace(logo)) Add("LOGO", logo);
             */
-            return BuildEtcsQrPayloadFromUi();
+            return BuildEtcsDmPayloadFromUi();
         }
 
         private static int Clamp(int v, int min, int max) => v < min ? min : (v > max ? max : v);

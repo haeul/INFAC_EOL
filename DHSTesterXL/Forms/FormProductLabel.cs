@@ -243,8 +243,6 @@ namespace DHSTesterXL
             txtEtcsSerialValue.Text = "";                        // 서열코드(없으면 비움)
             txtEtcsEoValue.Text = "";                        // EO번호(없으면 비움)
 
-            // 추적정보: YYMMDD + (세부칸) + 4M + 7자리
-            // 예시: 오늘날짜 + "A" + "0000001"
             string yyMMdd = DateTime.Now.ToString("yyMMdd");
             txtEtcsTraceValue.Text = yyMMdd + "A" + "0000001";
 
