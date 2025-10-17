@@ -227,7 +227,7 @@ namespace DHSTesterXL
                 string colsStr = (columnCount >= 10 && columnCount <= 144) ? columnCount.ToString() : "";
                 string rowsStr = (rowCount >= 10 && rowCount <= 144) ? rowCount.ToString() : "";
 
-                // ^BX: N(정방향), h=모듈 도트, s=ECC(200=ECC200), columnCount=열, r=행
+                // ^BX: N(정방향), h=모듈 도트, labelStyle=ECC(200=ECC200), columnCount=열, r=행
                 sb.AppendLine($"^FO{x},{y}^BXN,{moduleDots},200,{colsStr},{rowsStr}");
                 sb.AppendLine("^FH\\^FD" + dm + "^FS");   // "MA," 붙이지 않기   
             }
@@ -342,7 +342,7 @@ namespace DHSTesterXL
 
             // S/E는 비어도 칸(=GS) 자체는 유지 → 필드 밀림 방지
             sb.Append(GS);
-            //if (!string.IsNullOrEmpty(s))
+            //if (!string.IsNullOrEmpty(labelStyle))
             sb.Append("S").Append(s);
 
             sb.Append(GS);
@@ -746,7 +746,7 @@ namespace DHSTesterXL
 
             // S/E는 비어도 GS 토큰은 남겨 필드 밀림 방지
             sb.Append(GS);
-            //if (!string.IsNullOrEmpty(s))
+            //if (!string.IsNullOrEmpty(labelStyle))
             sb.Append("S").Append(s);
 
             sb.Append(GS);
@@ -760,8 +760,8 @@ namespace DHSTesterXL
         }
 
         public static string BuildZpl(
-            LabelStyle s,
-            LabelPayload data,
+            LabelStyle labelStyle,
+            LabelPayload labelPayload,
             EtcsSettings etcs,
             int dpi,
             int qty,
@@ -770,10 +770,10 @@ namespace DHSTesterXL
             Func<Bitmap> getLogoBitmap // 없으면 null 리턴
         )
         {
-            if (s == null) throw new ArgumentNullException(nameof(s));
+            if (labelStyle == null) throw new ArgumentNullException(nameof(labelStyle));
 
-            int PW = MmToDots(s.LabelWmm, dpi);
-            int LL = MmToDots(s.LabelHmm, dpi);
+            int PW = MmToDots(labelStyle.LabelWmm, dpi);
+            int LL = MmToDots(labelStyle.LabelHmm, dpi);
 
             var sb = new StringBuilder(2048);
             sb.AppendLine("~SD" + Clamp(darkness, 0, 30));
@@ -788,7 +788,7 @@ namespace DHSTesterXL
             sb.AppendLine("^PQ" + Math.Max(1, qty));
 
             // ── 로고 (^GFA) : Style에 이미지 경로만 있고 스케일 속성 없으므로, 높이만 사용
-            if (s.ShowLogoPrint && !string.IsNullOrWhiteSpace(s.LogoImagePath))
+            if (labelStyle.ShowLogoPrint && !string.IsNullOrWhiteSpace(labelStyle.LogoImagePath))
             {
                 try
                 {
@@ -797,7 +797,7 @@ namespace DHSTesterXL
                         if (bmpSrc != null)
                         {
                             double aspect = bmpSrc.Width / (double)bmpSrc.Height;
-                            int logoH = Math.Max(1, MmToDots(s.LogoH, dpi));
+                            int logoH = Math.Max(1, MmToDots(labelStyle.LogoH, dpi));
                             int logoW = Math.Max(1, (int)Math.Round(logoH * aspect));
 
                             using (var canvas = new Bitmap(logoW, logoH))
@@ -808,8 +808,8 @@ namespace DHSTesterXL
                                 g.DrawImage(bmpSrc, new Rectangle(0, 0, logoW, logoH));
                                 int bpr, rows;
                                 string gfa = ToZplGFA(canvas, out bpr, out rows);
-                                int x = MmToDots(s.LogoX, dpi);
-                                int y = MmToDots(s.LogoY, dpi);
+                                int x = MmToDots(labelStyle.LogoX, dpi);
+                                int y = MmToDots(labelStyle.LogoY, dpi);
                                 sb.AppendLine($"^FO{x},{y}{gfa}^FS");
                             }
                         }
@@ -819,45 +819,45 @@ namespace DHSTesterXL
             }
 
             // ── Brand
-            if (s.ShowBrandPrint && !string.IsNullOrEmpty(data?.Company))
+            if (labelStyle.ShowBrandPrint && !string.IsNullOrEmpty(labelPayload?.Company))
             {
-                int h = MmToDots(PositiveOr(s.BrandFont, 2.6), dpi);
+                int h = MmToDots(PositiveOr(labelStyle.BrandFont, 2.6), dpi);
                 int w = h; // ScaleX 없음 → 폭=높이로 처리
-                int x = MmToDots(s.BrandX, dpi);
-                int y = MmToDots(s.BrandY, dpi);
-                sb.AppendLine($"^FO{x},{y}^A0N,{h},{w}^FD{Escape(data.Company)}^FS");
+                int x = MmToDots(labelStyle.BrandX, dpi);
+                int y = MmToDots(labelStyle.BrandY, dpi);
+                sb.AppendLine($"^FO{x},{y}^A0N,{h},{w}^FD{Escape(labelPayload.Company)}^FS");
             }
 
             // ── Part (X<=0 → 중앙정렬 규칙은 유지)
-            if (s.ShowPartPrint && !string.IsNullOrEmpty(data?.PartNo))
+            if (labelStyle.ShowPartPrint && !string.IsNullOrEmpty(labelPayload?.PartNo))
             {
-                int h = MmToDots(PositiveOr(s.PartFont, 2.6), dpi);
+                int h = MmToDots(PositiveOr(labelStyle.PartFont, 2.6), dpi);
                 int w = h;
-                if (s.PartX <= 0)
+                if (labelStyle.PartX <= 0)
                 {
-                    int y = MmToDots(s.PartY, dpi);
-                    sb.AppendLine($"^FO0,{y}^FB{PW},1,0,C^A0N,{h},{w}^FD{Escape(data.PartNo)}^FS");
+                    int y = MmToDots(labelStyle.PartY, dpi);
+                    sb.AppendLine($"^FO0,{y}^FB{PW},1,0,C^A0N,{h},{w}^FD{Escape(labelPayload.PartNo)}^FS");
                 }
                 else
                 {
-                    int x = MmToDots(s.PartX, dpi);
-                    int y = MmToDots(s.PartY, dpi);
-                    sb.AppendLine($"^FO{x},{y}^A0N,{h},{w}^FD{Escape(data.PartNo)}^FS");
+                    int x = MmToDots(labelStyle.PartX, dpi);
+                    int y = MmToDots(labelStyle.PartY, dpi);
+                    sb.AppendLine($"^FO{x},{y}^A0N,{h},{w}^FD{Escape(labelPayload.PartNo)}^FS");
                 }
             }
 
             // ── HW/SW/LOT/SN (Scale 없음 → 폰트 높이만 사용)
-            PrintText(sb, s.ShowHWPrint, s.HWx, s.HWy, s.HWfont, data?.HW, dpi);
-            PrintText(sb, s.ShowSWPrint, s.SWx, s.SWy, s.SWfont, data?.SW, dpi);
-            PrintText(sb, s.ShowLOTPrint, s.LOTx, s.LOTy, s.LOTfont, data?.LOT, dpi);
-            PrintText(sb, s.ShowSNPrint, s.SNx, s.SNy, s.SNfont, data?.SN, dpi);
+            PrintText(sb, labelStyle.ShowHWPrint, labelStyle.HWx, labelStyle.HWy, labelStyle.HWfont, labelPayload?.HW, dpi);
+            PrintText(sb, labelStyle.ShowSWPrint, labelStyle.SWx, labelStyle.SWy, labelStyle.SWfont, labelPayload?.SW, dpi);
+            PrintText(sb, labelStyle.ShowLOTPrint, labelStyle.LOTx, labelStyle.LOTy, labelStyle.LOTfont, labelPayload?.LOT, dpi);
+            PrintText(sb, labelStyle.ShowSNPrint, labelStyle.SNx, labelStyle.SNy, labelStyle.SNfont, labelPayload?.SN, dpi);
 
             // ── Pb 배지 : 지름만 존재 → 타원 크기 w=h로
-            if (s.ShowPbPrint)
+            if (labelStyle.ShowPbPrint)
             {
-                int d = Math.Max(1, MmToDots(s.BadgeDiameter, dpi));
-                int x = MmToDots(s.BadgeX, dpi);
-                int y = MmToDots(s.BadgeY, dpi);
+                int d = Math.Max(1, MmToDots(labelStyle.BadgeDiameter, dpi));
+                int x = MmToDots(labelStyle.BadgeX, dpi);
+                int y = MmToDots(labelStyle.BadgeY, dpi);
                 int stroke = 2;
                 int fh = (int)Math.Round(d * 0.45);
                 sb.AppendLine($"^FO{x},{y}^GE{d},{d},{stroke}^FS");
@@ -865,40 +865,40 @@ namespace DHSTesterXL
             }
 
             // ── Data Matrix (^BX) : Cols/Rows 속성 없음 → 기본값으로 단순 출력
-            string dm = string.IsNullOrWhiteSpace(data?.DataMatrix)
+            string dm = string.IsNullOrWhiteSpace(labelPayload?.DataMatrix)
                             ? BuildEtcsDm(etcs) // 2) 없으면 ETCS로 자동 생성
-                            : data.DataMatrix;
+                            : labelPayload.DataMatrix;
 
-            if (s.ShowDMPrint && !string.IsNullOrWhiteSpace(dm))
+            if (labelStyle.ShowDMPrint && !string.IsNullOrWhiteSpace(dm))
             {
-                int moduleDots = Math.Max(1, MmToDots(Math.Max(0.1, s.DMModuleMm), dpi));
-                int x = MmToDots(s.DMx, dpi);
-                int y = MmToDots(s.DMy, dpi);
+                int moduleDots = Math.Max(1, MmToDots(Math.Max(0.1, labelStyle.DMModuleMm), dpi));
+                int x = MmToDots(labelStyle.DMx, dpi);
+                int y = MmToDots(labelStyle.DMy, dpi);
                 sb.AppendLine($"^FO{x},{y}^BXN,{moduleDots},200");
                 sb.AppendLine("^FH\\^FD" + dm + "^FS"); // ^FH\가 \1D 등 제어코드 해석
             }
             // ── Rating / FCC / IC
-            if (s.ShowRatingPrint && !string.IsNullOrEmpty(s.RatingText))
+            if (labelStyle.ShowRatingPrint && !string.IsNullOrEmpty(labelStyle.RatingText))
             {
-                int x = MmToDots(s.RatingX, dpi);
-                int y = MmToDots(s.RatingY, dpi);
-                int h = MmToDots(PositiveOr(s.RatingFont, 2.6), dpi);
-                sb.AppendLine($"^FO{x},{y}^A0N,{h},{h}^FD{Escape(s.RatingText)}^FS");
+                int x = MmToDots(labelStyle.RatingX, dpi);
+                int y = MmToDots(labelStyle.RatingY, dpi);
+                int h = MmToDots(PositiveOr(labelStyle.RatingFont, 2.6), dpi);
+                sb.AppendLine($"^FO{x},{y}^A0N,{h},{h}^FD{Escape(labelStyle.RatingText)}^FS");
             }
-            if (s.ShowFCCIDPrint && !string.IsNullOrEmpty(data?.FCCID ?? s.FCCIDText))
+            if (labelStyle.ShowFCCIDPrint && !string.IsNullOrEmpty(labelPayload?.FCCID ?? labelStyle.FCCIDText))
             {
-                int x = MmToDots(s.FCCIDX, dpi);
-                int y = MmToDots(s.FCCIDY, dpi);
-                int h = MmToDots(PositiveOr(s.FCCIDFont, 2.6), dpi);
-                string txt = string.IsNullOrEmpty(data?.FCCID) ? s.FCCIDText : data.FCCID;
+                int x = MmToDots(labelStyle.FCCIDX, dpi);
+                int y = MmToDots(labelStyle.FCCIDY, dpi);
+                int h = MmToDots(PositiveOr(labelStyle.FCCIDFont, 2.6), dpi);
+                string txt = string.IsNullOrEmpty(labelPayload?.FCCID) ? labelStyle.FCCIDText : labelPayload.FCCID;
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{h}^FD{Escape(txt)}^FS");
             }
-            if (s.ShowICIDPrint && !string.IsNullOrEmpty(data?.ICID ?? s.ICIDText))
+            if (labelStyle.ShowICIDPrint && !string.IsNullOrEmpty(labelPayload?.ICID ?? labelStyle.ICIDText))
             {
-                int x = MmToDots(s.ICIDX, dpi);
-                int y = MmToDots(s.ICIDY, dpi);
-                int h = MmToDots(PositiveOr(s.ICIDFont, 2.6), dpi);
-                string txt = string.IsNullOrEmpty(data?.ICID) ? s.ICIDText : data.ICID;
+                int x = MmToDots(labelStyle.ICIDX, dpi);
+                int y = MmToDots(labelStyle.ICIDY, dpi);
+                int h = MmToDots(PositiveOr(labelStyle.ICIDFont, 2.6), dpi);
+                string txt = string.IsNullOrEmpty(labelPayload?.ICID) ? labelStyle.ICIDText : labelPayload.ICID;
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{h}^FD{Escape(txt)}^FS");
             }
 
