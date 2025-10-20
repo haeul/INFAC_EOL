@@ -14,7 +14,7 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -103,7 +103,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Vector.vFlash.Automation.vFlash">
-      <HintPath>C:\Program Files (x86)\Vector vFlash 7\VFlashAutomation\Vector.vFlash.Automation.vFlash.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Vector vFlash 10\VFlashAutomation\Vector.vFlash.Automation.vFlash.dll</HintPath>
     </Reference>
     <Reference Include="vxlapi_NET">
       <HintPath>.\vxlapi_NET.dll</HintPath>
