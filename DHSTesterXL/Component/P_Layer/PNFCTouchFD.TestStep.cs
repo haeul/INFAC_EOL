@@ -4482,10 +4482,16 @@ namespace DHSTesterXL
                             string EtcsPartNo = GSystem.ProductSettings.LabelPrint.Etcs.PartNo; //"8266703200";
                             string EtcsSerial = GSystem.ProductSettings.LabelPrint.Etcs.Serial; //"";
                             string EtcsEo     = GSystem.ProductSettings.LabelPrint.Etcs.Eo; //"";
-                            string EtcsTrace  = GSystem.ProductSettings.LabelPrint.Etcs.Trace; //"250807";
-                            string EtcsA1     = GSystem.ProductSettings.LabelPrint.Etcs.A1; //"A000";
+
+                            string EtcsTraceCfg = GSystem.ProductSettings.LabelPrint.Etcs.Trace ?? string.Empty; //"250807";
+                            string today = DateTime.Now.ToString("yyMMdd");
+                            string EtcsTrace  = EtcsTraceCfg.Length > 6
+                                ? today + EtcsTraceCfg.Substring(6)
+                                : today;
+
+                            string EtcsA1     = string.Empty; //"A000";
                             string EtcsM      = GSystem.ProductSettings.LabelPrint.Etcs.M; //"0";
-                            string EtcsC      = GSystem.ProductSettings.LabelPrint.Etcs.C; //"001";
+                            string EtcsC      = GSystem.ProductSettings.GetCurrentSerialNumber().ToString("D04");
 
                             var payload = new LabelPayload
                             {

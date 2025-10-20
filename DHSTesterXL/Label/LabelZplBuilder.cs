@@ -328,6 +328,26 @@ namespace DHSTesterXL
             string m = (txtEtcsInitialValue?.Text ?? "").Trim();         // M  (옵션 확장)
             string c = (txtEtcsCompanyAreaValue?.Text ?? "").Trim();     // C  (옵션 확장)
 
+            // A or @ 칸은 항상 비워 두어 추적번호(C)의 첫 자리와 겹치지 않도록 한다.
+            a1 = string.Empty;
+
+            // 생산일자는 항상 현재 날짜(YYMMDD)로 갱신하고 기존 문자열의 후반부는 유지
+            if (t.Length > 0)
+            {
+                string today = DateTime.Now.ToString("yyMMdd");
+                t = today + (t.Length > 6 ? t.Substring(6) : string.Empty);
+            }
+            else
+            {
+                t = DateTime.Now.ToString("yyMMdd");
+            }
+
+            // 추적번호(C)는 제품 설정의 현재 일련번호로 대체
+            if (GSystem.ProductSettings != null)
+            {
+                c = GSystem.ProductSettings.GetCurrentSerialNumber().ToString("D04");
+            }
+
             // 제어코드(백슬래시-헥스 표기) - ^FH\ 가 해석함
             const string GS = @"\1D";
             const string RS = @"\1E";
@@ -736,6 +756,26 @@ namespace DHSTesterXL
             var a1 = (d.A1 ?? "").Trim();      // 1A (opt)
             var m = (d.M ?? "").Trim();       // M (opt)
             var c = (d.C ?? "").Trim();       // C (opt)
+
+            // A or @ 필드는 공란으로 유지해 추적번호(C)가 앞단에 잘못 배치되지 않도록 한다.
+            a1 = string.Empty;
+
+            // 생산일자(YYMMDD)는 항상 현재 날짜를 사용하고, 기존 값의 후미(라인/옵션)는 유지
+            if (t.Length > 0)
+            {
+                string today = DateTime.Now.ToString("yyMMdd");
+                t = today + (t.Length > 6 ? t.Substring(6) : string.Empty);
+            }
+            else
+            {
+                t = DateTime.Now.ToString("yyMMdd");
+            }
+
+            // 추적번호(C)는 현재 제품 일련번호로 강제 설정
+            if (GSystem.ProductSettings != null)
+            {
+                c = GSystem.ProductSettings.GetCurrentSerialNumber().ToString("D04");
+            }
 
             var sb = new StringBuilder(256);
             sb.Append("[)>");            // 심볼 식별자
