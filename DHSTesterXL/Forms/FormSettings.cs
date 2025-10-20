@@ -95,6 +95,11 @@ namespace DHSTesterXL
             EnableDedicatedCTRL();
             UpdateGridDedicatedCTRL();
 
+            if (textNFC_Z_CurPosCh1.Text != GSystem.MiPLC.Ch1_R_NFC_Z_Pos.ToString())
+                textNFC_Z_CurPosCh1.Text = GSystem.MiPLC.Ch1_R_NFC_Z_Pos.ToString();
+            if (textNFC_Z_CurPosCh2.Text != GSystem.MiPLC.Ch2_R_NFC_Z_Pos.ToString())
+                textNFC_Z_CurPosCh2.Text = GSystem.MiPLC.Ch2_R_NFC_Z_Pos.ToString();
+
             EnableRelayModule();
             UpdateRelayModule();
 
@@ -510,29 +515,29 @@ namespace DHSTesterXL
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch1_Status1  ].Value = $"{GSystem.MiPLC.Ch1_R_Status1  :X04}h";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch1_Status2  ].Value = $"{GSystem.MiPLC.Ch1_R_Status2  :X04}h";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch1_RecipeNo ].Value = $"{GSystem.MiPLC.Ch1_R_RecipeNo     } ";
-                gridReadPLC[2, (int)PLC_ReadRegister.Ch1_Reserved3].Value = $"{GSystem.MiPLC.Ch1_R_Reserved3    } ";
+                gridReadPLC[2, (int)PLC_ReadRegister.Ch1_NFC_Z_Pos].Value = $"{GSystem.MiPLC.Ch1_R_NFC_Z_Pos    } ";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch1_State1   ].Value = $"{GSystem.MiPLC.Ch1_R_State1   :X04}h";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch1_State2   ].Value = $"{GSystem.MiPLC.Ch1_R_State2   :X04}h";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch1_ErrorCode].Value = $"{GSystem.MiPLC.Ch1_R_ErrorCode    } ";
-                gridReadPLC[2, (int)PLC_ReadRegister.Ch1_Reserved7].Value = $"{GSystem.MiPLC.Ch1_R_Reserved7    } ";
+                gridReadPLC[2, (int)PLC_ReadRegister.Ch1_NFC_Z_Recipe_Pos].Value = $"{GSystem.MiPLC.Ch1_R_NFC_Z_RecipePos    } ";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch1_Reserved8].Value = $"{GSystem.MiPLC.Ch1_R_Reserved8    } ";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch1_Reserved9].Value = $"{GSystem.MiPLC.Ch1_R_Reserved9    } ";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch2_Status1  ].Value = $"{GSystem.MiPLC.Ch2_R_Status1  :X04}h";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch2_Status2  ].Value = $"{GSystem.MiPLC.Ch2_R_Status2  :X04}h";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch2_RecipeNo ].Value = $"{GSystem.MiPLC.Ch2_R_RecipeNo     } ";
-                gridReadPLC[2, (int)PLC_ReadRegister.Ch2_Reserved3].Value = $"{GSystem.MiPLC.Ch2_R_Reserved3    } ";
+                gridReadPLC[2, (int)PLC_ReadRegister.Ch2_NFC_Z_Pos].Value = $"{GSystem.MiPLC.Ch2_R_NFC_Z_Pos    } ";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch2_State1   ].Value = $"{GSystem.MiPLC.Ch2_R_State1   :X04}h";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch2_State2   ].Value = $"{GSystem.MiPLC.Ch2_R_State2   :X04}h";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch2_ErrorCode].Value = $"{GSystem.MiPLC.Ch2_R_ErrorCode    } ";
-                gridReadPLC[2, (int)PLC_ReadRegister.Ch2_Reserved7].Value = $"{GSystem.MiPLC.Ch2_R_Reserved7    } ";
+                gridReadPLC[2, (int)PLC_ReadRegister.Ch2_NFC_Z_Recipe_Pos].Value = $"{GSystem.MiPLC.Ch2_R_NFC_Z_RecipePos} ";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch2_Reserved8].Value = $"{GSystem.MiPLC.Ch2_R_Reserved8    } ";
                 gridReadPLC[2, (int)PLC_ReadRegister.Ch2_Reserved9].Value = $"{GSystem.MiPLC.Ch2_R_Reserved9    } ";
                 // Write
                 gridWritePLC[2, (int)PLC_WriteRegister.Ch1_Command1 ].Value = $"{GSystem.MiPLC.Ch1_W_Command1 :X04}h";
                 gridWritePLC[2, (int)PLC_WriteRegister.Ch1_Command2 ].Value = $"{GSystem.MiPLC.Ch1_W_Command2 :X04}h";
                 gridWritePLC[2, (int)PLC_WriteRegister.Ch1_RecipeNo ].Value = $"{GSystem.MiPLC.Ch1_W_RecipeNo     } ";
-                gridWritePLC[2, (int)PLC_WriteRegister.Ch1_Reserved3].Value = $"{GSystem.MiPLC.Ch1_W_Reserved3    } ";
-                gridWritePLC[2, (int)PLC_WriteRegister.Ch1_Reserved4].Value = $"{GSystem.MiPLC.Ch1_W_Reserved4    } ";
+                gridWritePLC[2, (int)PLC_WriteRegister.Ch1_NFC_Z_Pos].Value = $"{GSystem.MiPLC.Ch1_W_NFC_Z_Pos    } ";
+                gridWritePLC[2, (int)PLC_WriteRegister.Ch1_TowerLamp].Value = $"{GSystem.MiPLC.Ch1_W_TowerLamp    } ";
                 gridWritePLC[2, (int)PLC_WriteRegister.Ch1_Reserved5].Value = $"{GSystem.MiPLC.Ch1_W_Reserved5    } ";
                 gridWritePLC[2, (int)PLC_WriteRegister.Ch1_Reserved6].Value = $"{GSystem.MiPLC.Ch1_W_Reserved6    } ";
                 gridWritePLC[2, (int)PLC_WriteRegister.Ch1_Reserved7].Value = $"{GSystem.MiPLC.Ch1_W_Reserved7    } ";
@@ -541,8 +546,8 @@ namespace DHSTesterXL
                 gridWritePLC[2, (int)PLC_WriteRegister.Ch2_Command1 ].Value = $"{GSystem.MiPLC.Ch2_W_Command1 :X04}h";
                 gridWritePLC[2, (int)PLC_WriteRegister.Ch2_Command2 ].Value = $"{GSystem.MiPLC.Ch2_W_Command2 :X04}h";
                 gridWritePLC[2, (int)PLC_WriteRegister.Ch2_RecipeNo ].Value = $"{GSystem.MiPLC.Ch2_W_RecipeNo     } ";
-                gridWritePLC[2, (int)PLC_WriteRegister.Ch2_Reserved3].Value = $"{GSystem.MiPLC.Ch2_W_Reserved3    } ";
-                gridWritePLC[2, (int)PLC_WriteRegister.Ch2_Reserved4].Value = $"{GSystem.MiPLC.Ch2_W_Reserved4    } ";
+                gridWritePLC[2, (int)PLC_WriteRegister.Ch2_NFC_Z_Pos].Value = $"{GSystem.MiPLC.Ch2_W_NFC_Z_Pos    } ";
+                gridWritePLC[2, (int)PLC_WriteRegister.Ch2_TowerLamp].Value = $"{GSystem.MiPLC.Ch2_W_TowerLamp    } ";
                 gridWritePLC[2, (int)PLC_WriteRegister.Ch2_Reserved5].Value = $"{GSystem.MiPLC.Ch2_W_Reserved5    } ";
                 gridWritePLC[2, (int)PLC_WriteRegister.Ch2_Reserved6].Value = $"{GSystem.MiPLC.Ch2_W_Reserved6    } ";
                 gridWritePLC[2, (int)PLC_WriteRegister.Ch2_Reserved7].Value = $"{GSystem.MiPLC.Ch2_W_Reserved7    } ";
@@ -741,28 +746,33 @@ namespace DHSTesterXL
             int recipeNo = Convert.ToUInt16(textPLC_RecipeNoCh1.Text);
             try
             {
-                await GSystem.ChangePLCRecipeAsync(recipeNo);
+                if (checkPLC_AutoReset.Checked)
+                {
+                    await GSystem.ChangePLCRecipeAsync(recipeNo);
+                }
+                else
+                {
+                    int bitIndex = 0;
+                    if ((GSystem.MiPLC.Ch1_W_Command2 & GDefines.BIT16[bitIndex]) != GDefines.BIT16[bitIndex])
+                    {
+                        GSystem.MiPLC.Ch1_W_RecipeNo = Convert.ToUInt16(textPLC_RecipeNoCh1.Text);
+                        GSystem.MiPLC.Ch2_W_RecipeNo = Convert.ToUInt16(textPLC_RecipeNoCh1.Text);
+                        GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[bitIndex];
+                        GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[bitIndex];
+                        await Task.Run(() => GSystem.MiPLC.M1402_Req_Proc());
+                    }
+                    else
+                    {
+                        GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
+                        GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
+                        await Task.Run(() => GSystem.MiPLC.M1402_Req_Proc());
+                    }
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            //int bitIndex = 0;
-            //if ((GSystem.MiPLC.Ch1_W_Command2 & GDefines.BIT16[bitIndex]) != GDefines.BIT16[bitIndex])
-            //{
-            //    GSystem.MiPLC.Ch1_W_RecipeNo = Convert.ToUInt16(textPLC_RecipeNoCh1.Text);
-            //    GSystem.MiPLC.Ch2_W_RecipeNo = Convert.ToUInt16(textPLC_RecipeNoCh1.Text);
-            //    GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[bitIndex];
-            //    GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[bitIndex];
-            //    await Task.Run(() => GSystem.MiPLC.M1402_Req_Proc());
-            //}
-            //else
-            //{
-            //    GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
-            //    GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
-            //    await Task.Run(() => GSystem.MiPLC.M1402_Req_Proc());
-            //}
         }
 
         private void buttonPLC_SetRecipeCh2_Click(object sender, EventArgs e)
@@ -783,31 +793,26 @@ namespace DHSTesterXL
 
         private async void buttonPLC_LoadYCh1_Click(object sender, EventArgs e)
         {
-            //int bitIndex = 9;
-            //if ((GSystem.MiPLC.Ch1_W_Command1 & GDefines.BIT16[bitIndex]) != GDefines.BIT16[bitIndex])
-            //{
-            //    GSystem.MiPLC.Ch1_W_Command1 |= GDefines.BIT16[bitIndex];
-            //    await Task.Run(() => GSystem.MiPLC.M1402_Req_Proc());
-            //}
-            //else
-            //{
-            //    GSystem.MiPLC.Ch1_W_Command1 &= (ushort)~GDefines.BIT16[bitIndex];
-            //    await Task.Run(() => GSystem.MiPLC.M1402_Req_Proc());
-            //}
-            
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetMoveLoadStart(channel, true);
-                    while (!GSystem.MiPLC.GetMoveLoadComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetMoveLoadStart(channel, false);
-                });
+                        GSystem.MiPLC.SetMoveLoadStart(channel, true);
+                        while (!GSystem.MiPLC.GetMoveLoadComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetMoveLoadStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetMoveLoadStart(channel, !GSystem.MiPLC.GetMoveLoadStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -832,16 +837,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetMoveLoadStart(channel, true);
-                    while (!GSystem.MiPLC.GetMoveLoadComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetMoveLoadStart(channel, false);
-                });
+                        GSystem.MiPLC.SetMoveLoadStart(channel, true);
+                        while (!GSystem.MiPLC.GetMoveLoadComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetMoveLoadStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetMoveLoadStart(channel, !GSystem.MiPLC.GetMoveLoadStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -871,16 +883,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetLoadingStart(channel, true);
-                    while (!GSystem.MiPLC.GetLoadingComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetLoadingStart(channel, false);
-                });
+                        GSystem.MiPLC.SetLoadingStart(channel, true);
+                        while (!GSystem.MiPLC.GetLoadingComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetLoadingStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetLoadingStart(channel, !GSystem.MiPLC.GetLoadingStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -910,16 +929,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetLoadingStart(channel, true);
-                    while (!GSystem.MiPLC.GetLoadingComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetLoadingStart(channel, false);
-                });
+                        GSystem.MiPLC.SetLoadingStart(channel, true);
+                        while (!GSystem.MiPLC.GetLoadingComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetLoadingStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetLoadingStart(channel, !GSystem.MiPLC.GetLoadingStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -949,16 +975,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetMoveTouchYStart(channel, true);
-                    while (!GSystem.MiPLC.GetMoveTouchYComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetMoveTouchYStart(channel, false);
-                });
+                        GSystem.MiPLC.SetMoveTouchYStart(channel, true);
+                        while (!GSystem.MiPLC.GetMoveTouchYComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetMoveTouchYStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetMoveTouchYStart(channel, !GSystem.MiPLC.GetMoveTouchYStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -988,15 +1021,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(() =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetMoveTouchYStart(channel, true);
-                    while (!GSystem.MiPLC.GetMoveTouchYComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        Task.Delay(10);
-                    }
-                    GSystem.MiPLC.SetMoveTouchYStart(channel, false);
-                });
+                        GSystem.MiPLC.SetMoveTouchYStart(channel, true);
+                        while (!GSystem.MiPLC.GetMoveTouchYComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetMoveTouchYStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetMoveTouchYStart(channel, !GSystem.MiPLC.GetMoveTouchYStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1026,16 +1067,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetTouchZDownStart(channel, true);
-                    while (!GSystem.MiPLC.GetTouchZDownComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetTouchZDownStart(channel, false);
-                });
+                        GSystem.MiPLC.SetTouchZDownStart(channel, true);
+                        while (!GSystem.MiPLC.GetTouchZDownComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetTouchZDownStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetTouchZDownStart(channel, !GSystem.MiPLC.GetTouchZDownStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1065,15 +1113,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(() =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetTouchZDownStart(channel, true);
-                    while (!GSystem.MiPLC.GetTouchZDownComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        Task.Delay(10);
-                    }
-                    GSystem.MiPLC.SetTouchZDownStart(channel, false);
-                });
+                        GSystem.MiPLC.SetTouchZDownStart(channel, true);
+                        while (!GSystem.MiPLC.GetTouchZDownComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetTouchZDownStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetTouchZDownStart(channel, !GSystem.MiPLC.GetTouchZDownStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1103,16 +1159,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetTouchZUpStart(channel, true);
-                    while (!GSystem.MiPLC.GetTouchZUpComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetTouchZUpStart(channel, false);
-                });
+                        GSystem.MiPLC.SetTouchZUpStart(channel, true);
+                        while (!GSystem.MiPLC.GetTouchZUpComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetTouchZUpStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetTouchZUpStart(channel, !GSystem.MiPLC.GetTouchZUpStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1142,16 +1205,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetTouchZUpStart(channel, true);
-                    while (!GSystem.MiPLC.GetTouchZUpComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetTouchZUpStart(channel, false);
-                });
+                        GSystem.MiPLC.SetTouchZUpStart(channel, true);
+                        while (!GSystem.MiPLC.GetTouchZUpComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetTouchZUpStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetTouchZUpStart(channel, !GSystem.MiPLC.GetTouchZUpStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1181,16 +1251,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetMoveCancelYStart(channel, true);
-                    while (!GSystem.MiPLC.GetMoveCancelYComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetMoveCancelYStart(channel, false);
-                });
+                        GSystem.MiPLC.SetMoveCancelYStart(channel, true);
+                        while (!GSystem.MiPLC.GetMoveCancelYComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetMoveCancelYStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetMoveCancelYStart(channel, !GSystem.MiPLC.GetMoveCancelYStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1220,16 +1297,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetMoveCancelYStart(channel, true);
-                    while (!GSystem.MiPLC.GetMoveCancelYComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetMoveCancelYStart(channel, false);
-                });
+                        GSystem.MiPLC.SetMoveCancelYStart(channel, true);
+                        while (!GSystem.MiPLC.GetMoveCancelYComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetMoveCancelYStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetMoveCancelYStart(channel, !GSystem.MiPLC.GetMoveCancelYStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1259,16 +1343,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetCancelZDownStart(channel, true);
-                    while (!GSystem.MiPLC.GetCancelZDownComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetCancelZDownStart(channel, false);
-                });
+                        GSystem.MiPLC.SetCancelZDownStart(channel, true);
+                        while (!GSystem.MiPLC.GetCancelZDownComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetCancelZDownStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetCancelZDownStart(channel, !GSystem.MiPLC.GetCancelZDownStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1298,16 +1389,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetCancelZDownStart(channel, true);
-                    while (!GSystem.MiPLC.GetCancelZDownComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetCancelZDownStart(channel, false);
-                });
+                        GSystem.MiPLC.SetCancelZDownStart(channel, true);
+                        while (!GSystem.MiPLC.GetCancelZDownComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetCancelZDownStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetCancelZDownStart(channel, !GSystem.MiPLC.GetCancelZDownStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1337,16 +1435,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetCancelZUpStart(channel, true);
-                    while (!GSystem.MiPLC.GetCancelZUpComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetCancelZUpStart(channel, false);
-                });
+                        GSystem.MiPLC.SetCancelZUpStart(channel, true);
+                        while (!GSystem.MiPLC.GetCancelZUpComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetCancelZUpStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetCancelZUpStart(channel, !GSystem.MiPLC.GetCancelZUpStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1376,16 +1481,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetCancelZUpStart(channel, true);
-                    while (!GSystem.MiPLC.GetCancelZUpComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetCancelZUpStart(channel, false);
-                });
+                        GSystem.MiPLC.SetCancelZUpStart(channel, true);
+                        while (!GSystem.MiPLC.GetCancelZUpComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetCancelZUpStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetCancelZUpStart(channel, !GSystem.MiPLC.GetCancelZUpStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1415,16 +1527,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetMoveNFCYStart(channel, true);
-                    while (!GSystem.MiPLC.GetMoveNFCYComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetMoveNFCYStart(channel, false);
-                });
+                        GSystem.MiPLC.SetMoveNFCYStart(channel, true);
+                        while (!GSystem.MiPLC.GetMoveNFCYComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetMoveNFCYStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetMoveNFCYStart(channel, !GSystem.MiPLC.GetMoveNFCYStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1454,16 +1573,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetMoveNFCYStart(channel, true);
-                    while (!GSystem.MiPLC.GetMoveNFCYComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetMoveNFCYStart(channel, false);
-                });
+                        GSystem.MiPLC.SetMoveNFCYStart(channel, true);
+                        while (!GSystem.MiPLC.GetMoveNFCYComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetMoveNFCYStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetMoveNFCYStart(channel, !GSystem.MiPLC.GetMoveNFCYStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1493,16 +1619,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetNFCZDownStart(channel, true);
-                    while (!GSystem.MiPLC.GetNFCZDownComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetNFCZDownStart(channel, false);
-                });
+                        GSystem.MiPLC.SetNFCZDownStart(channel, true);
+                        while (!GSystem.MiPLC.GetNFCZDownComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetNFCZDownStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetNFCZDownStart(channel, !GSystem.MiPLC.GetNFCZDownStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1532,16 +1665,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetNFCZDownStart(channel, true);
-                    while (!GSystem.MiPLC.GetNFCZDownComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetNFCZDownStart(channel, false);
-                });
+                        GSystem.MiPLC.SetNFCZDownStart(channel, true);
+                        while (!GSystem.MiPLC.GetNFCZDownComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetNFCZDownStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetNFCZDownStart(channel, !GSystem.MiPLC.GetNFCZDownStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1571,16 +1711,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetNFCZUpStart(channel, true);
-                    while (!GSystem.MiPLC.GetNFCZUpComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetNFCZUpStart(channel, false);
-                });
+                        GSystem.MiPLC.SetNFCZUpStart(channel, true);
+                        while (!GSystem.MiPLC.GetNFCZUpComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetNFCZUpStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetNFCZUpStart(channel, !GSystem.MiPLC.GetNFCZUpStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1610,16 +1757,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetNFCZUpStart(channel, true);
-                    while (!GSystem.MiPLC.GetNFCZUpComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetNFCZUpStart(channel, false);
-                });
+                        GSystem.MiPLC.SetNFCZUpStart(channel, true);
+                        while (!GSystem.MiPLC.GetNFCZUpComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetNFCZUpStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetNFCZUpStart(channel, !GSystem.MiPLC.GetNFCZUpStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1649,16 +1803,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetUnloadingStart(channel, true);
-                    while (!GSystem.MiPLC.GetUnloadingComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetUnloadingStart(channel, false);
-                });
+                        GSystem.MiPLC.SetUnloadingStart(channel, true);
+                        while (!GSystem.MiPLC.GetUnloadingComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetUnloadingStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetUnloadingStart(channel, !GSystem.MiPLC.GetUnloadingStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1688,16 +1849,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetUnloadingStart(channel, true);
-                    while (!GSystem.MiPLC.GetUnloadingComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetUnloadingStart(channel, false);
-                });
+                        GSystem.MiPLC.SetUnloadingStart(channel, true);
+                        while (!GSystem.MiPLC.GetUnloadingComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetUnloadingStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetUnloadingStart(channel, !GSystem.MiPLC.GetUnloadingStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1727,16 +1895,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetUnclampForeStart(channel, true);
-                    while (!GSystem.MiPLC.GetUnclampForeComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetUnclampForeStart(channel, false);
-                });
+                        GSystem.MiPLC.SetUnclampForeStart(channel, true);
+                        while (!GSystem.MiPLC.GetUnclampForeComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetUnclampForeStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetUnclampForeStart(channel, !GSystem.MiPLC.GetUnclampForeStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1766,16 +1941,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetUnclampForeStart(channel, true);
-                    while (!GSystem.MiPLC.GetUnclampForeComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetUnclampForeStart(channel, false);
-                });
+                        GSystem.MiPLC.SetUnclampForeStart(channel, true);
+                        while (!GSystem.MiPLC.GetUnclampForeComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetUnclampForeStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetUnclampForeStart(channel, !GSystem.MiPLC.GetUnclampForeStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1805,16 +1987,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH1;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetUnclampBackStart(channel, true);
-                    while (!GSystem.MiPLC.GetUnclampBackComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetUnclampBackStart(channel, false);
-                });
+                        GSystem.MiPLC.SetUnclampBackStart(channel, true);
+                        while (!GSystem.MiPLC.GetUnclampBackComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetUnclampBackStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetUnclampBackStart(channel, !GSystem.MiPLC.GetUnclampBackStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -1844,16 +2033,23 @@ namespace DHSTesterXL
             try
             {
                 int channel = _CH2;
-                await Task.Run(async () =>
+                if (checkPLC_AutoReset.Checked)
                 {
-                    GSystem.MiPLC.SetUnclampBackStart(channel, true);
-                    while (!GSystem.MiPLC.GetUnclampBackComplete(channel))
+                    await Task.Run(async () =>
                     {
-                        await Task.Delay(10);
-                    }
-                    await Task.Delay(200);
-                    GSystem.MiPLC.SetUnclampBackStart(channel, false);
-                });
+                        GSystem.MiPLC.SetUnclampBackStart(channel, true);
+                        while (!GSystem.MiPLC.GetUnclampBackComplete(channel))
+                        {
+                            await Task.Delay(10);
+                        }
+                        await Task.Delay(200);
+                        GSystem.MiPLC.SetUnclampBackStart(channel, false);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetUnclampBackStart(channel, !GSystem.MiPLC.GetUnclampBackStart(channel)));
+                }
             }
             catch (Exception ex)
             {
@@ -2318,19 +2514,220 @@ namespace DHSTesterXL
         {
             try
             {
+                //await Task.Run(() =>
+                //{
+                //    int sensorIndex = comboSensorModel.SelectedIndex;
+                //    GSystem.DedicatedCTRL.SetSensorModel(sensorIndex);
+                //    GSystem.DedicatedCTRL.SetCommandSensorModel(GSystem.CH1, true);
+                //    GSystem.DedicatedCTRL.SetCommandSensorModel(GSystem.CH2, true);
+                //    while (!GSystem.DedicatedCTRL.GetCommandSensorModel(_CH1) || !GSystem.DedicatedCTRL.GetCommandSensorModel(_CH2))
+                //    {
+                //        Task.Delay(10);
+                //    }
+                //    GSystem.DedicatedCTRL.SetCommandSensorModel(GSystem.CH1, false);
+                //    GSystem.DedicatedCTRL.SetCommandSensorModel(GSystem.CH2, false);
+                //});
+                await GSystem.ChangeConnectorTypeAsync(comboSensorModel.SelectedIndex);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void buttonNFCZDownCh1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int channel = _CH1;
+                int position = Convert.ToInt16(textNFC_Z_SetPosCh1.Text) * 10;
+                if (checkPLC_AutoReset.Checked)
+                {
+                    await GSystem.NFC_Z_MovePosition(channel, position);
+                }
+                else
+                {
+                    GSystem.MiPLC.Ch1_W_NFC_Z_Pos = (ushort)position;
+                    await Task.Run(() => GSystem.MiPLC.SetNFC_Z_PositionStart(channel, !GSystem.MiPLC.GetNFC_Z_PositionStart(channel)));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void buttonNFCZDownCh2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int channel = _CH2;
+                int position = Convert.ToInt16(textNFC_Z_SetPosCh2.Text) * 10;
+                if (checkPLC_AutoReset.Checked)
+                {
+                    await GSystem.NFC_Z_MovePosition(channel, position);
+                }
+                else
+                {
+                    GSystem.MiPLC.Ch2_W_NFC_Z_Pos = (ushort)position;
+                    await Task.Run(() => GSystem.MiPLC.SetNFC_Z_PositionStart(channel, !GSystem.MiPLC.GetNFC_Z_PositionStart(channel)));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void checkZInterlock_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
                 await Task.Run(() =>
                 {
-                    int sensorIndex = comboSensorModel.SelectedIndex;
-                    GSystem.DedicatedCTRL.SetSensorModel(sensorIndex);
-                    GSystem.DedicatedCTRL.SetCommandSensorModel(GSystem.CH1, true);
-                    GSystem.DedicatedCTRL.SetCommandSensorModel(GSystem.CH2, true);
-                    while (!GSystem.DedicatedCTRL.GetCommandSensorModel(_CH1) || !GSystem.DedicatedCTRL.GetCommandSensorModel(_CH2))
-                    {
-                        Task.Delay(10);
-                    }
-                    GSystem.DedicatedCTRL.SetCommandSensorModel(GSystem.CH1, false);
-                    GSystem.DedicatedCTRL.SetCommandSensorModel(GSystem.CH2, false);
+                    GSystem.MiPLC.SetZAxisInterlock(GSystem.CH1, checkZInterlock.Checked);
+                    GSystem.MiPLC.SetZAxisInterlock(GSystem.CH2, checkZInterlock.Checked);
                 });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void buttonTowerLampOnCh1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    GSystem.MiPLC.SetErrorTowerLamp(GSystem.CH1, true);
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void buttonTowerLampOffCh1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    GSystem.MiPLC.SetErrorTowerLamp(GSystem.CH1, false);
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void buttonTowerLampOnCh2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    GSystem.MiPLC.SetErrorTowerLamp(GSystem.CH2, true);
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void buttonTowerLampOffCh2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    GSystem.MiPLC.SetErrorTowerLamp(GSystem.CH2, false);
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void buttonErrorResetCh1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int channel = _CH1;
+                if (checkPLC_AutoReset.Checked)
+                {
+                    await GSystem.ErrorResetAsync(channel);
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetErrorResetStart(channel, !GSystem.MiPLC.GetErrorResetStart(channel)));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void buttonErrorResetCh2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int channel = _CH2;
+                if (checkPLC_AutoReset.Checked)
+                {
+                    await GSystem.ErrorResetAsync(channel);
+                }
+                else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetErrorResetStart(channel, !GSystem.MiPLC.GetErrorResetStart(channel)));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void buttonMeasureCompleteCh1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int channel = _CH1;
+                //if (checkPLC_AutoReset.Checked)
+                //{
+                //    await GSystem.ErrorResetAsync(channel);
+                //}
+                //else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetMeasureCompleteStart(channel, !GSystem.MiPLC.GetMeasureCompleteStart(channel)));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void buttonMeasureCompleteCh2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int channel = _CH2;
+                //if (checkPLC_AutoReset.Checked)
+                //{
+                //    await GSystem.ErrorResetAsync(channel);
+                //}
+                //else
+                {
+                    await Task.Run(() => GSystem.MiPLC.SetMeasureCompleteStart(channel, !GSystem.MiPLC.GetMeasureCompleteStart(channel)));
+                }
             }
             catch (Exception ex)
             {

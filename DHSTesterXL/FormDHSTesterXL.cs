@@ -265,72 +265,75 @@ namespace DHSTesterXL
             LoadProduct(GSystem.SystemData.ProductSettings.LastProductNo);
 
             // Master sample
-            if (GSystem.ProductSettings.MasterSample.MasterCount > 0)
+            if (GSystem.ProductSettings.MasterSampleCh1.MasterCount > 0)
             {
-                if (GSystem.ProductSettings.MasterSample.MasterType1 != "")
+                if (GSystem.ProductSettings.MasterSampleCh1.MasterType1 != "")
                 {
-                    if (GSystem.ProductSettings.MasterSample.MasterTestDate1 != DateTime.Now.ToString("yyyy-MM-dd"))
-                        GSystem.ProductSettings.MasterSample.MasterCheck1 = false;
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterTestDate1 != DateTime.Now.ToString("yyyy-MM-dd"))
+                        GSystem.ProductSettings.MasterSampleCh1.MasterCheck1 = false;
                 }
                 else
                 {
-                    GSystem.ProductSettings.MasterSample.MasterCheck1 = false;
-                    GSystem.ProductSettings.MasterSample.MasterTestDate1 = string.Empty;
+                    GSystem.ProductSettings.MasterSampleCh1.MasterCheck1 = false;
+                    GSystem.ProductSettings.MasterSampleCh1.MasterTestDate1 = string.Empty;
                 }
-                if (GSystem.ProductSettings.MasterSample.MasterType2 != "")
+                if (GSystem.ProductSettings.MasterSampleCh1.MasterType2 != "")
                 {
-                    if (GSystem.ProductSettings.MasterSample.MasterTestDate2 != DateTime.Now.ToString("yyyy-MM-dd"))
-                        GSystem.ProductSettings.MasterSample.MasterCheck2 = false;
-                }
-                else
-                {
-                    GSystem.ProductSettings.MasterSample.MasterCheck2 = false;
-                    GSystem.ProductSettings.MasterSample.MasterTestDate2 = string.Empty;
-                }
-                if (GSystem.ProductSettings.MasterSample.MasterType3 != "")
-                {
-                    if (GSystem.ProductSettings.MasterSample.MasterTestDate3 != DateTime.Now.ToString("yyyy-MM-dd"))
-                        GSystem.ProductSettings.MasterSample.MasterCheck3 = false;
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterTestDate2 != DateTime.Now.ToString("yyyy-MM-dd"))
+                        GSystem.ProductSettings.MasterSampleCh1.MasterCheck2 = false;
                 }
                 else
                 {
-                    GSystem.ProductSettings.MasterSample.MasterCheck3 = false;
-                    GSystem.ProductSettings.MasterSample.MasterTestDate3 = string.Empty;
+                    GSystem.ProductSettings.MasterSampleCh1.MasterCheck2 = false;
+                    GSystem.ProductSettings.MasterSampleCh1.MasterTestDate2 = string.Empty;
                 }
-                if (GSystem.ProductSettings.MasterSample.MasterType4 != "")
+                if (GSystem.ProductSettings.MasterSampleCh1.MasterType3 != "")
                 {
-                    if (GSystem.ProductSettings.MasterSample.MasterTestDate4 != DateTime.Now.ToString("yyyy-MM-dd"))
-                        GSystem.ProductSettings.MasterSample.MasterCheck4 = false;
-                }
-                else
-                {
-                    GSystem.ProductSettings.MasterSample.MasterCheck4 = false;
-                    GSystem.ProductSettings.MasterSample.MasterTestDate4 = string.Empty;
-                }
-                if (GSystem.ProductSettings.MasterSample.MasterType5 != "")
-                {
-                    if (GSystem.ProductSettings.MasterSample.MasterTestDate5 != DateTime.Now.ToString("yyyy-MM-dd"))
-                        GSystem.ProductSettings.MasterSample.MasterCheck5 = false;
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterTestDate3 != DateTime.Now.ToString("yyyy-MM-dd"))
+                        GSystem.ProductSettings.MasterSampleCh1.MasterCheck3 = false;
                 }
                 else
                 {
-                    GSystem.ProductSettings.MasterSample.MasterCheck5 = false;
-                    GSystem.ProductSettings.MasterSample.MasterTestDate5 = string.Empty;
+                    GSystem.ProductSettings.MasterSampleCh1.MasterCheck3 = false;
+                    GSystem.ProductSettings.MasterSampleCh1.MasterTestDate3 = string.Empty;
+                }
+                if (GSystem.ProductSettings.MasterSampleCh1.MasterType4 != "")
+                {
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterTestDate4 != DateTime.Now.ToString("yyyy-MM-dd"))
+                        GSystem.ProductSettings.MasterSampleCh1.MasterCheck4 = false;
+                }
+                else
+                {
+                    GSystem.ProductSettings.MasterSampleCh1.MasterCheck4 = false;
+                    GSystem.ProductSettings.MasterSampleCh1.MasterTestDate4 = string.Empty;
+                }
+                if (GSystem.ProductSettings.MasterSampleCh1.MasterType5 != "")
+                {
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterTestDate5 != DateTime.Now.ToString("yyyy-MM-dd"))
+                        GSystem.ProductSettings.MasterSampleCh1.MasterCheck5 = false;
+                }
+                else
+                {
+                    GSystem.ProductSettings.MasterSampleCh1.MasterCheck5 = false;
+                    GSystem.ProductSettings.MasterSampleCh1.MasterTestDate5 = string.Empty;
                 }
             }
             else
             {
-                GSystem.ProductSettings.MasterSample.MasterCheck1 = false;
-                GSystem.ProductSettings.MasterSample.MasterCheck2 = false;
-                GSystem.ProductSettings.MasterSample.MasterCheck3 = false;
-                GSystem.ProductSettings.MasterSample.MasterCheck4 = false;
-                GSystem.ProductSettings.MasterSample.MasterCheck5 = false;
-                GSystem.ProductSettings.MasterSample.MasterTestDate1 = string.Empty;
-                GSystem.ProductSettings.MasterSample.MasterTestDate2 = string.Empty;
-                GSystem.ProductSettings.MasterSample.MasterTestDate3 = string.Empty;
-                GSystem.ProductSettings.MasterSample.MasterTestDate4 = string.Empty;
-                GSystem.ProductSettings.MasterSample.MasterTestDate5 = string.Empty;
+                GSystem.ProductSettings.MasterSampleCh1.MasterCheck1 = false;
+                GSystem.ProductSettings.MasterSampleCh1.MasterCheck2 = false;
+                GSystem.ProductSettings.MasterSampleCh1.MasterCheck3 = false;
+                GSystem.ProductSettings.MasterSampleCh1.MasterCheck4 = false;
+                GSystem.ProductSettings.MasterSampleCh1.MasterCheck5 = false;
+                GSystem.ProductSettings.MasterSampleCh1.MasterTestDate1 = string.Empty;
+                GSystem.ProductSettings.MasterSampleCh1.MasterTestDate2 = string.Empty;
+                GSystem.ProductSettings.MasterSampleCh1.MasterTestDate3 = string.Empty;
+                GSystem.ProductSettings.MasterSampleCh1.MasterTestDate4 = string.Empty;
+                GSystem.ProductSettings.MasterSampleCh1.MasterTestDate5 = string.Empty;
             }
+
+            FormMasterTest formMasterTest = new FormMasterTest();
+            formMasterTest.Show();
         }
 
         private void FormDHSTesterXL_FormClosing(object sender, FormClosingEventArgs e)
@@ -501,7 +504,10 @@ namespace DHSTesterXL
             // PLC Recipe 변경
             int recipeNo = Convert.ToInt16(GSystem.ProductSettings.ProductInfo.TypeNo);
             if (GSystem.MiPLC.IsConnect)
-                await Task.Run(() => GSystem.ChangePLCRecipeAsync(recipeNo));
+                await GSystem.ChangePLCRecipeAsync(recipeNo);
+            // 전용 컨트롤러 커넥터 타입 변경
+            if (GSystem.DedicatedCTRL.IsOpen)
+                await GSystem.ChangeConnectorTypeAsync(GSystem.ProductSettings.ProductInfo.ConnectorType);
 
             // TODO: 마스터샘플 처리. 품번에 따라 마스터샘플 인터락을 따로 관리해야 한다.
             // 1) 1일 1회 마스터 검사.
@@ -890,11 +896,11 @@ namespace DHSTesterXL
                         {
                             if (textBarcodeCh1.Text != "")
                             {
-                                if (textBarcodeCh1.Text == GSystem.ProductSettings.MasterSample.MasterBarcode1 ||
-                                    textBarcodeCh1.Text == GSystem.ProductSettings.MasterSample.MasterBarcode2 ||
-                                    textBarcodeCh1.Text == GSystem.ProductSettings.MasterSample.MasterBarcode3 ||
-                                    textBarcodeCh1.Text == GSystem.ProductSettings.MasterSample.MasterBarcode4 ||
-                                    textBarcodeCh1.Text == GSystem.ProductSettings.MasterSample.MasterBarcode5)
+                                if (textBarcodeCh1.Text == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode1 ||
+                                    textBarcodeCh1.Text == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode2 ||
+                                    textBarcodeCh1.Text == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode3 ||
+                                    textBarcodeCh1.Text == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode4 ||
+                                    textBarcodeCh1.Text == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode5)
                                 {
                                     if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
                                     {
@@ -1009,11 +1015,11 @@ namespace DHSTesterXL
                         {
                             if (textBarcodeCh2.Text != "")
                             {
-                                if (textBarcodeCh2.Text == GSystem.ProductSettings.MasterSample.MasterBarcode1 ||
-                                    textBarcodeCh2.Text == GSystem.ProductSettings.MasterSample.MasterBarcode2 ||
-                                    textBarcodeCh2.Text == GSystem.ProductSettings.MasterSample.MasterBarcode3 ||
-                                    textBarcodeCh2.Text == GSystem.ProductSettings.MasterSample.MasterBarcode4 ||
-                                    textBarcodeCh2.Text == GSystem.ProductSettings.MasterSample.MasterBarcode5)
+                                if (textBarcodeCh2.Text == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode1 ||
+                                    textBarcodeCh2.Text == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode2 ||
+                                    textBarcodeCh2.Text == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode3 ||
+                                    textBarcodeCh2.Text == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode4 ||
+                                    textBarcodeCh2.Text == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode5)
                                 {
                                     if (GSystem.ProductSettings.CommSettings.CommType == "CAN" || GSystem.ProductSettings.CommSettings.CommType == "CAN FD")
                                     {
@@ -1137,7 +1143,8 @@ namespace DHSTesterXL
                     GSystem.SetButtonForeColor(buttonStartCh2, Color.DimGray);
             }
 
-            labelLowCurrentValueCh1.Text = $"{GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo} uA";
+            int darCurrentCh1 = (GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo > 80) ? GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo - 80 : GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo;
+            labelLowCurrentValueCh1.Text = $"{darCurrentCh1} uA";
             labelHighCurrentValueCh1.Text = $"{GSystem.DedicatedCTRL.Reg_03h_ch1_current_hi} mA";
             labelLowCurrentValueCh2.Text = $"{GSystem.DedicatedCTRL.Reg_03h_ch2_current_lo} uA";
             labelHighCurrentValueCh2.Text = $"{GSystem.DedicatedCTRL.Reg_03h_ch2_current_hi} mA";
@@ -1185,19 +1192,22 @@ namespace DHSTesterXL
                 // 로딩한 품번 저장
                 GSystem.SystemData.ProductSettings.LastProductNo = CurrentProductNo;
                 GSystem.SystemData.Save();
+                if (GSystem.ProductSettings.ProductInfo.UseMasterSample)
+                {
+
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        /* 실제 실행시 주석 제거 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         private void buttonFunction_Click(object sender, EventArgs e)
         {
             FormVFlash formVFlash = new FormVFlash();
             formVFlash.ShowDialog();
         }
-        */
 
         private void buttonSettings_Click(object sender, EventArgs e)
         {
@@ -1591,23 +1601,23 @@ namespace DHSTesterXL
             }
             else
             {
-                if (GSystem.DHSModel.GetTouchOnlyTestStep(CH2) < TouchOnlyTestStep.Prepare)
+                if (GSystem.DHSModel.GetTouchOnlyTestStep(CH1) < TouchOnlyTestStep.Prepare)
                 {
                     string caption = "테스트 시작";
-                    string message = "CH.2의 테스트를 시작하시겠습니까?";
+                    string message = "CH.1의 테스트를 시작하시겠습니까?";
                     if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                         return;
                     // Start...
-                    StartTest(CH2);
+                    StartTest(CH1);
                 }
                 else
                 {
                     string caption = "테스트 중지";
-                    string message = "CH.2의 테스트를 중지하시겠습니까?";
+                    string message = "CH.1의 테스트를 중지하시겠습니까?";
                     if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                         return;
                     // Stop
-                    StopTest(CH2);
+                    StopTest(CH1);
                 }
             }
         }
@@ -2490,95 +2500,95 @@ namespace DHSTesterXL
             // 마스터샘플 테스트 진행 여부에 따라 메시지 표시
             if (GSystem.ProductSettings.ProductInfo.UseMasterSample)
             {
-                if (GSystem.ProductSettings.MasterSample.MasterCount > 0)
+                if (GSystem.ProductSettings.MasterSampleCh1.MasterCount > 0)
                 {
                     bool masterSampleOK = false;
 
                     if (channel == CH1)
                     {
                         int masterCount = 0;
-                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        if (masterCount < GSystem.ProductSettings.MasterSampleCh1.MasterCount)
                         {
-                            if (GSystem.ProductSettings.MasterSample.MasterType1 != "")
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType1 != "")
                             {
                                 masterCount++;
-                                masterSampleOK = GSystem.MasterTestCh1[0];
+                                masterSampleOK = GSystem.MasterTestOkCh1[0];
                             }
                         }
-                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        if (masterCount < GSystem.ProductSettings.MasterSampleCh1.MasterCount)
                         {
-                            if (GSystem.ProductSettings.MasterSample.MasterType2 != "")
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType2 != "")
                             {
                                 masterCount++;
-                                masterSampleOK = GSystem.MasterTestCh1[1];
+                                masterSampleOK = GSystem.MasterTestOkCh1[1];
                             }
                         }
-                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        if (masterCount < GSystem.ProductSettings.MasterSampleCh1.MasterCount)
                         {
-                            if (GSystem.ProductSettings.MasterSample.MasterType3 != "")
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType3 != "")
                             {
                                 masterCount++;
-                                masterSampleOK = GSystem.MasterTestCh1[2];
+                                masterSampleOK = GSystem.MasterTestOkCh1[2];
                             }
                         }
-                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        if (masterCount < GSystem.ProductSettings.MasterSampleCh1.MasterCount)
                         {
-                            if (GSystem.ProductSettings.MasterSample.MasterType4 != "")
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType4 != "")
                             {
                                 masterCount++;
-                                masterSampleOK = GSystem.MasterTestCh1[3];
+                                masterSampleOK = GSystem.MasterTestOkCh1[3];
                             }
                         }
-                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        if (masterCount < GSystem.ProductSettings.MasterSampleCh1.MasterCount)
                         {
-                            if (GSystem.ProductSettings.MasterSample.MasterType5 != "")
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType5 != "")
                             {
                                 masterCount++;
-                                masterSampleOK = GSystem.MasterTestCh1[4];
+                                masterSampleOK = GSystem.MasterTestOkCh1[4];
                             }
                         }
                     }
                     else
                     {
                         int masterCount = 0;
-                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        if (masterCount < GSystem.ProductSettings.MasterSampleCh2.MasterCount)
                         {
-                            if (GSystem.ProductSettings.MasterSample.MasterType1 != "")
+                            if (GSystem.ProductSettings.MasterSampleCh2.MasterType1 != "")
                             {
                                 masterCount++;
-                                masterSampleOK = GSystem.MasterTestCh2[0];
+                                masterSampleOK = GSystem.MasterTestOkCh2[0];
                             }
                         }
-                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        if (masterCount < GSystem.ProductSettings.MasterSampleCh2.MasterCount)
                         {
-                            if (GSystem.ProductSettings.MasterSample.MasterType2 != "")
+                            if (GSystem.ProductSettings.MasterSampleCh2.MasterType2 != "")
                             {
                                 masterCount++;
-                                masterSampleOK = GSystem.MasterTestCh2[1];
+                                masterSampleOK = GSystem.MasterTestOkCh2[1];
                             }
                         }
-                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        if (masterCount < GSystem.ProductSettings.MasterSampleCh2.MasterCount)
                         {
-                            if (GSystem.ProductSettings.MasterSample.MasterType3 != "")
+                            if (GSystem.ProductSettings.MasterSampleCh2.MasterType3 != "")
                             {
                                 masterCount++;
-                                masterSampleOK = GSystem.MasterTestCh2[2];
+                                masterSampleOK = GSystem.MasterTestOkCh2[2];
                             }
                         }
-                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        if (masterCount < GSystem.ProductSettings.MasterSampleCh2.MasterCount)
                         {
-                            if (GSystem.ProductSettings.MasterSample.MasterType4 != "")
+                            if (GSystem.ProductSettings.MasterSampleCh2.MasterType4 != "")
                             {
                                 masterCount++;
-                                masterSampleOK = GSystem.MasterTestCh2[3];
+                                masterSampleOK = GSystem.MasterTestOkCh2[3];
                             }
                         }
-                        if (masterCount < GSystem.ProductSettings.MasterSample.MasterCount)
+                        if (masterCount < GSystem.ProductSettings.MasterSampleCh2.MasterCount)
                         {
-                            if (GSystem.ProductSettings.MasterSample.MasterType5 != "")
+                            if (GSystem.ProductSettings.MasterSampleCh2.MasterType5 != "")
                             {
                                 masterCount++;
-                                masterSampleOK = GSystem.MasterTestCh2[4];
+                                masterSampleOK = GSystem.MasterTestOkCh2[4];
                             }
                         }
                     }
@@ -2680,11 +2690,6 @@ namespace DHSTesterXL
                     }
                 }
             }
-        }
-
-        private void buttonManual_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

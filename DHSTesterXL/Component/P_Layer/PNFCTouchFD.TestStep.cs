@@ -71,9 +71,6 @@ namespace DHSTesterXL
                 case NFCTouchTestStep.TouchCap_LockSenWait        : NFCTouchTestStep_TouchCap_LockSenWait        (channel); break;
                 case NFCTouchTestStep.TouchCap_LockCanWait        : NFCTouchTestStep_TouchCap_LockCanWait        (channel); break;
                 case NFCTouchTestStep.TouchCap_Retry              : NFCTouchTestStep_TouchCap_Retry              (channel); break;
-
-
-
                 //case NFCTouchTestStep.TouchLockStart              : NFCTouchTestStep_TouchLockStart              (channel); break;
                 //case NFCTouchTestStep.MotionTouchZDownStart       : NFCTouchTestStep_MotionTouchZDownStart       (channel); break;
                 //case NFCTouchTestStep.MotionTouchZDownWait        : NFCTouchTestStep_MotionTouchZDownWait        (channel); break;
@@ -92,9 +89,13 @@ namespace DHSTesterXL
                 case NFCTouchTestStep.MotionCancelZDownWait       : NFCTouchTestStep_MotionCancelZDownWait       (channel); break;
                 case NFCTouchTestStep.MotionMoveNFC_Start         : NFCTouchTestStep_MotionMoveNFC_Start         (channel); break;
                 case NFCTouchTestStep.MotionMoveNFC_Wait          : NFCTouchTestStep_MotionMoveNFC_Wait          (channel); break;
-                case NFCTouchTestStep.NfcCheckStart               : NFCTouchTestStep_NfcCheckStart               (channel); break;
-                case NFCTouchTestStep.MotionNFC_UpStart           : NFCTouchTestStep_MotionNFC_UpStart           (channel); break;
-                case NFCTouchTestStep.MotionNFC_UpWait            : NFCTouchTestStep_MotionNFC_UpWait            (channel); break;
+                case NFCTouchTestStep.MotionNFC_ZDownStart        : NFCTouchTestStep_MotionNFC_ZDownStart        (channel); break;
+                case NFCTouchTestStep.MotionNFC_ZDownWait         : NFCTouchTestStep_MotionNFC_ZDownWait         (channel); break;
+                case NFCTouchTestStep.NFC_CheckStart              : NFCTouchTestStep_NFC_CheckStart              (channel); break;
+                case NFCTouchTestStep.NFC_RetryUpStart            : NFCTouchTestStep_NFC_RetryUpStart            (channel); break;
+                case NFCTouchTestStep.NFC_RetryUpWait             : NFCTouchTestStep_NFC_RetryUpWait             (channel); break;
+                case NFCTouchTestStep.MotionNFC_ZUpStart          : NFCTouchTestStep_MotionNFC_UpStart           (channel); break;
+                case NFCTouchTestStep.MotionNFC_ZUpWait           : NFCTouchTestStep_MotionNFC_UpWait            (channel); break;
                 case NFCTouchTestStep.XcpPrepareSend              : NFCTouchTestStep_XcpPrepareSend              (channel); break;
                 case NFCTouchTestStep.XcpConnectSend              : NFCTouchTestStep_XcpConnectSend              (channel); break;
                 case NFCTouchTestStep.SecuritySetMtaSend          : NFCTouchTestStep_SecuritySetMtaSend          (channel); break;
@@ -158,8 +159,8 @@ namespace DHSTesterXL
                 case NFCTouchTestStep.PLightAmbientWait           : NFCTouchTestStep_PLightAmbientWait           (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.PLightTurnOffWait           : NFCTouchTestStep_PLightTurnOffWait           (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.TouchCan_LockCanWait        : NFCTouchTestStep_TouchCan_LockCanWait        (channel, rxCanID, ref receivedEvent); break;
-                case NFCTouchTestStep.TouchLockWait               : NFCTouchTestStep_TouchLockWait               (channel, rxCanID, ref receivedEvent); break;
-                case NFCTouchTestStep.NfcCheckWait                : NFCTouchTestStep_NfcCheckWait                (channel, rxCanID, ref receivedEvent); break;
+                //case NFCTouchTestStep.TouchLockWait               : NFCTouchTestStep_TouchLockWait               (channel, rxCanID, ref receivedEvent); break;
+                case NFCTouchTestStep.NFC_CheckWait               : NFCTouchTestStep_NFC_CheckWait               (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.XcpPrepareWait              : NFCTouchTestStep_XcpPrepareWait              (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.XcpConnectWait              : NFCTouchTestStep_XcpConnectWait              (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.SecuritySetMtaWait          : NFCTouchTestStep_SecuritySetMtaWait          (channel, rxCanID, ref receivedEvent); break;
@@ -1049,7 +1050,7 @@ namespace DHSTesterXL
         private void NFCTouchTestStep_DarkCurrentComplete(int channel)
         {
             if (channel == CH1)
-                DartCurrent = (short)(GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo);
+                DartCurrent = (short)(GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo - 80);
             else
                 DartCurrent = (short)(GSystem.DedicatedCTRL.Reg_03h_ch2_current_lo);
             GSystem.Logger.Info ($"[CH.{channel + 1}] Dark Current : [ {DartCurrent} uA ]");
@@ -1091,9 +1092,12 @@ namespace DHSTesterXL
             GSystem.Logger.Info ($"[CH.{channel + 1}] Power Off Complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Power Off Complete");
             NextTestStep(channel);
+            _tickStepInterval[channel].Reset();
         }
         private void NFCTouchTestStep_HighPowerOn(int channel)
         {
+            if (_tickStepInterval[channel].LessThan(500))
+                return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Power On]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Power On]");
@@ -1433,8 +1437,8 @@ namespace DHSTesterXL
                 SetTestStep(channel, NFCTouchTestStep.MotionMoveCancelStart);
                 return;
             }
-            if (_tickStepInterval[channel].LessThan(1000))
-                return;
+            //if (_tickStepInterval[channel].LessThan(1000))
+            //    return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Motion Move to Touch]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Motion Move to Touch]");
@@ -1456,10 +1460,13 @@ namespace DHSTesterXL
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Move to Touch Complete");
 
             NextTestStep(channel);
+            _tickStepInterval[channel].Reset();
         }
 
         private void NFCTouchTestStep_TouchTestStart(int channel)
         {
+            if (_tickStepInterval[channel].LessThan(1000))
+                return;
             // 측정 상태 표시
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Touch Test]");
@@ -1500,7 +1507,7 @@ namespace DHSTesterXL
         private void NFCTouchTestStep_TouchCan_ZDownStart(int channel)
         {
             // Touch Z축 하강 시작
-            if (_tickStepInterval[channel].MoreThan(200))
+            if (_tickStepInterval[channel].MoreThan(1000))
             {
                 NextTestStep(channel);
                 _tickStepTimeout[channel].Reset();
@@ -1678,7 +1685,7 @@ namespace DHSTesterXL
         private void NFCTouchTestStep_TouchCap_ZDownStart(int channel)
         {
             // Touch Z축 하강 시작
-            if (_tickStepInterval[channel].MoreThan(200))
+            if (_tickStepInterval[channel].MoreThan(100))
             {
                 GSystem.isTouchFirstExecute[channel] = false;
                 NextTestStep(channel);
@@ -1844,276 +1851,263 @@ namespace DHSTesterXL
             SetTestStep(channel, NFCTouchTestStep.TouchCap_ZDownStart);
             _tickStepInterval[channel].Reset();
         }
+        //private void NFCTouchTestStep_TouchLockStart(int channel)
+        //{
+        //    // 측정 USE 판단
+        //    if (!GSystem.ProductSettings.TestItemSpecs.LockSen.Use)
+        //    {
+        //        // 다음 측정 항목으로 이동
+        //        SetTestStep(channel, NFCTouchTestStep.MotionMoveCancelStart);
+        //        return;
+        //    }
+        //    // 옵션에 따라서 Can 검사로 할지 Capacitance 검사로 할지 결정한다.
+        //    if (GSystem.ProductSettings.TestItemSpecs.LockSen.Option == 0)
+        //    {
+        //        // Capacitance 검사로 전환
+        //        SetTestStep(channel, NFCTouchTestStep.TouchCapacitanceStart);
+        //        return;
+        //    }
+        //    // 측정 상태 표시
+        //    _tickStepElapse[channel].Reset();
+        //    GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Touch Lock]");
+        //    GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Touch Lock]");
+        //    _overalResult[channel].LockSen.State = TestStates.Running;
+        //    _overalResult[channel].LockSen.Value = "";
+        //    _overalResult[channel].LockSen.Result = "측정 중";
+        //    _overalResult[channel].LockCan.State = TestStates.Running;
+        //    _overalResult[channel].LockCan.Value = "";
+        //    _overalResult[channel].LockCan.Result = "측정 중";
+        //    // 동작 상태 표시
+        //    OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
+        //    OnTestStepProgressChanged(channel, _overalResult[channel].LockCan);
+        //    NextTestStep(channel);
+        //    _retryCount[channel] = 0;
+        //}
+        //private void NFCTouchTestStep_MotionTouchZDownStart(int channel)
+        //{
+        //    // Touch 판정 시작
+        //    if (_tickStepInterval[channel].MoreThan(200))
+        //    {
+        //        NextTestStep(channel);
+        //        _tickStepTimeout[channel].Reset();
+        //        // Touch 하강
+        //        GSystem.MiPLC.SetTouchZDownStart(channel, true);
+        //        _tickStepInterval[channel].Reset();
+        //    }
+        //}
+        //private void NFCTouchTestStep_MotionTouchZDownWait(int channel)
+        //{
+        //    // Touch Z축 하강 완료 대기
+        //    if (GSystem.MiPLC.GetTouchZDownStart(channel))
+        //    {
+        //        if (!GSystem.MiPLC.GetTouchZDownComplete(channel))
+        //            return;
+        //        GSystem.MiPLC.SetTouchZDownStart(channel, false);
+        //    }
+        //    NextTestStep(channel);
+        //}
+        //private void NFCTouchTestStep_TouchLockWait(int channel, uint rxCanID, ref XLcanRxEvent receivedEvent)
+        //{
+        //    if (rxCanID == GSystem.ProductSettings.NM_ResID)
+        //    {
+        //        bool hardwireSignal = GSystem.DedicatedCTRL.GetLockSignal(channel);
+        //        byte touchState = (byte)(receivedEvent.tagData.canRxOkMsg.data[4] & 0x01);
+        //        if (hardwireSignal && touchState != 0x00)
+        //        {
+        //            GSystem.Logger.Info (GetRxEventString(receivedEvent).ToString());
+        //            // TOUCH 입력
+        //            GSystem.TouchLockState[channel] = 1;
+        //            GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Lock State [ {touchState:X02} ]");
+        //            GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Lock step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+        //            GSystem.TraceMessage($"[CH.{channel + 1}] Touch Lock step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+        //            GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Lock complete");
+        //            GSystem.TraceMessage($"[CH.{channel + 1}] Touch Lock complete");
+        //            // 결과 판정
+        //            TestSpec testLockSen = GSystem.ProductSettings.TestItemSpecs.LockSen;
+        //            _overalResult[channel].LockSen.State = TestStates.Pass;
+        //            _overalResult[channel].LockSen.Value = $"0x{touchState:X02}";
+        //            _overalResult[channel].LockSen.Result = $"{testLockSen.MaxValue}";
+        //            // 동작 상태 표시
+        //            OnTestStepProgressChanged(channel, _overalResult[channel].LockCan);
+        //            TestSpec testLockCan = GSystem.ProductSettings.TestItemSpecs.LockCan;
+        //            _overalResult[channel].LockCan.State = TestStates.Pass;
+        //            _overalResult[channel].LockCan.Value = $"0x{touchState:X02}";
+        //            _overalResult[channel].LockCan.Result = $"{testLockCan.MaxValue}";
+        //            // 동작 상태 표시
+        //            OnTestStepProgressChanged(channel, _overalResult[channel].LockCan);
+        //            // 다음 스텝으로
+        //            SetTestStep(channel, NFCTouchTestStep.MotionTouchZUpStart);
+        //            _tickStepInterval[channel].Reset();
+        //        }
+        //        else
+        //        {
+        //            if (_tickStepTimeout[channel].MoreThan(2000))
+        //            {
+        //                // 에러 처리
+        //                if (++_retryCount[channel] < MaxRetryCount)
+        //                {
+        //                    // timeout!
+        //                    // Touch 상승
+        //                    GSystem.MiPLC.SetTouchZUpStart(channel, true);
+        //                    SetTestStep(channel, NFCTouchTestStep.TouchLockRetry);
+        //                }
+        //                else
+        //                {
+        //                    GSystem.TouchLockState[channel] = 0;
+        //                    GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Lock State [ {receivedEvent.tagData.canRxOkMsg.data[3]:X02} ]");
+        //                    GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Lock step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+        //                    GSystem.TraceMessage($"[CH.{channel + 1}] Touch Lock step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+        //                    GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Lock Timeout Error!");
+        //                    GSystem.TraceMessage($"[CH.{channel + 1}] Touch Lock Timeout Error!");
+        //                    // 결과 판정
+        //                    _overalResult[channel].LockSen.State = TestStates.Failed;
+        //                    _overalResult[channel].LockSen.Value = $"0x{touchState:X02}";
+        //                    _overalResult[channel].LockSen.Result = $"0";
+        //                    // 동작 상태 표시
+        //                    OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
+        //                    _overalResult[channel].LockCan.State = TestStates.Failed;
+        //                    _overalResult[channel].LockCan.Value = $"0x{touchState:X02}";
+        //                    _overalResult[channel].LockCan.Result = $"0";
+        //                    // 동작 상태 표시
+        //                    OnTestStepProgressChanged(channel, _overalResult[channel].LockCan);
+        //                    // 다음 스텝으로
+        //                    SetTestStep(channel, NFCTouchTestStep.MotionTouchZUpStart);
+        //                    _tickStepInterval[channel].Reset();
+        //                    _retryCount[channel] = 0;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+        //private void NFCTouchTestStep_TouchLockRetry(int channel)
+        //{
+        //    // Touch 상승 확인
+        //    if (GSystem.MiPLC.GetTouchZUpStart(channel))
+        //    {
+        //        if (!GSystem.MiPLC.GetTouchZUpComplete(channel))
+        //            return;
+        //        GSystem.MiPLC.SetTouchZUpStart(channel, false);
+        //    }
+        //    SetTestStep(channel, NFCTouchTestStep.MotionTouchZDownStart);
+        //    _tickStepInterval[channel].Reset();
+        //}
+        //private void NFCTouchTestStep_TouchCapacitanceStart(int channel)
+        //{
+        //    // 측정 USE 판단
+        //    if (!GSystem.ProductSettings.TestItemSpecs.LockSen.Use)
+        //    {
+        //        // 다음 측정 항목으로 이동
+        //        SetTestStep(channel, NFCTouchTestStep.MotionMoveCancelStart);
+        //        return;
+        //    }
+        //    // 측정 상태 표시
+        //    _tickStepElapse[channel].Reset();
+        //    GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Touch Capacitance]");
+        //    GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Touch Capacitance]");
+        //    _overalResult[channel].LockSen.State = TestStates.Running;
+        //    _overalResult[channel].LockSen.Value = "";
+        //    _overalResult[channel].LockSen.Result = "측정 중";
+        //    // 동작 상태 표시
+        //    OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
 
+        //    GSystem.isTouchFirstExecute[channel] = true;
+        //    GSystem.isTouchFastMutualIdleAverage[channel] = false;
+        //    GSystem.isTouchFastSelfIdleAverage[channel] = false;
+        //    GSystem.TouchFastMutualList[channel].Clear();
+        //    GSystem.TouchFastSelfList[channel].Clear();
+        //    GSystem.isTouchFastMutualComplete[channel] = false;
+        //    GSystem.isTouchFastSelfComplete[channel] = false;
 
+        //    // GetTouchAsync()를 백그라운드로 실행
+        //    Task.Run(async () => await GetTouchAsync(channel));
 
+        //    // Full proof 표시
+        //    //OnShowFullProofMessage(channel, "TOUCH를 접촉하세요", true);
 
+        //    SetTestStep(channel, NFCTouchTestStep.TouchCapacitancePrepare);
+        //    _tickStepInterval[channel].Reset();
+        //}
+        //private void NFCTouchTestStep_TouchCapacitancePrepare(int channel)
+        //{
+        //    // Touch 판정 시작
+        //    if (_tickStepInterval[channel].MoreThan(500))
+        //    {
+        //        GSystem.isTouchFirstExecute[channel] = false;
+        //        SetTestStep(channel, NFCTouchTestStep.TouchCapacitanceWait);
+        //        _tickStepTimeout[channel].Reset();
+        //        // Touch 하강
+        //        GSystem.MiPLC.SetTouchZDownStart(channel, true);
+        //        _tickStepInterval[channel].Reset();
+        //    }
+        //}
+        //private void NFCTouchTestStep_TouchCapacitanceWait(int channel)
+        //{
+        //    // Touch Z축 하강 완료 대기
+        //    if (GSystem.MiPLC.GetTouchZDownStart(channel))
+        //    {
+        //        if (!GSystem.MiPLC.GetTouchZDownComplete(channel))
+        //            return;
+        //        GSystem.MiPLC.SetTouchZDownStart(channel, false);
+        //    }
+        //    if (_tickStepInterval[channel].LessThan(1000))
+        //        return;
+        //    // Touch 판정 완료 대기
+        //    if (GSystem.isTouchFastMutualComplete[channel] == true && GSystem.isTouchFastSelfComplete[channel] == true)
+        //    {
+        //        // 터치 검사 종료
+        //        TouchStepExit[channel] = true;
+        //        // Full proof 닫기
+        //        OnShowFullProofMessage(channel, "", false);
 
+        //        GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance Fast Mutual Delta [ {GSystem.deltaTouchFastMutual[channel]} ]({GSystem.ProductSettings.XCPAddress.TouchFastMutual.Address})");
+        //        GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance Fast Self   Delta [ {GSystem.deltaTouchFastSelf[channel]} ]({GSystem.ProductSettings.XCPAddress.TouchFastSelf.Address})");
+        //        GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+        //        GSystem.TraceMessage($"[CH.{channel + 1}] Touch Capacitance step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+        //        GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance Complete");
+        //        GSystem.TraceMessage($"[CH.{channel + 1}] Touch Capacitance Complete");
+        //        // 간이검사기의 특징 : 사람이 검출하기 때문에 여기까지 왔으면 OK, EOL 설비에서는 다르다
+        //        // 결과 판정
+        //        TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.LockSen;
+        //        _overalResult[channel].LockSen.State = TestStates.Pass;
+        //        _overalResult[channel].LockSen.Value = $"{GSystem.deltaTouchFastMutual[channel]},{GSystem.deltaTouchFastSelf[channel]}";
+        //        _overalResult[channel].LockSen.Result = $"{testSpec.MaxValue}";
+        //        // 동작 상태 표시
+        //        OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
+        //        NextTestStep(channel);
+        //        _tickStepInterval[channel].Reset();
+        //    }
+        //    else
+        //    {
+        //        if (_tickStepTimeout[channel].MoreThan(5000))
+        //        {
+        //            // 에러 처리
 
+        //            // 터치 검사 종료
+        //            TouchStepExit[channel] = true;
+        //            // Full proof 닫기
+        //            OnShowFullProofMessage(channel, "", false);
 
-
-
-
-
-
-
-        private void NFCTouchTestStep_TouchLockStart(int channel)
-        {
-            // 측정 USE 판단
-            if (!GSystem.ProductSettings.TestItemSpecs.LockSen.Use)
-            {
-                // 다음 측정 항목으로 이동
-                SetTestStep(channel, NFCTouchTestStep.MotionMoveCancelStart);
-                return;
-            }
-            // 옵션에 따라서 Can 검사로 할지 Capacitance 검사로 할지 결정한다.
-            if (GSystem.ProductSettings.TestItemSpecs.LockSen.Option == 0)
-            {
-                // Capacitance 검사로 전환
-                SetTestStep(channel, NFCTouchTestStep.TouchCapacitanceStart);
-                return;
-            }
-            // 측정 상태 표시
-            _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Touch Lock]");
-            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Touch Lock]");
-            _overalResult[channel].LockSen.State = TestStates.Running;
-            _overalResult[channel].LockSen.Value = "";
-            _overalResult[channel].LockSen.Result = "측정 중";
-            _overalResult[channel].LockCan.State = TestStates.Running;
-            _overalResult[channel].LockCan.Value = "";
-            _overalResult[channel].LockCan.Result = "측정 중";
-            // 동작 상태 표시
-            OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
-            OnTestStepProgressChanged(channel, _overalResult[channel].LockCan);
-            NextTestStep(channel);
-            _retryCount[channel] = 0;
-        }
-        private void NFCTouchTestStep_MotionTouchZDownStart(int channel)
-        {
-            // Touch 판정 시작
-            if (_tickStepInterval[channel].MoreThan(200))
-            {
-                NextTestStep(channel);
-                _tickStepTimeout[channel].Reset();
-                // Touch 하강
-                GSystem.MiPLC.SetTouchZDownStart(channel, true);
-                _tickStepInterval[channel].Reset();
-            }
-        }
-        private void NFCTouchTestStep_MotionTouchZDownWait(int channel)
-        {
-            // Touch Z축 하강 완료 대기
-            if (GSystem.MiPLC.GetTouchZDownStart(channel))
-            {
-                if (!GSystem.MiPLC.GetTouchZDownComplete(channel))
-                    return;
-                GSystem.MiPLC.SetTouchZDownStart(channel, false);
-            }
-            NextTestStep(channel);
-        }
-        private void NFCTouchTestStep_TouchLockWait(int channel, uint rxCanID, ref XLcanRxEvent receivedEvent)
-        {
-            if (rxCanID == GSystem.ProductSettings.NM_ResID)
-            {
-                bool hardwireSignal = GSystem.DedicatedCTRL.GetLockSignal(channel);
-                byte touchState = (byte)(receivedEvent.tagData.canRxOkMsg.data[4] & 0x01);
-                if (hardwireSignal && touchState != 0x00)
-                {
-                    GSystem.Logger.Info (GetRxEventString(receivedEvent).ToString());
-                    // TOUCH 입력
-                    GSystem.TouchLockState[channel] = 1;
-                    GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Lock State [ {touchState:X02} ]");
-                    GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Lock step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                    GSystem.TraceMessage($"[CH.{channel + 1}] Touch Lock step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                    GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Lock complete");
-                    GSystem.TraceMessage($"[CH.{channel + 1}] Touch Lock complete");
-                    // 결과 판정
-                    TestSpec testLockSen = GSystem.ProductSettings.TestItemSpecs.LockSen;
-                    _overalResult[channel].LockSen.State = TestStates.Pass;
-                    _overalResult[channel].LockSen.Value = $"0x{touchState:X02}";
-                    _overalResult[channel].LockSen.Result = $"{testLockSen.MaxValue}";
-                    // 동작 상태 표시
-                    OnTestStepProgressChanged(channel, _overalResult[channel].LockCan);
-                    TestSpec testLockCan = GSystem.ProductSettings.TestItemSpecs.LockCan;
-                    _overalResult[channel].LockCan.State = TestStates.Pass;
-                    _overalResult[channel].LockCan.Value = $"0x{touchState:X02}";
-                    _overalResult[channel].LockCan.Result = $"{testLockCan.MaxValue}";
-                    // 동작 상태 표시
-                    OnTestStepProgressChanged(channel, _overalResult[channel].LockCan);
-                    // 다음 스텝으로
-                    SetTestStep(channel, NFCTouchTestStep.MotionTouchZUpStart);
-                    _tickStepInterval[channel].Reset();
-                }
-                else
-                {
-                    if (_tickStepTimeout[channel].MoreThan(2000))
-                    {
-                        // 에러 처리
-                        if (++_retryCount[channel] < MaxRetryCount)
-                        {
-                            // timeout!
-                            // Touch 상승
-                            GSystem.MiPLC.SetTouchZUpStart(channel, true);
-                            SetTestStep(channel, NFCTouchTestStep.TouchLockRetry);
-                        }
-                        else
-                        {
-                            GSystem.TouchLockState[channel] = 0;
-                            GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Lock State [ {receivedEvent.tagData.canRxOkMsg.data[3]:X02} ]");
-                            GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Lock step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                            GSystem.TraceMessage($"[CH.{channel + 1}] Touch Lock step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                            GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Lock Timeout Error!");
-                            GSystem.TraceMessage($"[CH.{channel + 1}] Touch Lock Timeout Error!");
-                            // 결과 판정
-                            _overalResult[channel].LockSen.State = TestStates.Failed;
-                            _overalResult[channel].LockSen.Value = $"0x{touchState:X02}";
-                            _overalResult[channel].LockSen.Result = $"0";
-                            // 동작 상태 표시
-                            OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
-                            _overalResult[channel].LockCan.State = TestStates.Failed;
-                            _overalResult[channel].LockCan.Value = $"0x{touchState:X02}";
-                            _overalResult[channel].LockCan.Result = $"0";
-                            // 동작 상태 표시
-                            OnTestStepProgressChanged(channel, _overalResult[channel].LockCan);
-                            // 다음 스텝으로
-                            SetTestStep(channel, NFCTouchTestStep.MotionTouchZUpStart);
-                            _tickStepInterval[channel].Reset();
-                            _retryCount[channel] = 0;
-                        }
-                    }
-                }
-            }
-        }
-        private void NFCTouchTestStep_TouchLockRetry(int channel)
-        {
-            // Touch 상승 확인
-            if (GSystem.MiPLC.GetTouchZUpStart(channel))
-            {
-                if (!GSystem.MiPLC.GetTouchZUpComplete(channel))
-                    return;
-                GSystem.MiPLC.SetTouchZUpStart(channel, false);
-            }
-            SetTestStep(channel, NFCTouchTestStep.MotionTouchZDownStart);
-            _tickStepInterval[channel].Reset();
-        }
-        private void NFCTouchTestStep_TouchCapacitanceStart(int channel)
-        {
-            // 측정 USE 판단
-            if (!GSystem.ProductSettings.TestItemSpecs.LockSen.Use)
-            {
-                // 다음 측정 항목으로 이동
-                SetTestStep(channel, NFCTouchTestStep.MotionMoveCancelStart);
-                return;
-            }
-            // 측정 상태 표시
-            _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Touch Capacitance]");
-            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Touch Capacitance]");
-            _overalResult[channel].LockSen.State = TestStates.Running;
-            _overalResult[channel].LockSen.Value = "";
-            _overalResult[channel].LockSen.Result = "측정 중";
-            // 동작 상태 표시
-            OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
-
-            GSystem.isTouchFirstExecute[channel] = true;
-            GSystem.isTouchFastMutualIdleAverage[channel] = false;
-            GSystem.isTouchFastSelfIdleAverage[channel] = false;
-            GSystem.TouchFastMutualList[channel].Clear();
-            GSystem.TouchFastSelfList[channel].Clear();
-            GSystem.isTouchFastMutualComplete[channel] = false;
-            GSystem.isTouchFastSelfComplete[channel] = false;
-
-            // GetTouchAsync()를 백그라운드로 실행
-            Task.Run(async () => await GetTouchAsync(channel));
-
-            // Full proof 표시
-            //OnShowFullProofMessage(channel, "TOUCH를 접촉하세요", true);
-
-            SetTestStep(channel, NFCTouchTestStep.TouchCapacitancePrepare);
-            _tickStepInterval[channel].Reset();
-        }
-        private void NFCTouchTestStep_TouchCapacitancePrepare(int channel)
-        {
-            // Touch 판정 시작
-            if (_tickStepInterval[channel].MoreThan(500))
-            {
-                GSystem.isTouchFirstExecute[channel] = false;
-                SetTestStep(channel, NFCTouchTestStep.TouchCapacitanceWait);
-                _tickStepTimeout[channel].Reset();
-                // Touch 하강
-                GSystem.MiPLC.SetTouchZDownStart(channel, true);
-                _tickStepInterval[channel].Reset();
-            }
-        }
-        private void NFCTouchTestStep_TouchCapacitanceWait(int channel)
-        {
-            // Touch Z축 하강 완료 대기
-            if (GSystem.MiPLC.GetTouchZDownStart(channel))
-            {
-                if (!GSystem.MiPLC.GetTouchZDownComplete(channel))
-                    return;
-                GSystem.MiPLC.SetTouchZDownStart(channel, false);
-            }
-            if (_tickStepInterval[channel].LessThan(1000))
-                return;
-            // Touch 판정 완료 대기
-            if (GSystem.isTouchFastMutualComplete[channel] == true && GSystem.isTouchFastSelfComplete[channel] == true)
-            {
-                // 터치 검사 종료
-                TouchStepExit[channel] = true;
-                // Full proof 닫기
-                OnShowFullProofMessage(channel, "", false);
-
-                GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance Fast Mutual Delta [ {GSystem.deltaTouchFastMutual[channel]} ]({GSystem.ProductSettings.XCPAddress.TouchFastMutual.Address})");
-                GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance Fast Self   Delta [ {GSystem.deltaTouchFastSelf[channel]} ]({GSystem.ProductSettings.XCPAddress.TouchFastSelf.Address})");
-                GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                GSystem.TraceMessage($"[CH.{channel + 1}] Touch Capacitance step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance Complete");
-                GSystem.TraceMessage($"[CH.{channel + 1}] Touch Capacitance Complete");
-                // 간이검사기의 특징 : 사람이 검출하기 때문에 여기까지 왔으면 OK, EOL 설비에서는 다르다
-                // 결과 판정
-                TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.LockSen;
-                _overalResult[channel].LockSen.State = TestStates.Pass;
-                _overalResult[channel].LockSen.Value = $"{GSystem.deltaTouchFastMutual[channel]},{GSystem.deltaTouchFastSelf[channel]}";
-                _overalResult[channel].LockSen.Result = $"{testSpec.MaxValue}";
-                // 동작 상태 표시
-                OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
-                NextTestStep(channel);
-                _tickStepInterval[channel].Reset();
-            }
-            else
-            {
-                if (_tickStepTimeout[channel].MoreThan(5000))
-                {
-                    // 에러 처리
-
-                    // 터치 검사 종료
-                    TouchStepExit[channel] = true;
-                    // Full proof 닫기
-                    OnShowFullProofMessage(channel, "", false);
-
-                    GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                    GSystem.TraceMessage($"[CH.{channel + 1}] Touch Capacitance step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                    GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance Timeout!");
-                    GSystem.TraceMessage($"[CH.{channel + 1}] Touch Capacitance Timeout!");
-                    // 결과 판정
-                    _overalResult[channel].LockSen.State = TestStates.Failed;
-                    _overalResult[channel].LockSen.Value = "";
-                    _overalResult[channel].LockSen.Result = "Timeout";
-                    // 동작 상태 표시
-                    OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
-                    // Touch 상승
-                    SetTestStep(channel, NFCTouchTestStep.MotionTouchZUpStart);
-                    _tickStepInterval[channel].Reset();
-                }
-            }
-        }
+        //            GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+        //            GSystem.TraceMessage($"[CH.{channel + 1}] Touch Capacitance step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+        //            GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Capacitance Timeout!");
+        //            GSystem.TraceMessage($"[CH.{channel + 1}] Touch Capacitance Timeout!");
+        //            // 결과 판정
+        //            _overalResult[channel].LockSen.State = TestStates.Failed;
+        //            _overalResult[channel].LockSen.Value = "";
+        //            _overalResult[channel].LockSen.Result = "Timeout";
+        //            // 동작 상태 표시
+        //            OnTestStepProgressChanged(channel, _overalResult[channel].LockSen);
+        //            // Touch 상승
+        //            SetTestStep(channel, NFCTouchTestStep.MotionTouchZUpStart);
+        //            _tickStepInterval[channel].Reset();
+        //        }
+        //    }
+        //}
 
         // Touch 상승
         private void NFCTouchTestStep_MotionTouchZUpStart(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(1000))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // Touch 상승
             _tickStepElapse[channel].Reset();
@@ -2180,7 +2174,7 @@ namespace DHSTesterXL
                 SetTestStep(channel, NFCTouchTestStep.MotionMoveNFC_Start);
                 return;
             }
-            if (_tickStepInterval[channel].LessThan(1000))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 측정 상태 표시
             _tickStepElapse[channel].Reset();
@@ -2342,114 +2336,161 @@ namespace DHSTesterXL
             GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Move to NFC Complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Move to NFC Complete");
             NextTestStep(channel);
+            _retryCount[channel] = 0;
         }
-        private void NFCTouchTestStep_NfcCheckStart(int channel)
+        // NFC 상승
+        private void NFCTouchTestStep_MotionNFC_ZDownStart(int channel)
         {
-            // 측정 USE 판단
-            if (!GSystem.ProductSettings.TestItemSpecs.NFC.Use)
-            {
-                // 다음 측정 항목으로 이동
-                SetTestStep(channel, NFCTouchTestStep.DTCEraseSend);
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
-            }
-            _tickStepTimeout[channel].Reset();
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [NFC]");
-            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [NFC]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Motion NFC Down]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Motion NFC Down]");
             // 측정 상태 표시
             _overalResult[channel].NFC.State = TestStates.Running;
             _overalResult[channel].NFC.Value = "";
             _overalResult[channel].NFC.Result = "측정 중";
             OnTestStepProgressChanged(channel, _overalResult[channel].NFC);
+            // NFC 하강
+            // 17mm부터 재시도 횟수에 따라 1mm씩 더 하강한다.
+            // 재시도 측정높이 Z축위치
+            // 0      17       15
+            // 1      16       16
+            // 2      15       17
+            // 3      14       18
+            // 4      13       19
+            // 이동할 위치 = Z축 위치 + 재시도 횟수
+            if (channel == GSystem.CH1)
+                GSystem.MiPLC.Ch1_W_NFC_Z_Pos = (ushort)(GSystem.MiPLC.Ch1_R_NFC_Z_RecipePos + (_retryCount[channel] * 10));
+            else
+                GSystem.MiPLC.Ch2_W_NFC_Z_Pos = (ushort)(GSystem.MiPLC.Ch2_R_NFC_Z_RecipePos + (_retryCount[channel] * 10));
+            GSystem.MiPLC.SetNFC_Z_PositionStart(channel, true);
+            //GSystem.MiPLC.SetNFCZDownStart(channel, true);
+            NextTestStep(channel);
+            _tickStepInterval[channel].Reset();
+        }
+        private void NFCTouchTestStep_MotionNFC_ZDownWait(int channel)
+        {
+            //if (GSystem.MiPLC.GetNFC_Z_PositionStart(channel))
+            //{
+            //    if (!GSystem.MiPLC.GetNFC_Z_PositionComplete(channel))
+            //        return;
+            //    GSystem.MiPLC.SetNFC_Z_PositionStart(channel, false);
+            //    //_tickStepInterval[channel].Reset();
+            //}
+            //if (_tickStepInterval[channel].LessThan(100))
+            //    return;
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Motion NFC Down step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Motion NFC Down step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Motion NFC Down Complete");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Motion NFC Down Complete");
+            NextTestStep(channel);
+        }
+        private void NFCTouchTestStep_NFC_CheckStart(int channel)
+        {
+            if (GSystem.MiPLC.GetNFC_Z_PositionStart(channel))
+            {
+                if (GSystem.MiPLC.GetNFC_Z_PositionComplete(channel))
+                    GSystem.MiPLC.SetNFC_Z_PositionStart(channel, false);
+            }
+            //if (GSystem.MiPLC.GetNFCZDownStart(channel))
+            //{
+            //    if (GSystem.MiPLC.GetNFCZDownComplete(channel))
+            //        GSystem.MiPLC.SetNFCZDownStart(channel, false);
+            //}
+            _tickStepTimeout[channel].Reset();
+            _tickStepElapse[channel].Reset();
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [NFC]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [NFC]");
+            //// 측정 상태 표시
+            //_overalResult[channel].NFC.State = TestStates.Running;
+            //_overalResult[channel].NFC.Value = "";
+            //_overalResult[channel].NFC.Result = "측정 중";
+            //OnTestStepProgressChanged(channel, _overalResult[channel].NFC);
             // NFC 입력 상태 초기화
             GSystem.NFC_State[channel] = 0;
             NextTestStep(channel);
-            // NFC 하강
-            GSystem.MiPLC.SetNFCZDownStart(channel, true);
-            _tickStepInterval[channel].Reset();
+            _tickStepTimeout[channel].Reset();
         }
-        private void NFCTouchTestStep_NfcCheckWait(int channel, uint rxCanID, ref XLcanRxEvent receivedEvent)
+        private void NFCTouchTestStep_NFC_CheckWait(int channel, uint rxCanID, ref XLcanRxEvent receivedEvent)
         {
-            if (GSystem.MiPLC.GetNFCZDownStart(channel))
+            if (GSystem.MiPLC.GetNFC_Z_PositionStart(channel))
             {
-                if (!GSystem.MiPLC.GetNFCZDownComplete(channel))
-                {
-                    GSystem.MiPLC.SetNFCZDownStart(channel, false);
-                }
+                if (GSystem.MiPLC.GetNFC_Z_PositionComplete(channel))
+                    GSystem.MiPLC.SetNFC_Z_PositionStart(channel, false);
             }
-            if (_tickStepTimeout[channel].MoreThan(5000))
+            //if (GSystem.MiPLC.GetNFCZDownStart(channel))
+            //{
+            //    if (GSystem.MiPLC.GetNFCZDownComplete(channel))
+            //        GSystem.MiPLC.SetNFCZDownStart(channel, false);
+            //}
+            if (rxCanID == GSystem.ProductSettings.NFC_ResID)
             {
-                // 에러 처리
-
-                // Full proof 닫기
-                OnShowFullProofMessage(channel, "", false);
-
-                GSystem.NFC_State[channel] = 0;
-                GSystem.Logger.Info ($"[CH.{channel + 1}] NFC State [ {receivedEvent.tagData.canRxOkMsg.data[3]:X02} ]");
-                GSystem.Logger.Info ($"[CH.{channel + 1}] NFC step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                GSystem.TraceMessage($"[CH.{channel + 1}] NFC step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                GSystem.Logger.Info ($"[CH.{channel + 1}] NFC Timeout!");
-                GSystem.TraceMessage($"[CH.{channel + 1}] NFC Timeout!");
-                // 결과 판정
-                TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.NFC;
-                _overalResult[channel].NFC.State = TestStates.Failed;
-                _overalResult[channel].NFC.Value = "Timeout";
-                _overalResult[channel].NFC.Result = "Timeout";
-                // 동작 상태 표시
-                OnTestStepProgressChanged(channel, _overalResult[channel].NFC);
-                NextTestStep(channel);
-                _tickStepInterval[channel].Reset();
-                _retryCount[channel] = 0;
-            }
-            else
-            {
-                if (rxCanID == GSystem.ProductSettings.NFC_ResID)
+                if ((receivedEvent.tagData.canRxOkMsg.data[3] & 0x30) != 0x00)
                 {
-                    if ((receivedEvent.tagData.canRxOkMsg.data[3] & 0x30) != 0x00)
-                    {
-                        GSystem.Logger.Info (GetRxEventString(receivedEvent).ToString());
-                        // Full proof 닫기
-                        OnShowFullProofMessage(channel, "", false);
-                        // NFC 입력
-                        GSystem.NFC_State[channel] = 1;
-                        GSystem.Logger.Info ($"[CH.{channel + 1}] NFC State [ {receivedEvent.tagData.canRxOkMsg.data[3]:X02} ]");
-                        GSystem.Logger.Info ($"[CH.{channel + 1}] NFC step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                        GSystem.TraceMessage($"[CH.{channel + 1}] NFC step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                        GSystem.Logger.Info ($"[CH.{channel + 1}] NFC complete");
-                        GSystem.TraceMessage($"[CH.{channel + 1}] NFC complete");
-                        // 결과 판정
-                        TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.NFC;
-                        _overalResult[channel].NFC.State = TestStates.Pass;
-                        _overalResult[channel].NFC.Value = $"0x{receivedEvent.tagData.canRxOkMsg.data[3]:X02}";
-                        _overalResult[channel].NFC.Result = $"{testSpec.MaxValue}";
-                        // 동작 상태 표시
-                        OnTestStepProgressChanged(channel, _overalResult[channel].NFC);
-                        NextTestStep(channel);
-                        _tickStepInterval[channel].Reset();
-                    }
+                    GSystem.Logger.Info (GetRxEventString(receivedEvent).ToString());
+                    // NFC 입력
+                    GSystem.NFC_State[channel] = 1;
+                    GSystem.Logger.Info ($"[CH.{channel + 1}] NFC State [ {receivedEvent.tagData.canRxOkMsg.data[3]:X02} ]");
+                    GSystem.Logger.Info ($"[CH.{channel + 1}] NFC step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+                    GSystem.TraceMessage($"[CH.{channel + 1}] NFC step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+                    GSystem.Logger.Info ($"[CH.{channel + 1}] NFC complete");
+                    GSystem.TraceMessage($"[CH.{channel + 1}] NFC complete");
+                    // 결과 판정
+                    // 현재 높이 계산 : 현재 Z축 위치 - 기준 Z축 위치 + 기준 Z축 높이
+                    int currentHeight;
+                    if (channel == GSystem.CH1)
+                        currentHeight = GSystem.ProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh1 - (_retryCount[channel] * 10);
                     else
+                        currentHeight = GSystem.ProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh2 - (_retryCount[channel] * 10);
+                    TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.NFC;
+                    _overalResult[channel].NFC.State = TestStates.Pass;
+                    _overalResult[channel].NFC.Value = $"0x{receivedEvent.tagData.canRxOkMsg.data[3]:X02}";
+                    _overalResult[channel].NFC.Result = $"{(currentHeight / 10.0):F00} mm";
+                    // 동작 상태 표시
+                    OnTestStepProgressChanged(channel, _overalResult[channel].NFC);
+                    SetTestStep(channel, NFCTouchTestStep.MotionNFC_ZUpStart);
+                    _tickStepInterval[channel].Reset();
+                }
+                else
+                {
+                    // NFC 재시도는 길게 할 필요없다.
+                    if (_tickStepTimeout[channel].MoreThan(200))
                     {
-                        if (_tickStepTimeout[channel].MoreThan(5000))
+                        // 13mm 초과면 1mm 하강, 13mm까지 실패하면 에러 처리
+                        TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.NFC;
+                        int currentHeight;
+                        if (channel == GSystem.CH1)
+                            //currentHeight = GSystem.MiPLC.GetCurrentNFC_Z_Position(channel) - GSystem.ProductSettings.ProductInfo.NFC_Z_CurrentBasePositionCh1 + GSystem.ProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh1;
+                            currentHeight = GSystem.ProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh1 - (GSystem.MiPLC.GetCurrentNFC_Z_Position(channel) - GSystem.ProductSettings.ProductInfo.NFC_Z_CurrentBasePositionCh1);
+                        else
+                            //currentHeight = GSystem.MiPLC.GetCurrentNFC_Z_Position(channel) - GSystem.ProductSettings.ProductInfo.NFC_Z_CurrentBasePositionCh2 + GSystem.ProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh2;
+                            currentHeight = GSystem.ProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh2 - (GSystem.MiPLC.GetCurrentNFC_Z_Position(channel) - GSystem.ProductSettings.ProductInfo.NFC_Z_CurrentBasePositionCh2);
+                        int minimumHeight = (int)(testSpec.MinValue * 10.0);
+                        GSystem.TraceMessage($"current = {currentHeight}, min = {minimumHeight}");
+                        if (++_retryCount[channel] <= 5)
+                        //if (currentHeight > minimumHeight)
+                        {
+                            // 상승
+                            SetTestStep(channel, NFCTouchTestStep.NFC_RetryUpStart);
+                            _retryCount[channel]++;
+                        }
+                        else
                         {
                             // 에러 처리
-
-                            // Full proof 닫기
-                            OnShowFullProofMessage(channel, "", false);
-
                             GSystem.NFC_State[channel] = 0;
                             GSystem.Logger.Info ($"[CH.{channel + 1}] NFC State [ {receivedEvent.tagData.canRxOkMsg.data[3]:X02} ]");
                             GSystem.Logger.Info ($"[CH.{channel + 1}] NFC step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
                             GSystem.TraceMessage($"[CH.{channel + 1}] NFC step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                            GSystem.Logger.Info ($"[CH.{channel + 1}] NFC Timeout!");
-                            GSystem.TraceMessage($"[CH.{channel + 1}] NFC Timeout!");
+                            GSystem.Logger.Info ($"[CH.{channel + 1}] NFC not detected!");
+                            GSystem.TraceMessage($"[CH.{channel + 1}] NFC not detected!");
                             // 결과 판정
-                            TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.NFC;
                             _overalResult[channel].NFC.State = TestStates.Failed;
                             _overalResult[channel].NFC.Value = $"0x{receivedEvent.tagData.canRxOkMsg.data[3]:X02}";
-                            _overalResult[channel].NFC.Result = $"0";
+                            _overalResult[channel].NFC.Result = $"Not detected";
                             // 동작 상태 표시
                             OnTestStepProgressChanged(channel, _overalResult[channel].NFC);
-                            NextTestStep(channel);
+                            SetTestStep(channel, NFCTouchTestStep.MotionNFC_ZUpStart);
                             _tickStepInterval[channel].Reset();
                             _retryCount[channel] = 0;
                         }
@@ -2457,10 +2498,53 @@ namespace DHSTesterXL
                 }
             }
         }
+        // NFC Retry
+        private void NFCTouchTestStep_NFC_RetryUpStart(int channel)
+        {
+            if (GSystem.MiPLC.GetNFC_Z_PositionStart(channel))
+            {
+                if (!GSystem.MiPLC.GetNFC_Z_PositionComplete(channel))
+                    return;
+                GSystem.MiPLC.SetNFC_Z_PositionStart(channel, false);
+                _tickStepInterval[channel].Reset();
+                return;
+            }
+            //if (GSystem.MiPLC.GetNFCZDownStart(channel))
+            //{
+            //    if (!GSystem.MiPLC.GetNFCZDownComplete(channel))
+            //        return;
+            //    GSystem.MiPLC.SetNFCZDownStart(channel, false);
+            //    _tickStepInterval[channel].Reset();
+            //    return;
+            //}
+            if (_tickStepInterval[channel].LessThan(500))
+                return;
+            // NFC 상승
+            GSystem.MiPLC.SetNFCZUpStart(channel, true);
+            NextTestStep(channel);
+        }
+        private void NFCTouchTestStep_NFC_RetryUpWait(int channel)
+        {
+            // NFC 상승 확인
+            if (GSystem.MiPLC.GetNFCZUpStart(channel))
+            {
+                if (!GSystem.MiPLC.GetNFCZUpComplete(channel))
+                    return;
+                GSystem.MiPLC.SetNFCZUpStart(channel, false);
+            }
+            SetTestStep(channel, NFCTouchTestStep.MotionNFC_ZDownStart);
+        }
         // NFC 상승
         private void NFCTouchTestStep_MotionNFC_UpStart(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(1000))
+            if (GSystem.MiPLC.GetNFC_Z_PositionStart(channel))
+            {
+                if (!GSystem.MiPLC.GetNFC_Z_PositionComplete(channel))
+                    return;
+                GSystem.MiPLC.SetNFC_Z_PositionStart(channel, false);
+                _tickStepInterval[channel].Reset();
+            }
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Motion NFC Up]");
@@ -2492,7 +2576,7 @@ namespace DHSTesterXL
                 SetTestStep(channel, NFCTouchTestStep.DTCEraseSend);
                 return;
             }
-            if (_tickStepInterval[channel].LessThan(1000))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             NextTestStep(channel);
         }
@@ -2673,6 +2757,7 @@ namespace DHSTesterXL
             GSystem.TraceMessage($"[CH.{channel + 1}] XCP Disconnect complete");
             NextTestStep(channel);
             _retryCount[channel] = 0;
+            _tickStepInterval[channel].Reset();
         }
         private void NFCTouchTestStep_DTCEraseSend(int channel)
         {
@@ -2683,6 +2768,8 @@ namespace DHSTesterXL
                 SetTestStep(channel, NFCTouchTestStep.HWVersionSend);
                 return;
             }
+            if (_tickStepInterval[channel].LessThan(100))
+                return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [DTC Erase]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [DTC Erase]");
@@ -2765,7 +2852,7 @@ namespace DHSTesterXL
                 SetTestStep(channel, NFCTouchTestStep.SWVersionSend);
                 return;
             }
-            if (_tickStepInterval[channel].LessThan(1000))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepTimeout[channel].Reset();
             _tickStepElapse[channel].Reset();
@@ -2835,6 +2922,7 @@ namespace DHSTesterXL
                 OnTestStepProgressChanged(channel, _overalResult[channel].HW_Version);
                 NextTestStep(channel);
                 _retryCount[channel] = 0;
+                _tickStepInterval[channel].Reset();
             }
         }
         private void NFCTouchTestStep_SWVersionSend(int channel)
@@ -2846,6 +2934,8 @@ namespace DHSTesterXL
                 SetTestStep(channel, NFCTouchTestStep.PartNumberSend);
                 return;
             }
+            if (_tickStepInterval[channel].LessThan(100))
+                return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [SW Version Read]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [SW Version Read]");
@@ -2913,6 +3003,7 @@ namespace DHSTesterXL
                 OnTestStepProgressChanged(channel, _overalResult[channel].SW_Version);
                 NextTestStep(channel);
                 _retryCount[channel] = 0;
+                _tickStepInterval[channel].Reset();
             }
         }
         private void NFCTouchTestStep_PartNumberSend(int channel)
@@ -2924,6 +3015,8 @@ namespace DHSTesterXL
                 SetTestStep(channel, NFCTouchTestStep.BootloaderSend);
                 return;
             }
+            if (_tickStepInterval[channel].LessThan(100))
+                return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Part Number Read]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Part Number Read]");
@@ -3004,6 +3097,7 @@ namespace DHSTesterXL
                 OnTestStepProgressChanged(channel, _overalResult[channel].PartNumber);
                 NextTestStep(channel);
                 _retryCount[channel] = 0;
+                _tickStepInterval[channel].Reset();
             }
         }
         private void NFCTouchTestStep_BootloaderSend(int channel)
@@ -3015,6 +3109,8 @@ namespace DHSTesterXL
                 SetTestStep(channel, NFCTouchTestStep.RxsWinSend);
                 return;
             }
+            if (_tickStepInterval[channel].LessThan(100))
+                return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Bootloader]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Bootloader]");
@@ -3452,7 +3548,7 @@ namespace DHSTesterXL
         }
         private void NFCTouchTestStep_SerialNumPrepareSend(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(1000))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Extended Session]");
@@ -3707,11 +3803,11 @@ namespace DHSTesterXL
             // - 불합격 채널의 경우 이전 일련번호를 유지하고 합격일 경우 다음 일련번호를 반영한다.
             // - 임시 번호는 타채널이 SerialNumWriteSend 이상이면 타채널 일련번호 + 1, 아니면 총 일련번호 + 1 이다.
             // - 일련번호 강제 변경 기능이 필요하다
-            if (GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSample.MasterBarcode1 &&
-                GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSample.MasterBarcode2 &&
-                GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSample.MasterBarcode3 &&
-                GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSample.MasterBarcode4 &&
-                GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSample.MasterBarcode5)
+            if (GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode1 &&
+                GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode2 &&
+                GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode3 &&
+                GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode4 &&
+                GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode5)
             {
                 if (channel == GSystem.CH1)
                 {
@@ -3955,6 +4051,24 @@ namespace DHSTesterXL
         }
         private void NFCTouchTestStep_PowerOff(int channel)
         {
+            if (_isCancel[channel])
+            {
+                if (GSystem.MiPLC.GetNFC_Z_PositionStart(channel))
+                {
+                    GSystem.MiPLC.SetNFC_Z_PositionStart(channel, false);
+                    GSystem.MiPLC.SetNFCZUpStart(channel, true);
+                }
+                if (GSystem.MiPLC.GetCancelZUpStart(channel))
+                {
+                    GSystem.MiPLC.SetCancelZUpStart(channel, false);
+                    GSystem.MiPLC.SetCancelZDownStart(channel, false);
+                }
+                if (GSystem.MiPLC.GetTouchZDownStart(channel))
+                {
+                    GSystem.MiPLC.SetTouchZDownStart(channel, false);
+                    GSystem.MiPLC.SetTouchZUpStart(channel, true);
+                }
+            }
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step [Power Off]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step [Power Off]");
@@ -4017,8 +4131,18 @@ namespace DHSTesterXL
         private void NFCTouchTestStep_MotionUnloadingWait(int channel)
         {
             // 완료 대기
-            if (!GSystem.MiPLC.GetMoveLoadComplete(channel) || !GSystem.MiPLC.GetUnloadingComplete(channel))
-                return;
+            if (GSystem.MiPLC.GetMoveLoadStart(channel))
+            {
+                if (!GSystem.MiPLC.GetMoveLoadComplete(channel))
+                    return;
+                GSystem.MiPLC.SetMoveLoadStart(channel, false);
+            }
+            if (GSystem.MiPLC.GetUnloadingStart(channel))
+            {
+                if (!GSystem.MiPLC.GetUnloadingComplete(channel))
+                    return;
+                GSystem.MiPLC.SetUnloadingStart(channel, false);
+            }
             GSystem.MiPLC.SetMoveLoadStart(channel, false);
             GSystem.MiPLC.SetUnloadingStart(channel, false);
             GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Unloading step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
@@ -4042,6 +4166,12 @@ namespace DHSTesterXL
                 //
                 // TODO: 취소 처리
                 //
+                if (GSystem.MiPLC.GetNFCZUpStart(channel))
+                    GSystem.MiPLC.SetNFCZUpStart(channel, false);
+                if (GSystem.MiPLC.GetCancelZDownStart(channel))
+                    GSystem.MiPLC.SetCancelZDownStart (channel, false);
+                if (GSystem.MiPLC.GetTouchZUpStart(channel))
+                    GSystem.MiPLC.SetTouchZUpStart (channel, false);
                 GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Test Canceled]");
                 GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Test Canceled]");
                 OnTestStateChanged(channel, TestStates.Cancel);
@@ -4075,117 +4205,117 @@ namespace DHSTesterXL
                 // 마스터샘플 바코드
                 if (channel == CH1)
                 {
-                    if (GSystem.ProductSettings.MasterSample.MasterType1 != "")
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterType1 != "")
                     {
-                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSample.MasterBarcode1)
+                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode1)
                         {
                             enableCount = false;
-                            if (GSystem.ProductSettings.MasterSample.MasterType1 == "양품")
-                                GSystem.MasterTestCh1[0] = (overalResult == TestStates.Pass) ? true : false;
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType1 == "양품")
+                                GSystem.MasterTestOkCh1[0] = (overalResult == TestStates.Pass) ? true : false;
                             else
-                                GSystem.MasterTestCh1[0] = (overalResult == TestStates.Failed) ? true : false;
+                                GSystem.MasterTestOkCh1[0] = (overalResult == TestStates.Failed) ? true : false;
                         }
                     }
-                    if (GSystem.ProductSettings.MasterSample.MasterType2 != "")
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterType2 != "")
                     {
-                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSample.MasterBarcode2)
+                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode2)
                         {
                             enableCount = false;
-                            if (GSystem.ProductSettings.MasterSample.MasterType2 == "양품")
-                                GSystem.MasterTestCh1[1] = (overalResult == TestStates.Pass) ? true : false;
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType2 == "양품")
+                                GSystem.MasterTestOkCh1[1] = (overalResult == TestStates.Pass) ? true : false;
                             else
-                                GSystem.MasterTestCh1[1] = (overalResult == TestStates.Failed) ? true : false;
+                                GSystem.MasterTestOkCh1[1] = (overalResult == TestStates.Failed) ? true : false;
                         }
                     }
-                    if (GSystem.ProductSettings.MasterSample.MasterType3 != "")
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterType3 != "")
                     {
-                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSample.MasterBarcode3)
+                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode3)
                         {
                             enableCount = false;
-                            if (GSystem.ProductSettings.MasterSample.MasterType3 == "양품")
-                                GSystem.MasterTestCh1[2] = (overalResult == TestStates.Pass) ? true : false;
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType3 == "양품")
+                                GSystem.MasterTestOkCh1[2] = (overalResult == TestStates.Pass) ? true : false;
                             else
-                                GSystem.MasterTestCh1[2] = (overalResult == TestStates.Failed) ? true : false;
+                                GSystem.MasterTestOkCh1[2] = (overalResult == TestStates.Failed) ? true : false;
                         }
                     }
-                    if (GSystem.ProductSettings.MasterSample.MasterType4 != "")
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterType4 != "")
                     {
-                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSample.MasterBarcode4)
+                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode4)
                         {
                             enableCount = false;
-                            if (GSystem.ProductSettings.MasterSample.MasterType4 == "양품")
-                                GSystem.MasterTestCh1[3] = (overalResult == TestStates.Pass) ? true : false;
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType4 == "양품")
+                                GSystem.MasterTestOkCh1[3] = (overalResult == TestStates.Pass) ? true : false;
                             else
-                                GSystem.MasterTestCh1[3] = (overalResult == TestStates.Failed) ? true : false;
+                                GSystem.MasterTestOkCh1[3] = (overalResult == TestStates.Failed) ? true : false;
                         }
                     }
-                    if (GSystem.ProductSettings.MasterSample.MasterType5 != "")
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterType5 != "")
                     {
-                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSample.MasterBarcode5)
+                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode5)
                         {
                             enableCount = false;
-                            if (GSystem.ProductSettings.MasterSample.MasterType5 == "양품")
-                                GSystem.MasterTestCh1[4] = (overalResult == TestStates.Pass) ? true : false;
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType5 == "양품")
+                                GSystem.MasterTestOkCh1[4] = (overalResult == TestStates.Pass) ? true : false;
                             else
-                                GSystem.MasterTestCh1[4] = (overalResult == TestStates.Failed) ? true : false;
+                                GSystem.MasterTestOkCh1[4] = (overalResult == TestStates.Failed) ? true : false;
                         }
                     }
                 }
                 else
                 {
-                    if (GSystem.ProductSettings.MasterSample.MasterType1 != "")
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterType1 != "")
                     {
-                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSample.MasterBarcode1)
+                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode1)
                         {
                             enableCount = false;
-                            if (GSystem.ProductSettings.MasterSample.MasterType1 == "양품")
-                                GSystem.MasterTestCh2[0] = (overalResult == TestStates.Pass) ? true : false;
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType1 == "양품")
+                                GSystem.MasterTestOkCh2[0] = (overalResult == TestStates.Pass) ? true : false;
                             else
-                                GSystem.MasterTestCh2[0] = (overalResult == TestStates.Failed) ? true : false;
+                                GSystem.MasterTestOkCh2[0] = (overalResult == TestStates.Failed) ? true : false;
                         }
                     }
-                    if (GSystem.ProductSettings.MasterSample.MasterType2 != "")
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterType2 != "")
                     {
-                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSample.MasterBarcode2)
+                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode2)
                         {
                             enableCount = false;
-                            if (GSystem.ProductSettings.MasterSample.MasterType2 == "양품")
-                                GSystem.MasterTestCh2[1] = (overalResult == TestStates.Pass) ? true : false;
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType2 == "양품")
+                                GSystem.MasterTestOkCh2[1] = (overalResult == TestStates.Pass) ? true : false;
                             else
-                                GSystem.MasterTestCh2[1] = (overalResult == TestStates.Failed) ? true : false;
+                                GSystem.MasterTestOkCh2[1] = (overalResult == TestStates.Failed) ? true : false;
                         }
                     }
-                    if (GSystem.ProductSettings.MasterSample.MasterType3 != "")
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterType3 != "")
                     {
-                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSample.MasterBarcode3)
+                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode3)
                         {
                             enableCount = false;
-                            if (GSystem.ProductSettings.MasterSample.MasterType3 == "양품")
-                                GSystem.MasterTestCh2[2] = (overalResult == TestStates.Pass) ? true : false;
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType3 == "양품")
+                                GSystem.MasterTestOkCh2[2] = (overalResult == TestStates.Pass) ? true : false;
                             else
-                                GSystem.MasterTestCh2[2] = (overalResult == TestStates.Failed) ? true : false;
+                                GSystem.MasterTestOkCh2[2] = (overalResult == TestStates.Failed) ? true : false;
                         }
                     }
-                    if (GSystem.ProductSettings.MasterSample.MasterType4 != "")
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterType4 != "")
                     {
-                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSample.MasterBarcode4)
+                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode4)
                         {
                             enableCount = false;
-                            if (GSystem.ProductSettings.MasterSample.MasterType4 == "양품")
-                                GSystem.MasterTestCh2[3] = (overalResult == TestStates.Pass) ? true : false;
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType4 == "양품")
+                                GSystem.MasterTestOkCh2[3] = (overalResult == TestStates.Pass) ? true : false;
                             else
-                                GSystem.MasterTestCh2[3] = (overalResult == TestStates.Failed) ? true : false;
+                                GSystem.MasterTestOkCh2[3] = (overalResult == TestStates.Failed) ? true : false;
                         }
                     }
-                    if (GSystem.ProductSettings.MasterSample.MasterType5 != "")
+                    if (GSystem.ProductSettings.MasterSampleCh1.MasterType5 != "")
                     {
-                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSample.MasterBarcode5)
+                        if (GSystem.ProductBarcode[channel] == GSystem.ProductSettings.MasterSampleCh1.MasterBarcode5)
                         {
                             enableCount = false;
-                            if (GSystem.ProductSettings.MasterSample.MasterType5 == "양품")
-                                GSystem.MasterTestCh2[4] = (overalResult == TestStates.Pass) ? true : false;
+                            if (GSystem.ProductSettings.MasterSampleCh1.MasterType5 == "양품")
+                                GSystem.MasterTestOkCh2[4] = (overalResult == TestStates.Pass) ? true : false;
                             else
-                                GSystem.MasterTestCh2[4] = (overalResult == TestStates.Failed) ? true : false;
+                                GSystem.MasterTestOkCh2[4] = (overalResult == TestStates.Failed) ? true : false;
                         }
                     }
                 }
@@ -4284,6 +4414,10 @@ namespace DHSTesterXL
                         }
                         if (testResult.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.RXSWIN])
                             sb.Append($"{testResult.Name},{testResult.Value},{judge},");
+                        //else if (testResult.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.LockCan])
+                        //    sb.Append($"{testResult.Name},{testResult.Result}[{testResult.Value}],{judge},");
+                        //else if (testResult.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.Cancel])
+                        //    sb.Append($"{testResult.Name},{testResult.Result}[{testResult.Value}],{judge},");
                         else
                             sb.Append($"{testResult.Name},{testResult.Result},{judge},");
                     }
@@ -4299,11 +4433,11 @@ namespace DHSTesterXL
                 if (overalResult == TestStates.Pass)
                 {
                     // 라벨 출력
-                    if (GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSample.MasterBarcode1 &&
-                        GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSample.MasterBarcode2 &&
-                        GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSample.MasterBarcode3 &&
-                        GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSample.MasterBarcode4 &&
-                        GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSample.MasterBarcode5)
+                    if (GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode1 &&
+                        GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode2 &&
+                        GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode3 &&
+                        GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode4 &&
+                        GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode5)
                     {
                         // 마스터샘플이 아닌 경우만 일련번호를 증가시킨다
                         if (channel == GSystem.CH1)

@@ -175,10 +175,14 @@ namespace DHSTesterXL
         // NFC 위치로 이동
         MotionMoveNFC_Start,
         MotionMoveNFC_Wait,
-        NfcCheckStart,
-        NfcCheckWait,
-        MotionNFC_UpStart,
-        MotionNFC_UpWait,
+        MotionNFC_ZDownStart,
+        MotionNFC_ZDownWait,
+        NFC_CheckStart,
+        NFC_CheckWait,
+        NFC_RetryUpStart,
+        NFC_RetryUpWait,
+        MotionNFC_ZUpStart,
+        MotionNFC_ZUpWait,
         // Security
         XcpPrepareSend,
         XcpPrepareWait,

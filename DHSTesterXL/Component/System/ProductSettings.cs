@@ -22,11 +22,20 @@ namespace DHSTesterXL
         public string TypeNo { get; set; } // PLC Recipe
         public string CarType { get; set; } // NH2
         public string AlcNo { get; set; } // NFC TOUCH
+        public int ConnectorType { get; set; } // 전용 컨트롤러 커넥터 타입
         public bool UseMasterSample { get; set; } = true;
         public bool UseProductBarcode { get; set; } = true;
         public bool UseLabelPrint { get; set; } = true;
         public bool UseRepeatTest { get; set; } = true;
         public bool UseTrayInterlock { get; set; } = true;
+        public int NFC_Z_MeasureBasePositionCh1 { get; set; } = 17;
+        public int NFC_Z_CurrentBasePositionCh1 { get; set; } = 0;
+        public int NFC_Z_MeasureStartPositionCh1 { get; set; } = 17;
+        public int NFC_Z_CurrentStartPositionCh1 { get; set; } = 0;
+        public int NFC_Z_MeasureBasePositionCh2 { get; set; } = 17;
+        public int NFC_Z_CurrentBasePositionCh2 { get; set; } = 0;
+        public int NFC_Z_MeasureStartPositionCh2 { get; set; } = 17;
+        public int NFC_Z_CurrentStartPositionCh2 { get; set; } = 0;
 
         public SProductInfo()
         {
@@ -420,7 +429,8 @@ namespace DHSTesterXL
         public SCommSettings CommSettings { get; set; }
         public STestItemSpecs TestItemSpecs { get; set; }
         public SXCPAddress XCPAddress { get; set; }
-        public SMasterSample MasterSample { get; set; }
+        public SMasterSample MasterSampleCh1 { get; set; }
+        public SMasterSample MasterSampleCh2 { get; set; }
         public STestInfo TestInfo { get; set; }
         public STHDSettings THDSettings { get; set; }
         public LabelPrintSettings LabelPrint { get; set; }
@@ -431,7 +441,8 @@ namespace DHSTesterXL
             CommSettings = new SCommSettings();
             TestItemSpecs = new STestItemSpecs();
             XCPAddress = new SXCPAddress();
-            MasterSample = new SMasterSample();
+            MasterSampleCh1 = new SMasterSample();
+            MasterSampleCh2 = new SMasterSample();
             TestInfo = new STestInfo();
             THDSettings = new STHDSettings();
             LabelPrint = new LabelPrintSettings();
@@ -484,7 +495,8 @@ namespace DHSTesterXL
                     CommSettings = jsonData.CommSettings;
                     TestItemSpecs = jsonData.TestItemSpecs;
                     XCPAddress = jsonData.XCPAddress;
-                    MasterSample = jsonData.MasterSample;
+                    MasterSampleCh1 = jsonData.MasterSampleCh1;
+                    MasterSampleCh2 = jsonData.MasterSampleCh2;
                     TestInfo = jsonData.TestInfo;
                     THDSettings = jsonData.THDSettings;
                     LabelPrint = jsonData.LabelPrint ?? new LabelPrintSettings();
@@ -501,7 +513,8 @@ namespace DHSTesterXL
                     jsonData.CommSettings = CommSettings;
                     jsonData.TestItemSpecs = TestItemSpecs;
                     jsonData.XCPAddress = XCPAddress;
-                    jsonData.MasterSample = MasterSample;
+                    jsonData.MasterSampleCh1 = MasterSampleCh1;
+                    jsonData.MasterSampleCh2 = MasterSampleCh2;
                     jsonData.TestInfo = TestInfo;
                     jsonData.THDSettings = THDSettings;
                     jsonData.LabelPrint = LabelPrint;
@@ -549,7 +562,8 @@ namespace DHSTesterXL
                 jsonData.CommSettings = CommSettings;
                 jsonData.TestItemSpecs = TestItemSpecs;
                 jsonData.XCPAddress = XCPAddress;
-                jsonData.MasterSample = MasterSample;
+                jsonData.MasterSampleCh1 = MasterSampleCh1;
+                jsonData.MasterSampleCh2 = MasterSampleCh2;
                 jsonData.TestInfo = TestInfo;
                 jsonData.THDSettings = THDSettings;
                 jsonData.LabelPrint = LabelPrint;

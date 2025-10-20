@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties;
+using static System.Windows.Forms.AxHost;
 
 namespace DHSTesterXL
 {
@@ -18,21 +19,21 @@ namespace DHSTesterXL
         Ch1_Status1  ,
         Ch1_Status2  ,
         Ch1_RecipeNo ,
-        Ch1_Reserved3,
+        Ch1_NFC_Z_Pos,
         Ch1_State1   ,
         Ch1_State2   ,
         Ch1_ErrorCode,
-        Ch1_Reserved7,
+        Ch1_NFC_Z_Recipe_Pos,
         Ch1_Reserved8,
         Ch1_Reserved9,
         Ch2_Status1  ,
         Ch2_Status2  ,
         Ch2_RecipeNo ,
-        Ch2_Reserved3,
+        Ch2_NFC_Z_Pos,
         Ch2_State1   ,
         Ch2_State2   ,
         Ch2_ErrorCode,
-        Ch2_Reserved7,
+        Ch2_NFC_Z_Recipe_Pos,
         Ch2_Reserved8,
         Ch2_Reserved9,
         Count
@@ -42,8 +43,8 @@ namespace DHSTesterXL
         Ch1_Command1 ,
         Ch1_Command2 ,
         Ch1_RecipeNo ,
-        Ch1_Reserved3,
-        Ch1_Reserved4,
+        Ch1_NFC_Z_Pos,
+        Ch1_TowerLamp,
         Ch1_Reserved5,
         Ch1_Reserved6,
         Ch1_Reserved7,
@@ -52,8 +53,8 @@ namespace DHSTesterXL
         Ch2_Command1 ,
         Ch2_Command2 ,
         Ch2_RecipeNo ,
-        Ch2_Reserved3,
-        Ch2_Reserved4,
+        Ch2_NFC_Z_Pos,
+        Ch2_TowerLamp,
         Ch2_Reserved5,
         Ch2_Reserved6,
         Ch2_Reserved7,
@@ -128,29 +129,29 @@ namespace DHSTesterXL
         public short Ch1_R_Status1   { get { return _mc0403_res.D5000; } }
         public short Ch1_R_Status2   { get { return _mc0403_res.D5001; } }
         public short Ch1_R_RecipeNo  { get { return _mc0403_res.D5002; } }
-        public short Ch1_R_Reserved3 { get { return _mc0403_res.D5003; } }
+        public short Ch1_R_NFC_Z_Pos { get { return _mc0403_res.D5003; } }
         public short Ch1_R_State1    { get { return _mc0403_res.D5004; } }
         public short Ch1_R_State2    { get { return _mc0403_res.D5005; } }
         public short Ch1_R_ErrorCode { get { return _mc0403_res.D5006; } }
-        public short Ch1_R_Reserved7 { get { return _mc0403_res.D5007; } }
+        public short Ch1_R_NFC_Z_RecipePos { get { return _mc0403_res.D5007; } }
         public short Ch1_R_Reserved8 { get { return _mc0403_res.D5008; } }
         public short Ch1_R_Reserved9 { get { return _mc0403_res.D5009; } }
         public short Ch2_R_Status1   { get { return _mc0403_res.D5010; } }
         public short Ch2_R_Status2   { get { return _mc0403_res.D5011; } }
         public short Ch2_R_RecipeNo  { get { return _mc0403_res.D5012; } }
-        public short Ch2_R_Reserved3 { get { return _mc0403_res.D5013; } }
+        public short Ch2_R_NFC_Z_Pos { get { return _mc0403_res.D5013; } }
         public short Ch2_R_State1    { get { return _mc0403_res.D5014; } }
         public short Ch2_R_State2    { get { return _mc0403_res.D5015; } }
         public short Ch2_R_ErrorCode { get { return _mc0403_res.D5016; } }
-        public short Ch2_R_Reserved7 { get { return _mc0403_res.D5017; } }
+        public short Ch2_R_NFC_Z_RecipePos { get { return _mc0403_res.D5017; } }
         public short Ch2_R_Reserved8 { get { return _mc0403_res.D5018; } }
         public short Ch2_R_Reserved9 { get { return _mc0403_res.D5019; } }
 
         public ushort Ch1_W_Command1  { get { return _mc1402_req.D5020dat; } set { _mc1402_req.D5020dat = value; } }
         public ushort Ch1_W_Command2  { get { return _mc1402_req.D5021dat; } set { _mc1402_req.D5021dat = value; } }
         public ushort Ch1_W_RecipeNo  { get { return _mc1402_req.D5022dat; } set { _mc1402_req.D5022dat = value; } }
-        public ushort Ch1_W_Reserved3 { get { return _mc1402_req.D5023dat; } set { _mc1402_req.D5023dat = value; } }
-        public ushort Ch1_W_Reserved4 { get { return _mc1402_req.D5024dat; } set { _mc1402_req.D5024dat = value; } }
+        public ushort Ch1_W_NFC_Z_Pos { get { return _mc1402_req.D5023dat; } set { _mc1402_req.D5023dat = value; } }
+        public ushort Ch1_W_TowerLamp { get { return _mc1402_req.D5024dat; } set { _mc1402_req.D5024dat = value; } }
         public ushort Ch1_W_Reserved5 { get { return _mc1402_req.D5025dat; } set { _mc1402_req.D5025dat = value; } }
         public ushort Ch1_W_Reserved6 { get { return _mc1402_req.D5026dat; } set { _mc1402_req.D5026dat = value; } }
         public ushort Ch1_W_Reserved7 { get { return _mc1402_req.D5027dat; } set { _mc1402_req.D5027dat = value; } }
@@ -159,8 +160,8 @@ namespace DHSTesterXL
         public ushort Ch2_W_Command1  { get { return _mc1402_req.D5030dat; } set { _mc1402_req.D5030dat = value; } }
         public ushort Ch2_W_Command2  { get { return _mc1402_req.D5031dat; } set { _mc1402_req.D5031dat = value; } }
         public ushort Ch2_W_RecipeNo  { get { return _mc1402_req.D5032dat; } set { _mc1402_req.D5032dat = value; } }
-        public ushort Ch2_W_Reserved3 { get { return _mc1402_req.D5033dat; } set { _mc1402_req.D5033dat = value; } }
-        public ushort Ch2_W_Reserved4 { get { return _mc1402_req.D5034dat; } set { _mc1402_req.D5034dat = value; } }
+        public ushort Ch2_W_NFC_Z_Pos { get { return _mc1402_req.D5033dat; } set { _mc1402_req.D5033dat = value; } }
+        public ushort Ch2_W_TowerLamp { get { return _mc1402_req.D5034dat; } set { _mc1402_req.D5034dat = value; } }
         public ushort Ch2_W_Reserved5 { get { return _mc1402_req.D5035dat; } set { _mc1402_req.D5035dat = value; } }
         public ushort Ch2_W_Reserved6 { get { return _mc1402_req.D5036dat; } set { _mc1402_req.D5036dat = value; } }
         public ushort Ch2_W_Reserved7 { get { return _mc1402_req.D5037dat; } set { _mc1402_req.D5037dat = value; } }
@@ -1185,6 +1186,61 @@ namespace DHSTesterXL
             return false;
         }
 
+        public bool GetNFC_Z_PositionStart(int channel)
+        {
+            int bitIndex = 13;
+            if (channel == 0)
+            {
+                if ((Ch1_W_Command2 & GDefines.BIT16[bitIndex]) == GDefines.BIT16[bitIndex])
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                if ((Ch2_W_Command2 & GDefines.BIT16[bitIndex]) == GDefines.BIT16[bitIndex])
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        public void SetNFC_Z_PositionStart(int channel, bool state)
+        {
+            int bitIndex = 13;
+            if (channel == 0)
+            {
+                if (state)
+                    Ch1_W_Command2 |= GDefines.BIT16[bitIndex];
+                else
+                    Ch1_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
+            }
+            else
+            {
+                if (state)
+                    Ch2_W_Command2 |= GDefines.BIT16[bitIndex];
+                else
+                    Ch2_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
+            }
+            M1402_Req_Proc();
+        }
+
+        public bool GetNFC_Z_PositionComplete(int channel)
+        {
+            int bitIndex = 14;
+            if (channel == 0)
+            {
+                if ((Ch1_R_Status2 & GDefines.BIT16[bitIndex]) == GDefines.BIT16[bitIndex])
+                    return true;
+            }
+            else
+            {
+                if ((Ch2_R_Status2 & GDefines.BIT16[bitIndex]) == GDefines.BIT16[bitIndex])
+                    return true;
+            }
+            return false;
+        }
+
         public bool GetNFCZUpStart(int channel)
         {
             int bitIndex = 11;
@@ -1403,6 +1459,144 @@ namespace DHSTesterXL
                     return true;
             }
             return false;
+        }
+
+        public int GetCurrentNFC_Z_Position(int channel)
+        {
+            if (channel == 0)
+                return Ch1_R_NFC_Z_Pos;
+            else
+                return Ch2_R_NFC_Z_Pos;
+        }
+
+        public void SetZAxisInterlock(int channel, bool interlock)
+        {
+            int bitIndex = 14;
+            if (channel == 0)
+            {
+                if (interlock)
+                    Ch1_W_Command2 |= GDefines.BIT16[bitIndex];
+                else
+                    Ch1_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
+            }
+            else
+            {
+                if (interlock)
+                    Ch2_W_Command2 |= GDefines.BIT16[bitIndex];
+                else
+                    Ch2_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
+            }
+            M1402_Req_Proc();
+        }
+
+        public void SetErrorTowerLamp(int channel, bool towerLamp)
+        {
+            if (channel == 0)
+            {
+                if (towerLamp)
+                    Ch1_W_TowerLamp = 1;
+                else
+                    Ch1_W_TowerLamp = 0;
+            }
+            else
+            {
+                if (towerLamp)
+                    Ch2_W_TowerLamp = 1;
+                else
+                    Ch2_W_TowerLamp = 0;
+            }
+            M1402_Req_Proc();
+        }
+
+        public bool GetErrorResetStart(int channel)
+        {
+            int bitIndex = 15;
+            if (channel == 0)
+            {
+                if ((Ch1_W_Command2 & GDefines.BIT16[bitIndex]) == GDefines.BIT16[bitIndex])
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                if ((Ch2_W_Command2 & GDefines.BIT16[bitIndex]) == GDefines.BIT16[bitIndex])
+                    return true;
+                else
+                    return false;
+            }
+        }
+        public void SetErrorResetStart(int channel, bool errorReset)
+        {
+            int bitIndex = 15;
+            if (channel == 0)
+            {
+                if (errorReset)
+                    Ch1_W_Command2 |= GDefines.BIT16[bitIndex];
+                else
+                    Ch1_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
+            }
+            else
+            {
+                if (errorReset)
+                    Ch2_W_Command2 |= GDefines.BIT16[bitIndex];
+                else
+                    Ch2_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
+            }
+            M1402_Req_Proc();
+        }
+        public bool GetErrorResetComplete(int channel)
+        {
+            int bitIndex = 15;
+            if (channel == 0)
+            {
+                if ((Ch1_R_Status2 & GDefines.BIT16[bitIndex]) == GDefines.BIT16[bitIndex])
+                    return true;
+            }
+            else
+            {
+                if ((Ch2_R_Status2 & GDefines.BIT16[bitIndex]) == GDefines.BIT16[bitIndex])
+                    return true;
+            }
+            return false;
+        }
+
+        public bool GetMeasureCompleteStart(int channel)
+        {
+            int bitIndex = 0;
+            if (channel == 0)
+            {
+                if ((Ch1_W_Command1 & GDefines.BIT16[bitIndex]) == GDefines.BIT16[bitIndex])
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                if ((Ch2_W_Command1 & GDefines.BIT16[bitIndex]) == GDefines.BIT16[bitIndex])
+                    return true;
+                else
+                    return false;
+            }
+        }
+        public void SetMeasureCompleteStart(int channel, bool complete)
+        {
+            int bitIndex = 0;
+            if (channel == 0)
+            {
+                if (complete)
+                    Ch1_W_Command1 |= GDefines.BIT16[bitIndex];
+                else
+                    Ch1_W_Command1 &= (ushort)~GDefines.BIT16[bitIndex];
+            }
+            else
+            {
+                if (complete)
+                    Ch2_W_Command1 |= GDefines.BIT16[bitIndex];
+                else
+                    Ch2_W_Command1 &= (ushort)~GDefines.BIT16[bitIndex];
+            }
+            M1402_Req_Proc();
         }
     }
 }

@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.buttonNew = new System.Windows.Forms.Button();
             this.buttonCopy = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
@@ -143,6 +143,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel11 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.label40 = new System.Windows.Forms.Label();
+            this.txtFixtureBarcode = new System.Windows.Forms.TextBox();
             this.txtEtcsCompanyAreaValue = new System.Windows.Forms.TextBox();
             this.txtEtcsCTag = new System.Windows.Forms.TextBox();
             this.txtEtcsInitialValue = new System.Windows.Forms.TextBox();
@@ -161,6 +163,7 @@
             this.txtEtcsVTag = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
@@ -198,15 +201,21 @@
             this.데이터 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.label50 = new System.Windows.Forms.Label();
+            this.label51 = new System.Windows.Forms.Label();
+            this.numSerialTo = new System.Windows.Forms.NumericUpDown();
             this.numPrintQty = new System.Windows.Forms.NumericUpDown();
             this.numPrintSpeed = new System.Windows.Forms.NumericUpDown();
             this.numPrintDarkness = new System.Windows.Forms.NumericUpDown();
+            this.numSerialFrom = new System.Windows.Forms.NumericUpDown();
             this.numLabelHeight = new System.Windows.Forms.NumericUpDown();
+            this.numLabelGap = new System.Windows.Forms.NumericUpDown();
             this.numLabelWidth = new System.Windows.Forms.NumericUpDown();
             this.comboPrintDir = new System.Windows.Forms.ComboBox();
             this.label52 = new System.Windows.Forms.Label();
             this.label53 = new System.Windows.Forms.Label();
             this.label54 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
             this.label57 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
@@ -227,6 +236,25 @@
             this.textAlcNo2 = new System.Windows.Forms.TextBox();
             this.textCarType2 = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textNFC_Z_CurrentStartPositionCh2 = new System.Windows.Forms.TextBox();
+            this.textNFC_Z_CurrentStartPositionCh1 = new System.Windows.Forms.TextBox();
+            this.textNFC_Z_CurrentBasePositionCh2 = new System.Windows.Forms.TextBox();
+            this.textNFC_Z_CurrentBasePositionCh1 = new System.Windows.Forms.TextBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textNFC_Z_MeasureStartPositionCh2 = new System.Windows.Forms.TextBox();
+            this.textNFC_Z_MeasureStartPositionCh1 = new System.Windows.Forms.TextBox();
+            this.textNFC_Z_MeasureBasePositionCh2 = new System.Windows.Forms.TextBox();
+            this.textNFC_Z_MeasureBasePositionCh1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.checkUseLabelPrint = new System.Windows.Forms.CheckBox();
@@ -253,8 +281,20 @@
             this.textMasterType2 = new System.Windows.Forms.TextBox();
             this.labelMaster2 = new System.Windows.Forms.Label();
             this.textMasterType1 = new System.Windows.Forms.TextBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.labelMasterOk5_Ch2 = new System.Windows.Forms.Label();
+            this.labelMasterOk4_Ch2 = new System.Windows.Forms.Label();
+            this.labelMasterOk3_Ch2 = new System.Windows.Forms.Label();
+            this.labelMasterOk2_Ch2 = new System.Windows.Forms.Label();
+            this.labelMasterOk1_Ch2 = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
+            this.labelMasterOk5_Ch1 = new System.Windows.Forms.Label();
+            this.labelMasterOk4_Ch1 = new System.Windows.Forms.Label();
+            this.labelMasterOk3_Ch1 = new System.Windows.Forms.Label();
+            this.labelMasterOk2_Ch1 = new System.Windows.Forms.Label();
+            this.labelMasterOk1_Ch1 = new System.Windows.Forms.Label();
             this.labelMaster1 = new System.Windows.Forms.Label();
-            this.btnPrintFontTest = new System.Windows.Forms.Button();
+            this.buttonMasterTestResult = new System.Windows.Forms.Button();
             this.panelProductInfo.SuspendLayout();
             this.panelProductInfoFrame.SuspendLayout();
             this.panelTestSettingsFrame.SuspendLayout();
@@ -278,14 +318,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.LabelDataGridView)).BeginInit();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSerialTo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrintQty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrintSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrintDarkness)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSerialFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLabelHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLabelGap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLabelWidth)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.panel13.SuspendLayout();
+            this.panel14.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -596,14 +641,14 @@
             this.gridTestList.AllowUserToResizeRows = false;
             this.gridTestList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridTestList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridTestList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridTestList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.gridTestList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridTestList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colTestNo,
@@ -612,14 +657,14 @@
             this.colTestMin,
             this.colTestMax,
             this.colTestOption});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridTestList.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridTestList.DefaultCellStyle = dataGridViewCellStyle6;
             this.gridTestList.GridColor = System.Drawing.Color.LightGray;
             this.gridTestList.Location = new System.Drawing.Point(10, 30);
             this.gridTestList.Name = "gridTestList";
@@ -1306,28 +1351,28 @@
             this.gridXcpList.AllowUserToResizeRows = false;
             this.gridXcpList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridXcpList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridXcpList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridXcpList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.gridXcpList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridXcpList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colXcpNo,
             this.colUse,
             this.colXcpItem,
             this.colXcpAddress});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridXcpList.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridXcpList.DefaultCellStyle = dataGridViewCellStyle8;
             this.gridXcpList.GridColor = System.Drawing.Color.LightGray;
             this.gridXcpList.Location = new System.Drawing.Point(10, 30);
             this.gridXcpList.Name = "gridXcpList";
@@ -1642,7 +1687,8 @@
             // panel12
             // 
             this.panel12.BackColor = System.Drawing.SystemColors.Control;
-            this.panel12.Controls.Add(this.btnPrintFontTest);
+            this.panel12.Controls.Add(this.label40);
+            this.panel12.Controls.Add(this.txtFixtureBarcode);
             this.panel12.Controls.Add(this.txtEtcsCompanyAreaValue);
             this.panel12.Controls.Add(this.txtEtcsCTag);
             this.panel12.Controls.Add(this.txtEtcsInitialValue);
@@ -1661,6 +1707,7 @@
             this.panel12.Controls.Add(this.txtEtcsVTag);
             this.panel12.Controls.Add(this.label20);
             this.panel12.Controls.Add(this.label19);
+            this.panel12.Controls.Add(this.label18);
             this.panel12.Controls.Add(this.label39);
             this.panel12.Controls.Add(this.label38);
             this.panel12.Controls.Add(this.label37);
@@ -1684,9 +1731,27 @@
             this.panel12.Size = new System.Drawing.Size(337, 491);
             this.panel12.TabIndex = 103;
             // 
+            // label40
+            // 
+            this.label40.Location = new System.Drawing.Point(0, 375);
+            this.label40.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(114, 21);
+            this.label40.TabIndex = 174;
+            this.label40.Text = "픽스처 바코드 설정";
+            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtFixtureBarcode
+            // 
+            this.txtFixtureBarcode.Location = new System.Drawing.Point(80, 405);
+            this.txtFixtureBarcode.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtFixtureBarcode.Name = "txtFixtureBarcode";
+            this.txtFixtureBarcode.Size = new System.Drawing.Size(247, 23);
+            this.txtFixtureBarcode.TabIndex = 172;
+            // 
             // txtEtcsCompanyAreaValue
             // 
-            this.txtEtcsCompanyAreaValue.Location = new System.Drawing.Point(135, 344);
+            this.txtEtcsCompanyAreaValue.Location = new System.Drawing.Point(135, 335);
             this.txtEtcsCompanyAreaValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsCompanyAreaValue.Name = "txtEtcsCompanyAreaValue";
             this.txtEtcsCompanyAreaValue.Size = new System.Drawing.Size(192, 23);
@@ -1694,7 +1759,7 @@
             // 
             // txtEtcsCTag
             // 
-            this.txtEtcsCTag.Location = new System.Drawing.Point(80, 344);
+            this.txtEtcsCTag.Location = new System.Drawing.Point(80, 335);
             this.txtEtcsCTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsCTag.Name = "txtEtcsCTag";
             this.txtEtcsCTag.Size = new System.Drawing.Size(48, 23);
@@ -1702,7 +1767,7 @@
             // 
             // txtEtcsInitialValue
             // 
-            this.txtEtcsInitialValue.Location = new System.Drawing.Point(135, 313);
+            this.txtEtcsInitialValue.Location = new System.Drawing.Point(135, 305);
             this.txtEtcsInitialValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsInitialValue.Name = "txtEtcsInitialValue";
             this.txtEtcsInitialValue.Size = new System.Drawing.Size(192, 23);
@@ -1710,7 +1775,7 @@
             // 
             // txtEtcsMTag
             // 
-            this.txtEtcsMTag.Location = new System.Drawing.Point(80, 313);
+            this.txtEtcsMTag.Location = new System.Drawing.Point(80, 305);
             this.txtEtcsMTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsMTag.Name = "txtEtcsMTag";
             this.txtEtcsMTag.Size = new System.Drawing.Size(48, 23);
@@ -1718,7 +1783,7 @@
             // 
             // txtEtcsSpecialValue
             // 
-            this.txtEtcsSpecialValue.Location = new System.Drawing.Point(135, 282);
+            this.txtEtcsSpecialValue.Location = new System.Drawing.Point(135, 275);
             this.txtEtcsSpecialValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsSpecialValue.Name = "txtEtcsSpecialValue";
             this.txtEtcsSpecialValue.Size = new System.Drawing.Size(192, 23);
@@ -1726,7 +1791,7 @@
             // 
             // txtEtcsATag
             // 
-            this.txtEtcsATag.Location = new System.Drawing.Point(80, 282);
+            this.txtEtcsATag.Location = new System.Drawing.Point(80, 275);
             this.txtEtcsATag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsATag.Name = "txtEtcsATag";
             this.txtEtcsATag.Size = new System.Drawing.Size(48, 23);
@@ -1734,7 +1799,7 @@
             // 
             // txtEtcsTraceValue
             // 
-            this.txtEtcsTraceValue.Location = new System.Drawing.Point(135, 251);
+            this.txtEtcsTraceValue.Location = new System.Drawing.Point(135, 245);
             this.txtEtcsTraceValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsTraceValue.Name = "txtEtcsTraceValue";
             this.txtEtcsTraceValue.Size = new System.Drawing.Size(192, 23);
@@ -1742,7 +1807,7 @@
             // 
             // txtEtcsTTag
             // 
-            this.txtEtcsTTag.Location = new System.Drawing.Point(80, 251);
+            this.txtEtcsTTag.Location = new System.Drawing.Point(80, 245);
             this.txtEtcsTTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsTTag.Name = "txtEtcsTTag";
             this.txtEtcsTTag.Size = new System.Drawing.Size(48, 23);
@@ -1750,7 +1815,7 @@
             // 
             // txtEtcsEoValue
             // 
-            this.txtEtcsEoValue.Location = new System.Drawing.Point(135, 220);
+            this.txtEtcsEoValue.Location = new System.Drawing.Point(135, 215);
             this.txtEtcsEoValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsEoValue.Name = "txtEtcsEoValue";
             this.txtEtcsEoValue.Size = new System.Drawing.Size(192, 23);
@@ -1758,7 +1823,7 @@
             // 
             // txtEtcsETag
             // 
-            this.txtEtcsETag.Location = new System.Drawing.Point(80, 220);
+            this.txtEtcsETag.Location = new System.Drawing.Point(80, 215);
             this.txtEtcsETag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsETag.Name = "txtEtcsETag";
             this.txtEtcsETag.Size = new System.Drawing.Size(48, 23);
@@ -1766,7 +1831,7 @@
             // 
             // txtEtcsSerialValue
             // 
-            this.txtEtcsSerialValue.Location = new System.Drawing.Point(135, 189);
+            this.txtEtcsSerialValue.Location = new System.Drawing.Point(135, 185);
             this.txtEtcsSerialValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsSerialValue.Name = "txtEtcsSerialValue";
             this.txtEtcsSerialValue.Size = new System.Drawing.Size(192, 23);
@@ -1774,7 +1839,7 @@
             // 
             // txtEtcsSTag
             // 
-            this.txtEtcsSTag.Location = new System.Drawing.Point(80, 189);
+            this.txtEtcsSTag.Location = new System.Drawing.Point(80, 185);
             this.txtEtcsSTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsSTag.Name = "txtEtcsSTag";
             this.txtEtcsSTag.Size = new System.Drawing.Size(48, 23);
@@ -1782,7 +1847,7 @@
             // 
             // txtEtcsPartNoValue
             // 
-            this.txtEtcsPartNoValue.Location = new System.Drawing.Point(135, 158);
+            this.txtEtcsPartNoValue.Location = new System.Drawing.Point(135, 155);
             this.txtEtcsPartNoValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsPartNoValue.Name = "txtEtcsPartNoValue";
             this.txtEtcsPartNoValue.Size = new System.Drawing.Size(192, 23);
@@ -1790,7 +1855,7 @@
             // 
             // txtEtcsPTag
             // 
-            this.txtEtcsPTag.Location = new System.Drawing.Point(80, 158);
+            this.txtEtcsPTag.Location = new System.Drawing.Point(80, 155);
             this.txtEtcsPTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsPTag.Name = "txtEtcsPTag";
             this.txtEtcsPTag.Size = new System.Drawing.Size(48, 23);
@@ -1798,7 +1863,7 @@
             // 
             // txtEtcsVendorValue
             // 
-            this.txtEtcsVendorValue.Location = new System.Drawing.Point(135, 127);
+            this.txtEtcsVendorValue.Location = new System.Drawing.Point(135, 125);
             this.txtEtcsVendorValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsVendorValue.Name = "txtEtcsVendorValue";
             this.txtEtcsVendorValue.Size = new System.Drawing.Size(192, 23);
@@ -1806,7 +1871,7 @@
             // 
             // txtEtcsVTag
             // 
-            this.txtEtcsVTag.Location = new System.Drawing.Point(80, 127);
+            this.txtEtcsVTag.Location = new System.Drawing.Point(80, 125);
             this.txtEtcsVTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsVTag.Name = "txtEtcsVTag";
             this.txtEtcsVTag.Size = new System.Drawing.Size(48, 23);
@@ -1814,7 +1879,7 @@
             // 
             // label20
             // 
-            this.label20.Location = new System.Drawing.Point(2, 314);
+            this.label20.Location = new System.Drawing.Point(2, 305);
             this.label20.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(70, 21);
@@ -1824,7 +1889,7 @@
             // 
             // label19
             // 
-            this.label19.Location = new System.Drawing.Point(2, 345);
+            this.label19.Location = new System.Drawing.Point(2, 335);
             this.label19.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(70, 21);
@@ -1832,9 +1897,19 @@
             this.label19.Text = "업체영역";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // label18
+            // 
+            this.label18.Location = new System.Drawing.Point(2, 405);
+            this.label18.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(70, 21);
+            this.label18.TabIndex = 153;
+            this.label18.Text = "바코드";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // label39
             // 
-            this.label39.Location = new System.Drawing.Point(2, 128);
+            this.label39.Location = new System.Drawing.Point(2, 125);
             this.label39.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(70, 21);
@@ -1844,7 +1919,7 @@
             // 
             // label38
             // 
-            this.label38.Location = new System.Drawing.Point(2, 159);
+            this.label38.Location = new System.Drawing.Point(2, 155);
             this.label38.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(70, 21);
@@ -1854,7 +1929,7 @@
             // 
             // label37
             // 
-            this.label37.Location = new System.Drawing.Point(2, 190);
+            this.label37.Location = new System.Drawing.Point(2, 185);
             this.label37.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(70, 21);
@@ -1864,7 +1939,7 @@
             // 
             // label36
             // 
-            this.label36.Location = new System.Drawing.Point(2, 221);
+            this.label36.Location = new System.Drawing.Point(2, 215);
             this.label36.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(70, 21);
@@ -1874,7 +1949,7 @@
             // 
             // label35
             // 
-            this.label35.Location = new System.Drawing.Point(2, 252);
+            this.label35.Location = new System.Drawing.Point(2, 245);
             this.label35.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(70, 21);
@@ -1884,7 +1959,7 @@
             // 
             // label34
             // 
-            this.label34.Location = new System.Drawing.Point(2, 283);
+            this.label34.Location = new System.Drawing.Point(2, 275);
             this.label34.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(70, 21);
@@ -1894,7 +1969,7 @@
             // 
             // label27
             // 
-            this.label27.Location = new System.Drawing.Point(0, 96);
+            this.label27.Location = new System.Drawing.Point(0, 95);
             this.label27.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(151, 21);
@@ -1904,7 +1979,7 @@
             // 
             // txtEtcsCommEot
             // 
-            this.txtEtcsCommEot.Location = new System.Drawing.Point(285, 56);
+            this.txtEtcsCommEot.Location = new System.Drawing.Point(285, 55);
             this.txtEtcsCommEot.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsCommEot.Name = "txtEtcsCommEot";
             this.txtEtcsCommEot.Size = new System.Drawing.Size(42, 23);
@@ -1912,7 +1987,7 @@
             // 
             // label26
             // 
-            this.label26.Location = new System.Drawing.Point(255, 57);
+            this.label26.Location = new System.Drawing.Point(255, 55);
             this.label26.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(28, 21);
@@ -1922,7 +1997,7 @@
             // 
             // txtEtcsCommGs
             // 
-            this.txtEtcsCommGs.Location = new System.Drawing.Point(141, 56);
+            this.txtEtcsCommGs.Location = new System.Drawing.Point(140, 55);
             this.txtEtcsCommGs.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsCommGs.Name = "txtEtcsCommGs";
             this.txtEtcsCommGs.Size = new System.Drawing.Size(42, 23);
@@ -1930,7 +2005,7 @@
             // 
             // txtEtcsCommRs
             // 
-            this.txtEtcsCommRs.Location = new System.Drawing.Point(210, 56);
+            this.txtEtcsCommRs.Location = new System.Drawing.Point(210, 55);
             this.txtEtcsCommRs.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsCommRs.Name = "txtEtcsCommRs";
             this.txtEtcsCommRs.Size = new System.Drawing.Size(42, 23);
@@ -1938,7 +2013,7 @@
             // 
             // label25
             // 
-            this.label25.Location = new System.Drawing.Point(116, 57);
+            this.label25.Location = new System.Drawing.Point(115, 55);
             this.label25.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(25, 21);
@@ -1948,7 +2023,7 @@
             // 
             // txtEtcsCommVersion
             // 
-            this.txtEtcsCommVersion.Location = new System.Drawing.Point(75, 56);
+            this.txtEtcsCommVersion.Location = new System.Drawing.Point(75, 55);
             this.txtEtcsCommVersion.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsCommVersion.Name = "txtEtcsCommVersion";
             this.txtEtcsCommVersion.Size = new System.Drawing.Size(42, 23);
@@ -1956,7 +2031,7 @@
             // 
             // label24
             // 
-            this.label24.Location = new System.Drawing.Point(180, 57);
+            this.label24.Location = new System.Drawing.Point(180, 55);
             this.label24.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(28, 21);
@@ -1966,7 +2041,7 @@
             // 
             // txtEtcsCommHeader
             // 
-            this.txtEtcsCommHeader.Location = new System.Drawing.Point(30, 56);
+            this.txtEtcsCommHeader.Location = new System.Drawing.Point(30, 55);
             this.txtEtcsCommHeader.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsCommHeader.Name = "txtEtcsCommHeader";
             this.txtEtcsCommHeader.Size = new System.Drawing.Size(42, 23);
@@ -1974,7 +2049,7 @@
             // 
             // label21
             // 
-            this.label21.Location = new System.Drawing.Point(2, 57);
+            this.label21.Location = new System.Drawing.Point(2, 55);
             this.label21.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(28, 21);
@@ -2177,15 +2252,21 @@
             // panel9
             // 
             this.panel9.BackColor = System.Drawing.SystemColors.Control;
+            this.panel9.Controls.Add(this.label50);
+            this.panel9.Controls.Add(this.label51);
+            this.panel9.Controls.Add(this.numSerialTo);
             this.panel9.Controls.Add(this.numPrintQty);
             this.panel9.Controls.Add(this.numPrintSpeed);
             this.panel9.Controls.Add(this.numPrintDarkness);
+            this.panel9.Controls.Add(this.numSerialFrom);
             this.panel9.Controls.Add(this.numLabelHeight);
+            this.panel9.Controls.Add(this.numLabelGap);
             this.panel9.Controls.Add(this.numLabelWidth);
             this.panel9.Controls.Add(this.comboPrintDir);
             this.panel9.Controls.Add(this.label52);
             this.panel9.Controls.Add(this.label53);
             this.panel9.Controls.Add(this.label54);
+            this.panel9.Controls.Add(this.label56);
             this.panel9.Controls.Add(this.label57);
             this.panel9.Controls.Add(this.label58);
             this.panel9.Controls.Add(this.label59);
@@ -2195,9 +2276,37 @@
             this.panel9.Size = new System.Drawing.Size(548, 205);
             this.panel9.TabIndex = 104;
             // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(448, 73);
+            this.label50.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(12, 15);
+            this.label50.TabIndex = 134;
+            this.label50.Text = "-";
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(286, 74);
+            this.label51.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(59, 15);
+            this.label51.TabIndex = 117;
+            this.label51.Text = "일련 번호";
+            // 
+            // numSerialTo
+            // 
+            this.numSerialTo.Location = new System.Drawing.Point(466, 71);
+            this.numSerialTo.Margin = new System.Windows.Forms.Padding(2);
+            this.numSerialTo.Name = "numSerialTo";
+            this.numSerialTo.Size = new System.Drawing.Size(68, 23);
+            this.numSerialTo.TabIndex = 133;
+            // 
             // numPrintQty
             // 
-            this.numPrintQty.Location = new System.Drawing.Point(368, 151);
+            this.numPrintQty.Location = new System.Drawing.Point(374, 147);
             this.numPrintQty.Margin = new System.Windows.Forms.Padding(2);
             this.numPrintQty.Name = "numPrintQty";
             this.numPrintQty.Size = new System.Drawing.Size(160, 23);
@@ -2205,7 +2314,7 @@
             // 
             // numPrintSpeed
             // 
-            this.numPrintSpeed.Location = new System.Drawing.Point(368, 101);
+            this.numPrintSpeed.Location = new System.Drawing.Point(374, 111);
             this.numPrintSpeed.Margin = new System.Windows.Forms.Padding(2);
             this.numPrintSpeed.Name = "numPrintSpeed";
             this.numPrintSpeed.Size = new System.Drawing.Size(160, 23);
@@ -2213,23 +2322,39 @@
             // 
             // numPrintDarkness
             // 
-            this.numPrintDarkness.Location = new System.Drawing.Point(368, 51);
+            this.numPrintDarkness.Location = new System.Drawing.Point(374, 34);
             this.numPrintDarkness.Margin = new System.Windows.Forms.Padding(2);
             this.numPrintDarkness.Name = "numPrintDarkness";
             this.numPrintDarkness.Size = new System.Drawing.Size(160, 23);
             this.numPrintDarkness.TabIndex = 130;
             // 
+            // numSerialFrom
+            // 
+            this.numSerialFrom.Location = new System.Drawing.Point(374, 71);
+            this.numSerialFrom.Margin = new System.Windows.Forms.Padding(2);
+            this.numSerialFrom.Name = "numSerialFrom";
+            this.numSerialFrom.Size = new System.Drawing.Size(67, 23);
+            this.numSerialFrom.TabIndex = 129;
+            // 
             // numLabelHeight
             // 
-            this.numLabelHeight.Location = new System.Drawing.Point(99, 151);
+            this.numLabelHeight.Location = new System.Drawing.Point(100, 110);
             this.numLabelHeight.Margin = new System.Windows.Forms.Padding(2);
             this.numLabelHeight.Name = "numLabelHeight";
             this.numLabelHeight.Size = new System.Drawing.Size(160, 23);
             this.numLabelHeight.TabIndex = 128;
             // 
+            // numLabelGap
+            // 
+            this.numLabelGap.Location = new System.Drawing.Point(100, 148);
+            this.numLabelGap.Margin = new System.Windows.Forms.Padding(2);
+            this.numLabelGap.Name = "numLabelGap";
+            this.numLabelGap.Size = new System.Drawing.Size(160, 23);
+            this.numLabelGap.TabIndex = 127;
+            // 
             // numLabelWidth
             // 
-            this.numLabelWidth.Location = new System.Drawing.Point(99, 101);
+            this.numLabelWidth.Location = new System.Drawing.Point(100, 73);
             this.numLabelWidth.Margin = new System.Windows.Forms.Padding(2);
             this.numLabelWidth.Name = "numLabelWidth";
             this.numLabelWidth.Size = new System.Drawing.Size(160, 23);
@@ -2238,16 +2363,16 @@
             // comboPrintDir
             // 
             this.comboPrintDir.FormattingEnabled = true;
-            this.comboPrintDir.Location = new System.Drawing.Point(99, 51);
+            this.comboPrintDir.Location = new System.Drawing.Point(100, 34);
             this.comboPrintDir.Margin = new System.Windows.Forms.Padding(2);
             this.comboPrintDir.Name = "comboPrintDir";
-            this.comboPrintDir.Size = new System.Drawing.Size(160, 23);
+            this.comboPrintDir.Size = new System.Drawing.Size(161, 23);
             this.comboPrintDir.TabIndex = 125;
             // 
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(285, 55);
+            this.label52.Location = new System.Drawing.Point(286, 37);
             this.label52.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(59, 15);
@@ -2257,7 +2382,7 @@
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(285, 105);
+            this.label53.Location = new System.Drawing.Point(286, 112);
             this.label53.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(59, 15);
@@ -2267,17 +2392,27 @@
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(285, 155);
+            this.label54.Location = new System.Drawing.Point(286, 151);
             this.label54.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(59, 15);
             this.label54.TabIndex = 120;
             this.label54.Text = "인쇄 수량";
             // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(17, 150);
+            this.label56.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(59, 15);
+            this.label56.TabIndex = 121;
+            this.label56.Text = "라벨 간격";
+            // 
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(16, 155);
+            this.label57.Location = new System.Drawing.Point(17, 112);
             this.label57.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(59, 15);
@@ -2287,7 +2422,7 @@
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(16, 105);
+            this.label58.Location = new System.Drawing.Point(17, 74);
             this.label58.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(59, 15);
@@ -2297,7 +2432,7 @@
             // label59
             // 
             this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(16, 55);
+            this.label59.Location = new System.Drawing.Point(17, 37);
             this.label59.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(59, 15);
@@ -2477,6 +2612,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.panel13);
             this.tabPage3.Controls.Add(this.panel1);
             this.tabPage3.Controls.Add(this.panel5);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
@@ -2486,11 +2622,222 @@
             this.tabPage3.Text = "마스터 샘플 설정";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // panel13
+            // 
+            this.panel13.BackColor = System.Drawing.Color.LightGray;
+            this.panel13.Controls.Add(this.panel14);
+            this.panel13.Location = new System.Drawing.Point(20, 519);
+            this.panel13.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(500, 220);
+            this.panel13.TabIndex = 9;
+            this.panel13.Visible = false;
+            // 
+            // panel14
+            // 
+            this.panel14.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel14.BackColor = System.Drawing.SystemColors.Control;
+            this.panel14.Controls.Add(this.label11);
+            this.panel14.Controls.Add(this.label45);
+            this.panel14.Controls.Add(this.label41);
+            this.panel14.Controls.Add(this.label44);
+            this.panel14.Controls.Add(this.label13);
+            this.panel14.Controls.Add(this.textNFC_Z_CurrentStartPositionCh2);
+            this.panel14.Controls.Add(this.textNFC_Z_CurrentStartPositionCh1);
+            this.panel14.Controls.Add(this.textNFC_Z_CurrentBasePositionCh2);
+            this.panel14.Controls.Add(this.textNFC_Z_CurrentBasePositionCh1);
+            this.panel14.Controls.Add(this.label43);
+            this.panel14.Controls.Add(this.label14);
+            this.panel14.Controls.Add(this.label42);
+            this.panel14.Controls.Add(this.label12);
+            this.panel14.Controls.Add(this.textNFC_Z_MeasureStartPositionCh2);
+            this.panel14.Controls.Add(this.textNFC_Z_MeasureStartPositionCh1);
+            this.panel14.Controls.Add(this.textNFC_Z_MeasureBasePositionCh2);
+            this.panel14.Controls.Add(this.textNFC_Z_MeasureBasePositionCh1);
+            this.panel14.Location = new System.Drawing.Point(1, 1);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(498, 218);
+            this.panel14.TabIndex = 0;
+            // 
+            // label11
+            // 
+            this.label11.BackColor = System.Drawing.Color.LightGray;
+            this.label11.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label11.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label11.Location = new System.Drawing.Point(0, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(498, 20);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "NFC Z축 설정";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label45
+            // 
+            this.label45.Location = new System.Drawing.Point(188, 138);
+            this.label45.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(80, 21);
+            this.label45.TabIndex = 4;
+            this.label45.Text = "Z축 위치";
+            this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label41
+            // 
+            this.label41.Location = new System.Drawing.Point(188, 58);
+            this.label41.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(80, 21);
+            this.label41.TabIndex = 4;
+            this.label41.Text = "Z축 위치";
+            this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label44
+            // 
+            this.label44.Location = new System.Drawing.Point(188, 110);
+            this.label44.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(80, 21);
+            this.label44.TabIndex = 4;
+            this.label44.Text = "Z축 위치";
+            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label13
+            // 
+            this.label13.Location = new System.Drawing.Point(188, 30);
+            this.label13.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(80, 21);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "Z축 위치";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textNFC_Z_CurrentStartPositionCh2
+            // 
+            this.textNFC_Z_CurrentStartPositionCh2.Location = new System.Drawing.Point(278, 138);
+            this.textNFC_Z_CurrentStartPositionCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textNFC_Z_CurrentStartPositionCh2.Name = "textNFC_Z_CurrentStartPositionCh2";
+            this.textNFC_Z_CurrentStartPositionCh2.Size = new System.Drawing.Size(80, 23);
+            this.textNFC_Z_CurrentStartPositionCh2.TabIndex = 2;
+            this.textNFC_Z_CurrentStartPositionCh2.Text = "15.0";
+            this.textNFC_Z_CurrentStartPositionCh2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textNFC_Z_CurrentStartPositionCh1
+            // 
+            this.textNFC_Z_CurrentStartPositionCh1.Location = new System.Drawing.Point(278, 58);
+            this.textNFC_Z_CurrentStartPositionCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textNFC_Z_CurrentStartPositionCh1.Name = "textNFC_Z_CurrentStartPositionCh1";
+            this.textNFC_Z_CurrentStartPositionCh1.Size = new System.Drawing.Size(80, 23);
+            this.textNFC_Z_CurrentStartPositionCh1.TabIndex = 2;
+            this.textNFC_Z_CurrentStartPositionCh1.Text = "15.0";
+            this.textNFC_Z_CurrentStartPositionCh1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textNFC_Z_CurrentBasePositionCh2
+            // 
+            this.textNFC_Z_CurrentBasePositionCh2.Location = new System.Drawing.Point(278, 110);
+            this.textNFC_Z_CurrentBasePositionCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textNFC_Z_CurrentBasePositionCh2.Name = "textNFC_Z_CurrentBasePositionCh2";
+            this.textNFC_Z_CurrentBasePositionCh2.Size = new System.Drawing.Size(80, 23);
+            this.textNFC_Z_CurrentBasePositionCh2.TabIndex = 2;
+            this.textNFC_Z_CurrentBasePositionCh2.Text = "15.0";
+            this.textNFC_Z_CurrentBasePositionCh2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textNFC_Z_CurrentBasePositionCh1
+            // 
+            this.textNFC_Z_CurrentBasePositionCh1.Location = new System.Drawing.Point(278, 30);
+            this.textNFC_Z_CurrentBasePositionCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textNFC_Z_CurrentBasePositionCh1.Name = "textNFC_Z_CurrentBasePositionCh1";
+            this.textNFC_Z_CurrentBasePositionCh1.Size = new System.Drawing.Size(80, 23);
+            this.textNFC_Z_CurrentBasePositionCh1.TabIndex = 2;
+            this.textNFC_Z_CurrentBasePositionCh1.Text = "15.0";
+            this.textNFC_Z_CurrentBasePositionCh1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label43
+            // 
+            this.label43.Location = new System.Drawing.Point(11, 138);
+            this.label43.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(80, 21);
+            this.label43.TabIndex = 4;
+            this.label43.Text = "시작 높이";
+            this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(11, 58);
+            this.label14.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(80, 21);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "시작 높이";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label42
+            // 
+            this.label42.Location = new System.Drawing.Point(11, 110);
+            this.label42.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(80, 21);
+            this.label42.TabIndex = 4;
+            this.label42.Text = "기준 높이";
+            this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label12
+            // 
+            this.label12.Location = new System.Drawing.Point(11, 30);
+            this.label12.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(80, 21);
+            this.label12.TabIndex = 4;
+            this.label12.Text = "기준 높이";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textNFC_Z_MeasureStartPositionCh2
+            // 
+            this.textNFC_Z_MeasureStartPositionCh2.Location = new System.Drawing.Point(101, 138);
+            this.textNFC_Z_MeasureStartPositionCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textNFC_Z_MeasureStartPositionCh2.Name = "textNFC_Z_MeasureStartPositionCh2";
+            this.textNFC_Z_MeasureStartPositionCh2.Size = new System.Drawing.Size(80, 23);
+            this.textNFC_Z_MeasureStartPositionCh2.TabIndex = 2;
+            this.textNFC_Z_MeasureStartPositionCh2.Text = "17.0";
+            this.textNFC_Z_MeasureStartPositionCh2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textNFC_Z_MeasureStartPositionCh1
+            // 
+            this.textNFC_Z_MeasureStartPositionCh1.Location = new System.Drawing.Point(101, 58);
+            this.textNFC_Z_MeasureStartPositionCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textNFC_Z_MeasureStartPositionCh1.Name = "textNFC_Z_MeasureStartPositionCh1";
+            this.textNFC_Z_MeasureStartPositionCh1.Size = new System.Drawing.Size(80, 23);
+            this.textNFC_Z_MeasureStartPositionCh1.TabIndex = 2;
+            this.textNFC_Z_MeasureStartPositionCh1.Text = "17.0";
+            this.textNFC_Z_MeasureStartPositionCh1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textNFC_Z_MeasureBasePositionCh2
+            // 
+            this.textNFC_Z_MeasureBasePositionCh2.Location = new System.Drawing.Point(101, 110);
+            this.textNFC_Z_MeasureBasePositionCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textNFC_Z_MeasureBasePositionCh2.Name = "textNFC_Z_MeasureBasePositionCh2";
+            this.textNFC_Z_MeasureBasePositionCh2.Size = new System.Drawing.Size(80, 23);
+            this.textNFC_Z_MeasureBasePositionCh2.TabIndex = 2;
+            this.textNFC_Z_MeasureBasePositionCh2.Text = "17.0";
+            this.textNFC_Z_MeasureBasePositionCh2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textNFC_Z_MeasureBasePositionCh1
+            // 
+            this.textNFC_Z_MeasureBasePositionCh1.Location = new System.Drawing.Point(101, 30);
+            this.textNFC_Z_MeasureBasePositionCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textNFC_Z_MeasureBasePositionCh1.Name = "textNFC_Z_MeasureBasePositionCh1";
+            this.textNFC_Z_MeasureBasePositionCh1.Size = new System.Drawing.Size(80, 23);
+            this.textNFC_Z_MeasureBasePositionCh1.TabIndex = 2;
+            this.textNFC_Z_MeasureBasePositionCh1.Text = "17.0";
+            this.textNFC_Z_MeasureBasePositionCh1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightGray;
             this.panel1.Controls.Add(this.panel4);
-            this.panel1.Location = new System.Drawing.Point(20, 260);
+            this.panel1.Location = new System.Drawing.Point(20, 290);
             this.panel1.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(500, 220);
@@ -2566,7 +2913,7 @@
             this.panel5.Location = new System.Drawing.Point(20, 20);
             this.panel5.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(500, 220);
+            this.panel5.Size = new System.Drawing.Size(500, 250);
             this.panel5.TabIndex = 10;
             // 
             // panel10
@@ -2575,6 +2922,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel10.BackColor = System.Drawing.SystemColors.Control;
+            this.panel10.Controls.Add(this.buttonMasterTestResult);
             this.panel10.Controls.Add(this.checkUseMasterSample);
             this.panel10.Controls.Add(this.numericMasterCount);
             this.panel10.Controls.Add(this.label7);
@@ -2593,10 +2941,22 @@
             this.panel10.Controls.Add(this.textMasterType2);
             this.panel10.Controls.Add(this.labelMaster2);
             this.panel10.Controls.Add(this.textMasterType1);
+            this.panel10.Controls.Add(this.label60);
+            this.panel10.Controls.Add(this.labelMasterOk5_Ch2);
+            this.panel10.Controls.Add(this.labelMasterOk4_Ch2);
+            this.panel10.Controls.Add(this.labelMasterOk3_Ch2);
+            this.panel10.Controls.Add(this.labelMasterOk2_Ch2);
+            this.panel10.Controls.Add(this.labelMasterOk1_Ch2);
+            this.panel10.Controls.Add(this.label48);
+            this.panel10.Controls.Add(this.labelMasterOk5_Ch1);
+            this.panel10.Controls.Add(this.labelMasterOk4_Ch1);
+            this.panel10.Controls.Add(this.labelMasterOk3_Ch1);
+            this.panel10.Controls.Add(this.labelMasterOk2_Ch1);
+            this.panel10.Controls.Add(this.labelMasterOk1_Ch1);
             this.panel10.Controls.Add(this.labelMaster1);
             this.panel10.Location = new System.Drawing.Point(1, 1);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(498, 218);
+            this.panel10.Size = new System.Drawing.Size(498, 248);
             this.panel10.TabIndex = 0;
             // 
             // checkUseMasterSample
@@ -2604,7 +2964,7 @@
             this.checkUseMasterSample.AutoSize = true;
             this.checkUseMasterSample.Checked = true;
             this.checkUseMasterSample.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkUseMasterSample.Location = new System.Drawing.Point(194, 32);
+            this.checkUseMasterSample.Location = new System.Drawing.Point(174, 32);
             this.checkUseMasterSample.Name = "checkUseMasterSample";
             this.checkUseMasterSample.Size = new System.Drawing.Size(118, 19);
             this.checkUseMasterSample.TabIndex = 7;
@@ -2620,7 +2980,7 @@
             0,
             0});
             this.numericMasterCount.Name = "numericMasterCount";
-            this.numericMasterCount.Size = new System.Drawing.Size(80, 23);
+            this.numericMasterCount.Size = new System.Drawing.Size(60, 23);
             this.numericMasterCount.TabIndex = 6;
             this.numericMasterCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2648,42 +3008,42 @@
             // 
             // textMasterBarcode5
             // 
-            this.textMasterBarcode5.Location = new System.Drawing.Point(190, 170);
+            this.textMasterBarcode5.Location = new System.Drawing.Point(170, 170);
             this.textMasterBarcode5.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textMasterBarcode5.Name = "textMasterBarcode5";
-            this.textMasterBarcode5.Size = new System.Drawing.Size(280, 23);
+            this.textMasterBarcode5.Size = new System.Drawing.Size(200, 23);
             this.textMasterBarcode5.TabIndex = 2;
             // 
             // textMasterBarcode4
             // 
-            this.textMasterBarcode4.Location = new System.Drawing.Point(190, 142);
+            this.textMasterBarcode4.Location = new System.Drawing.Point(170, 142);
             this.textMasterBarcode4.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textMasterBarcode4.Name = "textMasterBarcode4";
-            this.textMasterBarcode4.Size = new System.Drawing.Size(280, 23);
+            this.textMasterBarcode4.Size = new System.Drawing.Size(200, 23);
             this.textMasterBarcode4.TabIndex = 2;
             // 
             // textMasterBarcode3
             // 
-            this.textMasterBarcode3.Location = new System.Drawing.Point(190, 114);
+            this.textMasterBarcode3.Location = new System.Drawing.Point(170, 114);
             this.textMasterBarcode3.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textMasterBarcode3.Name = "textMasterBarcode3";
-            this.textMasterBarcode3.Size = new System.Drawing.Size(280, 23);
+            this.textMasterBarcode3.Size = new System.Drawing.Size(200, 23);
             this.textMasterBarcode3.TabIndex = 2;
             // 
             // textMasterBarcode2
             // 
-            this.textMasterBarcode2.Location = new System.Drawing.Point(190, 86);
+            this.textMasterBarcode2.Location = new System.Drawing.Point(170, 86);
             this.textMasterBarcode2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textMasterBarcode2.Name = "textMasterBarcode2";
-            this.textMasterBarcode2.Size = new System.Drawing.Size(280, 23);
+            this.textMasterBarcode2.Size = new System.Drawing.Size(200, 23);
             this.textMasterBarcode2.TabIndex = 2;
             // 
             // textMasterBarcode1
             // 
-            this.textMasterBarcode1.Location = new System.Drawing.Point(190, 58);
+            this.textMasterBarcode1.Location = new System.Drawing.Point(170, 58);
             this.textMasterBarcode1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textMasterBarcode1.Name = "textMasterBarcode1";
-            this.textMasterBarcode1.Size = new System.Drawing.Size(280, 23);
+            this.textMasterBarcode1.Size = new System.Drawing.Size(200, 23);
             this.textMasterBarcode1.TabIndex = 2;
             // 
             // textMasterType5
@@ -2691,7 +3051,7 @@
             this.textMasterType5.Location = new System.Drawing.Point(100, 170);
             this.textMasterType5.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textMasterType5.Name = "textMasterType5";
-            this.textMasterType5.Size = new System.Drawing.Size(80, 23);
+            this.textMasterType5.Size = new System.Drawing.Size(60, 23);
             this.textMasterType5.TabIndex = 2;
             // 
             // labelMaster5
@@ -2709,7 +3069,7 @@
             this.textMasterType4.Location = new System.Drawing.Point(100, 142);
             this.textMasterType4.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textMasterType4.Name = "textMasterType4";
-            this.textMasterType4.Size = new System.Drawing.Size(80, 23);
+            this.textMasterType4.Size = new System.Drawing.Size(60, 23);
             this.textMasterType4.TabIndex = 2;
             // 
             // labelMaster4
@@ -2727,7 +3087,7 @@
             this.textMasterType3.Location = new System.Drawing.Point(100, 114);
             this.textMasterType3.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textMasterType3.Name = "textMasterType3";
-            this.textMasterType3.Size = new System.Drawing.Size(80, 23);
+            this.textMasterType3.Size = new System.Drawing.Size(60, 23);
             this.textMasterType3.TabIndex = 2;
             // 
             // labelMaster3
@@ -2745,7 +3105,7 @@
             this.textMasterType2.Location = new System.Drawing.Point(100, 86);
             this.textMasterType2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textMasterType2.Name = "textMasterType2";
-            this.textMasterType2.Size = new System.Drawing.Size(80, 23);
+            this.textMasterType2.Size = new System.Drawing.Size(60, 23);
             this.textMasterType2.TabIndex = 2;
             // 
             // labelMaster2
@@ -2763,8 +3123,138 @@
             this.textMasterType1.Location = new System.Drawing.Point(100, 58);
             this.textMasterType1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.textMasterType1.Name = "textMasterType1";
-            this.textMasterType1.Size = new System.Drawing.Size(80, 23);
+            this.textMasterType1.Size = new System.Drawing.Size(60, 23);
             this.textMasterType1.TabIndex = 2;
+            // 
+            // label60
+            // 
+            this.label60.Location = new System.Drawing.Point(435, 38);
+            this.label60.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(50, 15);
+            this.label60.TabIndex = 4;
+            this.label60.Text = "CH.2";
+            this.label60.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelMasterOk5_Ch2
+            // 
+            this.labelMasterOk5_Ch2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMasterOk5_Ch2.Location = new System.Drawing.Point(435, 170);
+            this.labelMasterOk5_Ch2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelMasterOk5_Ch2.Name = "labelMasterOk5_Ch2";
+            this.labelMasterOk5_Ch2.Size = new System.Drawing.Size(50, 23);
+            this.labelMasterOk5_Ch2.TabIndex = 4;
+            this.labelMasterOk5_Ch2.Text = "완료";
+            this.labelMasterOk5_Ch2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelMasterOk4_Ch2
+            // 
+            this.labelMasterOk4_Ch2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMasterOk4_Ch2.Location = new System.Drawing.Point(435, 142);
+            this.labelMasterOk4_Ch2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelMasterOk4_Ch2.Name = "labelMasterOk4_Ch2";
+            this.labelMasterOk4_Ch2.Size = new System.Drawing.Size(50, 23);
+            this.labelMasterOk4_Ch2.TabIndex = 4;
+            this.labelMasterOk4_Ch2.Text = "완료";
+            this.labelMasterOk4_Ch2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelMasterOk3_Ch2
+            // 
+            this.labelMasterOk3_Ch2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMasterOk3_Ch2.Location = new System.Drawing.Point(435, 114);
+            this.labelMasterOk3_Ch2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelMasterOk3_Ch2.Name = "labelMasterOk3_Ch2";
+            this.labelMasterOk3_Ch2.Size = new System.Drawing.Size(50, 23);
+            this.labelMasterOk3_Ch2.TabIndex = 4;
+            this.labelMasterOk3_Ch2.Text = "완료";
+            this.labelMasterOk3_Ch2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelMasterOk2_Ch2
+            // 
+            this.labelMasterOk2_Ch2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMasterOk2_Ch2.Location = new System.Drawing.Point(435, 86);
+            this.labelMasterOk2_Ch2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelMasterOk2_Ch2.Name = "labelMasterOk2_Ch2";
+            this.labelMasterOk2_Ch2.Size = new System.Drawing.Size(50, 23);
+            this.labelMasterOk2_Ch2.TabIndex = 4;
+            this.labelMasterOk2_Ch2.Text = "완료";
+            this.labelMasterOk2_Ch2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelMasterOk1_Ch2
+            // 
+            this.labelMasterOk1_Ch2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMasterOk1_Ch2.Location = new System.Drawing.Point(435, 58);
+            this.labelMasterOk1_Ch2.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.labelMasterOk1_Ch2.Name = "labelMasterOk1_Ch2";
+            this.labelMasterOk1_Ch2.Size = new System.Drawing.Size(50, 23);
+            this.labelMasterOk1_Ch2.TabIndex = 4;
+            this.labelMasterOk1_Ch2.Text = "완료";
+            this.labelMasterOk1_Ch2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label48
+            // 
+            this.label48.Location = new System.Drawing.Point(380, 38);
+            this.label48.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(50, 15);
+            this.label48.TabIndex = 4;
+            this.label48.Text = "CH.1";
+            this.label48.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelMasterOk5_Ch1
+            // 
+            this.labelMasterOk5_Ch1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMasterOk5_Ch1.Location = new System.Drawing.Point(380, 170);
+            this.labelMasterOk5_Ch1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.labelMasterOk5_Ch1.Name = "labelMasterOk5_Ch1";
+            this.labelMasterOk5_Ch1.Size = new System.Drawing.Size(50, 23);
+            this.labelMasterOk5_Ch1.TabIndex = 4;
+            this.labelMasterOk5_Ch1.Text = "완료";
+            this.labelMasterOk5_Ch1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelMasterOk4_Ch1
+            // 
+            this.labelMasterOk4_Ch1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMasterOk4_Ch1.Location = new System.Drawing.Point(380, 142);
+            this.labelMasterOk4_Ch1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.labelMasterOk4_Ch1.Name = "labelMasterOk4_Ch1";
+            this.labelMasterOk4_Ch1.Size = new System.Drawing.Size(50, 23);
+            this.labelMasterOk4_Ch1.TabIndex = 4;
+            this.labelMasterOk4_Ch1.Text = "완료";
+            this.labelMasterOk4_Ch1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelMasterOk3_Ch1
+            // 
+            this.labelMasterOk3_Ch1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMasterOk3_Ch1.Location = new System.Drawing.Point(380, 114);
+            this.labelMasterOk3_Ch1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.labelMasterOk3_Ch1.Name = "labelMasterOk3_Ch1";
+            this.labelMasterOk3_Ch1.Size = new System.Drawing.Size(50, 23);
+            this.labelMasterOk3_Ch1.TabIndex = 4;
+            this.labelMasterOk3_Ch1.Text = "완료";
+            this.labelMasterOk3_Ch1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelMasterOk2_Ch1
+            // 
+            this.labelMasterOk2_Ch1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMasterOk2_Ch1.Location = new System.Drawing.Point(380, 86);
+            this.labelMasterOk2_Ch1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.labelMasterOk2_Ch1.Name = "labelMasterOk2_Ch1";
+            this.labelMasterOk2_Ch1.Size = new System.Drawing.Size(50, 23);
+            this.labelMasterOk2_Ch1.TabIndex = 4;
+            this.labelMasterOk2_Ch1.Text = "완료";
+            this.labelMasterOk2_Ch1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelMasterOk1_Ch1
+            // 
+            this.labelMasterOk1_Ch1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMasterOk1_Ch1.Location = new System.Drawing.Point(380, 58);
+            this.labelMasterOk1_Ch1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.labelMasterOk1_Ch1.Name = "labelMasterOk1_Ch1";
+            this.labelMasterOk1_Ch1.Size = new System.Drawing.Size(50, 23);
+            this.labelMasterOk1_Ch1.TabIndex = 4;
+            this.labelMasterOk1_Ch1.Text = "완료";
+            this.labelMasterOk1_Ch1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMaster1
             // 
@@ -2776,15 +3266,15 @@
             this.labelMaster1.Text = "제품 1";
             this.labelMaster1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // btnPrintFontTest
+            // buttonMasterTestResult
             // 
-            this.btnPrintFontTest.Location = new System.Drawing.Point(11, 385);
-            this.btnPrintFontTest.Name = "btnPrintFontTest";
-            this.btnPrintFontTest.Size = new System.Drawing.Size(140, 25);
-            this.btnPrintFontTest.TabIndex = 172;
-            this.btnPrintFontTest.Text = "TestButton";
-            this.btnPrintFontTest.UseVisualStyleBackColor = true;
-            this.btnPrintFontTest.Click += new System.EventHandler(this.btnPrintFontTest_Click);
+            this.buttonMasterTestResult.Location = new System.Drawing.Point(170, 206);
+            this.buttonMasterTestResult.Name = "buttonMasterTestResult";
+            this.buttonMasterTestResult.Size = new System.Drawing.Size(150, 30);
+            this.buttonMasterTestResult.TabIndex = 8;
+            this.buttonMasterTestResult.Text = "마스터샘플 상태 보이기";
+            this.buttonMasterTestResult.UseVisualStyleBackColor = true;
+            this.buttonMasterTestResult.Visible = false;
             // 
             // FormProduct
             // 
@@ -2835,15 +3325,21 @@
             this.panel8.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSerialTo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrintQty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrintSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrintDarkness)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSerialFrom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLabelHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLabelGap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLabelWidth)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.panel13.ResumeLayout(false);
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -2971,15 +3467,21 @@
         private System.Windows.Forms.TextBox textAlcNo2;
         private System.Windows.Forms.TextBox textCarType2;
         private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.NumericUpDown numSerialTo;
         private System.Windows.Forms.NumericUpDown numPrintQty;
         private System.Windows.Forms.NumericUpDown numPrintSpeed;
         private System.Windows.Forms.NumericUpDown numPrintDarkness;
+        private System.Windows.Forms.NumericUpDown numSerialFrom;
         private System.Windows.Forms.NumericUpDown numLabelHeight;
+        private System.Windows.Forms.NumericUpDown numLabelGap;
         private System.Windows.Forms.NumericUpDown numLabelWidth;
         private System.Windows.Forms.ComboBox comboPrintDir;
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.Label label56;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
@@ -3054,6 +3556,7 @@
         private System.Windows.Forms.TextBox txtEtcsVTag;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label37;
@@ -3061,6 +3564,7 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox txtFixtureBarcode;
         private System.Windows.Forms.TextBox txtEtcsCompanyAreaValue;
         private System.Windows.Forms.TextBox txtEtcsCTag;
         private System.Windows.Forms.TextBox txtEtcsInitialValue;
@@ -3076,9 +3580,41 @@
         private System.Windows.Forms.TextBox txtEtcsPartNoValue;
         private System.Windows.Forms.TextBox txtEtcsPTag;
         private System.Windows.Forms.TextBox txtEtcsVendorValue;
+        private System.Windows.Forms.Label label40;
         private System.Windows.Forms.CheckBox checkUseLabelPrint;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboConnType;
-        private System.Windows.Forms.Button btnPrintFontTest;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textNFC_Z_MeasureBasePositionCh1;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textNFC_Z_CurrentStartPositionCh1;
+        private System.Windows.Forms.TextBox textNFC_Z_CurrentBasePositionCh1;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textNFC_Z_MeasureStartPositionCh1;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.TextBox textNFC_Z_CurrentStartPositionCh2;
+        private System.Windows.Forms.TextBox textNFC_Z_CurrentBasePositionCh2;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.TextBox textNFC_Z_MeasureStartPositionCh2;
+        private System.Windows.Forms.TextBox textNFC_Z_MeasureBasePositionCh2;
+        private System.Windows.Forms.Label labelMasterOk1_Ch1;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.Label labelMasterOk5_Ch2;
+        private System.Windows.Forms.Label labelMasterOk4_Ch2;
+        private System.Windows.Forms.Label labelMasterOk3_Ch2;
+        private System.Windows.Forms.Label labelMasterOk2_Ch2;
+        private System.Windows.Forms.Label labelMasterOk1_Ch2;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Label labelMasterOk5_Ch1;
+        private System.Windows.Forms.Label labelMasterOk4_Ch1;
+        private System.Windows.Forms.Label labelMasterOk3_Ch1;
+        private System.Windows.Forms.Label labelMasterOk2_Ch1;
+        private System.Windows.Forms.Button buttonMasterTestResult;
     }
 }
