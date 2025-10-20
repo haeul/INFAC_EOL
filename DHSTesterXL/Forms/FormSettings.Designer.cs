@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel9 = new System.Windows.Forms.Panel();
@@ -113,6 +113,12 @@
             this.comboDCtrlPortName = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.buttonNFCZDownCh2 = new System.Windows.Forms.Button();
+            this.buttonNFCZDownCh1 = new System.Windows.Forms.Button();
+            this.textNFC_Z_SetPosCh2 = new System.Windows.Forms.TextBox();
+            this.textNFC_Z_CurPosCh2 = new System.Windows.Forms.TextBox();
+            this.textNFC_Z_SetPosCh1 = new System.Windows.Forms.TextBox();
+            this.textNFC_Z_CurPosCh1 = new System.Windows.Forms.TextBox();
             this.buttonPLCAutoStopCh1 = new System.Windows.Forms.Button();
             this.buttonPLCAutoStartCh1 = new System.Windows.Forms.Button();
             this.buttonAutoUnclampCh1 = new System.Windows.Forms.Button();
@@ -121,6 +127,7 @@
             this.buttonAutoNfcCh1 = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.checkPLC_AutoReset = new System.Windows.Forms.CheckBox();
             this.buttonPLC_TestStopCh2 = new System.Windows.Forms.Button();
             this.buttonPLC_UnclampCh2 = new System.Windows.Forms.Button();
             this.buttonPLC_TestStopCh1 = new System.Windows.Forms.Button();
@@ -149,9 +156,7 @@
             this.buttonPLC_CancelYCh1 = new System.Windows.Forms.Button();
             this.buttonPLC_TouchYCh2 = new System.Windows.Forms.Button();
             this.buttonPLC_TouchYCh1 = new System.Windows.Forms.Button();
-            this.buttonPLC_SetRecipeCh2 = new System.Windows.Forms.Button();
             this.buttonPLC_SetRecipeCh1 = new System.Windows.Forms.Button();
-            this.textPLC_RecipeNoCh2 = new System.Windows.Forms.TextBox();
             this.textPLC_RecipeNoCh1 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -176,6 +181,7 @@
             this.label24 = new System.Windows.Forms.Label();
             this.buttonAutoTouchCh1 = new System.Windows.Forms.Button();
             this.buttonAutoLoadingCh1 = new System.Windows.Forms.Button();
+            this.label34 = new System.Windows.Forms.Label();
             this.labelAutoStartCh1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panelRModuleManualFrame = new System.Windows.Forms.Panel();
@@ -204,9 +210,20 @@
             this.comboRModuleBaudRate = new System.Windows.Forms.ComboBox();
             this.comboRModulePortName = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.buttonPLC_SetRecipeCh2 = new System.Windows.Forms.Button();
+            this.textPLC_RecipeNoCh2 = new System.Windows.Forms.TextBox();
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.checkZInterlock = new System.Windows.Forms.CheckBox();
+            this.buttonTowerLampOnCh1 = new System.Windows.Forms.Button();
+            this.buttonTowerLampOnCh2 = new System.Windows.Forms.Button();
+            this.buttonTowerLampOffCh1 = new System.Windows.Forms.Button();
+            this.buttonTowerLampOffCh2 = new System.Windows.Forms.Button();
+            this.buttonErrorResetCh1 = new System.Windows.Forms.Button();
+            this.buttonErrorResetCh2 = new System.Windows.Forms.Button();
+            this.buttonMeasureCompleteCh1 = new System.Windows.Forms.Button();
+            this.buttonMeasureCompleteCh2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel9.SuspendLayout();
@@ -718,7 +735,7 @@
             this.panel2.Controls.Add(this.label13);
             this.panel2.Location = new System.Drawing.Point(1, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(528, 618);
+            this.panel2.Size = new System.Drawing.Size(528, 626);
             this.panel2.TabIndex = 0;
             // 
             // buttonSetSensor
@@ -738,8 +755,8 @@
             "Sensor Off",
             "JG NFC Touch",
             "JG Touch Only",
-            "NH2 NFC Touch",
-            "NH2 Touch Only"});
+            "LQ2 NFC Touch",
+            "LQ2 Touch Only"});
             this.comboSensorModel.Location = new System.Drawing.Point(300, 227);
             this.comboSensorModel.Name = "comboSensorModel";
             this.comboSensorModel.Size = new System.Drawing.Size(210, 23);
@@ -875,31 +892,29 @@
             this.gridDCtrlRegisters.AllowUserToDeleteRows = false;
             this.gridDCtrlRegisters.AllowUserToResizeColumns = false;
             this.gridDCtrlRegisters.AllowUserToResizeRows = false;
-            this.gridDCtrlRegisters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.gridDCtrlRegisters.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridDCtrlRegisters.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridDCtrlRegisters.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridDCtrlRegisters.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.gridDCtrlRegisters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridDCtrlRegisters.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colRegAddr03h,
             this.colRegName03h,
             this.colRegData03h});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridDCtrlRegisters.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridDCtrlRegisters.DefaultCellStyle = dataGridViewCellStyle12;
             this.gridDCtrlRegisters.GridColor = System.Drawing.Color.LightGray;
             this.gridDCtrlRegisters.Location = new System.Drawing.Point(10, 30);
             this.gridDCtrlRegisters.Name = "gridDCtrlRegisters";
@@ -921,8 +936,8 @@
             // 
             // colRegName03h
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.colRegName03h.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.colRegName03h.DefaultCellStyle = dataGridViewCellStyle11;
             this.colRegName03h.HeaderText = "항목";
             this.colRegName03h.Name = "colRegName03h";
             this.colRegName03h.ReadOnly = true;
@@ -981,7 +996,7 @@
             this.panelDCtrlCOM.Controls.Add(this.label12);
             this.panelDCtrlCOM.Location = new System.Drawing.Point(1, 1);
             this.panelDCtrlCOM.Name = "panelDCtrlCOM";
-            this.panelDCtrlCOM.Size = new System.Drawing.Size(228, 618);
+            this.panelDCtrlCOM.Size = new System.Drawing.Size(228, 626);
             this.panelDCtrlCOM.TabIndex = 0;
             // 
             // buttonDCtrlClose
@@ -1125,6 +1140,20 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.buttonMeasureCompleteCh2);
+            this.tabPage4.Controls.Add(this.buttonMeasureCompleteCh1);
+            this.tabPage4.Controls.Add(this.buttonErrorResetCh2);
+            this.tabPage4.Controls.Add(this.buttonErrorResetCh1);
+            this.tabPage4.Controls.Add(this.buttonTowerLampOffCh2);
+            this.tabPage4.Controls.Add(this.buttonTowerLampOnCh2);
+            this.tabPage4.Controls.Add(this.buttonTowerLampOffCh1);
+            this.tabPage4.Controls.Add(this.buttonTowerLampOnCh1);
+            this.tabPage4.Controls.Add(this.buttonNFCZDownCh2);
+            this.tabPage4.Controls.Add(this.buttonNFCZDownCh1);
+            this.tabPage4.Controls.Add(this.textNFC_Z_SetPosCh2);
+            this.tabPage4.Controls.Add(this.textNFC_Z_CurPosCh2);
+            this.tabPage4.Controls.Add(this.textNFC_Z_SetPosCh1);
+            this.tabPage4.Controls.Add(this.textNFC_Z_CurPosCh1);
             this.tabPage4.Controls.Add(this.buttonPLCAutoStopCh1);
             this.tabPage4.Controls.Add(this.buttonPLCAutoStartCh1);
             this.tabPage4.Controls.Add(this.buttonAutoUnclampCh1);
@@ -1136,6 +1165,7 @@
             this.tabPage4.Controls.Add(this.panel3);
             this.tabPage4.Controls.Add(this.buttonAutoTouchCh1);
             this.tabPage4.Controls.Add(this.buttonAutoLoadingCh1);
+            this.tabPage4.Controls.Add(this.label34);
             this.tabPage4.Controls.Add(this.labelAutoStartCh1);
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
@@ -1145,9 +1175,65 @@
             this.tabPage4.Text = "PLC";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // buttonNFCZDownCh2
+            // 
+            this.buttonNFCZDownCh2.Location = new System.Drawing.Point(130, 269);
+            this.buttonNFCZDownCh2.Name = "buttonNFCZDownCh2";
+            this.buttonNFCZDownCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonNFCZDownCh2.TabIndex = 11;
+            this.buttonNFCZDownCh2.Text = "지정 위치 하강";
+            this.buttonNFCZDownCh2.UseVisualStyleBackColor = true;
+            this.buttonNFCZDownCh2.Click += new System.EventHandler(this.buttonNFCZDownCh2_Click);
+            // 
+            // buttonNFCZDownCh1
+            // 
+            this.buttonNFCZDownCh1.Location = new System.Drawing.Point(24, 269);
+            this.buttonNFCZDownCh1.Name = "buttonNFCZDownCh1";
+            this.buttonNFCZDownCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonNFCZDownCh1.TabIndex = 11;
+            this.buttonNFCZDownCh1.Text = "지정 위치 하강";
+            this.buttonNFCZDownCh1.UseVisualStyleBackColor = true;
+            this.buttonNFCZDownCh1.Click += new System.EventHandler(this.buttonNFCZDownCh1_Click);
+            // 
+            // textNFC_Z_SetPosCh2
+            // 
+            this.textNFC_Z_SetPosCh2.Location = new System.Drawing.Point(130, 237);
+            this.textNFC_Z_SetPosCh2.Name = "textNFC_Z_SetPosCh2";
+            this.textNFC_Z_SetPosCh2.Size = new System.Drawing.Size(100, 23);
+            this.textNFC_Z_SetPosCh2.TabIndex = 8;
+            this.textNFC_Z_SetPosCh2.Text = "0";
+            this.textNFC_Z_SetPosCh2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textNFC_Z_CurPosCh2
+            // 
+            this.textNFC_Z_CurPosCh2.Location = new System.Drawing.Point(130, 208);
+            this.textNFC_Z_CurPosCh2.Name = "textNFC_Z_CurPosCh2";
+            this.textNFC_Z_CurPosCh2.Size = new System.Drawing.Size(100, 23);
+            this.textNFC_Z_CurPosCh2.TabIndex = 8;
+            this.textNFC_Z_CurPosCh2.Text = "0";
+            this.textNFC_Z_CurPosCh2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textNFC_Z_SetPosCh1
+            // 
+            this.textNFC_Z_SetPosCh1.Location = new System.Drawing.Point(24, 237);
+            this.textNFC_Z_SetPosCh1.Name = "textNFC_Z_SetPosCh1";
+            this.textNFC_Z_SetPosCh1.Size = new System.Drawing.Size(100, 23);
+            this.textNFC_Z_SetPosCh1.TabIndex = 8;
+            this.textNFC_Z_SetPosCh1.Text = "0";
+            this.textNFC_Z_SetPosCh1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textNFC_Z_CurPosCh1
+            // 
+            this.textNFC_Z_CurPosCh1.Location = new System.Drawing.Point(24, 208);
+            this.textNFC_Z_CurPosCh1.Name = "textNFC_Z_CurPosCh1";
+            this.textNFC_Z_CurPosCh1.Size = new System.Drawing.Size(100, 23);
+            this.textNFC_Z_CurPosCh1.TabIndex = 8;
+            this.textNFC_Z_CurPosCh1.Text = "0";
+            this.textNFC_Z_CurPosCh1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // buttonPLCAutoStopCh1
             // 
-            this.buttonPLCAutoStopCh1.Location = new System.Drawing.Point(20, 501);
+            this.buttonPLCAutoStopCh1.Location = new System.Drawing.Point(27, 619);
             this.buttonPLCAutoStopCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonPLCAutoStopCh1.Name = "buttonPLCAutoStopCh1";
             this.buttonPLCAutoStopCh1.Size = new System.Drawing.Size(100, 30);
@@ -1159,7 +1245,7 @@
             // 
             // buttonPLCAutoStartCh1
             // 
-            this.buttonPLCAutoStartCh1.Location = new System.Drawing.Point(20, 466);
+            this.buttonPLCAutoStartCh1.Location = new System.Drawing.Point(27, 584);
             this.buttonPLCAutoStartCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonPLCAutoStartCh1.Name = "buttonPLCAutoStartCh1";
             this.buttonPLCAutoStartCh1.Size = new System.Drawing.Size(100, 30);
@@ -1171,7 +1257,7 @@
             // 
             // buttonAutoUnclampCh1
             // 
-            this.buttonAutoUnclampCh1.Location = new System.Drawing.Point(20, 420);
+            this.buttonAutoUnclampCh1.Location = new System.Drawing.Point(24, 549);
             this.buttonAutoUnclampCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonAutoUnclampCh1.Name = "buttonAutoUnclampCh1";
             this.buttonAutoUnclampCh1.Size = new System.Drawing.Size(100, 30);
@@ -1183,7 +1269,7 @@
             // 
             // buttonAutoUnloadCh1
             // 
-            this.buttonAutoUnloadCh1.Location = new System.Drawing.Point(20, 385);
+            this.buttonAutoUnloadCh1.Location = new System.Drawing.Point(24, 514);
             this.buttonAutoUnloadCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonAutoUnloadCh1.Name = "buttonAutoUnloadCh1";
             this.buttonAutoUnloadCh1.Size = new System.Drawing.Size(100, 30);
@@ -1195,7 +1281,7 @@
             // 
             // buttonAutoMoveUnloadCh1
             // 
-            this.buttonAutoMoveUnloadCh1.Location = new System.Drawing.Point(20, 350);
+            this.buttonAutoMoveUnloadCh1.Location = new System.Drawing.Point(24, 479);
             this.buttonAutoMoveUnloadCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonAutoMoveUnloadCh1.Name = "buttonAutoMoveUnloadCh1";
             this.buttonAutoMoveUnloadCh1.Size = new System.Drawing.Size(100, 30);
@@ -1207,7 +1293,7 @@
             // 
             // buttonAutoNfcCh1
             // 
-            this.buttonAutoNfcCh1.Location = new System.Drawing.Point(20, 315);
+            this.buttonAutoNfcCh1.Location = new System.Drawing.Point(130, 584);
             this.buttonAutoNfcCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonAutoNfcCh1.Name = "buttonAutoNfcCh1";
             this.buttonAutoNfcCh1.Size = new System.Drawing.Size(100, 30);
@@ -1233,6 +1319,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.panel6.Controls.Add(this.checkZInterlock);
+            this.panel6.Controls.Add(this.checkPLC_AutoReset);
             this.panel6.Controls.Add(this.buttonPLC_TestStopCh2);
             this.panel6.Controls.Add(this.buttonPLC_UnclampCh2);
             this.panel6.Controls.Add(this.buttonPLC_TestStopCh1);
@@ -1270,8 +1358,20 @@
             this.panel6.Controls.Add(this.label21);
             this.panel6.Location = new System.Drawing.Point(1, 1);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(738, 618);
+            this.panel6.Size = new System.Drawing.Size(738, 626);
             this.panel6.TabIndex = 0;
+            // 
+            // checkPLC_AutoReset
+            // 
+            this.checkPLC_AutoReset.AutoSize = true;
+            this.checkPLC_AutoReset.Checked = true;
+            this.checkPLC_AutoReset.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkPLC_AutoReset.Location = new System.Drawing.Point(383, 580);
+            this.checkPLC_AutoReset.Name = "checkPLC_AutoReset";
+            this.checkPLC_AutoReset.Size = new System.Drawing.Size(84, 19);
+            this.checkPLC_AutoReset.TabIndex = 10;
+            this.checkPLC_AutoReset.Text = "Auto Reset";
+            this.checkPLC_AutoReset.UseVisualStyleBackColor = true;
             // 
             // buttonPLC_TestStopCh2
             // 
@@ -1581,18 +1681,6 @@
             this.buttonPLC_TouchYCh1.UseVisualStyleBackColor = true;
             this.buttonPLC_TouchYCh1.Click += new System.EventHandler(this.buttonPLC_TouchYCh1_Click);
             // 
-            // buttonPLC_SetRecipeCh2
-            // 
-            this.buttonPLC_SetRecipeCh2.Location = new System.Drawing.Point(626, 709);
-            this.buttonPLC_SetRecipeCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.buttonPLC_SetRecipeCh2.Name = "buttonPLC_SetRecipeCh2";
-            this.buttonPLC_SetRecipeCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonPLC_SetRecipeCh2.TabIndex = 9;
-            this.buttonPLC_SetRecipeCh2.Text = "레시피 변경";
-            this.buttonPLC_SetRecipeCh2.UseVisualStyleBackColor = true;
-            this.buttonPLC_SetRecipeCh2.Visible = false;
-            this.buttonPLC_SetRecipeCh2.Click += new System.EventHandler(this.buttonPLC_SetRecipeCh2_Click);
-            // 
             // buttonPLC_SetRecipeCh1
             // 
             this.buttonPLC_SetRecipeCh1.Location = new System.Drawing.Point(509, 83);
@@ -1603,17 +1691,6 @@
             this.buttonPLC_SetRecipeCh1.Text = "레시피 변경";
             this.buttonPLC_SetRecipeCh1.UseVisualStyleBackColor = true;
             this.buttonPLC_SetRecipeCh1.Click += new System.EventHandler(this.buttonPLC_SetRecipeCh1_Click);
-            // 
-            // textPLC_RecipeNoCh2
-            // 
-            this.textPLC_RecipeNoCh2.Location = new System.Drawing.Point(626, 681);
-            this.textPLC_RecipeNoCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.textPLC_RecipeNoCh2.Name = "textPLC_RecipeNoCh2";
-            this.textPLC_RecipeNoCh2.Size = new System.Drawing.Size(100, 23);
-            this.textPLC_RecipeNoCh2.TabIndex = 8;
-            this.textPLC_RecipeNoCh2.Text = "1";
-            this.textPLC_RecipeNoCh2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textPLC_RecipeNoCh2.Visible = false;
             // 
             // textPLC_RecipeNoCh1
             // 
@@ -1655,31 +1732,29 @@
             this.gridWritePLC.AllowUserToDeleteRows = false;
             this.gridWritePLC.AllowUserToResizeColumns = false;
             this.gridWritePLC.AllowUserToResizeRows = false;
-            this.gridWritePLC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.gridWritePLC.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridWritePLC.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridWritePLC.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridWritePLC.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.gridWritePLC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridWritePLC.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridWritePLC.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridWritePLC.DefaultCellStyle = dataGridViewCellStyle15;
             this.gridWritePLC.GridColor = System.Drawing.Color.LightGray;
             this.gridWritePLC.Location = new System.Drawing.Point(256, 30);
             this.gridWritePLC.Name = "gridWritePLC";
@@ -1701,8 +1776,8 @@
             // 
             // dataGridViewTextBoxColumn5
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridViewTextBoxColumn5.HeaderText = "항목";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
@@ -1724,31 +1799,29 @@
             this.gridReadPLC.AllowUserToDeleteRows = false;
             this.gridReadPLC.AllowUserToResizeColumns = false;
             this.gridReadPLC.AllowUserToResizeRows = false;
-            this.gridReadPLC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.gridReadPLC.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridReadPLC.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridReadPLC.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridReadPLC.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.gridReadPLC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridReadPLC.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridReadPLC.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridReadPLC.DefaultCellStyle = dataGridViewCellStyle18;
             this.gridReadPLC.GridColor = System.Drawing.Color.LightGray;
             this.gridReadPLC.Location = new System.Drawing.Point(10, 30);
             this.gridReadPLC.Name = "gridReadPLC";
@@ -1770,8 +1843,8 @@
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle17;
             this.dataGridViewTextBoxColumn2.HeaderText = "항목";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -1800,7 +1873,7 @@
             // 
             // buttonAutoCancelCh1
             // 
-            this.buttonAutoCancelCh1.Location = new System.Drawing.Point(20, 280);
+            this.buttonAutoCancelCh1.Location = new System.Drawing.Point(130, 549);
             this.buttonAutoCancelCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonAutoCancelCh1.Name = "buttonAutoCancelCh1";
             this.buttonAutoCancelCh1.Size = new System.Drawing.Size(100, 30);
@@ -1817,7 +1890,7 @@
             this.panel3.Location = new System.Drawing.Point(10, 10);
             this.panel3.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(230, 150);
+            this.panel3.Size = new System.Drawing.Size(230, 140);
             this.panel3.TabIndex = 3;
             // 
             // panel4
@@ -1835,7 +1908,7 @@
             this.panel4.Controls.Add(this.label24);
             this.panel4.Location = new System.Drawing.Point(1, 1);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(228, 140);
+            this.panel4.Size = new System.Drawing.Size(228, 138);
             this.panel4.TabIndex = 0;
             // 
             // textPLC_PortNum
@@ -1909,7 +1982,7 @@
             // 
             // buttonAutoTouchCh1
             // 
-            this.buttonAutoTouchCh1.Location = new System.Drawing.Point(20, 245);
+            this.buttonAutoTouchCh1.Location = new System.Drawing.Point(130, 514);
             this.buttonAutoTouchCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonAutoTouchCh1.Name = "buttonAutoTouchCh1";
             this.buttonAutoTouchCh1.Size = new System.Drawing.Size(100, 30);
@@ -1921,7 +1994,7 @@
             // 
             // buttonAutoLoadingCh1
             // 
-            this.buttonAutoLoadingCh1.Location = new System.Drawing.Point(20, 210);
+            this.buttonAutoLoadingCh1.Location = new System.Drawing.Point(130, 479);
             this.buttonAutoLoadingCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.buttonAutoLoadingCh1.Name = "buttonAutoLoadingCh1";
             this.buttonAutoLoadingCh1.Size = new System.Drawing.Size(100, 30);
@@ -1931,18 +2004,29 @@
             this.buttonAutoLoadingCh1.Visible = false;
             this.buttonAutoLoadingCh1.Click += new System.EventHandler(this.buttonAutoLoadingCh1_Click);
             // 
+            // label34
+            // 
+            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label34.BackColor = System.Drawing.Color.LightGray;
+            this.label34.Location = new System.Drawing.Point(131, 185);
+            this.label34.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(100, 20);
+            this.label34.TabIndex = 5;
+            this.label34.Text = "CH.2 NFC Z축";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // labelAutoStartCh1
             // 
             this.labelAutoStartCh1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAutoStartCh1.BackColor = System.Drawing.Color.LightGray;
-            this.labelAutoStartCh1.Location = new System.Drawing.Point(20, 185);
+            this.labelAutoStartCh1.Location = new System.Drawing.Point(24, 185);
             this.labelAutoStartCh1.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.labelAutoStartCh1.Name = "labelAutoStartCh1";
             this.labelAutoStartCh1.Size = new System.Drawing.Size(100, 20);
             this.labelAutoStartCh1.TabIndex = 5;
-            this.labelAutoStartCh1.Text = "CH.1 START";
+            this.labelAutoStartCh1.Text = "CH.1 NFC Z축";
             this.labelAutoStartCh1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelAutoStartCh1.Visible = false;
             // 
             // tabPage2
             // 
@@ -2317,6 +2401,29 @@
             this.label1.Text = "통신 설정";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // buttonPLC_SetRecipeCh2
+            // 
+            this.buttonPLC_SetRecipeCh2.Location = new System.Drawing.Point(626, 709);
+            this.buttonPLC_SetRecipeCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.buttonPLC_SetRecipeCh2.Name = "buttonPLC_SetRecipeCh2";
+            this.buttonPLC_SetRecipeCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLC_SetRecipeCh2.TabIndex = 9;
+            this.buttonPLC_SetRecipeCh2.Text = "레시피 변경";
+            this.buttonPLC_SetRecipeCh2.UseVisualStyleBackColor = true;
+            this.buttonPLC_SetRecipeCh2.Visible = false;
+            this.buttonPLC_SetRecipeCh2.Click += new System.EventHandler(this.buttonPLC_SetRecipeCh2_Click);
+            // 
+            // textPLC_RecipeNoCh2
+            // 
+            this.textPLC_RecipeNoCh2.Location = new System.Drawing.Point(626, 681);
+            this.textPLC_RecipeNoCh2.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.textPLC_RecipeNoCh2.Name = "textPLC_RecipeNoCh2";
+            this.textPLC_RecipeNoCh2.Size = new System.Drawing.Size(100, 23);
+            this.textPLC_RecipeNoCh2.TabIndex = 8;
+            this.textPLC_RecipeNoCh2.Text = "1";
+            this.textPLC_RecipeNoCh2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textPLC_RecipeNoCh2.Visible = false;
+            // 
             // timerUpdate
             // 
             this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
@@ -2344,6 +2451,97 @@
             this.buttonClose.Text = "닫기";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            // 
+            // checkZInterlock
+            // 
+            this.checkZInterlock.AutoSize = true;
+            this.checkZInterlock.Location = new System.Drawing.Point(383, 545);
+            this.checkZInterlock.Name = "checkZInterlock";
+            this.checkZInterlock.Size = new System.Drawing.Size(113, 19);
+            this.checkZInterlock.TabIndex = 10;
+            this.checkZInterlock.Text = "Z축 인터락 해제";
+            this.checkZInterlock.UseVisualStyleBackColor = true;
+            this.checkZInterlock.CheckedChanged += new System.EventHandler(this.checkZInterlock_CheckedChanged);
+            // 
+            // buttonTowerLampOnCh1
+            // 
+            this.buttonTowerLampOnCh1.Location = new System.Drawing.Point(24, 322);
+            this.buttonTowerLampOnCh1.Name = "buttonTowerLampOnCh1";
+            this.buttonTowerLampOnCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonTowerLampOnCh1.TabIndex = 12;
+            this.buttonTowerLampOnCh1.Text = "에러 경광등";
+            this.buttonTowerLampOnCh1.UseVisualStyleBackColor = true;
+            this.buttonTowerLampOnCh1.Click += new System.EventHandler(this.buttonTowerLampOnCh1_Click);
+            // 
+            // buttonTowerLampOnCh2
+            // 
+            this.buttonTowerLampOnCh2.Location = new System.Drawing.Point(130, 322);
+            this.buttonTowerLampOnCh2.Name = "buttonTowerLampOnCh2";
+            this.buttonTowerLampOnCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonTowerLampOnCh2.TabIndex = 12;
+            this.buttonTowerLampOnCh2.Text = "에러 경광등";
+            this.buttonTowerLampOnCh2.UseVisualStyleBackColor = true;
+            this.buttonTowerLampOnCh2.Click += new System.EventHandler(this.buttonTowerLampOnCh2_Click);
+            // 
+            // buttonTowerLampOffCh1
+            // 
+            this.buttonTowerLampOffCh1.Location = new System.Drawing.Point(24, 358);
+            this.buttonTowerLampOffCh1.Name = "buttonTowerLampOffCh1";
+            this.buttonTowerLampOffCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonTowerLampOffCh1.TabIndex = 12;
+            this.buttonTowerLampOffCh1.Text = "경광등 리셋";
+            this.buttonTowerLampOffCh1.UseVisualStyleBackColor = true;
+            this.buttonTowerLampOffCh1.Click += new System.EventHandler(this.buttonTowerLampOffCh1_Click);
+            // 
+            // buttonTowerLampOffCh2
+            // 
+            this.buttonTowerLampOffCh2.Location = new System.Drawing.Point(130, 358);
+            this.buttonTowerLampOffCh2.Name = "buttonTowerLampOffCh2";
+            this.buttonTowerLampOffCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonTowerLampOffCh2.TabIndex = 12;
+            this.buttonTowerLampOffCh2.Text = "경광등 리셋";
+            this.buttonTowerLampOffCh2.UseVisualStyleBackColor = true;
+            this.buttonTowerLampOffCh2.Click += new System.EventHandler(this.buttonTowerLampOffCh2_Click);
+            // 
+            // buttonErrorResetCh1
+            // 
+            this.buttonErrorResetCh1.Location = new System.Drawing.Point(24, 394);
+            this.buttonErrorResetCh1.Name = "buttonErrorResetCh1";
+            this.buttonErrorResetCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonErrorResetCh1.TabIndex = 13;
+            this.buttonErrorResetCh1.Text = "에러 리셋";
+            this.buttonErrorResetCh1.UseVisualStyleBackColor = true;
+            this.buttonErrorResetCh1.Click += new System.EventHandler(this.buttonErrorResetCh1_Click);
+            // 
+            // buttonErrorResetCh2
+            // 
+            this.buttonErrorResetCh2.Location = new System.Drawing.Point(130, 394);
+            this.buttonErrorResetCh2.Name = "buttonErrorResetCh2";
+            this.buttonErrorResetCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonErrorResetCh2.TabIndex = 13;
+            this.buttonErrorResetCh2.Text = "에러 리셋";
+            this.buttonErrorResetCh2.UseVisualStyleBackColor = true;
+            this.buttonErrorResetCh2.Click += new System.EventHandler(this.buttonErrorResetCh2_Click);
+            // 
+            // buttonMeasureCompleteCh1
+            // 
+            this.buttonMeasureCompleteCh1.Location = new System.Drawing.Point(24, 430);
+            this.buttonMeasureCompleteCh1.Name = "buttonMeasureCompleteCh1";
+            this.buttonMeasureCompleteCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonMeasureCompleteCh1.TabIndex = 14;
+            this.buttonMeasureCompleteCh1.Text = "검사 완료";
+            this.buttonMeasureCompleteCh1.UseVisualStyleBackColor = true;
+            this.buttonMeasureCompleteCh1.Click += new System.EventHandler(this.buttonMeasureCompleteCh1_Click);
+            // 
+            // buttonMeasureCompleteCh2
+            // 
+            this.buttonMeasureCompleteCh2.Location = new System.Drawing.Point(130, 430);
+            this.buttonMeasureCompleteCh2.Name = "buttonMeasureCompleteCh2";
+            this.buttonMeasureCompleteCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonMeasureCompleteCh2.TabIndex = 14;
+            this.buttonMeasureCompleteCh2.Text = "검사 완료";
+            this.buttonMeasureCompleteCh2.UseVisualStyleBackColor = true;
+            this.buttonMeasureCompleteCh2.Click += new System.EventHandler(this.buttonMeasureCompleteCh2_Click);
             // 
             // FormSettings
             // 
@@ -2387,6 +2585,7 @@
             this.panelDCtrlCOMFrame.ResumeLayout(false);
             this.panelDCtrlCOM.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
@@ -2576,5 +2775,22 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Button buttonSetSensor;
         private System.Windows.Forms.ComboBox comboSensorModel;
+        private System.Windows.Forms.TextBox textNFC_Z_CurPosCh2;
+        private System.Windows.Forms.TextBox textNFC_Z_CurPosCh1;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Button buttonNFCZDownCh2;
+        private System.Windows.Forms.Button buttonNFCZDownCh1;
+        private System.Windows.Forms.CheckBox checkPLC_AutoReset;
+        private System.Windows.Forms.TextBox textNFC_Z_SetPosCh2;
+        private System.Windows.Forms.TextBox textNFC_Z_SetPosCh1;
+        private System.Windows.Forms.CheckBox checkZInterlock;
+        private System.Windows.Forms.Button buttonTowerLampOffCh2;
+        private System.Windows.Forms.Button buttonTowerLampOnCh2;
+        private System.Windows.Forms.Button buttonTowerLampOffCh1;
+        private System.Windows.Forms.Button buttonTowerLampOnCh1;
+        private System.Windows.Forms.Button buttonErrorResetCh2;
+        private System.Windows.Forms.Button buttonErrorResetCh1;
+        private System.Windows.Forms.Button buttonMeasureCompleteCh2;
+        private System.Windows.Forms.Button buttonMeasureCompleteCh1;
     }
 }

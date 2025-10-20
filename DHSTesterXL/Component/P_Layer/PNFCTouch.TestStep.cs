@@ -61,7 +61,7 @@ namespace DHSTesterXL
                 case NFCTouchTestStep.SecuritySetMtaSend          : NFCTouchTestStep_SecuritySetMtaSend          (channel); break;
                 case NFCTouchTestStep.XcpDisconnectSend           : NFCTouchTestStep_XcpDisconnectSend           (channel); break;
                 case NFCTouchTestStep.XcpDisconnectWait           : NFCTouchTestStep_XcpDisconnectWait           (channel); break;
-                case NFCTouchTestStep.NfcCheckStart               : NFCTouchTestStep_NfcCheckStart               (channel); break;
+                case NFCTouchTestStep.NFC_CheckStart               : NFCTouchTestStep_NfcCheckStart               (channel); break;
                 case NFCTouchTestStep.DTCEraseSend                : NFCTouchTestStep_DTCEraseSend                (channel); break;
                 case NFCTouchTestStep.HWVersionSend               : NFCTouchTestStep_HWVersionSend               (channel); break;
                 case NFCTouchTestStep.SWVersionSend               : NFCTouchTestStep_SWVersionSend               (channel); break;
@@ -113,7 +113,7 @@ namespace DHSTesterXL
                 case NFCTouchTestStep.XcpConnectWait              : NFCTouchTestStep_XcpConnectWait              (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.SecuritySetMtaWait          : NFCTouchTestStep_SecuritySetMtaWait          (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.SecurityUploadWait          : NFCTouchTestStep_SecurityUploadWait          (channel, rxCanID, ref receivedEvent); break;
-                case NFCTouchTestStep.NfcCheckWait                : NFCTouchTestStep_NfcCheckWait                (channel, rxCanID, ref receivedEvent); break;
+                case NFCTouchTestStep.NFC_CheckWait                : NFCTouchTestStep_NfcCheckWait                (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.DTCEraseWait                : NFCTouchTestStep_DTCEraseWait                (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.HWVersionWait               : NFCTouchTestStep_HWVersionWait               (channel, rxCanID, ref receivedEvent); break;
                 case NFCTouchTestStep.SWVersionWait               : NFCTouchTestStep_SWVersionWait               (channel, rxCanID, ref receivedEvent); break;

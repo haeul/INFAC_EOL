@@ -116,16 +116,60 @@ namespace DHSTesterXL
                 ApplyProductNo(CurrentProductNo); // 파일 로드 + UI 갱신 + 라벨탭 갱신(마지막 줄)
             }
 
-            if (GSystem.MasterTestCh1[0])
-                labelMaster1.ForeColor = Color.Blue;
-            if (GSystem.MasterTestCh1[1])
-                labelMaster2.ForeColor = Color.Blue;
-            if (GSystem.MasterTestCh1[2])
-                labelMaster3.ForeColor = Color.Blue;
-            if (GSystem.MasterTestCh1[3])
-                labelMaster4.ForeColor = Color.Blue;
-            if (GSystem.MasterTestCh1[4])
-                labelMaster5.ForeColor = Color.Blue;
+            UpdateMasterTestState();
+        }
+
+        private void UpdateMasterTestState()
+        {
+            if (GSystem.MasterTestOkCh1[0])
+                labelMasterOk1_Ch1.BackColor = Color.Lime;
+            else
+                labelMasterOk1_Ch1.BackColor = SystemColors.Control;
+
+            if (GSystem.MasterTestOkCh1[1])
+                labelMasterOk2_Ch1.BackColor = Color.Lime;
+            else
+                labelMasterOk2_Ch1.BackColor = SystemColors.Control;
+
+            if (GSystem.MasterTestOkCh1[2])
+                labelMasterOk3_Ch1.BackColor = Color.Lime;
+            else
+                labelMasterOk3_Ch1.BackColor = SystemColors.Control;
+
+            if (GSystem.MasterTestOkCh1[3])
+                labelMasterOk4_Ch1.BackColor = Color.Lime;
+            else
+                labelMasterOk4_Ch1.BackColor = SystemColors.Control;
+
+            if (GSystem.MasterTestOkCh1[4])
+                labelMasterOk5_Ch1.BackColor = Color.Lime;
+            else
+                labelMasterOk5_Ch1.BackColor = SystemColors.Control;
+
+            if (GSystem.MasterTestOkCh2[0])
+                labelMasterOk1_Ch2.BackColor = Color.Lime;
+            else
+                labelMasterOk1_Ch2.BackColor = SystemColors.Control;
+
+            if (GSystem.MasterTestOkCh2[1])
+                labelMasterOk2_Ch2.BackColor = Color.Lime;
+            else
+                labelMasterOk2_Ch2.BackColor = SystemColors.Control;
+
+            if (GSystem.MasterTestOkCh2[2])
+                labelMasterOk3_Ch2.BackColor = Color.Lime;
+            else
+                labelMasterOk3_Ch2.BackColor = SystemColors.Control;
+
+            if (GSystem.MasterTestOkCh2[3])
+                labelMasterOk4_Ch2.BackColor = Color.Lime;
+            else
+                labelMasterOk4_Ch2.BackColor = SystemColors.Control;
+
+            if (GSystem.MasterTestOkCh2[4])
+                labelMasterOk5_Ch2.BackColor = Color.Lime;
+            else
+                labelMasterOk5_Ch2.BackColor = SystemColors.Control;
         }
 
         private void FormProduct_Shown(object sender, EventArgs e)
@@ -236,9 +280,19 @@ namespace DHSTesterXL
 
             textProductName.Text = _tempProductSettings.ProductInfo.PartName;
             comboProductType.SelectedItem = _tempProductSettings.ProductInfo.TypeName;
-            textPLCRecipe.Text  = _tempProductSettings.ProductInfo.TypeNo;
+            textPLCRecipe.Text = _tempProductSettings.ProductInfo.TypeNo;
             textCarType.Text = _tempProductSettings.ProductInfo.CarType;
-            textAlcNo.Text   = _tempProductSettings.ProductInfo.AlcNo;
+            textAlcNo.Text = _tempProductSettings.ProductInfo.AlcNo;
+            comboConnType.SelectedIndex = _tempProductSettings.ProductInfo.ConnectorType;
+
+            textNFC_Z_MeasureBasePositionCh1.Text  = $"{(_tempProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh1  / 10.0):F01}";
+            textNFC_Z_MeasureBasePositionCh2.Text  = $"{(_tempProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh2  / 10.0):F01}";
+            textNFC_Z_MeasureStartPositionCh1.Text = $"{(_tempProductSettings.ProductInfo.NFC_Z_MeasureStartPositionCh1 / 10.0):F01}";
+            textNFC_Z_MeasureStartPositionCh2.Text = $"{(_tempProductSettings.ProductInfo.NFC_Z_MeasureStartPositionCh2 / 10.0):F01}";
+            textNFC_Z_CurrentBasePositionCh1.Text  = $"{(_tempProductSettings.ProductInfo.NFC_Z_CurrentBasePositionCh1  / 10.0):F01}";
+            textNFC_Z_CurrentBasePositionCh2.Text  = $"{(_tempProductSettings.ProductInfo.NFC_Z_CurrentBasePositionCh2  / 10.0):F01}";
+            textNFC_Z_CurrentStartPositionCh1.Text = $"{(_tempProductSettings.ProductInfo.NFC_Z_CurrentStartPositionCh1 / 10.0):F01}";
+            textNFC_Z_CurrentStartPositionCh2.Text = $"{(_tempProductSettings.ProductInfo.NFC_Z_CurrentStartPositionCh2 / 10.0):F01}";
         }
         private void UpdateProductInfo()
         {
@@ -247,6 +301,16 @@ namespace DHSTesterXL
             textPLCRecipe.Text = _tempProductSettings.ProductInfo.TypeNo;
             textCarType.Text = _tempProductSettings.ProductInfo.CarType;
             textAlcNo.Text = _tempProductSettings.ProductInfo.AlcNo;
+            comboConnType.SelectedIndex = _tempProductSettings.ProductInfo.ConnectorType;
+
+            textNFC_Z_MeasureBasePositionCh1.Text  = $"{(_tempProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh1  / 10.0):F01}";
+            textNFC_Z_MeasureBasePositionCh2.Text  = $"{(_tempProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh2  / 10.0):F01}";
+            textNFC_Z_MeasureStartPositionCh1.Text = $"{(_tempProductSettings.ProductInfo.NFC_Z_MeasureStartPositionCh1 / 10.0):F01}";
+            textNFC_Z_MeasureStartPositionCh2.Text = $"{(_tempProductSettings.ProductInfo.NFC_Z_MeasureStartPositionCh2 / 10.0):F01}";
+            textNFC_Z_CurrentBasePositionCh1.Text  = $"{(_tempProductSettings.ProductInfo.NFC_Z_CurrentBasePositionCh1  / 10.0):F01}";
+            textNFC_Z_CurrentBasePositionCh2.Text  = $"{(_tempProductSettings.ProductInfo.NFC_Z_CurrentBasePositionCh2  / 10.0):F01}";
+            textNFC_Z_CurrentStartPositionCh1.Text = $"{(_tempProductSettings.ProductInfo.NFC_Z_CurrentStartPositionCh1 / 10.0):F01}";
+            textNFC_Z_CurrentStartPositionCh2.Text = $"{(_tempProductSettings.ProductInfo.NFC_Z_CurrentStartPositionCh2 / 10.0):F01}";
         }
         private void GetProductInfoValue()
         {
@@ -256,6 +320,16 @@ namespace DHSTesterXL
             _tempProductSettings.ProductInfo.TypeNo = textPLCRecipe.Text;
             _tempProductSettings.ProductInfo.CarType = textCarType.Text;
             _tempProductSettings.ProductInfo.AlcNo = textAlcNo.Text;
+            _tempProductSettings.ProductInfo.ConnectorType = comboConnType.SelectedIndex;
+
+            _tempProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh1  = (int)(Convert.ToDouble(textNFC_Z_MeasureBasePositionCh1.Text ) * 10);
+            _tempProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh2  = (int)(Convert.ToDouble(textNFC_Z_MeasureBasePositionCh2.Text ) * 10);
+            _tempProductSettings.ProductInfo.NFC_Z_MeasureStartPositionCh1 = (int)(Convert.ToDouble(textNFC_Z_MeasureStartPositionCh1.Text) * 10);
+            _tempProductSettings.ProductInfo.NFC_Z_MeasureStartPositionCh2 = (int)(Convert.ToDouble(textNFC_Z_MeasureStartPositionCh2.Text) * 10);
+            _tempProductSettings.ProductInfo.NFC_Z_CurrentBasePositionCh1  = (int)(Convert.ToDouble(textNFC_Z_CurrentBasePositionCh1.Text ) * 10);
+            _tempProductSettings.ProductInfo.NFC_Z_CurrentBasePositionCh2  = (int)(Convert.ToDouble(textNFC_Z_CurrentBasePositionCh2.Text ) * 10);
+            _tempProductSettings.ProductInfo.NFC_Z_CurrentStartPositionCh1 = (int)(Convert.ToDouble(textNFC_Z_CurrentStartPositionCh1.Text) * 10);
+            _tempProductSettings.ProductInfo.NFC_Z_CurrentStartPositionCh2 = (int)(Convert.ToDouble(textNFC_Z_CurrentStartPositionCh2.Text) * 10);
         }
 
         private void SetupCommSettings()
@@ -290,7 +364,6 @@ namespace DHSTesterXL
             textPLightResID.Enabled = _tempProductSettings.CommSettings.PLightUse;
 
             // 통신 포트
-            /*
             string[] portList = System.IO.Ports.SerialPort.GetPortNames();
             if (portList.Length > 0)
             {
@@ -310,7 +383,6 @@ namespace DHSTesterXL
             comboUartPortNameCh2.SelectedItem = _tempProductSettings.CommSettings.UartPortNameCh2;
             if (comboUartPortNameCh2.SelectedItem == null)
                 comboUartPortNameCh2.SelectedIndex = 0;
-            */
 
             // 통신 속도
             comboUartBaudrateCh1.Items.Clear();
@@ -596,17 +668,17 @@ namespace DHSTesterXL
             checkUseProductBarcode.Checked = _tempProductSettings.ProductInfo.UseProductBarcode;
             checkUseTrayInterlock.Checked = _tempProductSettings.ProductInfo.UseTrayInterlock;
             checkUseLabelPrint.Checked = _tempProductSettings.ProductInfo.UseLabelPrint;
-            numericMasterCount.Value = _tempProductSettings.MasterSample.MasterCount;
-            textMasterType1.Text = _tempProductSettings.MasterSample.MasterType1;
-            textMasterType2.Text = _tempProductSettings.MasterSample.MasterType2;
-            textMasterType3.Text = _tempProductSettings.MasterSample.MasterType3;
-            textMasterType4.Text = _tempProductSettings.MasterSample.MasterType4;
-            textMasterType5.Text = _tempProductSettings.MasterSample.MasterType5;
-            textMasterBarcode1.Text = _tempProductSettings.MasterSample.MasterBarcode1;
-            textMasterBarcode2.Text = _tempProductSettings.MasterSample.MasterBarcode2;
-            textMasterBarcode3.Text = _tempProductSettings.MasterSample.MasterBarcode3;
-            textMasterBarcode4.Text = _tempProductSettings.MasterSample.MasterBarcode4;
-            textMasterBarcode5.Text = _tempProductSettings.MasterSample.MasterBarcode5;
+            numericMasterCount.Value = _tempProductSettings.MasterSampleCh1.MasterCount;
+            textMasterType1.Text = _tempProductSettings.MasterSampleCh1.MasterType1;
+            textMasterType2.Text = _tempProductSettings.MasterSampleCh1.MasterType2;
+            textMasterType3.Text = _tempProductSettings.MasterSampleCh1.MasterType3;
+            textMasterType4.Text = _tempProductSettings.MasterSampleCh1.MasterType4;
+            textMasterType5.Text = _tempProductSettings.MasterSampleCh1.MasterType5;
+            textMasterBarcode1.Text = _tempProductSettings.MasterSampleCh1.MasterBarcode1;
+            textMasterBarcode2.Text = _tempProductSettings.MasterSampleCh1.MasterBarcode2;
+            textMasterBarcode3.Text = _tempProductSettings.MasterSampleCh1.MasterBarcode3;
+            textMasterBarcode4.Text = _tempProductSettings.MasterSampleCh1.MasterBarcode4;
+            textMasterBarcode5.Text = _tempProductSettings.MasterSampleCh1.MasterBarcode5;
         }
         private void GetMasterSampleValue()
         {
@@ -614,17 +686,17 @@ namespace DHSTesterXL
             _tempProductSettings.ProductInfo.UseProductBarcode = checkUseProductBarcode.Checked;
             _tempProductSettings.ProductInfo.UseTrayInterlock = checkUseTrayInterlock.Checked;
             _tempProductSettings.ProductInfo.UseLabelPrint = checkUseLabelPrint.Checked;
-            _tempProductSettings.MasterSample.MasterCount = (int)numericMasterCount.Value;
-            _tempProductSettings.MasterSample.MasterType1 = textMasterType1.Text;
-            _tempProductSettings.MasterSample.MasterType2 = textMasterType2.Text;
-            _tempProductSettings.MasterSample.MasterType3 = textMasterType3.Text;
-            _tempProductSettings.MasterSample.MasterType4 = textMasterType4.Text;
-            _tempProductSettings.MasterSample.MasterType5 = textMasterType5.Text;
-            _tempProductSettings.MasterSample.MasterBarcode1 = textMasterBarcode1.Text;
-            _tempProductSettings.MasterSample.MasterBarcode2 = textMasterBarcode2.Text;
-            _tempProductSettings.MasterSample.MasterBarcode3 = textMasterBarcode3.Text;
-            _tempProductSettings.MasterSample.MasterBarcode4 = textMasterBarcode4.Text;
-            _tempProductSettings.MasterSample.MasterBarcode5 = textMasterBarcode5.Text;
+            _tempProductSettings.MasterSampleCh1.MasterCount = (int)numericMasterCount.Value;
+            _tempProductSettings.MasterSampleCh1.MasterType1 = textMasterType1.Text;
+            _tempProductSettings.MasterSampleCh1.MasterType2 = textMasterType2.Text;
+            _tempProductSettings.MasterSampleCh1.MasterType3 = textMasterType3.Text;
+            _tempProductSettings.MasterSampleCh1.MasterType4 = textMasterType4.Text;
+            _tempProductSettings.MasterSampleCh1.MasterType5 = textMasterType5.Text;
+            _tempProductSettings.MasterSampleCh1.MasterBarcode1 = textMasterBarcode1.Text;
+            _tempProductSettings.MasterSampleCh1.MasterBarcode2 = textMasterBarcode2.Text;
+            _tempProductSettings.MasterSampleCh1.MasterBarcode3 = textMasterBarcode3.Text;
+            _tempProductSettings.MasterSampleCh1.MasterBarcode4 = textMasterBarcode4.Text;
+            _tempProductSettings.MasterSampleCh1.MasterBarcode5 = textMasterBarcode5.Text;
         }
 
         private void SetupTHDSettings()
@@ -749,7 +821,7 @@ namespace DHSTesterXL
             GSystem.ProductSettings.CommSettings = _tempProductSettings.CommSettings;
             GSystem.ProductSettings.TestItemSpecs = _tempProductSettings.TestItemSpecs;
             GSystem.ProductSettings.XCPAddress = _tempProductSettings.XCPAddress;
-            GSystem.ProductSettings.MasterSample = _tempProductSettings.MasterSample;
+            GSystem.ProductSettings.MasterSampleCh1 = _tempProductSettings.MasterSampleCh1;
             GSystem.ProductSettings.TestInfo = _tempProductSettings.TestInfo;
             GSystem.ProductSettings.THDSettings = _tempProductSettings.THDSettings;
             GSystem.ProductSettings.LabelPrint = _tempProductSettings.LabelPrint; // 라벨 섹션 복사
@@ -1090,5 +1162,6 @@ namespace DHSTesterXL
                 SaveSettings();
             }
         }
+
     }
 }

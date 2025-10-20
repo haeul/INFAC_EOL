@@ -1616,7 +1616,6 @@
             this.buttonManual.Image = global::DHSTesterXL.Properties.Resources.outline_download_black_24dp;
             this.buttonManual.Name = "buttonManual";
             this.buttonManual.UseVisualStyleBackColor = false;
-            this.buttonManual.Click += new System.EventHandler(this.buttonManual_Click);
             // 
             // buttonFunction
             // 
@@ -1627,7 +1626,7 @@
             this.buttonFunction.Image = global::DHSTesterXL.Properties.Resources.outline_download_black_24dp;
             this.buttonFunction.Name = "buttonFunction";
             this.buttonFunction.UseVisualStyleBackColor = false;
-            //this.buttonFunction.Click += new System.EventHandler(this.buttonFunction_Click); 주석 제거!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            this.buttonFunction.Click += new System.EventHandler(this.buttonFunction_Click);
             // 
             // labelTime
             // 

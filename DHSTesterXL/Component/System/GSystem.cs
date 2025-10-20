@@ -298,8 +298,8 @@ namespace DHSTesterXL
         public static string TrayBarcode = string.Empty;
         public static string[] ProductBarcode = new string[ChannelCount];
 
-        public static bool[] MasterTestCh1 = new bool[] { false, false, false, false, false };
-        public static bool[] MasterTestCh2 = new bool[] { false, false, false, false, false };
+        public static bool[] MasterTestOkCh1 = new bool[] { false, false, false, false, false };
+        public static bool[] MasterTestOkCh2 = new bool[] { false, false, false, false, false };
 
         public static uint[] TempSerialNumber = new uint[ChannelCount] { 0, 0 };
 
@@ -399,7 +399,7 @@ namespace DHSTesterXL
             if (day < 27)
                 d = (char)('A' + day - 1);
             else
-                d = (char)('1' + day - 27 - 1);
+                d = (char)('1' + day - 27);
             lotNumber = $"{y}{m}{d}";
             return lotNumber;
         }
@@ -491,14 +491,76 @@ namespace DHSTesterXL
                 MiPLC.Ch1_W_Command2 |= GDefines.BIT16[bitIndex];
                 MiPLC.Ch2_W_Command2 |= GDefines.BIT16[bitIndex];
                 MiPLC.M1402_Req_Proc();
-                while (MiPLC.Ch1_R_RecipeNo != (ushort)recipe || MiPLC.Ch2_R_RecipeNo != (ushort)recipe)
+                while ((MiPLC.Ch1_R_Status2 & GDefines.BIT16[bitIndex]) != GDefines.BIT16[bitIndex] || (MiPLC.Ch2_R_Status2 & GDefines.BIT16[bitIndex]) != GDefines.BIT16[bitIndex])
                 {
                     await Task.Delay(10);
                 }
-                await Task.Delay(500);
+                await Task.Delay(100);
                 MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
                 MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[bitIndex];
                 MiPLC.M1402_Req_Proc();
+            });
+        }
+
+        public static async Task ChangeConnectorTypeAsync(int connectorType)
+        {
+            await Task.Run(async () =>
+            {
+                DedicatedCTRL.SetSensorModel(connectorType);
+                DedicatedCTRL.SetCommandSensorModel(CH1, true);
+                DedicatedCTRL.SetCommandSensorModel(CH2, true);
+                while (!DedicatedCTRL.GetCompleteSensorModel(CH1) || !GSystem.DedicatedCTRL.GetCompleteSensorModel(CH2))
+                {
+                    await Task.Delay(10);
+                }
+                await Task.Delay(100);
+                DedicatedCTRL.SetCommandSensorModel(CH1, false);
+                DedicatedCTRL.SetCommandSensorModel(CH2, false);
+            });
+        }
+
+        public static async Task NFC_Z_MovePosition(int channel, int position)
+        {
+            await Task.Run(async () =>
+            {
+                if (channel == 0)
+                    MiPLC.Ch1_W_NFC_Z_Pos = (ushort)position;
+                else
+                    MiPLC.Ch2_W_NFC_Z_Pos = (ushort)position;
+                MiPLC.SetNFC_Z_PositionStart(channel, true);
+                while (!MiPLC.GetNFC_Z_PositionComplete(channel))
+                {
+                    await Task.Delay(10);
+                }
+                await Task.Delay(100);
+                MiPLC.SetNFC_Z_PositionStart(channel, false);
+            });
+        }
+
+        public static async Task ErrorResetAsync(int channel)
+        {
+            await Task.Run(async () =>
+            {
+                if (channel == CH1)
+                {
+                    MiPLC.SetErrorResetStart(CH1, true);
+                    while (!MiPLC.GetErrorResetComplete(CH1))
+                    {
+                        await Task.Delay(10);
+                    }
+                    await Task.Delay(100);
+                    MiPLC.SetErrorResetStart(CH1, false);
+                }
+                else
+                {
+                    MiPLC.SetErrorResetStart(CH2, true);
+                    while (!MiPLC.GetErrorResetComplete(CH2))
+                    {
+                        await Task.Delay(10);
+                    }
+                    await Task.Delay(100);
+                    MiPLC.SetErrorResetStart(CH2, false);
+                }
             });
         }
 

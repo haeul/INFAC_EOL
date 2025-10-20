@@ -62,11 +62,11 @@ namespace DHSTesterXL
                     if (GSystem.ProductInterlockCount < GSystem.TrayInterlockCount)
                     {
                         // 입력 바코드가 마스터샘플인 경우 카운트 하지 않는다
-                        if (textProductBarcode.Text != GSystem.ProductSettings.MasterSample.MasterBarcode1 &&
-                            textProductBarcode.Text != GSystem.ProductSettings.MasterSample.MasterBarcode2 &&
-                            textProductBarcode.Text != GSystem.ProductSettings.MasterSample.MasterBarcode3 &&
-                            textProductBarcode.Text != GSystem.ProductSettings.MasterSample.MasterBarcode4 &&
-                            textProductBarcode.Text != GSystem.ProductSettings.MasterSample.MasterBarcode5)
+                        if (textProductBarcode.Text != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode1 &&
+                            textProductBarcode.Text != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode2 &&
+                            textProductBarcode.Text != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode3 &&
+                            textProductBarcode.Text != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode4 &&
+                            textProductBarcode.Text != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode5)
                         {
                             if (!checkRetry.Checked)
                                 GSystem.ProductInterlockCount++;
