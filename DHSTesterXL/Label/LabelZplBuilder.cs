@@ -737,6 +737,26 @@ namespace DHSTesterXL
             var m = (d.M ?? "").Trim();       // M (opt)
             var c = (d.C ?? "").Trim();       // C (opt)
 
+            // A or @ 필드는 공란으로 유지해 추적번호(C)가 앞단에 잘못 배치되지 않도록 한다.
+            a1 = string.Empty;
+
+            // 생산일자(YYMMDD)는 항상 현재 날짜를 사용하고, 기존 값의 후미(라인/옵션)는 유지
+            if (t.Length > 0)
+            {
+                string today = DateTime.Now.ToString("yyMMdd");
+                t = today + (t.Length > 6 ? t.Substring(6) : string.Empty);
+            }
+            else
+            {
+                t = DateTime.Now.ToString("yyMMdd");
+            }
+
+            // 추적번호(C)는 현재 제품 일련번호로 강제 설정
+            if (GSystem.ProductSettings != null)
+            {
+                c = GSystem.ProductSettings.GetCurrentSerialNumber().ToString("D04");
+            }
+
             var sb = new StringBuilder(256);
             sb.Append("[)>");            // 심볼 식별자
             sb.Append(RS).Append("06"); // 버전
