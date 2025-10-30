@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="labelCountTitleTotal.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt</value>
+    <value>맑은 고딕, 9pt, style=Bold</value>
   </data>
   <data name="labelCountTitleTotal.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 2</value>
@@ -154,7 +154,7 @@
     <value>2</value>
   </data>
   <data name="labelOkTitleTotal.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt</value>
+    <value>맑은 고딕, 9pt, style=Bold</value>
   </data>
   <data name="labelOkTitleTotal.Location" type="System.Drawing.Point, System.Drawing">
     <value>99, 2</value>
@@ -187,7 +187,7 @@
     <value>4</value>
   </data>
   <data name="labelNgTitleTotal.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt</value>
+    <value>맑은 고딕, 9pt, style=Bold</value>
   </data>
   <data name="labelNgTitleTotal.Location" type="System.Drawing.Point, System.Drawing">
     <value>196, 2</value>
@@ -220,7 +220,7 @@
     <value>6</value>
   </data>
   <data name="labelRateTitleTotal.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt</value>
+    <value>맑은 고딕, 9pt, style=Bold</value>
   </data>
   <data name="labelRateTitleTotal.Location" type="System.Drawing.Point, System.Drawing">
     <value>293, 2</value>
@@ -1339,7 +1339,7 @@
     <value>15</value>
   </data>
   <data name="labelCountValueCh1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 11.25pt, style=Bold</value>
   </data>
   <data name="labelCountValueCh1.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 43</value>
@@ -1372,7 +1372,7 @@
     <value>17</value>
   </data>
   <data name="labelSerialValueCh1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 11.25pt, style=Bold</value>
   </data>
   <data name="labelSerialValueCh1.Location" type="System.Drawing.Point, System.Drawing">
     <value>322, 43</value>
@@ -2376,7 +2376,7 @@ THD</value>
     <value>49</value>
   </data>
   <data name="labelTimeValueCh1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 11.25pt, style=Bold</value>
   </data>
   <data name="labelTimeValueCh1.Location" type="System.Drawing.Point, System.Drawing">
     <value>402, 43</value>
@@ -2409,7 +2409,7 @@ THD</value>
     <value>50</value>
   </data>
   <data name="labelOkValueCh1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 11.25pt, style=Bold</value>
   </data>
   <data name="labelOkValueCh1.Location" type="System.Drawing.Point, System.Drawing">
     <value>82, 43</value>
@@ -2442,7 +2442,7 @@ THD</value>
     <value>51</value>
   </data>
   <data name="labelRateValueCh1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 11.25pt, style=Bold</value>
   </data>
   <data name="labelRateValueCh1.Location" type="System.Drawing.Point, System.Drawing">
     <value>242, 43</value>
@@ -2475,7 +2475,7 @@ THD</value>
     <value>52</value>
   </data>
   <data name="labelNgValueCh1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 11.25pt, style=Bold</value>
   </data>
   <data name="labelNgValueCh1.Location" type="System.Drawing.Point, System.Drawing">
     <value>162, 43</value>
@@ -2708,7 +2708,7 @@ THD</value>
     <value>3</value>
   </data>
   <data name="labelTime.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 9pt, style=Bold</value>
   </data>
   <data name="labelTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>142, 25</value>
@@ -2741,7 +2741,7 @@ THD</value>
     <value>4</value>
   </data>
   <data name="labelDate.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 9pt, style=Bold</value>
   </data>
   <data name="labelDate.Location" type="System.Drawing.Point, System.Drawing">
     <value>142, 2</value>
@@ -2774,7 +2774,7 @@ THD</value>
     <value>5</value>
   </data>
   <data name="labelVersion.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 9pt, style=Bold</value>
   </data>
   <data name="labelVersion.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2810,7 +2810,7 @@ THD</value>
     <value>6</value>
   </data>
   <data name="labelUserMode.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 9pt, style=Bold</value>
   </data>
   <data name="labelUserMode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -3719,7 +3719,7 @@ THD</value>
     <value>16</value>
   </data>
   <data name="labelCountValueCh2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 11.25pt, style=Bold</value>
   </data>
   <data name="labelCountValueCh2.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 43</value>
@@ -3752,7 +3752,7 @@ THD</value>
     <value>17</value>
   </data>
   <data name="labelSerialValueCh2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 11.25pt, style=Bold</value>
   </data>
   <data name="labelSerialValueCh2.Location" type="System.Drawing.Point, System.Drawing">
     <value>322, 43</value>
@@ -4259,7 +4259,7 @@ THD</value>
     <value>33</value>
   </data>
   <data name="labelTimeValueCh2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 11.25pt, style=Bold</value>
   </data>
   <data name="labelTimeValueCh2.Location" type="System.Drawing.Point, System.Drawing">
     <value>402, 43</value>
@@ -4328,7 +4328,7 @@ THD</value>
     <value>35</value>
   </data>
   <data name="labelOkValueCh2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 11.25pt, style=Bold</value>
   </data>
   <data name="labelOkValueCh2.Location" type="System.Drawing.Point, System.Drawing">
     <value>82, 43</value>
@@ -4397,7 +4397,7 @@ THD</value>
     <value>37</value>
   </data>
   <data name="labelRateValueCh2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 11.25pt, style=Bold</value>
   </data>
   <data name="labelRateValueCh2.Location" type="System.Drawing.Point, System.Drawing">
     <value>242, 43</value>
@@ -4658,7 +4658,7 @@ THD</value>
     <value>45</value>
   </data>
   <data name="labelNgValueCh2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt, style=Bold</value>
+    <value>맑은 고딕, 11.25pt, style=Bold</value>
   </data>
   <data name="labelNgValueCh2.Location" type="System.Drawing.Point, System.Drawing">
     <value>162, 43</value>
@@ -5095,7 +5095,7 @@ THD</value>
     <value>4</value>
   </data>
   <data name="labelCountValueTotal.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 18pt, style=Bold</value>
+    <value>맑은 고딕, 14.25pt, style=Bold</value>
   </data>
   <data name="labelCountValueTotal.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 32</value>
@@ -5128,7 +5128,7 @@ THD</value>
     <value>0</value>
   </data>
   <data name="labelOkValueTotal.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 18pt, style=Bold</value>
+    <value>맑은 고딕, 14.25pt, style=Bold</value>
   </data>
   <data name="labelOkValueTotal.Location" type="System.Drawing.Point, System.Drawing">
     <value>99, 32</value>
@@ -5161,7 +5161,7 @@ THD</value>
     <value>1</value>
   </data>
   <data name="labelNgValueTotal.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 18pt, style=Bold</value>
+    <value>맑은 고딕, 14.25pt, style=Bold</value>
   </data>
   <data name="labelNgValueTotal.Location" type="System.Drawing.Point, System.Drawing">
     <value>196, 32</value>
@@ -5194,7 +5194,7 @@ THD</value>
     <value>3</value>
   </data>
   <data name="labelSerialValueTotal.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 18pt, style=Bold</value>
+    <value>맑은 고딕, 14.25pt, style=Bold</value>
   </data>
   <data name="labelSerialValueTotal.Location" type="System.Drawing.Point, System.Drawing">
     <value>390, 32</value>
@@ -5227,7 +5227,7 @@ THD</value>
     <value>5</value>
   </data>
   <data name="labelRateValueTotal.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 18pt, style=Bold</value>
+    <value>맑은 고딕, 14.25pt, style=Bold</value>
   </data>
   <data name="labelRateValueTotal.Location" type="System.Drawing.Point, System.Drawing">
     <value>293, 32</value>
@@ -5260,7 +5260,7 @@ THD</value>
     <value>7</value>
   </data>
   <data name="labelSerialTitleTotal.Font" type="System.Drawing.Font, System.Drawing">
-    <value>맑은 고딕, 12pt</value>
+    <value>맑은 고딕, 9pt, style=Bold</value>
   </data>
   <data name="labelSerialTitleTotal.Location" type="System.Drawing.Point, System.Drawing">
     <value>390, 2</value>

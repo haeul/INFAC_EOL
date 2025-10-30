@@ -198,6 +198,7 @@ namespace DHSTesterXL
 
             // 테스트 결과 초기화
             _overalResult[channel].ProductInfo = ProductSettings.ProductInfo;
+            _overalResult[channel].CommSettings = ProductSettings.CommSettings;
             _overalResult[channel].Short_1_2.Init();
             _overalResult[channel].Short_1_3.Init();
             _overalResult[channel].Short_1_4.Init();
@@ -530,13 +531,13 @@ namespace DHSTesterXL
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Power On]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Power On]");
-            GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, true);
+            GSystem.DedicatedCTRL.SetCommandDarkPowerOn(channel, true);
             NextTestStep(channel);
         }
         private void NFCTouchTestStep_LowPowerOnWait(int channel)
         {
             // 완료 대기
-            if (!GSystem.DedicatedCTRL.GetCommandActivePowerOn(channel) || !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
+            if (!GSystem.DedicatedCTRL.GetCommandDarkPowerOn(channel) || !GSystem.DedicatedCTRL.GetCompleteDarkPowerOn(channel))
                 return;
             GSystem.Logger.Info ($"[CH.{channel + 1}] Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
@@ -1022,8 +1023,8 @@ namespace DHSTesterXL
             _overalResult[channel].DarkCurrent.Value = "";
             _overalResult[channel].DarkCurrent.Result = "측정 중";
             OnTestStepProgressChanged(channel, _overalResult[channel].DarkCurrent);
-            if (!GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
-                GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, true);
+            if (!GSystem.DedicatedCTRL.GetCompleteDarkPowerOn(channel))
+                GSystem.DedicatedCTRL.SetCommandDarkPowerOn(channel, true);
             // NM 중지
             _enableNM[channel] = false;
             _enableNFC[channel] = false;
@@ -1032,9 +1033,10 @@ namespace DHSTesterXL
         }
         private void NFCTouchTestStep_DarkCurrentWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(1000))
+            if (_tickStepInterval[channel].LessThan(9000))
                 return;
-            GSystem.TimerDarkCurrent[channel].Start();
+            GSystem.DedicatedCTRL.SetCommandDarkCurrentStart(channel, true);
+            GSystem.TimerDarkCurrent[channel].Reset();
             _tickStepElapse[channel].Reset();
             NextTestStep(channel);
         }
@@ -1043,17 +1045,19 @@ namespace DHSTesterXL
             // 암전류 측정 중...측정 시간, 전류 업데이트
             //_overalResult[channel].DarkCurrent.Result = $"측정 중 ({GSystem.TimerDarkCurrent[channel].GetElapsedSeconds():F1} 초)";
             //OnTestStepProgressChanged(channel, _overalResult[channel].DarkCurrent);
-            if (GSystem.TimerDarkCurrent[channel].LessThan(10000))
+            if (GSystem.TimerDarkCurrent[channel].LessThan(4000))
                 return;
+            GSystem.DedicatedCTRL.SetCommandDarkCurrentStart(channel, false);
             NextTestStep(channel);
         }
         private void NFCTouchTestStep_DarkCurrentComplete(int channel)
         {
             if (channel == CH1)
-                DartCurrent = (short)(GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo - 80);
+                DartCurrent = (short)(GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo);
             else
                 DartCurrent = (short)(GSystem.DedicatedCTRL.Reg_03h_ch2_current_lo);
             GSystem.Logger.Info ($"[CH.{channel + 1}] Dark Current : [ {DartCurrent} uA ]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Dark Current : [ {DartCurrent} uA ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] Dark Current step time: [ {_tickStepElapse[channel].GetElapsedSeconds():F1} sec ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Dark Current step time: [ {_tickStepElapse[channel].GetElapsedSeconds():F1} sec ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] Dark Current complete");
@@ -1075,14 +1079,14 @@ namespace DHSTesterXL
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Power Off]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Power Off]");
-            GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, false);
+            GSystem.DedicatedCTRL.SetCommandDarkPowerOn(channel, false);
             GSystem.DedicatedCTRL.SetCommandTestInit(channel, true);
             NextTestStep(channel);
         }
         private void NFCTouchTestStep_LowPowerOffWait(int channel)
         {
             // 완료 대기
-            if (GSystem.DedicatedCTRL.GetCommandActivePowerOn(channel) || GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
+            if (GSystem.DedicatedCTRL.GetCommandDarkPowerOn(channel) || GSystem.DedicatedCTRL.GetCompleteDarkPowerOn(channel))
                 return;
             if (!GSystem.DedicatedCTRL.GetCommandTestInit(channel) || !GSystem.DedicatedCTRL.GetCompleteTestInit(channel))
                 return;
@@ -1211,12 +1215,12 @@ namespace DHSTesterXL
             OnTestStepProgressChanged(channel, _overalResult[channel].PLightTurnOn);
             // P-Light ON 이전 전류값 저장 : P-Light 전류값 = ON 상태 전류 - OFF 상태 전류
             if (channel == CH1)
-                PLightOffCurrentValue = (int)(DedicatedCTRL.Reg_03h_ch1_current_lo / 1000);
+                PLightOffCurrentValue = (DedicatedCTRL.Reg_03h_ch1_current_lo / 1000.0);
             else
-                PLightOffCurrentValue = (int)(DedicatedCTRL.Reg_03h_ch2_current_lo / 1000);
-            GSystem.TraceMessage($"P-Light LO current = {(int)(DedicatedCTRL.Reg_03h_ch1_current_lo / 1000)} mA");
+                PLightOffCurrentValue = (DedicatedCTRL.Reg_03h_ch2_current_lo / 1000.0);
+            GSystem.TraceMessage($"P-Light LO current = {(DedicatedCTRL.Reg_03h_ch1_current_lo / 1000.0):F2} mA");
             GSystem.TraceMessage($"P-Light HI current = {DedicatedCTRL.Reg_03h_ch1_current_hi} mA");
-            GSystem.TraceMessage($"P-Light Off current = {PLightOffCurrentValue} mA");
+            GSystem.TraceMessage($"P-Light Off current = {PLightOffCurrentValue:F2} mA");
             // 명령 전송
             Send_PLight(channel, true, true);
             _enablePLight[channel] = true;
@@ -1304,18 +1308,18 @@ namespace DHSTesterXL
             // 조도 측정
             if (channel == CH1)
             {
-                PLightOnCurrentValue = (int)(DedicatedCTRL.Reg_03h_ch1_current_lo / 1000) - PLightOffCurrentValue;
+                PLightOnCurrentValue = (DedicatedCTRL.Reg_03h_ch1_current_lo / 1000.0);
                 PLightAmbientValue = DedicatedCTRL.Reg_03h_ch1_light_lux;
             }
             else
             {
-                PLightOnCurrentValue = (int)(DedicatedCTRL.Reg_03h_ch2_current_lo / 1000) - PLightOffCurrentValue;
+                PLightOnCurrentValue = (DedicatedCTRL.Reg_03h_ch2_current_lo / 1000.0);
                 PLightAmbientValue = DedicatedCTRL.Reg_03h_ch2_light_lux;
             }
-            GSystem.TraceMessage($"P-Light LO current = {(int)(DedicatedCTRL.Reg_03h_ch1_current_lo / 1000)} mA");
+            GSystem.TraceMessage($"P-Light LO current = {(DedicatedCTRL.Reg_03h_ch1_current_lo / 1000.0):F2} mA");
             GSystem.TraceMessage($"P-Light HI current = {DedicatedCTRL.Reg_03h_ch1_current_hi} mA");
-            GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Current [ {PLightOnCurrentValue} mA ]");
-            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Current [ {PLightOnCurrentValue} mA ]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Current [ {(PLightOnCurrentValue - PLightOffCurrentValue):F2} mA ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Current [ {(PLightOnCurrentValue - PLightOffCurrentValue):F2} mA ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Current complete");
@@ -1326,8 +1330,8 @@ namespace DHSTesterXL
                 _overalResult[channel].PLightCurrent.State = TestStates.Failed;
             else
                 _overalResult[channel].PLightCurrent.State = TestStates.Pass;
-            _overalResult[channel].PLightCurrent.Value = $"{PLightOnCurrentValue}";
-            _overalResult[channel].PLightCurrent.Result = $"{PLightOnCurrentValue} mA";
+            _overalResult[channel].PLightCurrent.Value = $"{(PLightOnCurrentValue - PLightOffCurrentValue):F2}";
+            _overalResult[channel].PLightCurrent.Result = $"{(PLightOnCurrentValue - PLightOffCurrentValue):F2} mA";
             // 동작 상태 표시
             OnTestStepProgressChanged(channel, _overalResult[channel].PLightCurrent);
             NextTestStep(channel);
@@ -1685,7 +1689,7 @@ namespace DHSTesterXL
         private void NFCTouchTestStep_TouchCap_ZDownStart(int channel)
         {
             // Touch Z축 하강 시작
-            if (_tickStepInterval[channel].MoreThan(100))
+            if (_tickStepInterval[channel].MoreThan(1000))
             {
                 GSystem.isTouchFirstExecute[channel] = false;
                 NextTestStep(channel);
@@ -2205,7 +2209,7 @@ namespace DHSTesterXL
         private void NFCTouchTestStep_CancelCapacitancePrepare(int channel)
         {
             // Cancel 판정 시작
-            if (_tickStepInterval[channel].MoreThan(500))
+            if (_tickStepInterval[channel].MoreThan(1000))
             {
                 GSystem.isCancelFirstExecute[channel] = false;
                 SetTestStep(channel, NFCTouchTestStep.CancelCapacitanceWait);
@@ -2224,7 +2228,7 @@ namespace DHSTesterXL
                     return;
                 GSystem.MiPLC.SetCancelZUpStart(channel, false);
             }
-            if (_tickStepInterval[channel].LessThan(1000))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // Cancel 판정 완료 대기
             if (GSystem.isCancelFastSelfComplete[channel] == true && GSystem.isCancelSlowSelfComplete[channel] == true)
@@ -2281,6 +2285,8 @@ namespace DHSTesterXL
         private void NFCTouchTestStep_MotionCancelZDownStart(int channel)
         {
             // Cancel 하강
+            if (_tickStepInterval[channel].LessThan(100))
+                return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Motion Cancel Down]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Motion Cancel Down]");
@@ -2455,7 +2461,7 @@ namespace DHSTesterXL
                 else
                 {
                     // NFC 재시도는 길게 할 필요없다.
-                    if (_tickStepTimeout[channel].MoreThan(200))
+                    if (_tickStepTimeout[channel].MoreThan(1000))
                     {
                         // 13mm 초과면 1mm 하강, 13mm까지 실패하면 에러 처리
                         TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.NFC;
@@ -2468,7 +2474,7 @@ namespace DHSTesterXL
                             currentHeight = GSystem.ProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh2 - (GSystem.MiPLC.GetCurrentNFC_Z_Position(channel) - GSystem.ProductSettings.ProductInfo.NFC_Z_CurrentBasePositionCh2);
                         int minimumHeight = (int)(testSpec.MinValue * 10.0);
                         GSystem.TraceMessage($"current = {currentHeight}, min = {minimumHeight}");
-                        if (++_retryCount[channel] <= 5)
+                        if (++_retryCount[channel] <= 6)
                         //if (currentHeight > minimumHeight)
                         {
                             // 상승
@@ -2522,6 +2528,7 @@ namespace DHSTesterXL
             // NFC 상승
             GSystem.MiPLC.SetNFCZUpStart(channel, true);
             NextTestStep(channel);
+            _tickStepInterval[channel].Reset();
         }
         private void NFCTouchTestStep_NFC_RetryUpWait(int channel)
         {
@@ -2532,6 +2539,8 @@ namespace DHSTesterXL
                     return;
                 GSystem.MiPLC.SetNFCZUpStart(channel, false);
             }
+            if (_tickStepInterval[channel].LessThan(2000))
+                return;
             SetTestStep(channel, NFCTouchTestStep.MotionNFC_ZDownStart);
         }
         // NFC 상승
@@ -4072,7 +4081,8 @@ namespace DHSTesterXL
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step [Power Off]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step [Power Off]");
-            GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, false);
+            GSystem.DedicatedCTRL.SetCommandDarkCurrentStart(channel, false);
+            GSystem.DedicatedCTRL.SetCommandDarkPowerOn(channel, false);
             GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, false);
             NextTestStep(channel);
         }
@@ -4124,27 +4134,44 @@ namespace DHSTesterXL
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Motion Unloading]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Motion Unloading]");
-            GSystem.MiPLC.SetMoveLoadStart(channel, true);
-            GSystem.MiPLC.SetUnloadingStart(channel, true);
+            //GSystem.MiPLC.SetMoveLoadStart(channel, true);
+            //GSystem.MiPLC.SetUnloadingStart(channel, true);
+            if (channel == 0)
+            {
+                GSystem.MiPLC.Ch1_W_Command1 |= GDefines.BIT16[(int)PLC_Command1_Bit.YLoadMove];
+                GSystem.MiPLC.Ch1_W_Command1 |= GDefines.BIT16[(int)PLC_Command1_Bit.UnloadingStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
+            else
+            {
+                GSystem.MiPLC.Ch2_W_Command1 |= GDefines.BIT16[(int)PLC_Command1_Bit.YLoadMove];
+                GSystem.MiPLC.Ch2_W_Command1 |= GDefines.BIT16[(int)PLC_Command1_Bit.UnloadingStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
             NextTestStep(channel);
         }
         private void NFCTouchTestStep_MotionUnloadingWait(int channel)
         {
             // 완료 대기
-            if (GSystem.MiPLC.GetMoveLoadStart(channel))
+            if (GSystem.MiPLC.GetMoveLoadStart(channel) || !GSystem.MiPLC.GetUnloadingStart(channel))
             {
-                if (!GSystem.MiPLC.GetMoveLoadComplete(channel))
+                if (!GSystem.MiPLC.GetMoveLoadComplete(channel) || !GSystem.MiPLC.GetUnloadingComplete(channel))
                     return;
-                GSystem.MiPLC.SetMoveLoadStart(channel, false);
             }
-            if (GSystem.MiPLC.GetUnloadingStart(channel))
+            if (channel == 0)
             {
-                if (!GSystem.MiPLC.GetUnloadingComplete(channel))
-                    return;
-                GSystem.MiPLC.SetUnloadingStart(channel, false);
+                GSystem.MiPLC.Ch1_W_Command1 &= (ushort)~GDefines.BIT16[(int)PLC_Command1_Bit.YLoadMove];
+                GSystem.MiPLC.Ch1_W_Command1 &= (ushort)~GDefines.BIT16[(int)PLC_Command1_Bit.UnloadingStart];
+                GSystem.MiPLC.M1402_Req_Proc();
             }
-            GSystem.MiPLC.SetMoveLoadStart(channel, false);
-            GSystem.MiPLC.SetUnloadingStart(channel, false);
+            else
+            {
+                GSystem.MiPLC.Ch2_W_Command1 &= (ushort)~GDefines.BIT16[(int)PLC_Command1_Bit.YLoadMove];
+                GSystem.MiPLC.Ch2_W_Command1 &= (ushort)~GDefines.BIT16[(int)PLC_Command1_Bit.UnloadingStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
+            //GSystem.MiPLC.SetMoveLoadStart(channel, false);
+            //GSystem.MiPLC.SetUnloadingStart(channel, false);
             GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Unloading step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Unloading step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Unloading Complete");
@@ -4372,7 +4399,6 @@ namespace DHSTesterXL
                 // 검사 결과 파일 저장
                 // DATA_ALL
                 DateTime saveDate = DateTime.Now;
-                //string suffix = "UFD";
                 string fileName = $"{saveDate:yyMMdd}_{ProductSettings.ProductInfo.PartNo}.csv";
                 string filePath = $"{GSystem.SystemData.GeneralSettings.DataFolderAll}\\{ProductSettings.ProductInfo.PartNo}\\{saveDate:yyyy}\\{saveDate:MM}";
                 string filePathName = Path.Combine(filePath, fileName);

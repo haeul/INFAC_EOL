@@ -29,26 +29,24 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.checkPauseTouch = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -132,6 +130,8 @@
             this.buttonTouchStart = new System.Windows.Forms.Button();
             this.buttonCancelStart = new System.Windows.Forms.Button();
             this.textCancelRepeat = new System.Windows.Forms.TextBox();
+            this.checkUseTouchSlowSelf = new System.Windows.Forms.CheckBox();
+            this.checkUseTouchComboRate = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridTouch)).BeginInit();
@@ -157,10 +157,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Controls.Add(this.checkUseTouchComboRate);
+            this.panel2.Controls.Add(this.checkUseTouchSlowSelf);
             this.panel2.Controls.Add(this.checkPauseTouch);
             this.panel2.Controls.Add(this.label19);
-            this.panel2.Controls.Add(this.label15);
-            this.panel2.Controls.Add(this.label14);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.label6);
@@ -196,6 +196,8 @@
             // checkPauseTouch
             // 
             this.checkPauseTouch.AutoSize = true;
+            this.checkPauseTouch.Checked = true;
+            this.checkPauseTouch.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkPauseTouch.Location = new System.Drawing.Point(310, 441);
             this.checkPauseTouch.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.checkPauseTouch.Name = "checkPauseTouch";
@@ -214,26 +216,6 @@
             this.label19.Text = "State";
             this.label19.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // label15
-            // 
-            this.label15.Location = new System.Drawing.Point(345, 371);
-            this.label15.Margin = new System.Windows.Forms.Padding(20, 5, 0, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(98, 15);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "Combo Rate";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(345, 343);
-            this.label14.Margin = new System.Windows.Forms.Padding(20, 5, 0, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(98, 15);
-            this.label14.TabIndex = 4;
-            this.label14.Text = "Slow Self";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // label8
             // 
             this.label8.Location = new System.Drawing.Point(307, 179);
@@ -243,6 +225,7 @@
             this.label8.TabIndex = 4;
             this.label8.Text = "Interval";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label8.Visible = false;
             // 
             // label7
             // 
@@ -286,14 +269,14 @@
             // 
             // gridTouch
             // 
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridTouch.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridTouch.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle21;
             this.gridTouch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridTouch.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colTouchNo,
@@ -314,8 +297,8 @@
             // colTouchNo
             // 
             this.colTouchNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colTouchNo.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colTouchNo.DefaultCellStyle = dataGridViewCellStyle22;
             this.colTouchNo.HeaderText = "No";
             this.colTouchNo.Name = "colTouchNo";
             this.colTouchNo.ReadOnly = true;
@@ -324,8 +307,8 @@
             // 
             // colTouchFastMutual
             // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colTouchFastMutual.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colTouchFastMutual.DefaultCellStyle = dataGridViewCellStyle23;
             this.colTouchFastMutual.HeaderText = "Fast Mutual";
             this.colTouchFastMutual.Name = "colTouchFastMutual";
             this.colTouchFastMutual.ReadOnly = true;
@@ -335,8 +318,8 @@
             // 
             // colTouchFastSelf
             // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colTouchFastSelf.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colTouchFastSelf.DefaultCellStyle = dataGridViewCellStyle24;
             this.colTouchFastSelf.HeaderText = "Fast Self";
             this.colTouchFastSelf.Name = "colTouchFastSelf";
             this.colTouchFastSelf.ReadOnly = true;
@@ -346,8 +329,8 @@
             // 
             // colTouchInterval
             // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colTouchInterval.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colTouchInterval.DefaultCellStyle = dataGridViewCellStyle25;
             this.colTouchInterval.HeaderText = "Interval";
             this.colTouchInterval.Name = "colTouchInterval";
             this.colTouchInterval.Width = 60;
@@ -406,6 +389,7 @@
             this.textTouchFastSelfInterval.TabIndex = 2;
             this.textTouchFastSelfInterval.Text = "0 ms";
             this.textTouchFastSelfInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textTouchFastSelfInterval.Visible = false;
             // 
             // textThdTouchFastSelf
             // 
@@ -483,6 +467,7 @@
             this.textTouchFastMutualInterval.TabIndex = 2;
             this.textTouchFastMutualInterval.Text = "0 ms";
             this.textTouchFastMutualInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textTouchFastMutualInterval.Visible = false;
             // 
             // textThdTouchFastMutual
             // 
@@ -591,32 +576,32 @@
             // 
             // chartXcpData
             // 
-            chartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.Gray;
-            chartArea2.AxisX.LineColor = System.Drawing.Color.LightGray;
-            chartArea2.AxisX.MajorGrid.Enabled = false;
-            chartArea2.AxisX.MajorTickMark.LineColor = System.Drawing.Color.LightGray;
-            chartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.Gray;
-            chartArea2.AxisY.LineColor = System.Drawing.Color.LightGray;
-            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
-            chartArea2.AxisY.MajorTickMark.LineColor = System.Drawing.Color.LightGray;
-            chartArea2.Name = "ChartArea1";
-            this.chartXcpData.ChartAreas.Add(chartArea2);
-            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend2.Name = "Legend1";
-            this.chartXcpData.Legends.Add(legend2);
+            chartArea3.AxisX.LabelStyle.ForeColor = System.Drawing.Color.Gray;
+            chartArea3.AxisX.LineColor = System.Drawing.Color.LightGray;
+            chartArea3.AxisX.MajorGrid.Enabled = false;
+            chartArea3.AxisX.MajorTickMark.LineColor = System.Drawing.Color.LightGray;
+            chartArea3.AxisY.LabelStyle.ForeColor = System.Drawing.Color.Gray;
+            chartArea3.AxisY.LineColor = System.Drawing.Color.LightGray;
+            chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea3.AxisY.MajorTickMark.LineColor = System.Drawing.Color.LightGray;
+            chartArea3.Name = "ChartArea1";
+            this.chartXcpData.ChartAreas.Add(chartArea3);
+            legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend3.Name = "Legend1";
+            this.chartXcpData.Legends.Add(legend3);
             this.chartXcpData.Location = new System.Drawing.Point(0, 0);
             this.chartXcpData.Margin = new System.Windows.Forms.Padding(20);
             this.chartXcpData.Name = "chartXcpData";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Legend = "Legend1";
-            series4.Name = "Series2";
-            this.chartXcpData.Series.Add(series3);
-            this.chartXcpData.Series.Add(series4);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Legend = "Legend1";
+            series6.Name = "Series2";
+            this.chartXcpData.Series.Add(series5);
+            this.chartXcpData.Series.Add(series6);
             this.chartXcpData.Size = new System.Drawing.Size(204, 150);
             this.chartXcpData.TabIndex = 4;
             this.chartXcpData.Text = "chart1";
@@ -673,6 +658,8 @@
             // checkPauseCancel
             // 
             this.checkPauseCancel.AutoSize = true;
+            this.checkPauseCancel.Checked = true;
+            this.checkPauseCancel.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkPauseCancel.Location = new System.Drawing.Point(310, 441);
             this.checkPauseCancel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.checkPauseCancel.Name = "checkPauseCancel";
@@ -700,6 +687,7 @@
             this.label9.TabIndex = 4;
             this.label9.Text = "Interval";
             this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label9.Visible = false;
             // 
             // label10
             // 
@@ -743,14 +731,14 @@
             // 
             // gridCancel
             // 
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridCancel.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridCancel.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
             this.gridCancel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridCancel.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -771,8 +759,8 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle27;
             this.dataGridViewTextBoxColumn1.HeaderText = "No";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
@@ -781,8 +769,8 @@
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle28;
             this.dataGridViewTextBoxColumn2.HeaderText = "Fast Self";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -792,8 +780,8 @@
             // 
             // dataGridViewTextBoxColumn3
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle29;
             this.dataGridViewTextBoxColumn3.HeaderText = "Slow Self";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
@@ -803,8 +791,8 @@
             // 
             // dataGridViewTextBoxColumn4
             // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle30;
             this.dataGridViewTextBoxColumn4.HeaderText = "Interval";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.Width = 60;
@@ -841,6 +829,7 @@
             this.textCancelSlowSelfInterval.TabIndex = 2;
             this.textCancelSlowSelfInterval.Text = "0 ms";
             this.textCancelSlowSelfInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textCancelSlowSelfInterval.Visible = false;
             // 
             // textThdCancelSlowSelf
             // 
@@ -918,6 +907,7 @@
             this.textCancelFastSelfInterval.TabIndex = 2;
             this.textCancelFastSelfInterval.Text = "0 ms";
             this.textCancelFastSelfInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textCancelFastSelfInterval.Visible = false;
             // 
             // textThdCancelFastSelf
             // 
@@ -1195,6 +1185,28 @@
             this.textCancelRepeat.Text = "3";
             this.textCancelRepeat.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // checkUseTouchSlowSelf
+            // 
+            this.checkUseTouchSlowSelf.AutoSize = true;
+            this.checkUseTouchSlowSelf.Location = new System.Drawing.Point(371, 342);
+            this.checkUseTouchSlowSelf.Name = "checkUseTouchSlowSelf";
+            this.checkUseTouchSlowSelf.Size = new System.Drawing.Size(76, 19);
+            this.checkUseTouchSlowSelf.TabIndex = 6;
+            this.checkUseTouchSlowSelf.Text = "Slow Self";
+            this.checkUseTouchSlowSelf.UseVisualStyleBackColor = true;
+            this.checkUseTouchSlowSelf.CheckedChanged += new System.EventHandler(this.checkUseTouchSlowSelf_CheckedChanged);
+            // 
+            // checkUseTouchComboRate
+            // 
+            this.checkUseTouchComboRate.AutoSize = true;
+            this.checkUseTouchComboRate.Location = new System.Drawing.Point(354, 370);
+            this.checkUseTouchComboRate.Name = "checkUseTouchComboRate";
+            this.checkUseTouchComboRate.Size = new System.Drawing.Size(93, 19);
+            this.checkUseTouchComboRate.TabIndex = 6;
+            this.checkUseTouchComboRate.Text = "Combo Rate";
+            this.checkUseTouchComboRate.UseVisualStyleBackColor = true;
+            this.checkUseTouchComboRate.CheckedChanged += new System.EventHandler(this.checkUseTouchComboRate_CheckedChanged);
+            // 
             // FormXcpData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1305,8 +1317,6 @@
         private System.Windows.Forms.Timer timerTouchFirst;
         private System.Windows.Forms.Timer timerCancelFirst;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textTouchState;
         private System.Windows.Forms.TextBox textTouchComboRate;
         private System.Windows.Forms.TextBox textTouchSlowSelf;
@@ -1335,5 +1345,7 @@
         private System.Windows.Forms.Button buttonTouchStart;
         private System.Windows.Forms.Button buttonCancelStart;
         private System.Windows.Forms.TextBox textCancelRepeat;
+        private System.Windows.Forms.CheckBox checkUseTouchComboRate;
+        private System.Windows.Forms.CheckBox checkUseTouchSlowSelf;
     }
 }

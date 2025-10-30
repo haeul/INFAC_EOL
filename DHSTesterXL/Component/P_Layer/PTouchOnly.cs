@@ -16,6 +16,7 @@ using static DHSTesterXL.GSystem;
 using System.IO;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using static System.Windows.Forms.AxHost;
 
 namespace DHSTesterXL
 {
@@ -91,9 +92,12 @@ namespace DHSTesterXL
         private short ShortResult_3_6 { get; set; }
         private short ShortResult_4_6 { get; set; }
         private short DartCurrent { get; set; }
-        private int PLightTurnOnValue { get; set; }
-        private int PLightCurrentValue { get; set; }
-        private int PLightAmbientValue { get; set; }
+
+        private int[] PLightTurnOnValue = new int[] { 0, 0 };
+        private double[] PLightOffCurrentValue = new double[] { 0, 0 };
+        private double[] PLightOnCurrentValue = new double[] { 0, 0 };
+        private int[] PLightAmbientValue = new int[] { 0, 0 };
+        private double[] OperationCurrentValue = new double[] { 0, 0 };
 
 
         public PTouchOnly()
@@ -413,7 +417,7 @@ namespace DHSTesterXL
         {
             throw new NotImplementedException();
         }
-        public XL_Status Send_ShortUpload(int channel, uint address, byte count, bool logging = false)
+        public XL_Status Send_ShortUpload(int channel, uint address, byte count, bool logging = false, string remarks = "")
         {
             throw new NotImplementedException();
         }
@@ -559,7 +563,7 @@ namespace DHSTesterXL
         {
             _isCancel[channel] = cancel;
             if (cancel && GetTouchOnlyTestStep(channel) > TouchOnlyTestStep.Prepare)
-                SetTouchOnlyTestStep(channel, TouchOnlyTestStep.PowerOff);
+                SetTouchOnlyTestStep(channel, TouchOnlyTestStep.CancelStart);
         }
 
         public Task<bool> GetTouchAsync(int channel)
@@ -629,60 +633,84 @@ namespace DHSTesterXL
         {
             switch (_currTestStep[channel])
             {
-                case TouchOnlyTestStep.Standby             : TouchOnlyTestStep_Standby             (channel); break;
-                case TouchOnlyTestStep.Prepare             : TouchOnlyTestStep_Prepare             (channel); break;
-                case TouchOnlyTestStep.MotionLoadingStart  : TouchOnlyTestStep_MotionLoadingStart  (channel); break;
-                case TouchOnlyTestStep.MotionLoadingWait   : TouchOnlyTestStep_MotionLoadingWait   (channel); break;
-                case TouchOnlyTestStep.TestInitStart       : TouchOnlyTestStep_TestInitStart       (channel); break;
-                case TouchOnlyTestStep.TestInitWait        : TouchOnlyTestStep_TestInitWait        (channel); break;
-                case TouchOnlyTestStep.ShortTestStart      : TouchOnlyTestStep_ShortTestStart      (channel); break;
-                case TouchOnlyTestStep.ShortTestWait       : TouchOnlyTestStep_ShortTestWait       (channel); break;
-                case TouchOnlyTestStep.LowPowerOn          : TouchOnlyTestStep_LowPowerOn          (channel); break;
-                case TouchOnlyTestStep.LowPowerOnWait      : TouchOnlyTestStep_LowPowerOnWait      (channel); break;
-                case TouchOnlyTestStep.WakeUpSend          : TouchOnlyTestStep_WakeUpSend          (channel); break;
-                case TouchOnlyTestStep.WakeUpWait          : TouchOnlyTestStep_WakeUpWait          (channel); break;
-                case TouchOnlyTestStep.DarkCurrentStart    : TouchOnlyTestStep_DarkCurrentStart    (channel); break;
-                case TouchOnlyTestStep.DarkCurrentUpdate   : TouchOnlyTestStep_DarkCurrentUpdate   (channel); break;
-                case TouchOnlyTestStep.DarkCurrentComplete : TouchOnlyTestStep_DarkCurrentComplete (channel); break;
-                case TouchOnlyTestStep.MotionMoveTouchStart: TouchOnlyTestStep_MotionMoveTouchStart(channel); break;
-                case TouchOnlyTestStep.MotionMoveTouchWait : TouchOnlyTestStep_MotionMoveTouchWait (channel); break;
-                case TouchOnlyTestStep.TouchLockStart      : TouchOnlyTestStep_TouchLockStart      (channel); break;
-                case TouchOnlyTestStep.TouchLockPrepare    : TouchOnlyTestStep_TouchLockPrepare    (channel); break;
-                case TouchOnlyTestStep.TouchLockWait       : TouchOnlyTestStep_TouchLockWait       (channel); break;
-                case TouchOnlyTestStep.TouchLockRetry      : TouchOnlyTestStep_TouchLockRetry      (channel); break;
-                case TouchOnlyTestStep.MotionTouchZUpStart : TouchOnlyTestStep_MotionTouchZUpStart (channel); break;
-                case TouchOnlyTestStep.MotionTouchZUpWait  : TouchOnlyTestStep_MotionTouchZUpWait  (channel); break;
-                case TouchOnlyTestStep.TouchCancelStart    : TouchOnlyTestStep_TouchCancelStart    (channel); break;
-                case TouchOnlyTestStep.TouchCancelPrepare  : TouchOnlyTestStep_TouchCancelPrepare  (channel); break;
-                case TouchOnlyTestStep.TouchCancelWait     : TouchOnlyTestStep_TouchCancelWait     (channel); break;
-                case TouchOnlyTestStep.LockCancelStart     : TouchOnlyTestStep_LockCancelStart     (channel); break;
-                case TouchOnlyTestStep.LockCancelPrepare   : TouchOnlyTestStep_LockCancelPrepare   (channel); break;
-                case TouchOnlyTestStep.LockCancelWait      : TouchOnlyTestStep_LockCancelWait      (channel); break;
-                case TouchOnlyTestStep.LowPowerOff         : TouchOnlyTestStep_LowPowerOff         (channel); break;
-                case TouchOnlyTestStep.LowPowerOffWait     : TouchOnlyTestStep_LowPowerOffWait     (channel); break;
-                case TouchOnlyTestStep.ActivePowerOn       : TouchOnlyTestStep_ActivePowerOn       (channel); break;
-                case TouchOnlyTestStep.ActivePowerOnWait   : TouchOnlyTestStep_ActivePowerOnWait   (channel); break;
-                case TouchOnlyTestStep.BootModeEnterStart  : TouchOnlyTestStep_BootModeEnterStart  (channel); break;
-                case TouchOnlyTestStep.BootModeEnterWait   : TouchOnlyTestStep_BootModeEnterWait   (channel); break;
-                case TouchOnlyTestStep.SWVersionSend       : TouchOnlyTestStep_SWVersionSend       (channel); break;
-                case TouchOnlyTestStep.SWVersionWait       : TouchOnlyTestStep_SWVersionWait       (channel); break;
-                case TouchOnlyTestStep.HWVersionSend       : TouchOnlyTestStep_HWVersionSend       (channel); break;
-                case TouchOnlyTestStep.HWVersionWait       : TouchOnlyTestStep_HWVersionWait       (channel); break;
-                case TouchOnlyTestStep.SerialNumReadSend   : TouchOnlyTestStep_SerialNumReadSend   (channel); break;
-                case TouchOnlyTestStep.SerialNumReadWait   : TouchOnlyTestStep_SerialNumReadWait   (channel); break;
-                case TouchOnlyTestStep.PartNumberSend      : TouchOnlyTestStep_PartNumberSend      (channel); break;
-                case TouchOnlyTestStep.PartNumberWait      : TouchOnlyTestStep_PartNumberWait      (channel); break;
-                case TouchOnlyTestStep.DTCEraseSend        : TouchOnlyTestStep_DTCEraseSend        (channel); break;
-                case TouchOnlyTestStep.DTCEraseWait        : TouchOnlyTestStep_DTCEraseWait        (channel); break;
-                case TouchOnlyTestStep.OperCurrentStart    : TouchOnlyTestStep_OperCurrentStart    (channel); break;
-                case TouchOnlyTestStep.OperCurrentWait     : TouchOnlyTestStep_OperCurrentWait     (channel); break;
-                case TouchOnlyTestStep.PowerOff            : TouchOnlyTestStep_PowerOff            (channel); break;
-                case TouchOnlyTestStep.PowerOffWait        : TouchOnlyTestStep_PowerOffWait        (channel); break;
-                case TouchOnlyTestStep.TestEndStart        : TouchOnlyTestStep_TestEndStart        (channel); break;
-                case TouchOnlyTestStep.TestEndWait         : TouchOnlyTestStep_TestEndWait         (channel); break;
-                case TouchOnlyTestStep.MotionUnloadingStart: TouchOnlyTestStep_MotionUnloadingStart(channel); break;
-                case TouchOnlyTestStep.MotionUnloadingWait : TouchOnlyTestStep_MotionUnloadingWait (channel); break;
-                case TouchOnlyTestStep.Complete            : TouchOnlyTestStep_Complete            (channel); break;
+                case TouchOnlyTestStep.Standby               : TouchOnlyTestStep_Standby               (channel); break;
+                case TouchOnlyTestStep.Prepare               : TouchOnlyTestStep_Prepare               (channel); break;
+                case TouchOnlyTestStep.MotionLoadingStart    : TouchOnlyTestStep_MotionLoadingStart    (channel); break;
+                case TouchOnlyTestStep.MotionLoadingWait     : TouchOnlyTestStep_MotionLoadingWait     (channel); break;
+                case TouchOnlyTestStep.TestInitStart         : TouchOnlyTestStep_TestInitStart         (channel); break;
+                case TouchOnlyTestStep.TestInitWait          : TouchOnlyTestStep_TestInitWait          (channel); break;
+                case TouchOnlyTestStep.ShortTestStart        : TouchOnlyTestStep_ShortTestStart        (channel); break;
+                case TouchOnlyTestStep.ShortTestWait         : TouchOnlyTestStep_ShortTestWait         (channel); break;
+                case TouchOnlyTestStep.LowPowerOn            : TouchOnlyTestStep_LowPowerOn            (channel); break;
+                case TouchOnlyTestStep.LowPowerOnWait        : TouchOnlyTestStep_LowPowerOnWait        (channel); break;
+                case TouchOnlyTestStep.WakeUpSend            : TouchOnlyTestStep_WakeUpSend            (channel); break;
+                case TouchOnlyTestStep.WakeUpWait            : TouchOnlyTestStep_WakeUpWait            (channel); break;
+                case TouchOnlyTestStep.DarkCurrentStart      : TouchOnlyTestStep_DarkCurrentStart      (channel); break;
+                case TouchOnlyTestStep.DarkCurrentWait       : TouchOnlyTestStep_DarkCurrentWait       (channel); break;
+                case TouchOnlyTestStep.DarkCurrentUpdate     : TouchOnlyTestStep_DarkCurrentUpdate     (channel); break;
+                case TouchOnlyTestStep.DarkCurrentComplete   : TouchOnlyTestStep_DarkCurrentComplete   (channel); break;
+                case TouchOnlyTestStep.DarkPowerOff          : TouchOnlyTestStep_DarkPowerOff          (channel); break;
+                case TouchOnlyTestStep.DarkPowerOffWait      : TouchOnlyTestStep_DarkPowerOffWait      (channel); break;
+                case TouchOnlyTestStep.HighPowerOn           : TouchOnlyTestStep_HighPowerOn           (channel); break;
+                case TouchOnlyTestStep.HighPowerOnWait       : TouchOnlyTestStep_HighPowerOnWait       (channel); break;
+                case TouchOnlyTestStep.PowerOnResetWait      : TouchOnlyTestStep_PowerOnResetWait      (channel); break;
+                case TouchOnlyTestStep.PLightTurnOnSend      : TouchOnlyTestStep_PLightTurnOnSend      (channel); break;
+                case TouchOnlyTestStep.PLightTurnOnWait      : TouchOnlyTestStep_PLightTurnOnWait      (channel); break;
+                case TouchOnlyTestStep.PLightCurrentSend     : TouchOnlyTestStep_PLightCurrentSend     (channel); break;
+                case TouchOnlyTestStep.PLightCurrentWait     : TouchOnlyTestStep_PLightCurrentWait     (channel); break;
+                case TouchOnlyTestStep.PLightAmbientSend     : TouchOnlyTestStep_PLightAmbientSend     (channel); break;
+                case TouchOnlyTestStep.PLightAmbientWait     : TouchOnlyTestStep_PLightAmbientWait     (channel); break;
+                case TouchOnlyTestStep.PLightTurnOffSend     : TouchOnlyTestStep_PLightTurnOffSend     (channel); break;
+                case TouchOnlyTestStep.PLightTurnOffWait     : TouchOnlyTestStep_PLightTurnOffWait     (channel); break;
+                case TouchOnlyTestStep.MotionMoveTouchStart  : TouchOnlyTestStep_MotionMoveTouchStart  (channel); break;
+                case TouchOnlyTestStep.MotionMoveTouchWait   : TouchOnlyTestStep_MotionMoveTouchWait   (channel); break;
+                case TouchOnlyTestStep.TouchLockStart        : TouchOnlyTestStep_TouchLockStart        (channel); break;
+                case TouchOnlyTestStep.TouchLockZDown        : TouchOnlyTestStep_TouchLockZDown        (channel); break;
+                case TouchOnlyTestStep.TouchLockWait         : TouchOnlyTestStep_TouchLockWait         (channel); break;
+                case TouchOnlyTestStep.TouchLockRetry        : TouchOnlyTestStep_TouchLockRetry        (channel); break;
+                case TouchOnlyTestStep.MotionTouchZUpStart   : TouchOnlyTestStep_MotionTouchZUpStart   (channel); break;
+                case TouchOnlyTestStep.MotionTouchZUpWait    : TouchOnlyTestStep_MotionTouchZUpWait    (channel); break;
+                case TouchOnlyTestStep.MotionMoveCancelStart : TouchOnlyTestStep_MotionMoveCancelStart (channel); break;
+                case TouchOnlyTestStep.MotionMoveCancelWait  : TouchOnlyTestStep_MotionMoveCancelWait  (channel); break;
+                case TouchOnlyTestStep.LockCancelStart       : TouchOnlyTestStep_LockCancelStart       (channel); break;
+                case TouchOnlyTestStep.LockCancelZUp         : TouchOnlyTestStep_LockCancelZUp         (channel); break;
+                case TouchOnlyTestStep.LockTouchZDown        : TouchOnlyTestStep_LockTouchZDown        (channel); break;
+                case TouchOnlyTestStep.LockCancelTouchCheck  : TouchOnlyTestStep_LockCancelTouchCheck  (channel); break;
+                case TouchOnlyTestStep.LockCancelWait        : TouchOnlyTestStep_LockCancelWait        (channel); break;
+                case TouchOnlyTestStep.LockCancelRetry       : TouchOnlyTestStep_LockCancelRetry       (channel); break;
+                case TouchOnlyTestStep.LockCancelZUpStart    : TouchOnlyTestStep_LockCancelZUpStart    (channel); break;
+                case TouchOnlyTestStep.LockCancelZUpWait     : TouchOnlyTestStep_LockCancelZUpWait     (channel); break;
+                case TouchOnlyTestStep.LowPowerOff           : TouchOnlyTestStep_LowPowerOff           (channel); break;
+                case TouchOnlyTestStep.LowPowerOffWait       : TouchOnlyTestStep_LowPowerOffWait       (channel); break;
+                case TouchOnlyTestStep.ActivePowerOn         : TouchOnlyTestStep_ActivePowerOn         (channel); break;
+                case TouchOnlyTestStep.ActivePowerOnWait     : TouchOnlyTestStep_ActivePowerOnWait     (channel); break;
+                case TouchOnlyTestStep.BootModeEnterStart    : TouchOnlyTestStep_BootModeEnterStart    (channel); break;
+                case TouchOnlyTestStep.BootModeEnterWait     : TouchOnlyTestStep_BootModeEnterWait     (channel); break;
+                case TouchOnlyTestStep.SWVersionSend         : TouchOnlyTestStep_SWVersionSend         (channel); break;
+                case TouchOnlyTestStep.SWVersionWait         : TouchOnlyTestStep_SWVersionWait         (channel); break;
+                case TouchOnlyTestStep.HWVersionSend         : TouchOnlyTestStep_HWVersionSend         (channel); break;
+                case TouchOnlyTestStep.HWVersionWait         : TouchOnlyTestStep_HWVersionWait         (channel); break;
+                case TouchOnlyTestStep.SerialNumReadSend     : TouchOnlyTestStep_SerialNumReadSend     (channel); break;
+                case TouchOnlyTestStep.SerialNumReadWait     : TouchOnlyTestStep_SerialNumReadWait     (channel); break;
+                case TouchOnlyTestStep.PartNumberSend        : TouchOnlyTestStep_PartNumberSend        (channel); break;
+                case TouchOnlyTestStep.PartNumberWait        : TouchOnlyTestStep_PartNumberWait        (channel); break;
+                case TouchOnlyTestStep.DTCEraseSend          : TouchOnlyTestStep_DTCEraseSend          (channel); break;
+                case TouchOnlyTestStep.DTCEraseWait          : TouchOnlyTestStep_DTCEraseWait          (channel); break;
+                case TouchOnlyTestStep.OperCurrentStart      : TouchOnlyTestStep_OperCurrentStart      (channel); break;
+                case TouchOnlyTestStep.OperCurrentWait       : TouchOnlyTestStep_OperCurrentWait       (channel); break;
+                case TouchOnlyTestStep.PowerOff              : TouchOnlyTestStep_PowerOff              (channel); break;
+                case TouchOnlyTestStep.PowerOffWait          : TouchOnlyTestStep_PowerOffWait          (channel); break;
+                case TouchOnlyTestStep.TestEndStart          : TouchOnlyTestStep_TestEndStart          (channel); break;
+                case TouchOnlyTestStep.TestEndWait           : TouchOnlyTestStep_TestEndWait           (channel); break;
+                case TouchOnlyTestStep.MotionUnloadingStart  : TouchOnlyTestStep_MotionUnloadingStart  (channel); break;
+                case TouchOnlyTestStep.MotionUnloadingWait   : TouchOnlyTestStep_MotionUnloadingWait   (channel); break;
+                case TouchOnlyTestStep.Complete              : TouchOnlyTestStep_Complete              (channel); break;
+                case TouchOnlyTestStep.CancelStart           : TouchOnlyTestStep_CancelStart           (channel); break;
+                case TouchOnlyTestStep.CancelZHomeStart      : TouchOnlyTestStep_CancelZHomeStart      (channel); break;
+                case TouchOnlyTestStep.CancelZHomeWait       : TouchOnlyTestStep_CancelZHomeWait       (channel); break;
+                case TouchOnlyTestStep.CancelYHomeStart      : TouchOnlyTestStep_CancelYHomeStart      (channel); break;
+                case TouchOnlyTestStep.CancelYHomeWait       : TouchOnlyTestStep_CancelYHomeWait       (channel); break;
+                case TouchOnlyTestStep.CancelComplete        : TouchOnlyTestStep_CancelComplete        (channel); break;
             }
         }
 
@@ -697,6 +725,7 @@ namespace DHSTesterXL
 
             // 테스트 결과 초기화
             _overalResult[channel].ProductInfo = ProductSettings.ProductInfo;
+            _overalResult[channel].CommSettings = ProductSettings.CommSettings;
             _overalResult[channel].Short_1_2.Init();
             _overalResult[channel].Short_1_3.Init();
             _overalResult[channel].Short_1_4.Init();
@@ -714,11 +743,12 @@ namespace DHSTesterXL
             _overalResult[channel].LockSen.Init();
             _overalResult[channel].LockCan.Init();
             _overalResult[channel].Cancel.Init();
-            _overalResult[channel].SW_Version.Init();
-            _overalResult[channel].HW_Version.Init();
-            _overalResult[channel].SerialNumber.Init();
-            _overalResult[channel].PartNumber.Init();
             _overalResult[channel].DTC_Erase.Init();
+            _overalResult[channel].HW_Version.Init();
+            _overalResult[channel].SW_Version.Init();
+            _overalResult[channel].PartNumber.Init();
+            _overalResult[channel].OperationCurrent.Init();
+            _overalResult[channel].SerialNumber.Init();
 
             _overalResult[channel].Short_1_2.Use = ProductSettings.TestItemSpecs.Short_1_2.Use;
             _overalResult[channel].Short_1_3.Use = ProductSettings.TestItemSpecs.Short_1_3.Use;
@@ -737,11 +767,12 @@ namespace DHSTesterXL
             _overalResult[channel].LockSen.Use = ProductSettings.TestItemSpecs.LockSen.Use;
             _overalResult[channel].LockCan.Use = ProductSettings.TestItemSpecs.LockCan.Use;
             _overalResult[channel].Cancel.Use = ProductSettings.TestItemSpecs.Cancel.Use;
-            _overalResult[channel].SW_Version.Use = ProductSettings.TestItemSpecs.SW_Version.Use;
-            _overalResult[channel].HW_Version.Use = ProductSettings.TestItemSpecs.HW_Version.Use;
-            _overalResult[channel].SerialNumber.Use = ProductSettings.TestItemSpecs.SerialNumber.Use;
-            _overalResult[channel].PartNumber.Use = ProductSettings.TestItemSpecs.PartNumber.Use;
             _overalResult[channel].DTC_Erase.Use = ProductSettings.TestItemSpecs.DTC_Erase.Use;
+            _overalResult[channel].HW_Version.Use = ProductSettings.TestItemSpecs.HW_Version.Use;
+            _overalResult[channel].SW_Version.Use = ProductSettings.TestItemSpecs.SW_Version.Use;
+            _overalResult[channel].PartNumber.Use = ProductSettings.TestItemSpecs.PartNumber.Use;
+            _overalResult[channel].OperationCurrent.Use = ProductSettings.TestItemSpecs.OperationCurrent.Use;
+            _overalResult[channel].SerialNumber.Use = ProductSettings.TestItemSpecs.SerialNumber.Use;
 
             _testResultsList[channel] = _overalResult[channel].GetEnableTestResultList();
 
@@ -776,7 +807,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_TestInitStart(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Test Init]");
@@ -786,7 +817,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_TestInitWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 완료 대기
             //if (!GSystem.DedicatedCTRL.GetCommandTestInit(channel) || !GSystem.DedicatedCTRL.GetCompleteTestInit(channel))
@@ -803,7 +834,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_ShortTestStart(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 측정 USE 판단
             if (!GSystem.ProductSettings.TestItemSpecs.Short_1_2.Use)
@@ -897,27 +928,27 @@ namespace DHSTesterXL
                 ShortResult_4_6 = (short)GSystem.DedicatedCTRL.Reg_03h_ch2_short_4_6;
             }
             // 결과 판정
-            short minShort_1_2 = (short)GSystem.ProductSettings.TestItemSpecs.Short_1_2.MinValue;
-            short minShort_1_3 = (short)GSystem.ProductSettings.TestItemSpecs.Short_1_3.MinValue;
-            short minShort_1_4 = (short)GSystem.ProductSettings.TestItemSpecs.Short_1_4.MinValue;
-            short minShort_1_6 = (short)GSystem.ProductSettings.TestItemSpecs.Short_1_6.MinValue;
-            short minShort_2_3 = (short)GSystem.ProductSettings.TestItemSpecs.Short_2_3.MinValue;
-            short minShort_2_4 = (short)GSystem.ProductSettings.TestItemSpecs.Short_2_4.MinValue;
-            short minShort_2_6 = (short)GSystem.ProductSettings.TestItemSpecs.Short_2_6.MinValue;
-            short minShort_3_4 = (short)GSystem.ProductSettings.TestItemSpecs.Short_3_4.MinValue;
-            short minShort_3_6 = (short)GSystem.ProductSettings.TestItemSpecs.Short_3_6.MinValue;
-            short minShort_4_6 = (short)GSystem.ProductSettings.TestItemSpecs.Short_4_6.MinValue;
+            short minShort_1_2 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_1_2.MinValue * 1000.0);
+            short minShort_1_3 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_1_3.MinValue * 1000.0);
+            short minShort_1_4 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_1_4.MinValue * 1000.0);
+            short minShort_1_6 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_1_6.MinValue * 1000.0);
+            short minShort_2_3 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_2_3.MinValue * 1000.0);
+            short minShort_2_4 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_2_4.MinValue * 1000.0);
+            short minShort_2_6 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_2_6.MinValue * 1000.0);
+            short minShort_3_4 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_3_4.MinValue * 1000.0);
+            short minShort_3_6 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_3_6.MinValue * 1000.0);
+            short minShort_4_6 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_4_6.MinValue * 1000.0);
 
-            short maxShort_1_2 = (short)GSystem.ProductSettings.TestItemSpecs.Short_1_2.MaxValue;
-            short maxShort_1_3 = (short)GSystem.ProductSettings.TestItemSpecs.Short_1_3.MaxValue;
-            short maxShort_1_4 = (short)GSystem.ProductSettings.TestItemSpecs.Short_1_4.MaxValue;
-            short maxShort_1_6 = (short)GSystem.ProductSettings.TestItemSpecs.Short_1_6.MaxValue;
-            short maxShort_2_3 = (short)GSystem.ProductSettings.TestItemSpecs.Short_2_3.MaxValue;
-            short maxShort_2_4 = (short)GSystem.ProductSettings.TestItemSpecs.Short_2_4.MaxValue;
-            short maxShort_2_6 = (short)GSystem.ProductSettings.TestItemSpecs.Short_2_6.MaxValue;
-            short maxShort_3_4 = (short)GSystem.ProductSettings.TestItemSpecs.Short_3_4.MaxValue;
-            short maxShort_3_6 = (short)GSystem.ProductSettings.TestItemSpecs.Short_3_6.MaxValue;
-            short maxShort_4_6 = (short)GSystem.ProductSettings.TestItemSpecs.Short_4_6.MaxValue;
+            short maxShort_1_2 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_1_2.MaxValue * 1000.0);
+            short maxShort_1_3 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_1_3.MaxValue * 1000.0);
+            short maxShort_1_4 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_1_4.MaxValue * 1000.0);
+            short maxShort_1_6 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_1_6.MaxValue * 1000.0);
+            short maxShort_2_3 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_2_3.MaxValue * 1000.0);
+            short maxShort_2_4 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_2_4.MaxValue * 1000.0);
+            short maxShort_2_6 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_2_6.MaxValue * 1000.0);
+            short maxShort_3_4 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_3_4.MaxValue * 1000.0);
+            short maxShort_3_6 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_3_6.MaxValue * 1000.0);
+            short maxShort_4_6 = (short)(GSystem.ProductSettings.TestItemSpecs.Short_4_6.MaxValue * 1000.0);
 
             _overalResult[channel].Short_1_2.Min = $"{ProductSettings.TestItemSpecs.Short_1_2.MinValue}";
             _overalResult[channel].Short_1_3.Min = $"{ProductSettings.TestItemSpecs.Short_1_3.MinValue}";
@@ -974,27 +1005,27 @@ namespace DHSTesterXL
             _overalResult[channel].Short_3_6.Value = $"{ShortResult_3_6}";
             _overalResult[channel].Short_4_6.Value = $"{ShortResult_4_6}";
 
-            _overalResult[channel].Short_1_2.Result = $"{ShortResult_1_2} uA";
-            _overalResult[channel].Short_1_3.Result = $"{ShortResult_1_3} uA";
-            _overalResult[channel].Short_1_4.Result = $"{ShortResult_1_4} uA";
-            _overalResult[channel].Short_1_6.Result = $"{ShortResult_1_6} uA";
-            _overalResult[channel].Short_2_3.Result = $"{ShortResult_2_3} uA";
-            _overalResult[channel].Short_2_4.Result = $"{ShortResult_2_4} uA";
-            _overalResult[channel].Short_2_6.Result = $"{ShortResult_2_6} uA";
-            _overalResult[channel].Short_3_4.Result = $"{ShortResult_3_4} uA";
-            _overalResult[channel].Short_3_6.Result = $"{ShortResult_3_6} uA";
-            _overalResult[channel].Short_4_6.Result = $"{ShortResult_4_6} uA";
+            _overalResult[channel].Short_1_2.Result = $"{(ShortResult_1_2 / 1000.0):F03} mA";
+            _overalResult[channel].Short_1_3.Result = $"{(ShortResult_1_3 / 1000.0):F03} mA";
+            _overalResult[channel].Short_1_4.Result = $"{(ShortResult_1_4 / 1000.0):F03} mA";
+            _overalResult[channel].Short_1_6.Result = $"{(ShortResult_1_6 / 1000.0):F03} mA";
+            _overalResult[channel].Short_2_3.Result = $"{(ShortResult_2_3 / 1000.0):F03} mA";
+            _overalResult[channel].Short_2_4.Result = $"{(ShortResult_2_4 / 1000.0):F03} mA";
+            _overalResult[channel].Short_2_6.Result = $"{(ShortResult_2_6 / 1000.0):F03} mA";
+            _overalResult[channel].Short_3_4.Result = $"{(ShortResult_3_4 / 1000.0):F03} mA";
+            _overalResult[channel].Short_3_6.Result = $"{(ShortResult_3_6 / 1000.0):F03} mA";
+            _overalResult[channel].Short_4_6.Result = $"{(ShortResult_4_6 / 1000.0):F03} mA";
 
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 1-2: [ {ShortResult_1_2,3} uA ] [ {_overalResult[channel].Short_1_2.State} ]");
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 1-3: [ {ShortResult_1_3,3} uA ] [ {_overalResult[channel].Short_1_3.State} ]");
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 1-4: [ {ShortResult_1_4,3} uA ] [ {_overalResult[channel].Short_1_4.State} ]");
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 1-6: [ {ShortResult_1_6,3} uA ] [ {_overalResult[channel].Short_1_6.State} ]");
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 2-3: [ {ShortResult_2_3,3} uA ] [ {_overalResult[channel].Short_2_3.State} ]");
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 2-4: [ {ShortResult_2_4,3} uA ] [ {_overalResult[channel].Short_2_4.State} ]");
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 2-6: [ {ShortResult_2_6,3} uA ] [ {_overalResult[channel].Short_2_6.State} ]");
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 3-4: [ {ShortResult_3_4,3} uA ] [ {_overalResult[channel].Short_3_4.State} ]");
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 3-6: [ {ShortResult_3_6,3} uA ] [ {_overalResult[channel].Short_3_6.State} ]");
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 4-6: [ {ShortResult_4_6,3} uA ] [ {_overalResult[channel].Short_4_6.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 1-2: [ {(ShortResult_1_2 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_1_2.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 1-3: [ {(ShortResult_1_3 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_1_3.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 1-4: [ {(ShortResult_1_4 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_1_4.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 1-6: [ {(ShortResult_1_6 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_1_6.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 2-3: [ {(ShortResult_2_3 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_2_3.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 2-4: [ {(ShortResult_2_4 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_2_4.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 2-6: [ {(ShortResult_2_6 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_2_6.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 3-4: [ {(ShortResult_3_4 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_3_4.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 3-6: [ {(ShortResult_3_6 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_3_6.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 4-6: [ {(ShortResult_4_6 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_4_6.State} ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] Pin Short step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Pin Short step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
 
@@ -1014,18 +1045,24 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_LowPowerOn(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Power On]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Power On]");
+            GSystem.DedicatedCTRL.SetCommandDarkPowerOn(channel, true);
             NextTouchOnlyTestStep(channel);
             _tickStepInterval[channel].Reset();
         }
         private void TouchOnlyTestStep_LowPowerOnWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
+            if (GSystem.DedicatedCTRL.GetCommandDarkPowerOn(channel))
+            {
+                if (!GSystem.DedicatedCTRL.GetCommandDarkPowerOn(channel) || !GSystem.DedicatedCTRL.GetCompleteDarkPowerOn(channel))
+                    return;
+            }
             GSystem.Logger.Info ($"[CH.{channel + 1}] Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] Power On complete");
@@ -1035,7 +1072,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_WakeUpSend(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Wake Up]");
@@ -1045,7 +1082,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_WakeUpWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             GSystem.Logger.Info ($"[CH.{channel + 1}] Wake Up step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Wake Up step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
@@ -1056,13 +1093,13 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_DarkCurrentStart(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 측정 USE 판단
             if (!GSystem.ProductSettings.TestItemSpecs.DarkCurrent.Use)
             {
                 // 다음 측정 항목으로 이동
-                SetTouchOnlyTestStep(channel, TouchOnlyTestStep.MotionMoveTouchStart);
+                SetTouchOnlyTestStep(channel, TouchOnlyTestStep.PLightTurnOnSend);
                 return;
             }
             _tickStepElapse[channel].Reset();
@@ -1073,32 +1110,41 @@ namespace DHSTesterXL
             _overalResult[channel].DarkCurrent.Value = "";
             _overalResult[channel].DarkCurrent.Result = "측정 중";
             OnTestStepProgressChanged(channel, _overalResult[channel].DarkCurrent);
-            if (!GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
+            if (!GSystem.DedicatedCTRL.GetCompleteDarkPowerOn(channel))
             {
-                GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, true);
+                GSystem.DedicatedCTRL.SetCommandDarkPowerOn(channel, true);
             }
             NextTouchOnlyTestStep(channel);
             GSystem.TimerDarkCurrent[channel].Start();
         }
+        private void TouchOnlyTestStep_DarkCurrentWait(int channel)
+        {
+            if (_tickStepInterval[channel].LessThan(9000))
+                return;
+            GSystem.DedicatedCTRL.SetCommandDarkCurrentStart(channel, true);
+            GSystem.TimerDarkCurrent[channel].Reset();
+            _tickStepElapse[channel].Reset();
+            NextTouchOnlyTestStep(channel);
+        }
         private void TouchOnlyTestStep_DarkCurrentUpdate(int channel)
         {
             // 암전류 측정 중...측정 시간, 전류 업데이트
-            // 암전류 측정 중...측정 시간, 전류 업데이트
             //_overalResult[channel].DarkCurrent.Result = $"측정 중 ({GSystem.TimerDarkCurrent[channel].GetElapsedSeconds():F1} 초)";
-            OnTestStepProgressChanged(channel, _overalResult[channel].DarkCurrent);
-            if (GSystem.TimerDarkCurrent[channel].LessThan(15000))
+            //OnTestStepProgressChanged(channel, _overalResult[channel].DarkCurrent);
+            if (GSystem.TimerDarkCurrent[channel].LessThan(4000))
                 return;
+            GSystem.DedicatedCTRL.SetCommandDarkCurrentStart(channel, false);
             NextTouchOnlyTestStep(channel);
             _tickStepInterval[channel].Reset();
         }
         private void TouchOnlyTestStep_DarkCurrentComplete(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             if (channel == CH1)
-                DartCurrent = (short)((GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo) / 2);
+                DartCurrent = (short)(GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo);
             else
-                DartCurrent = (short)((GSystem.DedicatedCTRL.Reg_03h_ch2_current_lo) / 2);
+                DartCurrent = (short)(GSystem.DedicatedCTRL.Reg_03h_ch2_current_lo);
             GSystem.Logger.Info ($"[CH.{channel + 1}] Dark Current : [ {DartCurrent} uA ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] Dark Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Dark Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
@@ -1115,11 +1161,278 @@ namespace DHSTesterXL
             // 동작 상태 표시
             OnTestStepProgressChanged(channel, _overalResult[channel].DarkCurrent);
             NextTouchOnlyTestStep(channel);
+            //SetTouchOnlyTestStep(channel, TouchOnlyTestStep.PLightTurnOnSend);
             _tickStepInterval[channel].Reset();
+        }
+        private void TouchOnlyTestStep_DarkPowerOff(int channel)
+        {
+            _tickStepElapse[channel].Reset();
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Power Off]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Power Off]");
+            GSystem.DedicatedCTRL.SetCommandDarkPowerOn(channel, false);
+            GSystem.DedicatedCTRL.SetCommandTestInit(channel, true);
+            NextTouchOnlyTestStep(channel);
+        }
+        private void TouchOnlyTestStep_DarkPowerOffWait(int channel)
+        {
+            // 완료 대기
+            if (GSystem.DedicatedCTRL.GetCommandDarkPowerOn(channel) || GSystem.DedicatedCTRL.GetCompleteDarkPowerOn(channel))
+                return;
+            if (!GSystem.DedicatedCTRL.GetCommandTestInit(channel) || !GSystem.DedicatedCTRL.GetCompleteTestInit(channel))
+                return;
+            GSystem.DedicatedCTRL.SetCommandTestInit(channel, false);
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Power Off step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Power Off step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Power Off Complete");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Power Off Complete");
+            NextTouchOnlyTestStep(channel);
+            _tickStepInterval[channel].Reset();
+        }
+        private void TouchOnlyTestStep_HighPowerOn(int channel)
+        {
+            if (_tickStepInterval[channel].LessThan(500))
+                return;
+            _tickStepElapse[channel].Reset();
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Power On]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Power On]");
+            GSystem.DedicatedCTRL.SetCommandTestInit(channel, false);
+            GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, true);
+            NextTouchOnlyTestStep(channel);
+        }
+        private void TouchOnlyTestStep_HighPowerOnWait(int channel)
+        {
+            // 완료 대기
+            if (!GSystem.DedicatedCTRL.GetCommandActivePowerOn(channel) || !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
+                return;
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Power On Complete");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Power On Complete");
+            NextTouchOnlyTestStep(channel);
+            _tickStepTimeout[channel].Reset();
+            _tickStepInterval[channel].Reset();
+        }
+        private void TouchOnlyTestStep_PowerOnResetWait(int channel)
+        {
+            if (_tickStepInterval[channel].LessThan(500))
+                return;
+            NextTouchOnlyTestStep(channel);
+        }
+        private void TouchOnlyTestStep_PLightTurnOnSend(int channel)
+        {
+            // 측정 USE 판단
+            if (!GSystem.ProductSettings.TestItemSpecs.PLightTurnOn.Use)
+            {
+                // 다음 측정 항목으로 이동
+                SetTouchOnlyTestStep(channel, TouchOnlyTestStep.MotionMoveTouchStart);
+                _tickStepInterval[channel].Reset();
+                return;
+            }
+            _tickStepElapse[channel].Reset();
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [P-Light Turn On]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [P-Light Turn On]");
+            // 측정 상태 표시
+            _overalResult[channel].PLightTurnOn.State = TestStates.Running;
+            _overalResult[channel].PLightTurnOn.Value = "";
+            _overalResult[channel].PLightTurnOn.Result = "측정 중";
+            OnTestStepProgressChanged(channel, _overalResult[channel].PLightTurnOn);
+            // P-Light ON 이전 전류값 저장 : P-Light 전류값 = ON 상태 전류 - OFF 상태 전류
+            if (channel == CH1)
+                PLightOffCurrentValue[channel] = (DedicatedCTRL.Reg_03h_ch1_current_lo / 1000.0);
+            else
+                PLightOffCurrentValue[channel] = (DedicatedCTRL.Reg_03h_ch2_current_lo / 1000.0);
+            GSystem.TraceMessage($"P-Light LO current = {(DedicatedCTRL.Reg_03h_ch1_current_lo / 1000.0):F2} mA");
+            GSystem.TraceMessage($"P-Light HI current = {DedicatedCTRL.Reg_03h_ch1_current_hi} mA");
+            GSystem.Logger.Info ($"P-Light Off current = {PLightOffCurrentValue[channel]:F2} mA");
+            GSystem.TraceMessage($"P-Light Off current = {PLightOffCurrentValue[channel]:F2} mA");
+            // PLight ON
+            GSystem.DedicatedCTRL.SetCommandPLightOn(channel, true);
+            NextTouchOnlyTestStep(channel);
+            _tickStepTimeout[channel].Reset();
+        }
+        private void TouchOnlyTestStep_PLightTurnOnWait(int channel)
+        {
+            if (GSystem.DedicatedCTRL.GetResponsePLightOn(channel))
+            {
+                GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Turn On [ {GSystem.DedicatedCTRL.GetCompletePLightOn(channel)} ]");
+                GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Turn On [ {GSystem.DedicatedCTRL.GetCompletePLightOn(channel)} ]");
+                GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Turn On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+                GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Turn On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+                GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Turn On complete");
+                GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Turn On complete");
+                PLightTurnOnValue[channel] = 1;
+                // 결과 판정
+                TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.PLightTurnOn;
+                if (PLightTurnOnValue[channel] == testSpec.MaxValue)
+                    _overalResult[channel].PLightTurnOn.State = TestStates.Pass;
+                else
+                    _overalResult[channel].PLightTurnOn.State = TestStates.Failed;
+                _overalResult[channel].PLightTurnOn.Value = $"{PLightTurnOnValue[channel]}";
+                _overalResult[channel].PLightTurnOn.Result = $"{PLightTurnOnValue[channel]}";
+                // 동작 상태 표시
+                OnTestStepProgressChanged(channel, _overalResult[channel].PLightTurnOn);
+                NextTouchOnlyTestStep(channel);
+                _tickStepInterval[channel].Reset();
+                _retryCount[channel] = 0;
+
+            }
+            else
+            {
+                if (_tickStepTimeout[channel].MoreThan(2000))
+                {
+                    if (++_retryCount[channel] < MaxRetryCount)
+                    {
+                        GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light ON Timeout! Retry: [ {_retryCount[channel]} ]");
+                        GSystem.TraceMessage($"[CH.{channel + 1}] P-Light ON Timeout! Retry: [ {_retryCount[channel]} ]");
+                        SetTouchOnlyTestStep(channel, TouchOnlyTestStep.PLightTurnOnSend);
+                        return;
+                    }
+                    else
+                    {
+                        // timeout
+                        GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light ON Timeout Error!");
+                        GSystem.TraceMessage($"[CH.{channel + 1}] P-Light ON Timeout Error!");
+                        // 측정 상태 표시
+                        _overalResult[channel].PLightTurnOn.State = TestStates.Failed;
+                        _overalResult[channel].PLightTurnOn.Value = "";
+                        _overalResult[channel].PLightTurnOn.Result = "Timeout";
+                        OnTestStepProgressChanged(channel, _overalResult[channel].PLightTurnOn);
+                        SetTouchOnlyTestStep(channel, TouchOnlyTestStep.MotionMoveTouchStart);
+                        return;
+                    }
+                }
+            }
+        }
+        private void TouchOnlyTestStep_PLightCurrentSend(int channel)
+        {
+            _tickStepElapse[channel].Reset();
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [P-Light Current]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [P-Light Current]");
+            // 측정 상태 표시
+            _overalResult[channel].PLightCurrent.State = TestStates.Running;
+            _overalResult[channel].PLightCurrent.Value = "";
+            _overalResult[channel].PLightCurrent.Result = "측정 중";
+            OnTestStepProgressChanged(channel, _overalResult[channel].PLightCurrent);
+            NextTouchOnlyTestStep(channel);
+            _tickStepTimeout[channel].Reset();
+            _tickStepInterval[channel].Reset();
+        }
+        private void TouchOnlyTestStep_PLightCurrentWait(int channel)
+        {
+            // P-Light가 완전히 ON 되는데 약 2초정도 걸린다. 전류와 조도 측정을 위해 충분히 대기한다.
+            if (_tickStepInterval[channel].LessThan(2000))
+                return;
+            // 전류 측정
+            // 조도 측정
+            if (channel == CH1)
+            {
+                PLightOnCurrentValue[channel] = (DedicatedCTRL.Reg_03h_ch1_current_lo / 1000.0);
+                PLightAmbientValue[channel] = DedicatedCTRL.Reg_03h_ch1_light_lux;
+            }
+            else
+            {
+                PLightOnCurrentValue[channel] = (DedicatedCTRL.Reg_03h_ch2_current_lo / 1000.0);
+                PLightAmbientValue[channel] = DedicatedCTRL.Reg_03h_ch2_light_lux;
+            }
+            // 소비전류는 P-Light ON 할 때가 제일 높다. 중간에 전원을 리셋하기 때문에 여기서 측정한다.
+            OperationCurrentValue[channel] = PLightOnCurrentValue[channel];
+            GSystem.TraceMessage($"Operation current  = {OperationCurrentValue[channel]:F2} mA");
+            GSystem.TraceMessage($"P-Light LO current = {(DedicatedCTRL.Reg_03h_ch1_current_lo / 1000.0):F2} mA");
+            GSystem.TraceMessage($"P-Light HI current = {DedicatedCTRL.Reg_03h_ch1_current_hi} mA");
+            GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Current [ {(PLightOnCurrentValue[channel] - PLightOffCurrentValue[channel]):F2} mA ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Current [ {(PLightOnCurrentValue[channel] - PLightOffCurrentValue[channel]):F2} mA ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Current complete");
+            GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Current complete");
+            // 결과 판정
+            TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.PLightCurrent;
+            if (PLightOnCurrentValue[channel] < testSpec.MinValue || PLightOnCurrentValue[channel] > testSpec.MaxValue)
+                _overalResult[channel].PLightCurrent.State = TestStates.Failed;
+            else
+                _overalResult[channel].PLightCurrent.State = TestStates.Pass;
+            _overalResult[channel].PLightCurrent.Value = $"{(PLightOnCurrentValue[channel] - PLightOffCurrentValue[channel]):F2}";
+            _overalResult[channel].PLightCurrent.Result = $"{(PLightOnCurrentValue[channel] - PLightOffCurrentValue[channel]):F2} mA";
+            // 동작 상태 표시
+            OnTestStepProgressChanged(channel, _overalResult[channel].PLightCurrent);
+            NextTouchOnlyTestStep(channel);
+            _tickStepInterval[channel].Reset();
+            _retryCount[channel] = 0;
+        }
+        private void TouchOnlyTestStep_PLightAmbientSend(int channel)
+        {
+            _tickStepElapse[channel].Reset();
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [P-Light Ambient]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [P-Light Ambient]");
+            // 측정 상태 표시
+            _overalResult[channel].PLightAmbient.State = TestStates.Running;
+            _overalResult[channel].PLightAmbient.Value = "";
+            _overalResult[channel].PLightAmbient.Result = "측정 중";
+            OnTestStepProgressChanged(channel, _overalResult[channel].PLightAmbient);
+            NextTouchOnlyTestStep(channel);
+        }
+        private void TouchOnlyTestStep_PLightAmbientWait(int channel)
+        {
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Ambient [ {PLightAmbientValue} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Ambient step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Ambient step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Ambient complete");
+            GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Ambient complete");
+            // 결과 판정
+            TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.PLightAmbient;
+            if (PLightAmbientValue[channel] < testSpec.MinValue || PLightAmbientValue[channel] > testSpec.MaxValue)
+                _overalResult[channel].PLightAmbient.State = TestStates.Failed;
+            else
+                _overalResult[channel].PLightAmbient.State = TestStates.Pass;
+            _overalResult[channel].PLightAmbient.Value = $"{PLightAmbientValue[channel]}";
+            _overalResult[channel].PLightAmbient.Result = $"{PLightAmbientValue[channel]}";
+            // 동작 상태 표시
+            OnTestStepProgressChanged(channel, _overalResult[channel].PLightAmbient);
+            NextTouchOnlyTestStep(channel);
+            _tickStepInterval[channel].Reset();
+            _retryCount[channel] = 0;
+        }
+        private void TouchOnlyTestStep_PLightTurnOffSend(int channel)
+        {
+            // PLight OFF
+            GSystem.DedicatedCTRL.SetCommandPLightOn(channel, false);
+            NextTouchOnlyTestStep(channel);
+            _tickStepTimeout[channel].Reset();
+            _tickStepInterval[channel].Reset();
+        }
+        private void TouchOnlyTestStep_PLightTurnOffWait(int channel)
+        {
+            // P-Light OFF 확인
+            if (!GSystem.DedicatedCTRL.GetCompletePLightOn(channel))
+            {
+                NextTouchOnlyTestStep(channel);
+            }
+            else
+            {
+                // timeout 처리
+                if (_tickStepTimeout[channel].MoreThan(2000))
+                {
+                    if (++_retryCount[channel] < MaxRetryCount)
+                    {
+                        GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light OFF Timeout! Retry: [ {_retryCount[channel]} ]");
+                        GSystem.TraceMessage($"[CH.{channel + 1}] P-Light OFF Timeout! Retry: [ {_retryCount[channel]} ]");
+                        SetTouchOnlyTestStep(channel, TouchOnlyTestStep.PLightTurnOffSend);
+                        return;
+                    }
+                    else
+                    {
+                        // timeout
+                        GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light OFF Timeout Error!");
+                        GSystem.TraceMessage($"[CH.{channel + 1}] P-Light OFF Timeout Error!");
+                        SetTouchOnlyTestStep(channel, TouchOnlyTestStep.MotionMoveTouchStart);
+                        return;
+                    }
+                }
+            }
         }
         private void TouchOnlyTestStep_MotionMoveTouchStart(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 측정 USE 판단
             if (!GSystem.ProductSettings.TestItemSpecs.LockSen.Use)
@@ -1131,18 +1444,49 @@ namespace DHSTesterXL
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Motion Move to Touch]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Motion Move to Touch]");
-            GSystem.MiPLC.SetMoveTouchYStart(channel, true);
+            // LQ2 NFC는 Touch 위치로
+            // LQ2 Touch Only는 NFC 위치로
+            // 그 외는 Touch 위치로
+            switch (GSystem.ProductSettings.ProductInfo.PartNo)
+            {
+                case "82657-P8000": // LQ2 Touch Only LH
+                case "82667-P8000": // LQ2 Touch Only RH
+                    GSystem.MiPLC.SetMoveNFCYStart(channel, true);
+                    break;
+                default:
+                    GSystem.MiPLC.SetMoveTouchYStart(channel, true);
+                    break;
+            }
             NextTouchOnlyTestStep(channel);
         }
         private void TouchOnlyTestStep_MotionMoveTouchWait(int channel)
         {
             // 완료 대기
-            if (GSystem.MiPLC.GetMoveTouchYStart(channel))
+
+            // LQ2 NFC는 Touch 위치로
+            // LQ2 Touch Only는 NFC 위치로
+            // 그 외는 Touch 위치로
+            switch (GSystem.ProductSettings.ProductInfo.PartNo)
             {
-                if (!GSystem.MiPLC.GetMoveTouchYComplete(channel))
-                    return;
-                GSystem.MiPLC.SetMoveTouchYStart(channel, false);
+                case "82657-P8000": // LQ2 Touch Only LH
+                case "82667-P8000": // LQ2 Touch Only RH
+                    if (GSystem.MiPLC.GetMoveNFCYStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetMoveNFCYComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetMoveNFCYStart(channel, false);
+                    }
+                    break;
+                default:
+                    if (GSystem.MiPLC.GetMoveTouchYStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetMoveTouchYComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetMoveTouchYStart(channel, false);
+                    }
+                    break;
             }
+
             GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Move to Touch step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Move to Touch step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Move to Touch Complete");
@@ -1151,7 +1495,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_TouchLockStart(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Touch Lock]");
@@ -1165,26 +1509,59 @@ namespace DHSTesterXL
             _tickStepInterval[channel].Reset();
             _retryCount[channel] = 0;
         }
-        private void TouchOnlyTestStep_TouchLockPrepare(int channel)
+        private void TouchOnlyTestStep_TouchLockZDown(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(2000))
                 return;
-            // Touch 하강
-            GSystem.MiPLC.SetTouchZDownStart(channel, true);
+
+            // LQ2 NFC는 Touch 위치로
+            // LQ2 Touch Only는 NFC 위치로
+            // 그 외는 Touch 위치로
+            switch (GSystem.ProductSettings.ProductInfo.PartNo)
+            {
+                case "82657-P8000": // LQ2 Touch Only LH
+                case "82667-P8000": // LQ2 Touch Only RH
+                    // Touch 하강
+                    GSystem.MiPLC.SetNFCZDownStart(channel, true);
+                    break;
+                default:
+                    // Touch 하강
+                    GSystem.MiPLC.SetTouchZDownStart(channel, true);
+                    break;
+            }
             NextTouchOnlyTestStep(channel);
             _tickStepInterval[channel].Reset();
             _tickStepTimeout[channel].Reset();
         }
         private void TouchOnlyTestStep_TouchLockWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
-            // Touch Z축 하강 완료 대기
-            if (GSystem.MiPLC.GetTouchZDownStart(channel))
+
+            // LQ2 NFC는 Touch 위치로
+            // LQ2 Touch Only는 NFC 위치로
+            // 그 외는 Touch 위치로
+            switch (GSystem.ProductSettings.ProductInfo.PartNo)
             {
-                if (!GSystem.MiPLC.GetTouchZDownComplete(channel))
-                    return;
-                GSystem.MiPLC.SetTouchZDownStart(channel, false);
+                case "82657-P8000": // LQ2 Touch Only LH
+                case "82667-P8000": // LQ2 Touch Only RH
+                    // NFC Z축 하강 완료 대기
+                    if (GSystem.MiPLC.GetNFCZDownStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetNFCZDownComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetNFCZDownStart(channel, false);
+                    }
+                    break;
+                default:
+                    // Touch Z축 하강 완료 대기
+                    if (GSystem.MiPLC.GetTouchZDownStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetTouchZDownComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetTouchZDownStart(channel, false);
+                    }
+                    break;
             }
             bool lockSignal;
             if (channel == GSystem.CH1)
@@ -1217,8 +1594,22 @@ namespace DHSTesterXL
                     if (++_retryCount[channel] < MaxRetryCount)
                     {
                         // retry
-                        // Touch 상승
-                        GSystem.MiPLC.SetTouchZUpStart(channel, true);
+
+                        // LQ2 NFC는 Touch 위치로
+                        // LQ2 Touch Only는 NFC 위치로
+                        // 그 외는 Touch 위치로
+                        switch (GSystem.ProductSettings.ProductInfo.PartNo)
+                        {
+                            case "82657-P8000": // LQ2 Touch Only LH
+                            case "82667-P8000": // LQ2 Touch Only RH
+                                // NFC 상승
+                                GSystem.MiPLC.SetNFCZUpStart(channel, true);
+                                break;
+                            default:
+                                // Touch 상승
+                                GSystem.MiPLC.SetTouchZUpStart(channel, true);
+                                break;
+                        }
                         SetTouchOnlyTestStep(channel, TouchOnlyTestStep.TouchLockRetry);
                     }
                     else
@@ -1244,102 +1635,518 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_TouchLockRetry(int channel)
         {
-            // Touch 상승 확인
-            if (GSystem.MiPLC.GetTouchZUpStart(channel))
+            // LQ2 NFC는 Touch 위치로
+            // LQ2 Touch Only는 NFC 위치로
+            // 그 외는 Touch 위치로
+            switch (GSystem.ProductSettings.ProductInfo.PartNo)
             {
-                if (!GSystem.MiPLC.GetTouchZUpComplete(channel))
-                    return;
-                GSystem.MiPLC.SetTouchZUpStart(channel, false);
+                case "82657-P8000": // LQ2 Touch Only LH
+                case "82667-P8000": // LQ2 Touch Only RH
+                    // NFC 상승 확인
+                    if (GSystem.MiPLC.GetNFCZUpStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetNFCZUpComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetNFCZUpStart(channel, false);
+                    }
+                    break;
+                default:
+                    // Touch 상승 확인
+                    if (GSystem.MiPLC.GetTouchZUpStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetTouchZUpComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetTouchZUpStart(channel, false);
+                    }
+                    break;
             }
-            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.TouchLockPrepare);
+            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.TouchLockZDown);
+            _tickStepInterval[channel].Reset();
         }
         private void TouchOnlyTestStep_MotionTouchZUpStart(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(1000))
                 return;
             // Touch 상승
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Motion Touch Up]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Motion Touch Up]");
-            GSystem.MiPLC.SetTouchZUpStart(channel, true);
+
+            // LQ2 NFC는 Touch 위치로
+            // LQ2 Touch Only는 NFC 위치로
+            // 그 외는 Touch 위치로
+            switch (GSystem.ProductSettings.ProductInfo.PartNo)
+            {
+                case "82657-P8000": // LQ2 Touch Only LH
+                case "82667-P8000": // LQ2 Touch Only RH
+                    GSystem.MiPLC.SetNFCZUpStart(channel, true);
+                    break;
+                default:
+                    GSystem.MiPLC.SetTouchZUpStart(channel, true);
+                    break;
+            }
             NextTouchOnlyTestStep(channel);
         }
         private void TouchOnlyTestStep_MotionTouchZUpWait(int channel)
         {
             // 완료 대기
-            if (GSystem.MiPLC.GetTouchZUpStart(channel))
+
+            // LQ2 NFC는 Touch 위치로
+            // LQ2 Touch Only는 NFC 위치로
+            // 그 외는 Touch 위치로
+            switch (GSystem.ProductSettings.ProductInfo.PartNo)
             {
-                if (!GSystem.MiPLC.GetTouchZUpComplete(channel))
-                    return;
-                GSystem.MiPLC.SetTouchZUpStart(channel, false);
+                case "82657-P8000": // LQ2 Touch Only LH
+                case "82667-P8000": // LQ2 Touch Only RH
+                    if (GSystem.MiPLC.GetNFCZUpStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetNFCZUpComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetNFCZUpStart(channel, false);
+                    }
+                    break;
+                default:
+                    if (GSystem.MiPLC.GetTouchZUpStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetTouchZUpComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetTouchZUpStart(channel, false);
+                    }
+                    break;
             }
             GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Touch Up step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Touch Up step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Touch Up Complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Touch Up Complete");
-            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.LowPowerOff);
+            //NextTouchOnlyTestStep(channel);
+            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.MotionMoveCancelStart);
         }
-        private void TouchOnlyTestStep_TouchCancelStart(int channel)
+        private void TouchOnlyTestStep_MotionMoveCancelStart(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
+            // 측정 USE 판단
+            if (!GSystem.ProductSettings.TestItemSpecs.Cancel.Use)
+            {
+                // 다음 측정 항목으로 이동
+                SetTouchOnlyTestStep(channel, TouchOnlyTestStep.LowPowerOff);
+                return;
+            }
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Touch Cancel]");
-            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Touch Cancel]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Motion Move to Cancel]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Motion Move to Cancel]");
+            // Cancel Y축 위치로 이동
+            GSystem.MiPLC.SetMoveCancelYStart(channel, true);
             NextTouchOnlyTestStep(channel);
-            _tickStepInterval[channel].Reset();
         }
-        private void TouchOnlyTestStep_TouchCancelPrepare(int channel)
+        private void TouchOnlyTestStep_MotionMoveCancelWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
-                return;
+            // 완료 대기
+            if (GSystem.MiPLC.GetMoveCancelYStart(channel))
+            {
+                if (!GSystem.MiPLC.GetMoveCancelYComplete(channel))
+                    return;
+                GSystem.MiPLC.SetMoveCancelYStart(channel, false);
+            }
+
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Move to Cancel step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Motion Move to Cancel step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Move to Cancel Complete");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Motion Move to Cancel Complete");
             NextTouchOnlyTestStep(channel);
-            _tickStepInterval[channel].Reset();
-        }
-        private void TouchOnlyTestStep_TouchCancelWait(int channel)
-        {
-            if (_tickStepInterval[channel].LessThan(200))
-                return;
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Cancel step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.TraceMessage($"[CH.{channel + 1}] Touch Cancel step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Touch Cancel complete");
-            GSystem.TraceMessage($"[CH.{channel + 1}] Touch Cancel complete");
-            NextTouchOnlyTestStep(channel);
-            _tickStepInterval[channel].Reset();
         }
         private void TouchOnlyTestStep_LockCancelStart(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            // TOUCH+CANCEL 동시 터치, TOUCH SIGNAL이 T초 후에 ON 되는지 검사
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Lock Cancel]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Lock Cancel]");
+            // 측정 상태 표시
+            _overalResult[channel].Cancel.State = TestStates.Running;
+            _overalResult[channel].Cancel.Value = "";
+            _overalResult[channel].Cancel.Result = "측정 중";
+            OnTestStepProgressChanged(channel, _overalResult[channel].Cancel);
+            // PLC Z축 인터락 해제
+            GSystem.MiPLC.SetZInterlockIgnore(channel, true);
+            NextTouchOnlyTestStep(channel);
+            _tickStepElapse[channel].Reset();
+            _tickStepInterval[channel].Reset();
+            _retryCount[channel] = 0;
+        }
+        private void TouchOnlyTestStep_LockCancelZUp(int channel)
+        {
+            if (_tickStepInterval[channel].LessThan(2000))
+                return;
+            // Touch Only는 LOCK CANCEL 동시 터치 후 LOCK 신호가 T초 후 출력되는지 검사
+            // CANCEL이 먼저 터치되어야 한다.
+            GSystem.MiPLC.SetCancelZUpStart(channel, true);
+            GSystem.TraceMessage($"[CH.{channel + 1}] Cancel Up start");
             NextTouchOnlyTestStep(channel);
             _tickStepInterval[channel].Reset();
         }
-        private void TouchOnlyTestStep_LockCancelPrepare(int channel)
+        private void TouchOnlyTestStep_LockTouchZDown(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            // TODO: 시간을 설정할 수 있게 수정
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
+            // TOUCH 하강
+            switch (GSystem.ProductSettings.ProductInfo.PartNo)
+            {
+                case "82657-P8000": // LQ2 Touch Only LH
+                case "82667-P8000": // LQ2 Touch Only RH
+                    GSystem.MiPLC.SetNFCZDownStart(channel, true);
+                    break;
+                default:
+                    GSystem.MiPLC.SetTouchZDownStart(channel, true);
+                    break;
+            }
+            GSystem.TraceMessage($"[CH.{channel + 1}] Touch Down start");
             NextTouchOnlyTestStep(channel);
             _tickStepInterval[channel].Reset();
+            _tickStepTimeout[channel].Reset();
+        }
+        private void TouchOnlyTestStep_LockCancelTouchCheck(int channel)
+        {
+            // TOUCH 하강 완료 대기
+            switch (GSystem.ProductSettings.ProductInfo.PartNo)
+            {
+                case "82657-P8000": // LQ2 Touch Only LH
+                case "82667-P8000": // LQ2 Touch Only RH
+                    if (GSystem.MiPLC.GetNFCZDownStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetNFCZDownComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetNFCZDownStart(channel, false);
+                    }
+                    break;
+                default:
+                    if (GSystem.MiPLC.GetTouchZDownStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetTouchZDownStart(channel))
+                            return;
+                        GSystem.MiPLC.SetTouchZDownStart(channel, false);
+                    }
+                    break;
+            }
+            // CANCEL 상승 완료 대기
+            if (GSystem.MiPLC.GetCancelZUpStart(channel))
+            {
+                if (!GSystem.MiPLC.GetCancelZUpComplete(channel))
+                    return;
+                GSystem.MiPLC.SetCancelZUpStart(channel, false);
+            }
+            NextTouchOnlyTestStep(channel);
+            _tickStepInterval[channel].Reset();
+            _tickStepTimeout[channel].Reset();
         }
         private void TouchOnlyTestStep_LockCancelWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
-                return;
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Lock Cancel step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.TraceMessage($"[CH.{channel + 1}] Lock Cancel step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Lock Cancel complete");
-            GSystem.TraceMessage($"[CH.{channel + 1}] Lock Cancel complete");
-            NextTouchOnlyTestStep(channel);
+            // Lock 신호 출력 확인
+            if (GSystem.DedicatedCTRL.GetLockSignal(channel))
+            {
+                int lockSignalTime = (int)_tickStepInterval[channel].GetElapsedMilliseconds();
+                // TODO: 차종별 Lock 신호 출력 대기 시간이 다르다. 품목 설정에서 변경 가능하게 수정 필요
+                if (lockSignalTime > GSystem.ProductSettings.ProductInfo.CancelLockTime)
+                {
+                    // 정상
+                    GSystem.Logger.Info ($"[CH.{channel + 1}] Lock signal check time: [ {lockSignalTime} ms ]");
+                    GSystem.TraceMessage($"[CH.{channel + 1}] Lock signal check time: [ {lockSignalTime} ms ]");
+                    GSystem.Logger.Info ($"[CH.{channel + 1}] Lock Cancel step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+                    GSystem.TraceMessage($"[CH.{channel + 1}] Lock Cancel step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+                    GSystem.Logger.Info ($"[CH.{channel + 1}] Lock Cancel complete");
+                    GSystem.TraceMessage($"[CH.{channel + 1}] Lock Cancel complete");
+                    TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.Cancel;
+                    _overalResult[channel].Cancel.State = TestStates.Pass;
+                    _overalResult[channel].Cancel.Value = $"{testSpec.MaxValue:F0}";
+                    _overalResult[channel].Cancel.Result = $"{testSpec.MaxValue:F0}";
+                    // 동작 상태 표시
+                    OnTestStepProgressChanged(channel, _overalResult[channel].Cancel);
+                    //NextTouchOnlyTestStep(channel);
+                    SetTouchOnlyTestStep(channel, TouchOnlyTestStep.LockCancelZUpStart);
+                    _tickStepInterval[channel].Reset();
+                }
+                else
+                {
+                    // 에러...너무 빨리 출력됨
+                    if (_tickStepTimeout[channel].MoreThan(200))
+                    {
+                        // retry or error
+                        if (++_retryCount[channel] < MaxRetryCount)
+                        {
+                            // 재시도
+                            // Cancel 하강
+                            if (channel == 0)
+                            {
+                                GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelUpStart];
+                                GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelDownStart];
+                            }
+                            else
+                            {
+                                GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelUpStart];
+                                GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelDownStart];
+                            }
+                            // Touch(NFC) 상승
+                            switch (GSystem.ProductSettings.ProductInfo.PartNo)
+                            {
+                                case "82657-P8000": // LQ2 Touch Only LH
+                                case "82667-P8000": // LQ2 Touch Only RH
+                                    if (channel == 0)
+                                    {
+                                        GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_DownStart];
+                                        GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_UpStart];
+                                    }
+                                    else
+                                    {
+                                        GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_DownStart];
+                                        GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_UpStart];
+                                    }
+                                    break;
+                                default:
+                                    if (channel == 0)
+                                    {
+                                        GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchDownStart];
+                                        GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchUpStart];
+                                    }
+                                    else
+                                    {
+                                        GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchDownStart];
+                                        GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchUpStart];
+                                    }
+                                    break;
+                            }
+                            GSystem.MiPLC.M1402_Req_Proc();
+                            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.LockCancelRetry);
+                        }
+                        else
+                        {
+                            // 에러 처리
+                            _overalResult[channel].Cancel.State = TestStates.Failed;
+                            _overalResult[channel].Cancel.Value = $"Timeout";
+                            _overalResult[channel].Cancel.Result = $"Timeout";
+                            // 동작 상태 표시
+                            OnTestStepProgressChanged(channel, _overalResult[channel].Cancel);
+                            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.LockCancelZUpStart);
+                            _tickStepInterval[channel].Reset();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // timeout check
+                // 타임아웃은 TOUCH+CANCEL 후 T초 + a 시간이어야 한다.
+                int timeout = GSystem.ProductSettings.ProductInfo.CancelLockTime + 2000;
+                if (_tickStepTimeout[channel].MoreThan(timeout))
+                {
+                    // retry or error
+                    if (++_retryCount[channel] < MaxRetryCount)
+                    {
+                        // 재시도
+                        // Cancel 하강
+                        if (channel == 0)
+                        {
+                            GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelUpStart];
+                            GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelDownStart];
+                        }
+                        else
+                        {
+                            GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelUpStart];
+                            GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelDownStart];
+                        }
+                        // Touch(NFC) 상승
+                        switch (GSystem.ProductSettings.ProductInfo.PartNo)
+                        {
+                            case "82657-P8000": // LQ2 Touch Only LH
+                            case "82667-P8000": // LQ2 Touch Only RH
+                                if (channel == 0)
+                                {
+                                    GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_DownStart];
+                                    GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_UpStart];
+                                }
+                                else
+                                {
+                                    GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_DownStart];
+                                    GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_UpStart];
+                                }
+                                break;
+                            default:
+                                if (channel == 0)
+                                {
+                                    GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchDownStart];
+                                    GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchUpStart];
+                                }
+                                else
+                                {
+                                    GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchDownStart];
+                                    GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchUpStart];
+                                }
+                                break;
+                        }
+                        GSystem.MiPLC.M1402_Req_Proc();
+                        SetTouchOnlyTestStep(channel, TouchOnlyTestStep.LockCancelRetry);
+                        GSystem.TraceMessage($"[CH.{channel + 1}] _retryCount = {_retryCount[channel]}");
+                    }
+                    else
+                    {
+                        // 에러 처리
+                        _overalResult[channel].Cancel.State = TestStates.Failed;
+                        _overalResult[channel].Cancel.Value = $"Timeout";
+                        _overalResult[channel].Cancel.Result = $"Timeout";
+                        // 동작 상태 표시
+                        OnTestStepProgressChanged(channel, _overalResult[channel].Cancel);
+                        SetTouchOnlyTestStep(channel, TouchOnlyTestStep.LockCancelZUpStart);
+                        _tickStepInterval[channel].Reset();
+                    }
+                }
+            }
+        }
+        private void TouchOnlyTestStep_LockCancelRetry(int channel)
+        {
+            // LQ2 NFC는 Touch 위치로
+            // LQ2 Touch Only는 NFC 위치로
+            // 그 외는 Touch 위치로
+            switch (GSystem.ProductSettings.ProductInfo.PartNo)
+            {
+                case "82657-P8000": // LQ2 Touch Only LH
+                case "82667-P8000": // LQ2 Touch Only RH
+                    // NFC 상승 확인
+                    if (GSystem.MiPLC.GetNFCZUpStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetNFCZUpComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetNFCZUpStart(channel, false);
+                    }
+                    break;
+                default:
+                    // Touch 상승 확인
+                    if (GSystem.MiPLC.GetTouchZUpStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetTouchZUpComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetTouchZUpStart(channel, false);
+                    }
+                    break;
+            }
+            if (GSystem.MiPLC.GetCancelZDownStart(channel))
+            {
+                if (!GSystem.MiPLC.GetNFCZUpComplete(channel))
+                    return;
+                GSystem.MiPLC.SetCancelZDownStart(channel, false);
+            }
+            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.LockCancelZUp);
             _tickStepInterval[channel].Reset();
+        }
+        private void TouchOnlyTestStep_LockCancelZUpStart(int channel)
+        {
+            if (_tickStepInterval[channel].LessThan(1000))
+                return;
+            // Touch 상승
+            _tickStepElapse[channel].Reset();
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Motion Cancel Down]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Motion Cancel Down]");
+
+            // LQ2 NFC는 Touch 위치로
+            // LQ2 Touch Only는 NFC 위치로
+            // 그 외는 Touch 위치로
+            switch (GSystem.ProductSettings.ProductInfo.PartNo)
+            {
+                case "82657-P8000": // LQ2 Touch Only LH
+                case "82667-P8000": // LQ2 Touch Only RH
+                    //GSystem.MiPLC.SetNFCZUpStart(channel, true);
+                    if (channel == 0)
+                    {
+                        GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_DownStart];
+                        GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_UpStart];
+                    }
+                    else
+                    {
+                        GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_DownStart];
+                        GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_UpStart];
+                    }
+                    //GSystem.MiPLC.M1402_Req_Proc();
+                    break;
+                default:
+                    //GSystem.MiPLC.SetTouchZUpStart(channel, true);
+                    if (channel == 0)
+                    {
+                        GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchDownStart];
+                        GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchUpStart];
+                    }
+                    else
+                    {
+                        GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchDownStart];
+                        GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchUpStart];
+                    }
+                    //GSystem.MiPLC.M1402_Req_Proc();
+                    break;
+            }
+            // Cancel 하강
+            //GSystem.MiPLC.SetCancelZDownStart(channel, true);
+            if (channel == 0)
+            {
+                GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelUpStart];
+                GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelDownStart];
+            }
+            else
+            {
+                GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelUpStart];
+                GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelDownStart];
+            }
+            GSystem.MiPLC.M1402_Req_Proc();
+            NextTouchOnlyTestStep(channel);
+        }
+        private void TouchOnlyTestStep_LockCancelZUpWait(int channel)
+        {
+            // 완료 대기
+
+            // LQ2 NFC는 Touch 위치로
+            // LQ2 Touch Only는 NFC 위치로
+            // 그 외는 Touch 위치로
+            switch (GSystem.ProductSettings.ProductInfo.PartNo)
+            {
+                case "82657-P8000": // LQ2 Touch Only LH
+                case "82667-P8000": // LQ2 Touch Only RH
+                    if (GSystem.MiPLC.GetNFCZUpStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetNFCZUpComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetNFCZUpStart(channel, false);
+                    }
+                    break;
+                default:
+                    if (GSystem.MiPLC.GetTouchZUpStart(channel))
+                    {
+                        if (!GSystem.MiPLC.GetTouchZUpComplete(channel))
+                            return;
+                        GSystem.MiPLC.SetTouchZUpStart(channel, false);
+                    }
+                    break;
+            }
+            // Cancel 하강 완료 대기
+            if (GSystem.MiPLC.GetCancelZDownStart(channel))
+            {
+                if (!GSystem.MiPLC.GetCancelZDownComplete(channel))
+                    return;
+                GSystem.MiPLC.SetCancelZDownStart(channel, false);
+            }
+
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Cancel Down step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Motion Cancel Down step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Cancel Down Complete");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Motion Cancel Down Complete");
+            // PLC Z축 인터락 설정
+            GSystem.MiPLC.SetZInterlockIgnore(channel, false);
+            NextTouchOnlyTestStep(channel);
+            //SetTouchOnlyTestStep(channel, TouchOnlyTestStep.LockCancelStart);
         }
         private void TouchOnlyTestStep_LowPowerOff(int channel)
         {
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Power Off]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Power Off]");
+            GSystem.DedicatedCTRL.SetCommandDarkPowerOn(channel, false);
             GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, false);
             GSystem.DedicatedCTRL.SetCommandTestInit(channel, true);
             NextTouchOnlyTestStep(channel);
@@ -1347,9 +2154,11 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_LowPowerOffWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 완료 대기
+            if (GSystem.DedicatedCTRL.GetCommandDarkPowerOn(channel) || GSystem.DedicatedCTRL.GetCompleteDarkPowerOn(channel))
+                return;
             if (GSystem.DedicatedCTRL.GetCommandActivePowerOn(channel) || GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
                 return;
             if (!GSystem.DedicatedCTRL.GetCommandTestInit(channel) || !GSystem.DedicatedCTRL.GetCompleteTestInit(channel))
@@ -1372,7 +2181,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_ActivePowerOnWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 완료 대기
             if (!GSystem.DedicatedCTRL.GetCommandActivePowerOn(channel) || !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
@@ -1446,7 +2255,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_SWVersionSend(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 측정 USE 판단
             if (!GSystem.ProductSettings.TestItemSpecs.SW_Version.Use)
@@ -1468,7 +2277,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_SWVersionWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 수신 관련 변수
             char[] rxBuffer = new char[RX_BUFFER_SIZE];
@@ -1530,7 +2339,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_HWVersionSend(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 측정 USE 판단
             if (!GSystem.ProductSettings.TestItemSpecs.HW_Version.Use)
@@ -1552,7 +2361,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_HWVersionWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 수신 관련 변수
             char[] rxBuffer = new char[RX_BUFFER_SIZE];
@@ -1614,7 +2423,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_SerialNumReadSend(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 측정 USE 판단
             if (!GSystem.ProductSettings.TestItemSpecs.SerialNumber.Use)
@@ -1636,7 +2445,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_SerialNumReadWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 수신 관련 변수
             char[] rxBuffer = new char[RX_BUFFER_SIZE];
@@ -1722,7 +2531,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_PartNumberSend(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 측정 USE 판단
             if (!GSystem.ProductSettings.TestItemSpecs.PartNumber.Use)
@@ -1744,7 +2553,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_PartNumberWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 수신 관련 변수
             char[] rxBuffer = new char[RX_BUFFER_SIZE];
@@ -1807,7 +2616,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_DTCEraseSend(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 측정 USE 판단
             if (!GSystem.ProductSettings.TestItemSpecs.DTC_Erase.Use)
@@ -1824,7 +2633,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_DTCEraseWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             GSystem.Logger.Info ($"[CH.{channel + 1}] DTC Erase step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] DTC Erase step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
@@ -1835,7 +2644,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_OperCurrentStart(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 측정 USE 판단
             if (!GSystem.ProductSettings.TestItemSpecs.OperationCurrent.Use)
@@ -1857,14 +2666,16 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_OperCurrentWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
-            short operCurrent;
+            double operCurrent;
             if (channel == CH1)
-                operCurrent = (short)(GSystem.DedicatedCTRL.Reg_03h_ch1_current_hi);
+                operCurrent = (double)(GSystem.DedicatedCTRL.Reg_03h_ch1_current_hi);
             else
-                operCurrent = (short)(GSystem.DedicatedCTRL.Reg_03h_ch2_current_hi);
-            GSystem.Logger.Info ($"[CH.{channel + 1}] Operation Current : [ {operCurrent} mA ]");
+                operCurrent = (double)(GSystem.DedicatedCTRL.Reg_03h_ch2_current_hi);
+            if (operCurrent < OperationCurrentValue[channel])
+                operCurrent = OperationCurrentValue[channel];
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Operation Current : [ {operCurrent:F0} mA ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] Operation Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Operation Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] Operation Current complete");
@@ -1875,8 +2686,8 @@ namespace DHSTesterXL
                 _overalResult[channel].OperationCurrent.State = TestStates.Failed;
             else
                 _overalResult[channel].OperationCurrent.State = TestStates.Pass;
-            _overalResult[channel].OperationCurrent.Value = $"{operCurrent}";
-            _overalResult[channel].OperationCurrent.Result = $"{operCurrent} mA";
+            _overalResult[channel].OperationCurrent.Value = $"{operCurrent:F0}";
+            _overalResult[channel].OperationCurrent.Result = $"{operCurrent:F0} mA";
             // 동작 상태 표시
             OnTestStepProgressChanged(channel, _overalResult[channel].OperationCurrent);
             NextTouchOnlyTestStep(channel);
@@ -1884,21 +2695,23 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_PowerOff(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Power Off]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Power Off]");
+            GSystem.DedicatedCTRL.SetCommandDarkPowerOn(channel, false);
             GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, false);
             NextTouchOnlyTestStep(channel);
             _tickStepInterval[channel].Reset();
         }
         private void TouchOnlyTestStep_PowerOffWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 완료 대기
-            if (GSystem.DedicatedCTRL.GetCommandActivePowerOn(channel) || GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
+
+            if (GSystem.DedicatedCTRL.GetCommandDarkPowerOn(channel) || GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
                 return;
             GSystem.Logger.Info ($"[CH.{channel + 1}] Power Off step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Power Off step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
@@ -1909,7 +2722,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_TestEndStart(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Test End]");
@@ -1920,7 +2733,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_TestEndWait(int channel)
         {
-            if (_tickStepInterval[channel].LessThan(200))
+            if (_tickStepInterval[channel].LessThan(100))
                 return;
             // 완료 대기
             if (!GSystem.DedicatedCTRL.GetCommandTestInit(channel) || !GSystem.DedicatedCTRL.GetCompleteTestInit(channel))
@@ -1930,11 +2743,11 @@ namespace DHSTesterXL
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test End complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test End complete");
             GSystem.DedicatedCTRL.SetCommandTestInit(channel, false);
-            StringBuilder sb = new StringBuilder();
-            sb.Append($"[CH.{channel + 1}] Total Test Elapse: [ {GSystem.TimerTestTime[channel].GetElapsedSeconds():F1} sec ]");
-            GSystem.Logger.Info (sb.ToString());
-            GSystem.TraceMessage(sb.ToString());
-            GSystem.TimerTestTime[channel].Stop();
+            //StringBuilder sb = new StringBuilder();
+            //sb.Append($"[CH.{channel + 1}] Total Test Elapse: [ {GSystem.TimerTestTime[channel].GetElapsedSeconds():F1} sec ]");
+            //GSystem.Logger.Info (sb.ToString());
+            //GSystem.TraceMessage(sb.ToString());
+            //GSystem.TimerTestTime[channel].Stop();
             NextTouchOnlyTestStep(channel);
             _tickStepInterval[channel].Reset();
         }
@@ -1949,29 +2762,50 @@ namespace DHSTesterXL
             _tickStepElapse[channel].Reset();
             GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Motion Unloading]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Motion Unloading]");
-            GSystem.MiPLC.SetMoveLoadStart(channel, true);
-            GSystem.MiPLC.SetUnloadingStart(channel, true);
+            //GSystem.MiPLC.SetMoveLoadStart(channel, true);
+            //GSystem.MiPLC.SetUnloadingStart(channel, true);
+            if (channel == 0)
+            {
+                GSystem.MiPLC.Ch1_W_Command1 |= GDefines.BIT16[(int)PLC_Command1_Bit.YLoadMove];
+                GSystem.MiPLC.Ch1_W_Command1 |= GDefines.BIT16[(int)PLC_Command1_Bit.UnloadingStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
+            else
+            {
+                GSystem.MiPLC.Ch2_W_Command1 |= GDefines.BIT16[(int)PLC_Command1_Bit.YLoadMove];
+                GSystem.MiPLC.Ch2_W_Command1 |= GDefines.BIT16[(int)PLC_Command1_Bit.UnloadingStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
             NextTouchOnlyTestStep(channel);
         }
         private void TouchOnlyTestStep_MotionUnloadingWait(int channel)
         {
             // 완료 대기
-            if (GSystem.MiPLC.GetMoveLoadStart(channel))
+            if (GSystem.MiPLC.GetMoveLoadStart(channel) || GSystem.MiPLC.GetUnloadingStart(channel))
             {
-                if (!GSystem.MiPLC.GetMoveLoadComplete(channel))
+                if (!GSystem.MiPLC.GetMoveLoadComplete(channel) || !GSystem.MiPLC.GetUnloadingComplete(channel))
                     return;
-                GSystem.MiPLC.SetMoveLoadStart(channel, false);
             }
-            if (GSystem.MiPLC.GetUnloadingStart(channel))
+            if (channel == 0)
             {
-                if (!GSystem.MiPLC.GetUnloadingComplete(channel))
-                    return;
-                GSystem.MiPLC.SetUnloadingStart(channel, false);
+                GSystem.MiPLC.Ch1_W_Command1 &= (ushort)~GDefines.BIT16[(int)PLC_Command1_Bit.YLoadMove];
+                GSystem.MiPLC.Ch1_W_Command1 &= (ushort)~GDefines.BIT16[(int)PLC_Command1_Bit.UnloadingStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
+            else
+            {
+                GSystem.MiPLC.Ch2_W_Command1 &= (ushort)~GDefines.BIT16[(int)PLC_Command1_Bit.YLoadMove];
+                GSystem.MiPLC.Ch2_W_Command1 &= (ushort)~GDefines.BIT16[(int)PLC_Command1_Bit.UnloadingStart];
+                GSystem.MiPLC.M1402_Req_Proc();
             }
             GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Unloading step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Unloading step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Unloading Complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Unloading Complete");
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"[CH.{channel + 1}] Total Test Elapse: [ {GSystem.TimerTestTime[channel].GetElapsedSeconds():F1} sec ]");
+            GSystem.Logger.Info(sb.ToString());
+            GSystem.TraceMessage(sb.ToString());
             GSystem.TimerTestTime[channel].Stop();
             NextTouchOnlyTestStep(channel);
             _tickStepInterval[channel].Reset();
@@ -2060,35 +2894,53 @@ namespace DHSTesterXL
                 GSystem.SystemData.Save();
 
                 // 검사 결과 파일 저장
+                // DATA_ALL
                 DateTime saveDate = DateTime.Now;
-                //string suffix = "UFD";
-                string fileName = $"{saveDate.ToString("yyMMdd")}_{ProductSettings.ProductInfo.PartNo}_ch{channel + 1}.csv";
+                string fileName = $"{saveDate:yyMMdd}_{ProductSettings.ProductInfo.PartNo}.csv";
                 string filePath = $"{GSystem.SystemData.GeneralSettings.DataFolderAll}\\{ProductSettings.ProductInfo.PartNo}\\{saveDate:yyyy}\\{saveDate:MM}";
                 string filePathName = Path.Combine(filePath, fileName);
+
+                bool bTitleWrite = true;
+                if (File.Exists(filePathName))
+                    bTitleWrite = false;
 
                 GCsvFile csvFile = new GCsvFile();
                 if (csvFile.Open(fileName, filePath))
                 {
                     // 채널, 시간, 일련번호, 차종, 작업자, 테스트(이름,측정값,결과)
                     StringBuilder sb = new StringBuilder();
-
-                    //sb.Append($"채널,시간,일련번호,차종,작업자");
-                    //int index = 1;
-                    //foreach (var testResult in _testResultsList[channel])
-                    //{
-                    //    sb.Append($"Function_{index},Measure_{index},Result_{index}");
-                    //}
-                    //sb.Append("판정");
-                    //csvFile.Write(sb.ToString());
+                    if (bTitleWrite)
+                    {
+                        // 타이틀
+                        // 번호,제품바코드,시간,일련번호,차종,작업자, 항목,측정값,결과, ...
+                        sb.Append($"No,Tray Barcode,Product Barcode,Time,Type,Worker,");
+                        int index = 1;
+                        foreach (var testResult in _testResultsList[channel])
+                        {
+                            sb.Append($"Function_{index},Measure_{index},Result_{index},");
+                            index++;
+                        }
+                        sb.Append("Total Result");
+                        sb.Append(Environment.NewLine);
+                        csvFile.Write(sb.ToString());
+                    }
 
                     string worker = (GSystem.AdminMode) ? "Manager" : "Operator";
                     sb.Clear();
-                    sb.Append($"CH{channel + 1},{_testStartTime[channel].ToString("hh:mm:ss")},{ProductSettings.ProductInfo.CarType},{worker},");
+                    sb.Append($"{channel + 1},{GSystem.TrayBarcode},{GSystem.ProductBarcode[channel]},{_testStartTime[channel]:hh:mm:ss},{ProductSettings.ProductInfo.CarType},{worker},");
                     foreach (var testResult in _testResultsList[channel])
                     {
-                        string judge = (testResult.State == TestStates.Pass) ? "OK" : "NG";
+                        string judge = string.Empty;
+                        if (testResult.State > TestStates.Running)
+                        {
+                            judge = (testResult.State == TestStates.Pass) ? "OK" : "NG";
+                        }
                         if (testResult.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.RXSWIN])
                             sb.Append($"{testResult.Name},{testResult.Value},{judge},");
+                        //else if (testResult.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.LockCan])
+                        //    sb.Append($"{testResult.Name},{testResult.Result}[{testResult.Value}],{judge},");
+                        //else if (testResult.Name == GDefines.TEST_ITEM_NAME_STR[(int)TestItems.Cancel])
+                        //    sb.Append($"{testResult.Name},{testResult.Result}[{testResult.Value}],{judge},");
                         else
                             sb.Append($"{testResult.Name},{testResult.Result},{judge},");
                     }
@@ -2098,8 +2950,135 @@ namespace DHSTesterXL
                         sb.Append("NG");
                     sb.Append(Environment.NewLine);
                     csvFile.Write(sb.ToString());
-
                     csvFile.Close();
+                }
+                // DATA_PASS
+                if (overalResult == TestStates.Pass)
+                {
+                    // 라벨 출력
+                    if (GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode1 &&
+                        GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode2 &&
+                        GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode3 &&
+                        GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode4 &&
+                        GSystem.ProductBarcode[channel] != GSystem.ProductSettings.MasterSampleCh1.MasterBarcode5)
+                    {
+                        // 마스터샘플이 아닌 경우만 일련번호를 증가시킨다
+                        if (channel == GSystem.CH1)
+                        {
+                            // 임시 일련번호를 채널 일련번호에 반영한다
+                            GSystem.ProductSettings.TestInfo.SerialNumCh1 = GSystem.TempSerialNumber[channel];
+                            // 채널 일련번호가 총 일련번호보다 크면 총 일련번호에 채널 일련번호를 반영한다
+                            if (GSystem.ProductSettings.TestInfo.SerialNumCh1 > GSystem.ProductSettings.TestInfo.SerialNumTot)
+                                GSystem.ProductSettings.TestInfo.SerialNumTot = GSystem.ProductSettings.TestInfo.SerialNumCh1;
+                        }
+                        else
+                        {
+                            // 임시 일련번호를 채널 일련번호에 반영한다
+                            GSystem.ProductSettings.TestInfo.SerialNumCh2 = GSystem.TempSerialNumber[channel];
+                            // 채널 일련번호가 총 일련번호보다 크면 총 일련번호에 채널 일련번호를 반영한다
+                            if (GSystem.ProductSettings.TestInfo.SerialNumCh2 > GSystem.ProductSettings.TestInfo.SerialNumTot)
+                                GSystem.ProductSettings.TestInfo.SerialNumTot = GSystem.ProductSettings.TestInfo.SerialNumCh2;
+                        }
+                        GSystem.ProductSettings.Save(GSystem.ProductSettings.GetFileName(), GSystem.SystemData.GeneralSettings.ProductFolder);
+
+                        if (GSystem.ProductSettings.ProductInfo.UseLabelPrint)
+                        {
+                            //string hwVersion = _overalResult[channel].HW_Version.Value.Insert(1, ".");
+                            //string swVersion = _overalResult[channel].SW_Version.Value;
+                            //string lotNumber = GSystem.GetLotNumber();
+                            //string serialNumber = GSystem.ProductSettings.GetCurrentSerialNumber().ToString("D04");
+                            //string zpl = GSystem.BuildProductLabelZpl(hwVersion, swVersion, lotNumber, serialNumber, "", "", "", "", "");
+                            //string printerName = "ZDesigner ZD421-203dpi ZPL";
+                            //GSystem.SendRawToPrinter(printerName, zpl);
+
+
+                            string hwVersion = $"HW:{_overalResult[channel].HW_Version.Value.Insert(1, ".")}";
+                            string swVersion = $"SW:{_overalResult[channel].SW_Version.Value}";
+                            string lotNumber = $"LOT NO:{GSystem.GetLotNumber()}";
+                            string sn        = $"S/N:{GSystem.ProductSettings.GetCurrentSerialNumber():D04}";
+                            string partNo    = GSystem.ProductSettings.ProductInfo.PartNo; //"82667-P8100";
+                            string fccId     = GSystem.ProductSettings.LabelPrint.Payload.FCCID; //"FCC ID:2A93T-LQ2-DHS-NFC";
+                            string icId      = GSystem.ProductSettings.LabelPrint.Payload.ICID; //"IC ID:30083-LQ2DHSNFC";
+                            string company   = GSystem.ProductSettings.LabelPrint.Style.BrandText; //"INFAC ELECS";
+
+                            string EtcsVendor = GSystem.ProductSettings.LabelPrint.Etcs.Vendor; //"SUR2";
+                            string EtcsPartNo = GSystem.ProductSettings.LabelPrint.Etcs.PartNo; //"8266703200";
+                            string EtcsSerial = GSystem.ProductSettings.LabelPrint.Etcs.Serial; //"";
+                            string EtcsEo     = GSystem.ProductSettings.LabelPrint.Etcs.Eo; //"";
+                            string EtcsTrace  = GSystem.ProductSettings.LabelPrint.Etcs.Trace; //"250807";
+                            string EtcsA1     = GSystem.ProductSettings.LabelPrint.Etcs.A1; //"A000";
+                            string EtcsM      = GSystem.ProductSettings.LabelPrint.Etcs.M; //"0";
+                            string EtcsC      = GSystem.ProductSettings.LabelPrint.Etcs.C; //"001";
+
+                            var payload = new LabelPayload
+                            {
+                                HW = hwVersion,
+                                SW = swVersion,
+                                LOT = lotNumber,
+                                SN = sn,
+                                PartNo = partNo,
+                                FCCID = fccId,
+                                ICID = icId,
+                                Company = company,
+                                DataMatrix = null
+                            };
+
+                            var etcs = new EtcsSettings
+                            {
+                                Vendor = EtcsVendor,
+                                PartNo = EtcsPartNo,
+                                Serial = EtcsSerial,
+                                Eo = EtcsEo,
+                                Trace = EtcsTrace,
+                                A1 = EtcsA1,
+                                M = EtcsM,
+                                C = EtcsC
+                            };
+
+                            // 설정값(ProductSettings.LabelPrint.PrinterName) 우선 사용 + 신규 데이터 전달
+                            GSystem.PrintProductLabel(
+                                payload,
+                                GSystem.ProductSettings.LabelPrint.Style,
+                                etcs: etcs,
+                                printerName: "ZDesigner ZD421-203dpi ZPL",
+                                dpi: null, darkness: null, qty: 1, speedIps: 1
+                            );
+
+
+
+                        }
+                    }
+
+                    string passFilePath = $"{GSystem.SystemData.GeneralSettings.DataFolderPass}\\{ProductSettings.ProductInfo.PartNo}\\{saveDate:yyyy}\\{saveDate:MM}";
+                    string passFilePathName = Path.Combine(passFilePath, fileName);
+                    try
+                    {
+                        if (!Directory.Exists(passFilePath))
+                            Directory.CreateDirectory(passFilePath);
+                        File.Copy(filePathName, passFilePathName, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        // 복사 중 오류 발생
+                        GSystem.Logger.Info ($"파일 복사 중 오류 발생 [{ex.Message}]");
+                        GSystem.TraceMessage($"파일 복사 중 오류 발생 [{ex.Message}]");
+                    }
+
+                }
+                // DATA_BACK
+                string backFilePath = $"{GSystem.SystemData.GeneralSettings.DataFolderBack}\\{ProductSettings.ProductInfo.PartNo}\\{saveDate:yyyy}\\{saveDate:MM}";
+                string backFilePathName = Path.Combine(backFilePath, fileName);
+                try
+                {
+                    if (!Directory.Exists(backFilePath))
+                        Directory.CreateDirectory(backFilePath);
+                    File.Copy(filePathName, backFilePathName, true);
+                }
+                catch (Exception ex)
+                {
+                    // 복사 중 오류 발생
+                    GSystem.Logger.Info ($"파일 복사 중 오류 발생 [{ex.Message}]");
+                    GSystem.TraceMessage($"파일 복사 중 오류 발생 [{ex.Message}]");
                 }
                 GSystem.Logger.Info ($"[CH.{channel + 1}] 테스트 결과 저장 완료 [{filePathName}]");
                 GSystem.TraceMessage($"[CH.{channel + 1}] 테스트 결과 저장 완료 [{filePathName}]");
@@ -2112,6 +3091,125 @@ namespace DHSTesterXL
             // 스레드 종료
             SetTouchOnlyTestStep(channel, TouchOnlyTestStep.Standby);
             _testStepThreadExit[channel] = true;
+        }
+        private void TouchOnlyTestStep_CancelStart(int channel)
+        {
+            _tickStepElapse[channel].Reset();
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Test Cancel Start]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Test Cancel Start]");
+            // PLC Z축 인터락 해제 - 인터락이 풀려있어야 Z축을 한 번에 원위치 시킬 수 있다
+            GSystem.MiPLC.SetZInterlockIgnore(channel, true);
+            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.CancelZHomeStart);
+            _tickStepInterval[channel].Reset();
+        }
+        private void TouchOnlyTestStep_CancelZHomeStart(int channel)
+        {
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Test Cancel - Z Home Start]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Test Cancel - Z Home Start]");
+            if (channel == 0)
+            {
+                GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchDownStart];
+                GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelUpStart];
+                GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_DownStart];
+
+                GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchUpStart];
+                GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelDownStart];
+                GSystem.MiPLC.Ch1_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_UpStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
+            else
+            {
+                GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchDownStart];
+                GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelUpStart];
+                GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_DownStart];
+
+                GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchUpStart];
+                GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelDownStart];
+                GSystem.MiPLC.Ch2_W_Command2 |= GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_UpStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
+            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.CancelZHomeWait);
+        }
+        private void TouchOnlyTestStep_CancelZHomeWait(int channel)
+        {
+            if (GSystem.MiPLC.GetTouchZUpStart(channel) ||
+                GSystem.MiPLC.GetCancelZDownStart(channel) ||
+                GSystem.MiPLC.GetNFCZUpStart(channel))
+            {
+                if (!GSystem.MiPLC.GetTouchZUpComplete(channel) ||
+                    !GSystem.MiPLC.GetCancelZDownComplete(channel) ||
+                    !GSystem.MiPLC.GetNFCZUpComplete(channel))
+                    return;
+            }
+            if (channel == 0)
+            {
+                GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchUpStart];
+                GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelDownStart];
+                GSystem.MiPLC.Ch1_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_UpStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
+            else
+            {
+                GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZTouchUpStart];
+                GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZCancelDownStart];
+                GSystem.MiPLC.Ch2_W_Command2 &= (ushort)~GDefines.BIT16[(int)PLC_Command2_Bit.ZNFC_UpStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
+            //GSystem.MiPLC.SetTouchZUpStart(channel, false);
+            //GSystem.MiPLC.SetCancelZDownStart(channel, false);
+            //GSystem.MiPLC.SetNFCZUpStart(channel, false);
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Test Cancel - Z Home Complete]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Test Cancel - Z Home Complete]");
+            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.CancelComplete);
+        }
+        private void TouchOnlyTestStep_CancelYHomeStart(int channel)
+        {
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Test Cancel - Y Home Start]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Test Cancel - Y Home Start]");
+            if (channel == 0)
+            {
+                GSystem.MiPLC.Ch1_W_Command1 |= GDefines.BIT16[(int)PLC_Command1_Bit.YLoadMove];
+                GSystem.MiPLC.Ch1_W_Command1 |= GDefines.BIT16[(int)PLC_Command1_Bit.UnloadingStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
+            else
+            {
+                GSystem.MiPLC.Ch2_W_Command1 |= GDefines.BIT16[(int)PLC_Command1_Bit.YLoadMove];
+                GSystem.MiPLC.Ch2_W_Command1 |= GDefines.BIT16[(int)PLC_Command1_Bit.UnloadingStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
+            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.CancelYHomeWait);
+        }
+        private void TouchOnlyTestStep_CancelYHomeWait(int channel)
+        {
+            if (GSystem.MiPLC.GetMoveLoadStart(channel) || !GSystem.MiPLC.GetUnloadingStart(channel))
+            {
+                if (!GSystem.MiPLC.GetMoveLoadComplete(channel) || !GSystem.MiPLC.GetUnloadingComplete(channel))
+                    return;
+            }
+            if (channel == 0)
+            {
+                GSystem.MiPLC.Ch1_W_Command1 &= (ushort)~GDefines.BIT16[(int)PLC_Command1_Bit.YLoadMove];
+                GSystem.MiPLC.Ch1_W_Command1 &= (ushort)~GDefines.BIT16[(int)PLC_Command1_Bit.UnloadingStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
+            else
+            {
+                GSystem.MiPLC.Ch2_W_Command1 &= (ushort)~GDefines.BIT16[(int)PLC_Command1_Bit.YLoadMove];
+                GSystem.MiPLC.Ch2_W_Command1 &= (ushort)~GDefines.BIT16[(int)PLC_Command1_Bit.UnloadingStart];
+                GSystem.MiPLC.M1402_Req_Proc();
+            }
+            //GSystem.MiPLC.SetMoveLoadStart(channel, false);
+            //GSystem.MiPLC.SetUnloadingStart(channel, false);
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Test Cancel - Y Home Complete]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Test Cancel - Y Home Complete]");
+            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.CancelComplete);
+        }
+        private void TouchOnlyTestStep_CancelComplete(int channel)
+        {
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Test Cancel Complete]");
+            GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Test Cancel Complete]");
+            SetTouchOnlyTestStep(channel, TouchOnlyTestStep.PowerOff);
         }
 
         // -----------------------------------------------------------------------------------------------

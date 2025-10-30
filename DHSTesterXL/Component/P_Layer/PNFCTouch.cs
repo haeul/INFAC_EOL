@@ -823,7 +823,7 @@ namespace DHSTesterXL
             }
             return statusResult;
         }
-        public XL_Status Send_ShortUpload(int channel, uint address, byte count, bool logging = false)
+        public XL_Status Send_ShortUpload(int channel, uint address, byte count, bool logging = false, string remarks = "")
         {
             uint id = ProductSettings.XcpReqID;
             byte[] byteArray = BitConverter.GetBytes(address);

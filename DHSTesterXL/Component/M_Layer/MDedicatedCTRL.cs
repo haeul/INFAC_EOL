@@ -14,8 +14,10 @@ namespace DHSTesterXL
     {
         TestInit = 0,
         ShortTest,
+        DarkPowerOn,
         ActivePowerOn,
-        LightOn,
+        PLightOn,
+        DarkCurrentStart,
         SensorModel = 8,
         AverageTime = 10,
     }
@@ -479,6 +481,61 @@ namespace DHSTesterXL
             int index = (int)DedicatedCommandBit.ShortTest;
             return ((Reg_03h_ch1_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
+
+        public bool GetCommandDarkPowerOn(int channel)
+        {
+            int index = (int)DedicatedCommandBit.DarkPowerOn;
+            if (channel == (int)DedicatedChannels.Ch1)
+                return ((Reg_10h_ch1_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+            else
+                return ((Reg_10h_ch2_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public void SetCommandDarkPowerOn(int channel, bool state)
+        {
+            SetCommand(channel, DedicatedCommandBit.DarkPowerOn, state);
+            if (channel == (int)DedicatedChannels.Ch1)
+                PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH1_COMMAND, 1);
+            else
+                PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH2_COMMAND, 1);
+        }
+        public bool GetResponseDarkPowerOn(int channel)
+        {
+            int index = (int)DedicatedCommandBit.DarkPowerOn;
+            if (channel == (int)DedicatedChannels.Ch1)
+                return ((Reg_03h_ch1_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+            else
+                return ((Reg_03h_ch2_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public bool GetCompleteDarkPowerOn(int channel)
+        {
+            int index = (int)DedicatedCommandBit.DarkPowerOn;
+            if (channel == (int)DedicatedChannels.Ch1)
+                return ((Reg_03h_ch1_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+            else
+                return ((Reg_03h_ch2_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+
+        public bool GetCommandDarkPowerOnCh1()
+        {
+            int index = (int)DedicatedCommandBit.DarkPowerOn;
+            return ((Reg_10h_ch1_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public void SetCommandDarkPowerOnCh1(bool state)
+        {
+            SetCommand((int)DedicatedChannels.Ch1, DedicatedCommandBit.DarkPowerOn, state);
+            PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH1_COMMAND, 1);
+        }
+        public bool GetResponseDarkPowerOnCh1()
+        {
+            int index = (int)DedicatedCommandBit.DarkPowerOn;
+            return ((Reg_03h_ch1_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public bool GetCompleteDarkPowerOnCh1()
+        {
+            int index = (int)DedicatedCommandBit.DarkPowerOn;
+            return ((Reg_03h_ch1_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+
         public bool GetCommandActivePowerOn(int channel)
         {
             int index = (int)DedicatedCommandBit.ActivePowerOn;
@@ -531,6 +588,72 @@ namespace DHSTesterXL
         {
             int index = (int)DedicatedCommandBit.ActivePowerOn;
             return ((Reg_03h_ch1_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+
+        public bool GetCommandPLightOn(int channel)
+        {
+            int index = (int)DedicatedCommandBit.PLightOn;
+            if (channel == (int)DedicatedChannels.Ch1)
+                return ((Reg_10h_ch1_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+            else
+                return ((Reg_10h_ch2_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public void SetCommandPLightOn(int channel, bool state)
+        {
+            SetCommand(channel, DedicatedCommandBit.PLightOn, state);
+            if (channel == (int)DedicatedChannels.Ch1)
+                PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH1_COMMAND, 1);
+            else
+                PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH2_COMMAND, 1);
+        }
+        public bool GetResponsePLightOn(int channel)
+        {
+            int index = (int)DedicatedCommandBit.PLightOn;
+            if (channel == (int)DedicatedChannels.Ch1)
+                return ((Reg_03h_ch1_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+            else
+                return ((Reg_03h_ch2_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public bool GetCompletePLightOn(int channel)
+        {
+            int index = (int)DedicatedCommandBit.PLightOn;
+            if (channel == (int)DedicatedChannels.Ch1)
+                return ((Reg_03h_ch1_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+            else
+                return ((Reg_03h_ch2_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+
+        public bool GetCommandDarkCurrentStart(int channel)
+        {
+            int index = (int)DedicatedCommandBit.DarkCurrentStart;
+            if (channel == (int)DedicatedChannels.Ch1)
+                return ((Reg_10h_ch1_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+            else
+                return ((Reg_10h_ch2_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public void SetCommandDarkCurrentStart(int channel, bool state)
+        {
+            SetCommand(channel, DedicatedCommandBit.DarkCurrentStart, state);
+            if (channel == (int)DedicatedChannels.Ch1)
+                PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH1_COMMAND, 1);
+            else
+                PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH2_COMMAND, 1);
+        }
+        public bool GetResponseDarkCurrentStart(int channel)
+        {
+            int index = (int)DedicatedCommandBit.DarkCurrentStart;
+            if (channel == (int)DedicatedChannels.Ch1)
+                return ((Reg_03h_ch1_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+            else
+                return ((Reg_03h_ch2_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public bool GetCompleteDarkCurrentStart(int channel)
+        {
+            int index = (int)DedicatedCommandBit.DarkCurrentStart;
+            if (channel == (int)DedicatedChannels.Ch1)
+                return ((Reg_03h_ch1_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+            else
+                return ((Reg_03h_ch2_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
 
         public bool GetCommandSensorModel(int channel)
@@ -679,6 +802,27 @@ namespace DHSTesterXL
         public bool GetCompleteShortTestCh2()
         {
             int index = (int)DedicatedCommandBit.ShortTest;
+            return ((Reg_03h_ch2_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+
+        public bool GetCommandDarkPowerOnCh2()
+        {
+            int index = (int)DedicatedCommandBit.DarkPowerOn;
+            return ((Reg_10h_ch2_command & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public void SetCommandDarkPowerOnCh2(bool state)
+        {
+            SetCommand((int)DedicatedChannels.Ch2, DedicatedCommandBit.DarkPowerOn, state);
+            PushCommand(FC10h_WriteMultipleRegister, ADDR_10H_CH2_COMMAND, 1);
+        }
+        public bool GetResponseDarkPowerOnCh2()
+        {
+            int index = (int)DedicatedCommandBit.DarkPowerOn;
+            return ((Reg_03h_ch2_response & GDefines.BIT16[index]) == GDefines.BIT16[index]);
+        }
+        public bool GetCompleteDarkPowerOnCh2()
+        {
+            int index = (int)DedicatedCommandBit.DarkPowerOn;
             return ((Reg_03h_ch2_complete & GDefines.BIT16[index]) == GDefines.BIT16[index]);
         }
 

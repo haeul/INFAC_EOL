@@ -477,8 +477,18 @@ namespace DHSTesterXL
                 {
                     if (gridDCtrlRegisters[1, i].Value.ToString() != string.Empty)
                     {
-                        if (gridDCtrlRegisters[2, i].Value.ToString() != GSystem.DedicatedCTRL.GetRegisterValue(i).ToString())
-                            gridDCtrlRegisters[2, i].Value = GSystem.DedicatedCTRL.GetRegisterValue(i).ToString();
+                        //gridReadPLC[2, (int)PLC_ReadRegister.Ch1_Status1].Value = $"{GSystem.MiPLC.Ch1_R_Status1:X04}h";
+                        //if (gridDCtrlRegisters[2, i].Value.ToString() != GSystem.DedicatedCTRL.GetRegisterValue(i).ToString())
+                        //    gridDCtrlRegisters[2, i].Value = GSystem.DedicatedCTRL.GetRegisterValue(i).ToString();
+
+                        if (i == 0 || i == 1 || i == 24 || i == 25 || i == 47 || i == 48 || i == 50 || i == 55 || i == 60)
+                        {
+                            gridDCtrlRegisters[2, i].Value = $"{GSystem.DedicatedCTRL.GetRegisterValue(i):X04}h";
+                        }
+                        else
+                        {
+                            gridDCtrlRegisters[2, i].Value = $"{GSystem.DedicatedCTRL.GetRegisterValue(i)}";
+                        }
                     }
                 }
             }
@@ -608,7 +618,7 @@ namespace DHSTesterXL
         {
             try
             {
-                GSystem.DedicatedCTRL.SetCommandActivePowerOnCh1(true);
+                GSystem.DedicatedCTRL.SetCommandDarkPowerOnCh1(!GSystem.DedicatedCTRL.GetCommandDarkPowerOnCh1());
             }
             catch (Exception ex)
             {
@@ -620,7 +630,7 @@ namespace DHSTesterXL
         {
             try
             {
-                GSystem.DedicatedCTRL.SetCommandActivePowerOnCh1(false);
+                GSystem.DedicatedCTRL.SetCommandActivePowerOnCh1(!GSystem.DedicatedCTRL.GetCommandActivePowerOnCh1());
             }
             catch (Exception ex)
             {
@@ -674,7 +684,7 @@ namespace DHSTesterXL
         {
             try
             {
-                GSystem.DedicatedCTRL.SetCommandActivePowerOnCh2(true);
+                GSystem.DedicatedCTRL.SetCommandDarkPowerOnCh2(!GSystem.DedicatedCTRL.GetCommandDarkPowerOnCh2());
             }
             catch (Exception ex)
             {
@@ -686,7 +696,7 @@ namespace DHSTesterXL
         {
             try
             {
-                GSystem.DedicatedCTRL.SetCommandActivePowerOnCh2(false);
+                GSystem.DedicatedCTRL.SetCommandActivePowerOnCh2(!GSystem.DedicatedCTRL.GetCommandActivePowerOnCh2());
             }
             catch (Exception ex)
             {
@@ -2585,8 +2595,8 @@ namespace DHSTesterXL
             {
                 await Task.Run(() =>
                 {
-                    GSystem.MiPLC.SetZAxisInterlock(GSystem.CH1, checkZInterlock.Checked);
-                    GSystem.MiPLC.SetZAxisInterlock(GSystem.CH2, checkZInterlock.Checked);
+                    GSystem.MiPLC.SetZInterlockIgnore(GSystem.CH1, checkZInterlock.Checked);
+                    GSystem.MiPLC.SetZInterlockIgnore(GSystem.CH2, checkZInterlock.Checked);
                 });
             }
             catch (Exception ex)
@@ -2728,6 +2738,58 @@ namespace DHSTesterXL
                 {
                     await Task.Run(() => GSystem.MiPLC.SetMeasureCompleteStart(channel, !GSystem.MiPLC.GetMeasureCompleteStart(channel)));
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonPLightCh1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int channel = _CH1;
+                GSystem.DedicatedCTRL.SetCommandPLightOn(channel, !GSystem.DedicatedCTRL.GetCommandPLightOn(channel));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonPLightCh2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int channel = _CH2;
+                GSystem.DedicatedCTRL.SetCommandPLightOn(channel, !GSystem.DedicatedCTRL.GetCommandPLightOn(channel));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonDarkCurrentStartCh1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int channel = _CH1;
+                GSystem.DedicatedCTRL.SetCommandDarkCurrentStart(channel, !GSystem.DedicatedCTRL.GetCommandDarkCurrentStart(channel));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonDarkCurrentStartCh2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int channel = _CH2;
+                GSystem.DedicatedCTRL.SetCommandDarkCurrentStart(channel, !GSystem.DedicatedCTRL.GetCommandDarkCurrentStart(channel));
             }
             catch (Exception ex)
             {

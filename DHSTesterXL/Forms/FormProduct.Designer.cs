@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.buttonNew = new System.Windows.Forms.Button();
             this.buttonCopy = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
@@ -263,6 +263,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
+            this.buttonMasterTestResult = new System.Windows.Forms.Button();
             this.checkUseMasterSample = new System.Windows.Forms.CheckBox();
             this.numericMasterCount = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
@@ -294,7 +295,7 @@
             this.labelMasterOk2_Ch1 = new System.Windows.Forms.Label();
             this.labelMasterOk1_Ch1 = new System.Windows.Forms.Label();
             this.labelMaster1 = new System.Windows.Forms.Label();
-            this.buttonMasterTestResult = new System.Windows.Forms.Button();
+            this.checkVFlash = new System.Windows.Forms.CheckBox();
             this.panelProductInfo.SuspendLayout();
             this.panelProductInfoFrame.SuspendLayout();
             this.panelTestSettingsFrame.SuspendLayout();
@@ -564,9 +565,11 @@
             this.comboConnType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboConnType.FormattingEnabled = true;
             this.comboConnType.Items.AddRange(new object[] {
-            "None",
+            "Sensor Off",
             "JG NFC Touch",
             "JG Touch Only",
+            "NH2 NFC Touch",
+            "NH2 Touch Only",
             "LQ2 NFC Touch",
             "LQ2 Touch Only"});
             this.comboConnType.Location = new System.Drawing.Point(95, 198);
@@ -641,14 +644,14 @@
             this.gridTestList.AllowUserToResizeRows = false;
             this.gridTestList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridTestList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridTestList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridTestList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gridTestList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridTestList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colTestNo,
@@ -657,14 +660,14 @@
             this.colTestMin,
             this.colTestMax,
             this.colTestOption});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridTestList.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridTestList.DefaultCellStyle = dataGridViewCellStyle2;
             this.gridTestList.GridColor = System.Drawing.Color.LightGray;
             this.gridTestList.Location = new System.Drawing.Point(10, 30);
             this.gridTestList.Name = "gridTestList";
@@ -1351,28 +1354,28 @@
             this.gridXcpList.AllowUserToResizeRows = false;
             this.gridXcpList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridXcpList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridXcpList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridXcpList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.gridXcpList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridXcpList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colXcpNo,
             this.colUse,
             this.colXcpItem,
             this.colXcpAddress});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridXcpList.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridXcpList.DefaultCellStyle = dataGridViewCellStyle4;
             this.gridXcpList.GridColor = System.Drawing.Color.LightGray;
             this.gridXcpList.Location = new System.Drawing.Point(10, 30);
             this.gridXcpList.Name = "gridXcpList";
@@ -2849,6 +2852,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BackColor = System.Drawing.SystemColors.Control;
+            this.panel4.Controls.Add(this.checkVFlash);
             this.panel4.Controls.Add(this.checkUseLabelPrint);
             this.panel4.Controls.Add(this.checkUseTrayInterlock);
             this.panel4.Controls.Add(this.checkUseProductBarcode);
@@ -2958,6 +2962,16 @@
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(498, 248);
             this.panel10.TabIndex = 0;
+            // 
+            // buttonMasterTestResult
+            // 
+            this.buttonMasterTestResult.Location = new System.Drawing.Point(170, 206);
+            this.buttonMasterTestResult.Name = "buttonMasterTestResult";
+            this.buttonMasterTestResult.Size = new System.Drawing.Size(150, 30);
+            this.buttonMasterTestResult.TabIndex = 8;
+            this.buttonMasterTestResult.Text = "마스터샘플 상태 보이기";
+            this.buttonMasterTestResult.UseVisualStyleBackColor = true;
+            this.buttonMasterTestResult.Visible = false;
             // 
             // checkUseMasterSample
             // 
@@ -3266,15 +3280,17 @@
             this.labelMaster1.Text = "제품 1";
             this.labelMaster1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // buttonMasterTestResult
+            // checkVFlash
             // 
-            this.buttonMasterTestResult.Location = new System.Drawing.Point(170, 206);
-            this.buttonMasterTestResult.Name = "buttonMasterTestResult";
-            this.buttonMasterTestResult.Size = new System.Drawing.Size(150, 30);
-            this.buttonMasterTestResult.TabIndex = 8;
-            this.buttonMasterTestResult.Text = "마스터샘플 상태 보이기";
-            this.buttonMasterTestResult.UseVisualStyleBackColor = true;
-            this.buttonMasterTestResult.Visible = false;
+            this.checkVFlash.AutoSize = true;
+            this.checkVFlash.Checked = true;
+            this.checkVFlash.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkVFlash.Location = new System.Drawing.Point(278, 30);
+            this.checkVFlash.Name = "checkVFlash";
+            this.checkVFlash.Size = new System.Drawing.Size(70, 19);
+            this.checkVFlash.TabIndex = 7;
+            this.checkVFlash.Text = "VFLASH";
+            this.checkVFlash.UseVisualStyleBackColor = true;
             // 
             // FormProduct
             // 
@@ -3616,5 +3632,6 @@
         private System.Windows.Forms.Label labelMasterOk3_Ch1;
         private System.Windows.Forms.Label labelMasterOk2_Ch1;
         private System.Windows.Forms.Button buttonMasterTestResult;
+        private System.Windows.Forms.CheckBox checkVFlash;
     }
 }

@@ -78,6 +78,8 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonPLightCh2 = new System.Windows.Forms.Button();
+            this.buttonPLightCh1 = new System.Windows.Forms.Button();
             this.buttonSetSensor = new System.Windows.Forms.Button();
             this.comboSensorModel = new System.Windows.Forms.ComboBox();
             this.buttonStartLampCh2 = new System.Windows.Forms.Button();
@@ -113,6 +115,14 @@
             this.comboDCtrlPortName = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.buttonMeasureCompleteCh2 = new System.Windows.Forms.Button();
+            this.buttonMeasureCompleteCh1 = new System.Windows.Forms.Button();
+            this.buttonErrorResetCh2 = new System.Windows.Forms.Button();
+            this.buttonErrorResetCh1 = new System.Windows.Forms.Button();
+            this.buttonTowerLampOffCh2 = new System.Windows.Forms.Button();
+            this.buttonTowerLampOnCh2 = new System.Windows.Forms.Button();
+            this.buttonTowerLampOffCh1 = new System.Windows.Forms.Button();
+            this.buttonTowerLampOnCh1 = new System.Windows.Forms.Button();
             this.buttonNFCZDownCh2 = new System.Windows.Forms.Button();
             this.buttonNFCZDownCh1 = new System.Windows.Forms.Button();
             this.textNFC_Z_SetPosCh2 = new System.Windows.Forms.TextBox();
@@ -127,6 +137,7 @@
             this.buttonAutoNfcCh1 = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.checkZInterlock = new System.Windows.Forms.CheckBox();
             this.checkPLC_AutoReset = new System.Windows.Forms.CheckBox();
             this.buttonPLC_TestStopCh2 = new System.Windows.Forms.Button();
             this.buttonPLC_UnclampCh2 = new System.Windows.Forms.Button();
@@ -215,15 +226,8 @@
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
-            this.checkZInterlock = new System.Windows.Forms.CheckBox();
-            this.buttonTowerLampOnCh1 = new System.Windows.Forms.Button();
-            this.buttonTowerLampOnCh2 = new System.Windows.Forms.Button();
-            this.buttonTowerLampOffCh1 = new System.Windows.Forms.Button();
-            this.buttonTowerLampOffCh2 = new System.Windows.Forms.Button();
-            this.buttonErrorResetCh1 = new System.Windows.Forms.Button();
-            this.buttonErrorResetCh2 = new System.Windows.Forms.Button();
-            this.buttonMeasureCompleteCh1 = new System.Windows.Forms.Button();
-            this.buttonMeasureCompleteCh2 = new System.Windows.Forms.Button();
+            this.buttonDarkCurrentStartCh1 = new System.Windows.Forms.Button();
+            this.buttonDarkCurrentStartCh2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel9.SuspendLayout();
@@ -717,6 +721,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.panel2.Controls.Add(this.buttonDarkCurrentStartCh2);
+            this.panel2.Controls.Add(this.buttonDarkCurrentStartCh1);
+            this.panel2.Controls.Add(this.buttonPLightCh2);
+            this.panel2.Controls.Add(this.buttonPLightCh1);
             this.panel2.Controls.Add(this.buttonSetSensor);
             this.panel2.Controls.Add(this.comboSensorModel);
             this.panel2.Controls.Add(this.buttonStartLampCh2);
@@ -738,9 +746,29 @@
             this.panel2.Size = new System.Drawing.Size(528, 626);
             this.panel2.TabIndex = 0;
             // 
+            // buttonPLightCh2
+            // 
+            this.buttonPLightCh2.Location = new System.Drawing.Point(410, 202);
+            this.buttonPLightCh2.Name = "buttonPLightCh2";
+            this.buttonPLightCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLightCh2.TabIndex = 14;
+            this.buttonPLightCh2.Text = "P-Light";
+            this.buttonPLightCh2.UseVisualStyleBackColor = true;
+            this.buttonPLightCh2.Click += new System.EventHandler(this.buttonPLightCh2_Click);
+            // 
+            // buttonPLightCh1
+            // 
+            this.buttonPLightCh1.Location = new System.Drawing.Point(300, 202);
+            this.buttonPLightCh1.Name = "buttonPLightCh1";
+            this.buttonPLightCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonPLightCh1.TabIndex = 14;
+            this.buttonPLightCh1.Text = "P-Light";
+            this.buttonPLightCh1.UseVisualStyleBackColor = true;
+            this.buttonPLightCh1.Click += new System.EventHandler(this.buttonPLightCh1_Click);
+            // 
             // buttonSetSensor
             // 
-            this.buttonSetSensor.Location = new System.Drawing.Point(300, 256);
+            this.buttonSetSensor.Location = new System.Drawing.Point(300, 274);
             this.buttonSetSensor.Name = "buttonSetSensor";
             this.buttonSetSensor.Size = new System.Drawing.Size(210, 30);
             this.buttonSetSensor.TabIndex = 13;
@@ -755,16 +783,18 @@
             "Sensor Off",
             "JG NFC Touch",
             "JG Touch Only",
+            "NH2 NFC Touch",
+            "NH2 Touch Only",
             "LQ2 NFC Touch",
             "LQ2 Touch Only"});
-            this.comboSensorModel.Location = new System.Drawing.Point(300, 227);
+            this.comboSensorModel.Location = new System.Drawing.Point(300, 245);
             this.comboSensorModel.Name = "comboSensorModel";
             this.comboSensorModel.Size = new System.Drawing.Size(210, 23);
             this.comboSensorModel.TabIndex = 12;
             // 
             // buttonStartLampCh2
             // 
-            this.buttonStartLampCh2.Location = new System.Drawing.Point(410, 306);
+            this.buttonStartLampCh2.Location = new System.Drawing.Point(410, 324);
             this.buttonStartLampCh2.Name = "buttonStartLampCh2";
             this.buttonStartLampCh2.Size = new System.Drawing.Size(100, 30);
             this.buttonStartLampCh2.TabIndex = 10;
@@ -775,7 +805,7 @@
             // 
             // buttonStartLampCh1
             // 
-            this.buttonStartLampCh1.Location = new System.Drawing.Point(303, 306);
+            this.buttonStartLampCh1.Location = new System.Drawing.Point(303, 324);
             this.buttonStartLampCh1.Name = "buttonStartLampCh1";
             this.buttonStartLampCh1.Size = new System.Drawing.Size(100, 30);
             this.buttonStartLampCh1.TabIndex = 10;
@@ -790,7 +820,7 @@
             this.buttonHighPowerCh2.Name = "buttonHighPowerCh2";
             this.buttonHighPowerCh2.Size = new System.Drawing.Size(100, 30);
             this.buttonHighPowerCh2.TabIndex = 7;
-            this.buttonHighPowerCh2.Text = "Power Off";
+            this.buttonHighPowerCh2.Text = "Active Power";
             this.buttonHighPowerCh2.UseVisualStyleBackColor = true;
             this.buttonHighPowerCh2.Click += new System.EventHandler(this.buttonHighPowerCh2_Click);
             // 
@@ -800,7 +830,7 @@
             this.buttonHighPowerCh1.Name = "buttonHighPowerCh1";
             this.buttonHighPowerCh1.Size = new System.Drawing.Size(100, 30);
             this.buttonHighPowerCh1.TabIndex = 7;
-            this.buttonHighPowerCh1.Text = "Power Off";
+            this.buttonHighPowerCh1.Text = "Active Power";
             this.buttonHighPowerCh1.UseVisualStyleBackColor = true;
             this.buttonHighPowerCh1.Click += new System.EventHandler(this.buttonHighPowerCh1_Click);
             // 
@@ -832,7 +862,7 @@
             this.buttonLowPowerCh2.Name = "buttonLowPowerCh2";
             this.buttonLowPowerCh2.Size = new System.Drawing.Size(100, 30);
             this.buttonLowPowerCh2.TabIndex = 7;
-            this.buttonLowPowerCh2.Text = "Power On";
+            this.buttonLowPowerCh2.Text = "Dark Power";
             this.buttonLowPowerCh2.UseVisualStyleBackColor = true;
             this.buttonLowPowerCh2.Click += new System.EventHandler(this.buttonLowPowerCh2_Click);
             // 
@@ -842,7 +872,7 @@
             this.buttonLowPowerCh1.Name = "buttonLowPowerCh1";
             this.buttonLowPowerCh1.Size = new System.Drawing.Size(100, 30);
             this.buttonLowPowerCh1.TabIndex = 7;
-            this.buttonLowPowerCh1.Text = "Power On";
+            this.buttonLowPowerCh1.Text = "Dark Power";
             this.buttonLowPowerCh1.UseVisualStyleBackColor = true;
             this.buttonLowPowerCh1.Click += new System.EventHandler(this.buttonLowPowerCh1_Click);
             // 
@@ -1175,6 +1205,86 @@
             this.tabPage4.Text = "PLC";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // buttonMeasureCompleteCh2
+            // 
+            this.buttonMeasureCompleteCh2.Location = new System.Drawing.Point(130, 430);
+            this.buttonMeasureCompleteCh2.Name = "buttonMeasureCompleteCh2";
+            this.buttonMeasureCompleteCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonMeasureCompleteCh2.TabIndex = 14;
+            this.buttonMeasureCompleteCh2.Text = "검사 완료";
+            this.buttonMeasureCompleteCh2.UseVisualStyleBackColor = true;
+            this.buttonMeasureCompleteCh2.Click += new System.EventHandler(this.buttonMeasureCompleteCh2_Click);
+            // 
+            // buttonMeasureCompleteCh1
+            // 
+            this.buttonMeasureCompleteCh1.Location = new System.Drawing.Point(24, 430);
+            this.buttonMeasureCompleteCh1.Name = "buttonMeasureCompleteCh1";
+            this.buttonMeasureCompleteCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonMeasureCompleteCh1.TabIndex = 14;
+            this.buttonMeasureCompleteCh1.Text = "검사 완료";
+            this.buttonMeasureCompleteCh1.UseVisualStyleBackColor = true;
+            this.buttonMeasureCompleteCh1.Click += new System.EventHandler(this.buttonMeasureCompleteCh1_Click);
+            // 
+            // buttonErrorResetCh2
+            // 
+            this.buttonErrorResetCh2.Location = new System.Drawing.Point(130, 394);
+            this.buttonErrorResetCh2.Name = "buttonErrorResetCh2";
+            this.buttonErrorResetCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonErrorResetCh2.TabIndex = 13;
+            this.buttonErrorResetCh2.Text = "에러 리셋";
+            this.buttonErrorResetCh2.UseVisualStyleBackColor = true;
+            this.buttonErrorResetCh2.Click += new System.EventHandler(this.buttonErrorResetCh2_Click);
+            // 
+            // buttonErrorResetCh1
+            // 
+            this.buttonErrorResetCh1.Location = new System.Drawing.Point(24, 394);
+            this.buttonErrorResetCh1.Name = "buttonErrorResetCh1";
+            this.buttonErrorResetCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonErrorResetCh1.TabIndex = 13;
+            this.buttonErrorResetCh1.Text = "에러 리셋";
+            this.buttonErrorResetCh1.UseVisualStyleBackColor = true;
+            this.buttonErrorResetCh1.Click += new System.EventHandler(this.buttonErrorResetCh1_Click);
+            // 
+            // buttonTowerLampOffCh2
+            // 
+            this.buttonTowerLampOffCh2.Location = new System.Drawing.Point(130, 358);
+            this.buttonTowerLampOffCh2.Name = "buttonTowerLampOffCh2";
+            this.buttonTowerLampOffCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonTowerLampOffCh2.TabIndex = 12;
+            this.buttonTowerLampOffCh2.Text = "경광등 리셋";
+            this.buttonTowerLampOffCh2.UseVisualStyleBackColor = true;
+            this.buttonTowerLampOffCh2.Click += new System.EventHandler(this.buttonTowerLampOffCh2_Click);
+            // 
+            // buttonTowerLampOnCh2
+            // 
+            this.buttonTowerLampOnCh2.Location = new System.Drawing.Point(130, 322);
+            this.buttonTowerLampOnCh2.Name = "buttonTowerLampOnCh2";
+            this.buttonTowerLampOnCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonTowerLampOnCh2.TabIndex = 12;
+            this.buttonTowerLampOnCh2.Text = "에러 경광등";
+            this.buttonTowerLampOnCh2.UseVisualStyleBackColor = true;
+            this.buttonTowerLampOnCh2.Click += new System.EventHandler(this.buttonTowerLampOnCh2_Click);
+            // 
+            // buttonTowerLampOffCh1
+            // 
+            this.buttonTowerLampOffCh1.Location = new System.Drawing.Point(24, 358);
+            this.buttonTowerLampOffCh1.Name = "buttonTowerLampOffCh1";
+            this.buttonTowerLampOffCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonTowerLampOffCh1.TabIndex = 12;
+            this.buttonTowerLampOffCh1.Text = "경광등 리셋";
+            this.buttonTowerLampOffCh1.UseVisualStyleBackColor = true;
+            this.buttonTowerLampOffCh1.Click += new System.EventHandler(this.buttonTowerLampOffCh1_Click);
+            // 
+            // buttonTowerLampOnCh1
+            // 
+            this.buttonTowerLampOnCh1.Location = new System.Drawing.Point(24, 322);
+            this.buttonTowerLampOnCh1.Name = "buttonTowerLampOnCh1";
+            this.buttonTowerLampOnCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonTowerLampOnCh1.TabIndex = 12;
+            this.buttonTowerLampOnCh1.Text = "에러 경광등";
+            this.buttonTowerLampOnCh1.UseVisualStyleBackColor = true;
+            this.buttonTowerLampOnCh1.Click += new System.EventHandler(this.buttonTowerLampOnCh1_Click);
+            // 
             // buttonNFCZDownCh2
             // 
             this.buttonNFCZDownCh2.Location = new System.Drawing.Point(130, 269);
@@ -1360,6 +1470,17 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(738, 626);
             this.panel6.TabIndex = 0;
+            // 
+            // checkZInterlock
+            // 
+            this.checkZInterlock.AutoSize = true;
+            this.checkZInterlock.Location = new System.Drawing.Point(383, 545);
+            this.checkZInterlock.Name = "checkZInterlock";
+            this.checkZInterlock.Size = new System.Drawing.Size(113, 19);
+            this.checkZInterlock.TabIndex = 10;
+            this.checkZInterlock.Text = "Z축 인터락 해제";
+            this.checkZInterlock.UseVisualStyleBackColor = true;
+            this.checkZInterlock.CheckedChanged += new System.EventHandler(this.checkZInterlock_CheckedChanged);
             // 
             // checkPLC_AutoReset
             // 
@@ -2452,96 +2573,25 @@
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
-            // checkZInterlock
+            // buttonDarkCurrentStartCh1
             // 
-            this.checkZInterlock.AutoSize = true;
-            this.checkZInterlock.Location = new System.Drawing.Point(383, 545);
-            this.checkZInterlock.Name = "checkZInterlock";
-            this.checkZInterlock.Size = new System.Drawing.Size(113, 19);
-            this.checkZInterlock.TabIndex = 10;
-            this.checkZInterlock.Text = "Z축 인터락 해제";
-            this.checkZInterlock.UseVisualStyleBackColor = true;
-            this.checkZInterlock.CheckedChanged += new System.EventHandler(this.checkZInterlock_CheckedChanged);
+            this.buttonDarkCurrentStartCh1.Location = new System.Drawing.Point(303, 431);
+            this.buttonDarkCurrentStartCh1.Name = "buttonDarkCurrentStartCh1";
+            this.buttonDarkCurrentStartCh1.Size = new System.Drawing.Size(100, 30);
+            this.buttonDarkCurrentStartCh1.TabIndex = 15;
+            this.buttonDarkCurrentStartCh1.Text = "암전류 시작";
+            this.buttonDarkCurrentStartCh1.UseVisualStyleBackColor = true;
+            this.buttonDarkCurrentStartCh1.Click += new System.EventHandler(this.buttonDarkCurrentStartCh1_Click);
             // 
-            // buttonTowerLampOnCh1
+            // buttonDarkCurrentStartCh2
             // 
-            this.buttonTowerLampOnCh1.Location = new System.Drawing.Point(24, 322);
-            this.buttonTowerLampOnCh1.Name = "buttonTowerLampOnCh1";
-            this.buttonTowerLampOnCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonTowerLampOnCh1.TabIndex = 12;
-            this.buttonTowerLampOnCh1.Text = "에러 경광등";
-            this.buttonTowerLampOnCh1.UseVisualStyleBackColor = true;
-            this.buttonTowerLampOnCh1.Click += new System.EventHandler(this.buttonTowerLampOnCh1_Click);
-            // 
-            // buttonTowerLampOnCh2
-            // 
-            this.buttonTowerLampOnCh2.Location = new System.Drawing.Point(130, 322);
-            this.buttonTowerLampOnCh2.Name = "buttonTowerLampOnCh2";
-            this.buttonTowerLampOnCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonTowerLampOnCh2.TabIndex = 12;
-            this.buttonTowerLampOnCh2.Text = "에러 경광등";
-            this.buttonTowerLampOnCh2.UseVisualStyleBackColor = true;
-            this.buttonTowerLampOnCh2.Click += new System.EventHandler(this.buttonTowerLampOnCh2_Click);
-            // 
-            // buttonTowerLampOffCh1
-            // 
-            this.buttonTowerLampOffCh1.Location = new System.Drawing.Point(24, 358);
-            this.buttonTowerLampOffCh1.Name = "buttonTowerLampOffCh1";
-            this.buttonTowerLampOffCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonTowerLampOffCh1.TabIndex = 12;
-            this.buttonTowerLampOffCh1.Text = "경광등 리셋";
-            this.buttonTowerLampOffCh1.UseVisualStyleBackColor = true;
-            this.buttonTowerLampOffCh1.Click += new System.EventHandler(this.buttonTowerLampOffCh1_Click);
-            // 
-            // buttonTowerLampOffCh2
-            // 
-            this.buttonTowerLampOffCh2.Location = new System.Drawing.Point(130, 358);
-            this.buttonTowerLampOffCh2.Name = "buttonTowerLampOffCh2";
-            this.buttonTowerLampOffCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonTowerLampOffCh2.TabIndex = 12;
-            this.buttonTowerLampOffCh2.Text = "경광등 리셋";
-            this.buttonTowerLampOffCh2.UseVisualStyleBackColor = true;
-            this.buttonTowerLampOffCh2.Click += new System.EventHandler(this.buttonTowerLampOffCh2_Click);
-            // 
-            // buttonErrorResetCh1
-            // 
-            this.buttonErrorResetCh1.Location = new System.Drawing.Point(24, 394);
-            this.buttonErrorResetCh1.Name = "buttonErrorResetCh1";
-            this.buttonErrorResetCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonErrorResetCh1.TabIndex = 13;
-            this.buttonErrorResetCh1.Text = "에러 리셋";
-            this.buttonErrorResetCh1.UseVisualStyleBackColor = true;
-            this.buttonErrorResetCh1.Click += new System.EventHandler(this.buttonErrorResetCh1_Click);
-            // 
-            // buttonErrorResetCh2
-            // 
-            this.buttonErrorResetCh2.Location = new System.Drawing.Point(130, 394);
-            this.buttonErrorResetCh2.Name = "buttonErrorResetCh2";
-            this.buttonErrorResetCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonErrorResetCh2.TabIndex = 13;
-            this.buttonErrorResetCh2.Text = "에러 리셋";
-            this.buttonErrorResetCh2.UseVisualStyleBackColor = true;
-            this.buttonErrorResetCh2.Click += new System.EventHandler(this.buttonErrorResetCh2_Click);
-            // 
-            // buttonMeasureCompleteCh1
-            // 
-            this.buttonMeasureCompleteCh1.Location = new System.Drawing.Point(24, 430);
-            this.buttonMeasureCompleteCh1.Name = "buttonMeasureCompleteCh1";
-            this.buttonMeasureCompleteCh1.Size = new System.Drawing.Size(100, 30);
-            this.buttonMeasureCompleteCh1.TabIndex = 14;
-            this.buttonMeasureCompleteCh1.Text = "검사 완료";
-            this.buttonMeasureCompleteCh1.UseVisualStyleBackColor = true;
-            this.buttonMeasureCompleteCh1.Click += new System.EventHandler(this.buttonMeasureCompleteCh1_Click);
-            // 
-            // buttonMeasureCompleteCh2
-            // 
-            this.buttonMeasureCompleteCh2.Location = new System.Drawing.Point(130, 430);
-            this.buttonMeasureCompleteCh2.Name = "buttonMeasureCompleteCh2";
-            this.buttonMeasureCompleteCh2.Size = new System.Drawing.Size(100, 30);
-            this.buttonMeasureCompleteCh2.TabIndex = 14;
-            this.buttonMeasureCompleteCh2.Text = "검사 완료";
-            this.buttonMeasureCompleteCh2.UseVisualStyleBackColor = true;
-            this.buttonMeasureCompleteCh2.Click += new System.EventHandler(this.buttonMeasureCompleteCh2_Click);
+            this.buttonDarkCurrentStartCh2.Location = new System.Drawing.Point(410, 431);
+            this.buttonDarkCurrentStartCh2.Name = "buttonDarkCurrentStartCh2";
+            this.buttonDarkCurrentStartCh2.Size = new System.Drawing.Size(100, 30);
+            this.buttonDarkCurrentStartCh2.TabIndex = 15;
+            this.buttonDarkCurrentStartCh2.Text = "암전류 시작";
+            this.buttonDarkCurrentStartCh2.UseVisualStyleBackColor = true;
+            this.buttonDarkCurrentStartCh2.Click += new System.EventHandler(this.buttonDarkCurrentStartCh2_Click);
             // 
             // FormSettings
             // 
@@ -2792,5 +2842,9 @@
         private System.Windows.Forms.Button buttonErrorResetCh1;
         private System.Windows.Forms.Button buttonMeasureCompleteCh2;
         private System.Windows.Forms.Button buttonMeasureCompleteCh1;
+        private System.Windows.Forms.Button buttonPLightCh2;
+        private System.Windows.Forms.Button buttonPLightCh1;
+        private System.Windows.Forms.Button buttonDarkCurrentStartCh2;
+        private System.Windows.Forms.Button buttonDarkCurrentStartCh1;
     }
 }

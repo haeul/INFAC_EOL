@@ -284,6 +284,7 @@ namespace DHSTesterXL
             textCarType.Text = _tempProductSettings.ProductInfo.CarType;
             textAlcNo.Text = _tempProductSettings.ProductInfo.AlcNo;
             comboConnType.SelectedIndex = _tempProductSettings.ProductInfo.ConnectorType;
+            checkVFlash.Checked = _tempProductSettings.ProductInfo.UseVFlash;
 
             textNFC_Z_MeasureBasePositionCh1.Text  = $"{(_tempProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh1  / 10.0):F01}";
             textNFC_Z_MeasureBasePositionCh2.Text  = $"{(_tempProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh2  / 10.0):F01}";
@@ -321,6 +322,7 @@ namespace DHSTesterXL
             _tempProductSettings.ProductInfo.CarType = textCarType.Text;
             _tempProductSettings.ProductInfo.AlcNo = textAlcNo.Text;
             _tempProductSettings.ProductInfo.ConnectorType = comboConnType.SelectedIndex;
+            _tempProductSettings.ProductInfo.UseVFlash = checkVFlash.Checked;
 
             _tempProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh1  = (int)(Convert.ToDouble(textNFC_Z_MeasureBasePositionCh1.Text ) * 10);
             _tempProductSettings.ProductInfo.NFC_Z_MeasureBasePositionCh2  = (int)(Convert.ToDouble(textNFC_Z_MeasureBasePositionCh2.Text ) * 10);

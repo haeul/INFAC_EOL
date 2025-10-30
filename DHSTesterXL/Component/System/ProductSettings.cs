@@ -28,6 +28,7 @@ namespace DHSTesterXL
         public bool UseLabelPrint { get; set; } = true;
         public bool UseRepeatTest { get; set; } = true;
         public bool UseTrayInterlock { get; set; } = true;
+        public bool UseVFlash { get; set; } = false;
         public int NFC_Z_MeasureBasePositionCh1 { get; set; } = 17;
         public int NFC_Z_CurrentBasePositionCh1 { get; set; } = 0;
         public int NFC_Z_MeasureStartPositionCh1 { get; set; } = 17;
@@ -36,6 +37,7 @@ namespace DHSTesterXL
         public int NFC_Z_CurrentBasePositionCh2 { get; set; } = 0;
         public int NFC_Z_MeasureStartPositionCh2 { get; set; } = 17;
         public int NFC_Z_CurrentStartPositionCh2 { get; set; } = 0;
+        public int CancelLockTime { get; set; } = 1500; // ms
 
         public SProductInfo()
         {
@@ -665,14 +667,17 @@ namespace DHSTesterXL
                         case TouchOnlyTestItems.Short_3_6        : if (TestItemSpecs.Short_3_6       .Use) testItems.Add(TestItemSpecs.Short_3_6       );   break;
                         case TouchOnlyTestItems.Short_4_6        : if (TestItemSpecs.Short_4_6       .Use) testItems.Add(TestItemSpecs.Short_4_6       );   break;
                         case TouchOnlyTestItems.DarkCurrent      : if (TestItemSpecs.DarkCurrent     .Use) testItems.Add(TestItemSpecs.DarkCurrent     );   break;
-                        case TouchOnlyTestItems.Touch            : if (TestItemSpecs.LockSen           .Use) testItems.Add(TestItemSpecs.LockSen           );   break;
+                        case TouchOnlyTestItems.PLightTurnOn     : if (TestItemSpecs.PLightTurnOn    .Use) testItems.Add(TestItemSpecs.PLightTurnOn    );   break;
+                        case TouchOnlyTestItems.PLightCurrent    : if (TestItemSpecs.PLightCurrent   .Use) testItems.Add(TestItemSpecs.PLightCurrent   );   break;
+                        case TouchOnlyTestItems.PLightAmbient    : if (TestItemSpecs.PLightAmbient   .Use) testItems.Add(TestItemSpecs.PLightAmbient   );   break;
+                        case TouchOnlyTestItems.Touch            : if (TestItemSpecs.LockSen         .Use) testItems.Add(TestItemSpecs.LockSen         );   break;
                         case TouchOnlyTestItems.Cancel           : if (TestItemSpecs.Cancel          .Use) testItems.Add(TestItemSpecs.Cancel          );   break;
-                        case TouchOnlyTestItems.SW_Version       : if (TestItemSpecs.SW_Version      .Use) testItems.Add(TestItemSpecs.SW_Version      );   break;
-                        case TouchOnlyTestItems.HW_Version       : if (TestItemSpecs.HW_Version      .Use) testItems.Add(TestItemSpecs.HW_Version      );   break;
-                        case TouchOnlyTestItems.SerialNumber     : if (TestItemSpecs.SerialNumber    .Use) testItems.Add(TestItemSpecs.SerialNumber    );   break;
-                        case TouchOnlyTestItems.PartNumber       : if (TestItemSpecs.PartNumber      .Use) testItems.Add(TestItemSpecs.PartNumber      );   break;
                         case TouchOnlyTestItems.DTC_Erase        : if (TestItemSpecs.DTC_Erase       .Use) testItems.Add(TestItemSpecs.DTC_Erase       );   break;
+                        case TouchOnlyTestItems.HW_Version       : if (TestItemSpecs.HW_Version      .Use) testItems.Add(TestItemSpecs.HW_Version      );   break;
+                        case TouchOnlyTestItems.SW_Version       : if (TestItemSpecs.SW_Version      .Use) testItems.Add(TestItemSpecs.SW_Version      );   break;
+                        case TouchOnlyTestItems.PartNumber       : if (TestItemSpecs.PartNumber      .Use) testItems.Add(TestItemSpecs.PartNumber      );   break;
                         case TouchOnlyTestItems.OperationCurrent : if (TestItemSpecs.OperationCurrent.Use) testItems.Add(TestItemSpecs.OperationCurrent);   break;
+                        case TouchOnlyTestItems.SerialNumber     : if (TestItemSpecs.SerialNumber    .Use) testItems.Add(TestItemSpecs.SerialNumber    );   break;
                         default:
                             break;
                     }

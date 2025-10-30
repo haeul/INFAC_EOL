@@ -298,8 +298,8 @@ namespace DHSTesterXL.Forms
             textTouchFastSelf.Text = touchFastSelf.ToString();
             textIdleTouchFastSelfAvg.Text = idleTouchFastSelfAvg.ToString();
             textDeltaTouchFastSelf.Text = deltaTouchFastSelf.ToString();
-            textTouchFastMutualInterval.Text = $"{intervalTime} ms";
-            textTouchFastSelfInterval.Text = $"{intervalTime} ms";
+            //textTouchFastMutualInterval.Text = $"{intervalTime} ms";
+            //textTouchFastSelfInterval.Text = $"{intervalTime} ms";
             textTouchSlowSelf.Text = touchSlowSelf.ToString();
             textTouchComboRate.Text = touchComboRate.ToString("F2");
             textTouchState.Text = touchState.ToString();
@@ -400,8 +400,8 @@ namespace DHSTesterXL.Forms
             textIdleCancelSlowSelfAvg.Text = idleCancelSlowSelfAvg.ToString();
             textDeltaCancelSlowSelf.Text = deltaCancelSlowSelf.ToString();
             textCancelState.Text = cancelState.ToString();
-            textCancelFastSelfInterval.Text = $"{intervalTime} ms";
-            textCancelSlowSelfInterval.Text = $"{intervalTime} ms";
+            //textCancelFastSelfInterval.Text = $"{intervalTime} ms";
+            //textCancelSlowSelfInterval.Text = $"{intervalTime} ms";
             // Grid에 추가
             if (!checkPauseCancel.Checked)
             {
@@ -826,13 +826,18 @@ namespace DHSTesterXL.Forms
                 timerTouchFirst.Interval = 1000;
                 timerTouchFirst.Start();
             }
-            //buttonStartTouch.Enabled = false;
-            //buttonStartCancel.Enabled = false;
-            //buttonStopCancel.Enabled = false;
+            buttonTouchStart.Enabled = false;
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button5.Enabled = false;
             ResetTouch();
             _AutoMode = true;
             SetTouchStep(TouchStep.LoadingStart);
             await Task.Run(() => AutoTouchTest());
+            buttonTouchStart.Enabled = true;
+            button1.Enabled = true;
+            button2.Enabled = true;
+            button5.Enabled = true;
         }
 
         private async void buttonCancelStart_Click(object sender, EventArgs e)
@@ -842,13 +847,18 @@ namespace DHSTesterXL.Forms
                 timerCancelFirst.Interval = 1000;
                 timerCancelFirst.Start();
             }
-            //buttonStartCancel.Enabled = false;
-            //buttonStartTouch.Enabled = false;
-            //buttonStopTouch.Enabled = false;
+            buttonCancelStart.Enabled = false;
+            button3.Enabled = false;
+            button4.Enabled = false;
+            button6.Enabled = false;
             ResetCancel();
             _AutoMode = true;
             SetCancelStep(CancelStep.LoadingStart);
             await Task.Run(() => AutoCancelTest());
+            buttonCancelStart.Enabled = true;
+            button3.Enabled = true;
+            button4.Enabled = true;
+            button6.Enabled = true;
         }
 
 
@@ -1194,6 +1204,16 @@ namespace DHSTesterXL.Forms
             _AutoMode = false;
             SetTouchStep(TouchStep.MoveLoadStart);
             await Task.Run(() => AutoTouchTest());
+        }
+
+        private void checkUseTouchSlowSelf_CheckedChanged(object sender, EventArgs e)
+        {
+            GSystem.UseXcpTouchSlowSelf = checkUseTouchSlowSelf.Checked;
+        }
+
+        private void checkUseTouchComboRate_CheckedChanged(object sender, EventArgs e)
+        {
+            GSystem.UseXcpTouchComboRate = checkUseTouchComboRate.Checked;
         }
     }
 }

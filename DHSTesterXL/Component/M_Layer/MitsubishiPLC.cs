@@ -63,6 +63,45 @@ namespace DHSTesterXL
         Count
     }
 
+    public enum PLC_Command1_Bit
+    {
+        TestComplete = 0,
+        LoadingStart,
+        LoadingStop,
+        YTouchMove,
+        YTouchStop,
+        YCancelMove,
+        YCancelStop,
+        YNFC_Move,
+        YNFC_Stop,
+        YLoadMove,
+        YLoadStop,
+        UnloadingStart,
+        UnloadingStop,
+        UnclampFore,
+        UnclampBack,
+        TestCancel,
+    }
+    public enum PLC_Command2_Bit
+    {
+        ChangeRecipe = 0,
+        ZTouchDownStart,
+        ZTouchDownStop,
+        ZTouchUpStart,
+        ZTouchUpStop,
+        ZCancelDownStart,
+        ZCancelDownStop,
+        ZCancelUpStart,
+        ZCancelUpStop,
+        ZNFC_DownStart,
+        ZNFC_DownStop,
+        ZNFC_UpStart,
+        ZNFC_UpStop,
+        ZNFC_StepDown,
+        ZInterlockIgnore,
+        ErrorReset,
+    }
+
     public enum PLC_State1_Bit
     {
         AutoManual = 0,
@@ -1469,7 +1508,7 @@ namespace DHSTesterXL
                 return Ch2_R_NFC_Z_Pos;
         }
 
-        public void SetZAxisInterlock(int channel, bool interlock)
+        public void SetZInterlockIgnore(int channel, bool interlock)
         {
             int bitIndex = 14;
             if (channel == 0)

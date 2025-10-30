@@ -42,6 +42,7 @@ namespace DHSTesterXL
     public class OveralTestResult
     {
         public SProductInfo ProductInfo { get; set; }
+        public SCommSettings CommSettings { get; set; }
         public TestResult Short_1_2 { get; set; }
         public TestResult Short_1_3 { get; set; }
         public TestResult Short_1_4 { get; set; }
@@ -120,41 +121,77 @@ namespace DHSTesterXL
         public List<TestResult> GetEnableTestResultList()
         {
             List<TestResult> testResults = new List<TestResult>();
-            for (int i = 0; i < (int)TestItems.Count; i++)
+            if (CommSettings.CommType == "CAN" || CommSettings.CommType == "CAN FD")
             {
-                switch ((TestItems)i)
+                for (int i = 0; i < (int)TestItems.Count; i++)
                 {
-                    case TestItems.Short_1_2        : if (Short_1_2       .Use) testResults.Add(Short_1_2       );   break;
-                    case TestItems.Short_1_3        : if (Short_1_3       .Use) testResults.Add(Short_1_3       );   break;
-                    case TestItems.Short_1_4        : if (Short_1_4       .Use) testResults.Add(Short_1_4       );   break;
-                    case TestItems.Short_1_6        : if (Short_1_6       .Use) testResults.Add(Short_1_6       );   break;
-                    case TestItems.Short_2_3        : if (Short_2_3       .Use) testResults.Add(Short_2_3       );   break;
-                    case TestItems.Short_2_4        : if (Short_2_4       .Use) testResults.Add(Short_2_4       );   break;
-                    case TestItems.Short_2_6        : if (Short_2_6       .Use) testResults.Add(Short_2_6       );   break;
-                    case TestItems.Short_3_4        : if (Short_3_4       .Use) testResults.Add(Short_3_4       );   break;
-                    case TestItems.Short_3_6        : if (Short_3_6       .Use) testResults.Add(Short_3_6       );   break;
-                    case TestItems.Short_4_6        : if (Short_4_6       .Use) testResults.Add(Short_4_6       );   break;
-                    case TestItems.SerialNumber     : if (SerialNumber    .Use) testResults.Add(SerialNumber    );   break;
-                    case TestItems.DarkCurrent      : if (DarkCurrent     .Use) testResults.Add(DarkCurrent     );   break;
-                    case TestItems.PLightTurnOn     : if (PLightTurnOn    .Use) testResults.Add(PLightTurnOn    );   break;
-                    case TestItems.PLightCurrent    : if (PLightCurrent   .Use) testResults.Add(PLightCurrent   );   break;
-                    case TestItems.PLightAmbient    : if (PLightAmbient   .Use) testResults.Add(PLightAmbient   );   break;
-                    case TestItems.LockSen          : if (LockSen         .Use) testResults.Add(LockSen         );   break;
-                    case TestItems.LockCan          : if (LockCan         .Use) testResults.Add(LockCan         );   break;
-                    case TestItems.Cancel           : if (Cancel          .Use) testResults.Add(Cancel          );   break;
-                    case TestItems.SecurityBit      : if (SecurityBit     .Use) testResults.Add(SecurityBit     );   break;
-                    case TestItems.NFC              : if (NFC             .Use) testResults.Add(NFC             );   break;
-                    case TestItems.DTC_Erase        : if (DTC_Erase       .Use) testResults.Add(DTC_Erase       );   break;
-                    case TestItems.HW_Version       : if (HW_Version      .Use) testResults.Add(HW_Version      );   break;
-                    case TestItems.SW_Version       : if (SW_Version      .Use) testResults.Add(SW_Version      );   break;
-                    case TestItems.PartNumber       : if (PartNumber      .Use) testResults.Add(PartNumber      );   break;
-                    case TestItems.Bootloader       : if (Bootloader      .Use) testResults.Add(Bootloader      );   break;
-                    case TestItems.RXSWIN           : if (RXSWIN          .Use) testResults.Add(RXSWIN          );   break;
-                    case TestItems.Manufacture      : if (Manufacture     .Use) testResults.Add(Manufacture     );   break;
-                    case TestItems.SupplierCode     : if (SupplierCode    .Use) testResults.Add(SupplierCode    );   break;
-                    case TestItems.OperationCurrent : if (OperationCurrent.Use) testResults.Add(OperationCurrent);   break;
-                    default:
-                        break;
+                    switch ((TestItems)i)
+                    {
+                        case TestItems.Short_1_2        : if (Short_1_2       .Use) testResults.Add(Short_1_2       );   break;
+                        case TestItems.Short_1_3        : if (Short_1_3       .Use) testResults.Add(Short_1_3       );   break;
+                        case TestItems.Short_1_4        : if (Short_1_4       .Use) testResults.Add(Short_1_4       );   break;
+                        case TestItems.Short_1_6        : if (Short_1_6       .Use) testResults.Add(Short_1_6       );   break;
+                        case TestItems.Short_2_3        : if (Short_2_3       .Use) testResults.Add(Short_2_3       );   break;
+                        case TestItems.Short_2_4        : if (Short_2_4       .Use) testResults.Add(Short_2_4       );   break;
+                        case TestItems.Short_2_6        : if (Short_2_6       .Use) testResults.Add(Short_2_6       );   break;
+                        case TestItems.Short_3_4        : if (Short_3_4       .Use) testResults.Add(Short_3_4       );   break;
+                        case TestItems.Short_3_6        : if (Short_3_6       .Use) testResults.Add(Short_3_6       );   break;
+                        case TestItems.Short_4_6        : if (Short_4_6       .Use) testResults.Add(Short_4_6       );   break;
+                        case TestItems.SerialNumber     : if (SerialNumber    .Use) testResults.Add(SerialNumber    );   break;
+                        case TestItems.DarkCurrent      : if (DarkCurrent     .Use) testResults.Add(DarkCurrent     );   break;
+                        case TestItems.PLightTurnOn     : if (PLightTurnOn    .Use) testResults.Add(PLightTurnOn    );   break;
+                        case TestItems.PLightCurrent    : if (PLightCurrent   .Use) testResults.Add(PLightCurrent   );   break;
+                        case TestItems.PLightAmbient    : if (PLightAmbient   .Use) testResults.Add(PLightAmbient   );   break;
+                        case TestItems.LockSen          : if (LockSen         .Use) testResults.Add(LockSen         );   break;
+                        case TestItems.LockCan          : if (LockCan         .Use) testResults.Add(LockCan         );   break;
+                        case TestItems.Cancel           : if (Cancel          .Use) testResults.Add(Cancel          );   break;
+                        case TestItems.SecurityBit      : if (SecurityBit     .Use) testResults.Add(SecurityBit     );   break;
+                        case TestItems.NFC              : if (NFC             .Use) testResults.Add(NFC             );   break;
+                        case TestItems.DTC_Erase        : if (DTC_Erase       .Use) testResults.Add(DTC_Erase       );   break;
+                        case TestItems.HW_Version       : if (HW_Version      .Use) testResults.Add(HW_Version      );   break;
+                        case TestItems.SW_Version       : if (SW_Version      .Use) testResults.Add(SW_Version      );   break;
+                        case TestItems.PartNumber       : if (PartNumber      .Use) testResults.Add(PartNumber      );   break;
+                        case TestItems.Bootloader       : if (Bootloader      .Use) testResults.Add(Bootloader      );   break;
+                        case TestItems.RXSWIN           : if (RXSWIN          .Use) testResults.Add(RXSWIN          );   break;
+                        case TestItems.Manufacture      : if (Manufacture     .Use) testResults.Add(Manufacture     );   break;
+                        case TestItems.SupplierCode     : if (SupplierCode    .Use) testResults.Add(SupplierCode    );   break;
+                        case TestItems.OperationCurrent : if (OperationCurrent.Use) testResults.Add(OperationCurrent);   break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < (int)TouchOnlyTestItems.Count; i++)
+                {
+                    switch ((TouchOnlyTestItems)i)
+                    {
+                        case TouchOnlyTestItems.Short_1_2        : if (Short_1_2       .Use) testResults.Add(Short_1_2       );   break;
+                        case TouchOnlyTestItems.Short_1_3        : if (Short_1_3       .Use) testResults.Add(Short_1_3       );   break;
+                        case TouchOnlyTestItems.Short_1_4        : if (Short_1_4       .Use) testResults.Add(Short_1_4       );   break;
+                        case TouchOnlyTestItems.Short_1_6        : if (Short_1_6       .Use) testResults.Add(Short_1_6       );   break;
+                        case TouchOnlyTestItems.Short_2_3        : if (Short_2_3       .Use) testResults.Add(Short_2_3       );   break;
+                        case TouchOnlyTestItems.Short_2_4        : if (Short_2_4       .Use) testResults.Add(Short_2_4       );   break;
+                        case TouchOnlyTestItems.Short_2_6        : if (Short_2_6       .Use) testResults.Add(Short_2_6       );   break;
+                        case TouchOnlyTestItems.Short_3_4        : if (Short_3_4       .Use) testResults.Add(Short_3_4       );   break;
+                        case TouchOnlyTestItems.Short_3_6        : if (Short_3_6       .Use) testResults.Add(Short_3_6       );   break;
+                        case TouchOnlyTestItems.Short_4_6        : if (Short_4_6       .Use) testResults.Add(Short_4_6       );   break;
+                        case TouchOnlyTestItems.DarkCurrent      : if (DarkCurrent     .Use) testResults.Add(DarkCurrent     );   break;
+                        case TouchOnlyTestItems.PLightTurnOn     : if (PLightTurnOn    .Use) testResults.Add(PLightTurnOn    );   break;
+                        case TouchOnlyTestItems.PLightCurrent    : if (PLightCurrent   .Use) testResults.Add(PLightCurrent   );   break;
+                        case TouchOnlyTestItems.PLightAmbient    : if (PLightAmbient   .Use) testResults.Add(PLightAmbient   );   break;
+                        case TouchOnlyTestItems.Touch            : if (LockSen         .Use) testResults.Add(LockSen         );   break;
+                        case TouchOnlyTestItems.Cancel           : if (Cancel          .Use) testResults.Add(Cancel          );   break;
+                        case TouchOnlyTestItems.DTC_Erase        : if (DTC_Erase       .Use) testResults.Add(DTC_Erase       );   break;
+                        case TouchOnlyTestItems.HW_Version       : if (HW_Version      .Use) testResults.Add(HW_Version      );   break;
+                        case TouchOnlyTestItems.SW_Version       : if (SW_Version      .Use) testResults.Add(SW_Version      );   break;
+                        case TouchOnlyTestItems.PartNumber       : if (PartNumber      .Use) testResults.Add(PartNumber      );   break;
+                        case TouchOnlyTestItems.OperationCurrent : if (OperationCurrent.Use) testResults.Add(OperationCurrent);   break;
+                        case TouchOnlyTestItems.SerialNumber     : if (SerialNumber    .Use) testResults.Add(SerialNumber    );   break;
+                        default:
+                            break;
+                    }
                 }
             }
             return testResults;

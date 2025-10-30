@@ -223,7 +223,7 @@ namespace DHSTesterXL
             // 로그인
             FormLogin formLogin = new FormLogin();
             formLogin.AdminMode = true;
-            if (formLogin.ShowDialog() == DialogResult.OK)
+            if (formLogin.ShowDialog(this) == DialogResult.OK)
             {
                 GSystem.AdminMode = formLogin.AdminMode;
                 // 사용자 모드 변경
@@ -982,7 +982,7 @@ namespace DHSTesterXL
                         GSystem.SetButtonForeColor(buttonStartCh1, Color.DimGray);
                 }
 
-                if (GSystem.DedicatedCTRL.GetCompleteActivePowerOnCh1())
+                if (GSystem.DedicatedCTRL.GetCompleteDarkPowerOnCh1() || GSystem.DedicatedCTRL.GetCompleteActivePowerOnCh1())
                 {
                     if (buttonPowerCh1.ForeColor != Color.OrangeRed)
                         GSystem.SetButtonForeColor(buttonPowerCh1, Color.OrangeRed);
@@ -1028,7 +1028,7 @@ namespace DHSTesterXL
                                     }
                                     else
                                     {
-                                        if (GSystem.DHSModel.GetTouchOnlyTestStep(CH1) == TouchOnlyTestStep.Standby)
+                                        if (GSystem.DHSModel.GetTouchOnlyTestStep(CH2) == TouchOnlyTestStep.Standby)
                                         {
                                             // Start...
                                             StartTest(CH2);
@@ -1047,7 +1047,7 @@ namespace DHSTesterXL
                                     }
                                     else
                                     {
-                                        if (GSystem.DHSModel.GetTouchOnlyTestStep(CH1) == TouchOnlyTestStep.Standby)
+                                        if (GSystem.DHSModel.GetTouchOnlyTestStep(CH2) == TouchOnlyTestStep.Standby)
                                         {
                                             // Start...
                                             StartTest(CH2);
@@ -1075,7 +1075,7 @@ namespace DHSTesterXL
                             }
                             else
                             {
-                                if (GSystem.DHSModel.GetTouchOnlyTestStep(CH1) == TouchOnlyTestStep.Standby)
+                                if (GSystem.DHSModel.GetTouchOnlyTestStep(CH2) == TouchOnlyTestStep.Standby)
                                 {
                                     // Start...
                                     StartTest(CH2);
@@ -1103,7 +1103,7 @@ namespace DHSTesterXL
                         IsTestStartCh2 = false;
                 }
 
-                if (GSystem.DedicatedCTRL.GetCompleteActivePowerOnCh2())
+                if (GSystem.DedicatedCTRL.GetCompleteDarkPowerOnCh2() || GSystem.DedicatedCTRL.GetCompleteActivePowerOnCh2())
                 {
                     if (buttonPowerCh2.ForeColor != Color.OrangeRed)
                         GSystem.SetButtonForeColor(buttonPowerCh2, Color.OrangeRed);
@@ -1143,8 +1143,7 @@ namespace DHSTesterXL
                     GSystem.SetButtonForeColor(buttonStartCh2, Color.DimGray);
             }
 
-            int darCurrentCh1 = (GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo > 80) ? GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo - 80 : GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo;
-            labelLowCurrentValueCh1.Text = $"{darCurrentCh1} uA";
+            labelLowCurrentValueCh1.Text = $"{GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo} uA";
             labelHighCurrentValueCh1.Text = $"{GSystem.DedicatedCTRL.Reg_03h_ch1_current_hi} mA";
             labelLowCurrentValueCh2.Text = $"{GSystem.DedicatedCTRL.Reg_03h_ch2_current_lo} uA";
             labelHighCurrentValueCh2.Text = $"{GSystem.DedicatedCTRL.Reg_03h_ch2_current_hi} mA";
@@ -1212,8 +1211,8 @@ namespace DHSTesterXL
         private void buttonSettings_Click(object sender, EventArgs e)
         {
             FormSettings formSettings = new FormSettings();
-            formSettings.TopMost = true;
-            formSettings.Show();
+            formSettings.TopMost = false;
+            formSettings.Show(this);
         }
 
         private async void buttonLog_Click(object sender, EventArgs e)
@@ -1601,23 +1600,23 @@ namespace DHSTesterXL
             }
             else
             {
-                if (GSystem.DHSModel.GetTouchOnlyTestStep(CH1) < TouchOnlyTestStep.Prepare)
+                if (GSystem.DHSModel.GetTouchOnlyTestStep(CH2) < TouchOnlyTestStep.Prepare)
                 {
                     string caption = "테스트 시작";
-                    string message = "CH.1의 테스트를 시작하시겠습니까?";
+                    string message = "CH.2의 테스트를 시작하시겠습니까?";
                     if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                         return;
                     // Start...
-                    StartTest(CH1);
+                    StartTest(CH2);
                 }
                 else
                 {
                     string caption = "테스트 중지";
-                    string message = "CH.1의 테스트를 중지하시겠습니까?";
+                    string message = "CH.2의 테스트를 중지하시겠습니까?";
                     if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                         return;
                     // Stop
-                    StopTest(CH1);
+                    StopTest(CH2);
                 }
             }
         }

@@ -221,15 +221,22 @@ namespace DHSTesterXL
                 string dm = BuildEtcsDmPayloadFromUi();  // ^FH\ 로 해석될 데이터
 
                 // (옵션) 그리드의 X/Y 스케일 칸을 DM 열/행으로 활용 (정수, 10~144). 범위 밖이면 자동.
-                var r = GetRow(RowKey.DM);
-                int columnCount = (int)Math.Round(ReadScaleCell(r, COL_XSCALE, 0.0));
-                int rowCount = (int)Math.Round(ReadScaleCell(r, COL_YSCALE, 0.0));
-                string colsStr = (columnCount >= 10 && columnCount <= 144) ? columnCount.ToString() : "";
-                string rowsStr = (rowCount >= 10 && rowCount <= 144) ? rowCount.ToString() : "";
-
+                //var r = GetRow(RowKey.DM);
+                //int columnCount = (int)Math.Round(ReadScaleCell(r, COL_XSCALE, 0.0));
+                //int rowCount = (int)Math.Round(ReadScaleCell(r, COL_YSCALE, 0.0));
+                //string colsStr = (columnCount >= 10 && columnCount <= 144) ? columnCount.ToString() : "";
+                //string rowsStr = (rowCount >= 10 && rowCount <= 144) ? rowCount.ToString() : "";
+                
+                // 자동 혹은 그리드 값에서 유효한 모듈 수를 구한다(정방형 기준).
+                int modules = GetCurrentDmModulesFromUiOrAuto();
+                string bxParameters = $"^FO{x},{y}^BXN,{moduleDots},200";
+                if (modules >= 10 && modules <= 144)
+                    bxParameters += $",{modules},{modules}";
                 // ^BX: N(정방향), h=모듈 도트, labelStyle=ECC(200=ECC200), columnCount=열, r=행
-                sb.AppendLine($"^FO{x},{y}^BXN,{moduleDots},200,{colsStr},{rowsStr}");
-                sb.AppendLine("^FH\\^FD" + dm + "^FS");   // "MA," 붙이지 않기   
+                //sb.AppendLine($"^FO{x},{y}^BXN,{moduleDots},200,{colsStr},{rowsStr}");
+                //sb.AppendLine("^FH\\^FD" + dm + "^FS");   // "MA," 붙이지 않기   
+                sb.AppendLine(bxParameters);
+                sb.AppendLine("^FH\\^FD" + dm + "^FS");   // "MA," 붙이지 않기
             }
 
 
@@ -334,24 +341,30 @@ namespace DHSTesterXL
             const string EOT = @"\04";
 
             var sb = new System.Text.StringBuilder(256);
-            sb.Append("[)>");                   // 심볼 식별자
-            sb.Append(RS).Append("06");        // 버전
+            sb.Append("[)>");               // 심볼 식별자 (스펙/현행 문자열에 맞춰 "[)>" 사용)
+            sb.Append(RS).Append("06");    // 버전
 
             sb.Append(GS).Append("V").Append(v);
             sb.Append(GS).Append("P").Append(p);
 
-            // S/E는 비어도 칸(=GS) 자체는 유지 → 필드 밀림 방지
+            // S/E: 비어도 GS 슬롯은 유지해 필드 밀림 방지
             sb.Append(GS);
-            //if (!string.IsNullOrEmpty(labelStyle))
+            //if (!string.IsNullOrEmpty(s))
             sb.Append("S").Append(s);
 
             sb.Append(GS);
             //if (!string.IsNullOrEmpty(e))
             sb.Append("E").Append(e);
 
-            // T (필수) - UI에서 한 칸으로 받음
-            sb.Append(GS).Append("T").Append(t).Append(a1).Append(m).Append(c);
+            // T(필수)
+            //sb.Append(GS).Append("T").Append(T);
 
+            sb.Append(GS);
+            sb.Append("T").Append(t);
+
+            sb.Append(m);
+            sb.Append(a1);
+            sb.Append(c);
             // 트레일러
             sb.Append(GS).Append(RS).Append(EOT);
             return sb.ToString();
@@ -400,7 +413,7 @@ namespace DHSTesterXL
         }
 
         // ───────────────────── DM(정방형) 후보 모듈 목록 ─────────────────────
-        private static readonly int[] DM_SQUARE = { 10,12,14,16,18,20,22,24,26,32,36,40,44,48,52,64,72,80,88,96,104,120,132,144 };
+        private static readonly int[] DM_SQUARE = { 10, 12, 14, 16, 18, 20, 22, 24, 26, 32, 36, 40, 44, 48, 52, 64, 72, 80, 88, 96, 104, 120, 132, 144 };
 
         // 현재 데이터(ETCS) 길이로 '필요 최소 모듈 수' 계산
         private int GetMinDmModulesNeeded()
@@ -764,7 +777,7 @@ namespace DHSTesterXL
 
             // ── DM 문자열 조립 ────────────────────────────────────────────────────
             var sb = new StringBuilder(256);
-            sb.Append("]>");               // 심볼 식별자 (스펙/현행 문자열에 맞춰 "]>" 사용)
+            sb.Append("[)>");               // 심볼 식별자 (스펙/현행 문자열에 맞춰 "]>" 사용)
             sb.Append(RS).Append("06");    // 버전
 
             sb.Append(GS).Append("V").Append(v);
@@ -772,13 +785,22 @@ namespace DHSTesterXL
 
             // S/E: 비어도 GS 슬롯은 유지해 필드 밀림 방지
             sb.Append(GS);
-            if (!string.IsNullOrEmpty(s)) sb.Append("S").Append(s);
+            //if (!string.IsNullOrEmpty(s))
+            sb.Append("S").Append(s);
 
             sb.Append(GS);
-            if (!string.IsNullOrEmpty(e)) sb.Append("E").Append(e);
+            //if (!string.IsNullOrEmpty(e))
+            sb.Append("E").Append(e);
 
             // T(필수)
-            sb.Append(GS).Append("T").Append(t);
+            //sb.Append(GS).Append("T").Append(T);
+
+            sb.Append(GS);
+            sb.Append("T").Append(todayYYMMDD);
+
+            sb.Append(fourM);
+            sb.Append(a1);
+            sb.Append(c);
 
             // 트레일러
             sb.Append(GS).Append(RS).Append(EOT);

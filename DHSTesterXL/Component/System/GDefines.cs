@@ -88,14 +88,17 @@ namespace DHSTesterXL
         Short_3_6,
         Short_4_6,
         DarkCurrent,
+        PLightTurnOn,
+        PLightCurrent,
+        PLightAmbient,
         Touch,
         Cancel,
-        SW_Version,
-        HW_Version,
-        SerialNumber,
-        PartNumber,
         DTC_Erase,
+        HW_Version,
+        SW_Version,
+        PartNumber,
         OperationCurrent,
+        SerialNumber,
         Count
     }
 

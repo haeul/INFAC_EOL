@@ -96,7 +96,7 @@ namespace DHSTesterXL.Forms
                     GSystem.Logger.Info($"VFLASH ROM Write start...");
                     timerUpdate.Start();
                     var token = cts.Token;
-                    Task.Run(() => PowerOnAndWakeUp(token));
+                    Task.Run(async () => PowerOnAndWakeUp(token));
                     await Task.Run(() => VFlashWriting(textFileName.Text, token));
                 }
                 catch (Exception ex)
@@ -157,7 +157,7 @@ namespace DHSTesterXL.Forms
 
             while (!token.IsCancellationRequested)
             {
-                await Task.Delay(1000);
+                await Task.Delay(200);
                 GSystem.DHSModel.Send_NM(GSystem.CH1);
             }
             GSystem.TraceMessage("PowerOnAndWakeUp terminated!");

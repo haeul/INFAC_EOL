@@ -113,8 +113,8 @@ namespace DHSTesterXL
         private short ShortResult_4_6 { get; set; }
         private short DartCurrent { get; set; }
         private int PLightTurnOnValue { get; set; }
-        private int PLightOffCurrentValue { get; set; }
-        private int PLightOnCurrentValue { get; set; }
+        private double PLightOffCurrentValue { get; set; }
+        private double PLightOnCurrentValue { get; set; }
         private int PLightAmbientValue { get; set; }
 
         public int Channel { get; set; }
@@ -869,7 +869,7 @@ namespace DHSTesterXL
             }
             return statusResult;
         }
-        public XL_Status Send_ShortUpload(int channel, uint address, byte count, bool logging = false)
+        public XL_Status Send_ShortUpload(int channel, uint address, byte count, bool logging = false, string remarks = "")
         {
             byte[] byteArray = BitConverter.GetBytes(address);
             uint id = ProductSettings.XcpReqID;
@@ -880,15 +880,21 @@ namespace DHSTesterXL
             xlEventCollection.xlCANFDEvent[0].tagData.canId = (uint)XL_MessageFlagsExtended.XL_CAN_EXT_MSG_ID | id;
             xlEventCollection.xlCANFDEvent[0].tagData.dlc = dlc;
             xlEventCollection.xlCANFDEvent[0].tagData.msgFlags = XL_CANFD_TX_MessageFlags.XL_CAN_TXMSG_FLAG_BRS | XL_CANFD_TX_MessageFlags.XL_CAN_TXMSG_FLAG_EDL;
-            xlEventCollection.xlCANFDEvent[0].tagData.data[0] = 0xF5;
+            xlEventCollection.xlCANFDEvent[0].tagData.data[0] = 0xF4;
             xlEventCollection.xlCANFDEvent[0].tagData.data[1] = count;
+            xlEventCollection.xlCANFDEvent[0].tagData.data[2] = 0x00;
+            xlEventCollection.xlCANFDEvent[0].tagData.data[3] = 0x00;
+            xlEventCollection.xlCANFDEvent[0].tagData.data[4] = byteArray[0];
+            xlEventCollection.xlCANFDEvent[0].tagData.data[5] = byteArray[1];
+            xlEventCollection.xlCANFDEvent[0].tagData.data[6] = byteArray[2];
+            xlEventCollection.xlCANFDEvent[0].tagData.data[7] = byteArray[3];
             // Transmit events
             uint messageCounterSent = 0;
             XL_Status statusResult = CanXL.Driver.XL_CanTransmitEx(_portHandle[channel], CanXL._channelMask[channel], ref messageCounterSent, xlEventCollection);
             if (logging)
             {
-                string logString = $"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Tx {GetEventString(xlEventCollection.xlCANFDEvent[0])}  UPLOAD size={count}";
-                GSystem.CapaData[channel].Info(logString.ToString());
+                string logString = $"{_tickXcpElapse[channel].GetTotalSeconds():F6} CH.{channel + 1} Tx {GetEventString(xlEventCollection.xlCANFDEvent[0])}  SHORT_UPLOAD size={count} addr=0x{address:X08} {remarks}";
+                GSystem.CapaData[channel]?.Info(logString.ToString());
             }
             return statusResult;
         }

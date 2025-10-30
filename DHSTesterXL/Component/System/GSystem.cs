@@ -93,11 +93,11 @@ namespace DHSTesterXL
             LogManager.GetLogger("LoggerCh2")
         };
 
-        public static ILog[] CapaData = new ILog[]
-        {
-            LogManager.GetLogger("CapaDataCh1"),
-            LogManager.GetLogger("CapaDataCh2")
-        };
+        public static ILog[] CapaData = new ILog[] { null, null };
+        //{
+        //    LogManager.GetLogger("CapaDataCh1"),
+        //    LogManager.GetLogger("CapaDataCh2")
+        //};
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         // Fields
@@ -305,6 +305,9 @@ namespace DHSTesterXL
 
         public static int TrayInterlockCount { get; set; } = 10;
         public static int ProductInterlockCount { get; set; } = 0;
+
+        public static bool UseXcpTouchSlowSelf { get; set; } = false;
+        public static bool UseXcpTouchComboRate { get; set; } = false;
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         // M_Layer
