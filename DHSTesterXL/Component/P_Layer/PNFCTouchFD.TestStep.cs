@@ -4468,30 +4468,14 @@ namespace DHSTesterXL
                             //string printerName = "ZDesigner ZD421-203dpi ZPL";
                             //GSystem.SendRawToPrinter(printerName, zpl);
 
-
                             string hwVersion = $"HW:{_overalResult[channel].HW_Version.Value.Insert(1, ".")}";
                             string swVersion = $"SW:{_overalResult[channel].SW_Version.Value}";
                             string lotNumber = $"LOT NO:{GSystem.GetLotNumber()}";
-                            string sn        = $"S/N:{GSystem.ProductSettings.GetCurrentSerialNumber():D04}";
-                            string partNo    = GSystem.ProductSettings.ProductInfo.PartNo; //"82667-P8100";
-                            string fccId     = GSystem.ProductSettings.LabelPrint.Payload.FCCID; //"FCC ID:2A93T-LQ2-DHS-NFC";
-                            string icId      = GSystem.ProductSettings.LabelPrint.Payload.ICID; //"IC ID:30083-LQ2DHSNFC";
-                            string company   = GSystem.ProductSettings.LabelPrint.Style.BrandText; //"INFAC ELECS";
-
-                            string EtcsVendor = GSystem.ProductSettings.LabelPrint.Etcs.Vendor; //"SUR2";
-                            string EtcsPartNo = GSystem.ProductSettings.LabelPrint.Etcs.PartNo; //"8266703200";
-                            string EtcsSerial = GSystem.ProductSettings.LabelPrint.Etcs.Serial; //"";
-                            string EtcsEo     = GSystem.ProductSettings.LabelPrint.Etcs.Eo; //"";
-
-                            string EtcsTraceCfg = GSystem.ProductSettings.LabelPrint.Etcs.Trace ?? string.Empty; //"250807";
-                            string today = DateTime.Now.ToString("yyMMdd");
-                            string EtcsTrace  = EtcsTraceCfg.Length > 6
-                                ? today + EtcsTraceCfg.Substring(6)
-                                : today;
-
-                            string EtcsA1     = string.Empty; //"A000";
-                            string EtcsM      = GSystem.ProductSettings.LabelPrint.Etcs.M; //"0";
-                            string EtcsC      = GSystem.ProductSettings.GetCurrentSerialNumber().ToString("D04");
+                            string sn = $"S/N:{GSystem.ProductSettings.GetCurrentSerialNumber():D04}";
+                            string partNo = GSystem.ProductSettings.ProductInfo.PartNo;
+                            string fccId = GSystem.ProductSettings.LabelPrint.Payload.FCCID;
+                            string icId = GSystem.ProductSettings.LabelPrint.Payload.ICID;
+                            string company = GSystem.ProductSettings.LabelPrint.Style.BrandText;
 
                             var payload = new LabelPayload
                             {
@@ -4506,19 +4490,42 @@ namespace DHSTesterXL
                                 DataMatrix = null
                             };
 
+                            // 기본값
+                            string EtcsVendor = (GSystem.ProductSettings.LabelPrint.Etcs.Vendor ?? "").Trim();
+                            string EtcsPartNo = (GSystem.ProductSettings.LabelPrint.Etcs.PartNo ?? "").Trim();
+                            string EtcsSerial = (GSystem.ProductSettings.LabelPrint.Etcs.Serial ?? "").Trim();
+                            string EtcsEo = (GSystem.ProductSettings.LabelPrint.Etcs.Eo ?? "").Trim();
+
+                            // T = [YYMMDD] + [4M 공란] + [A/@ 1글자] + [추적번호(7 or 4)]
+                            string EtcsTrace = DateTime.Now.ToString("yyMMdd"); // 생산일자: 오늘 날짜만 사용
+
+                            // 4M은 공란 강제
+                            string EtcsM = string.Empty;
+
+                            // A or @ 은 1글자만 허용 (그 외는 공란)
+                            string a1Raw = (GSystem.ProductSettings.LabelPrint.Etcs.A1 ?? "").Trim();
+                            string EtcsA1 = (a1Raw == "A" || a1Raw == "@") ? a1Raw : string.Empty;
+
+                            // 추적번호: 숫자만 추출하여 7자리면 7자리, 아니면 4자리 0패딩
+                            string serialDigits = Regex.Replace(GSystem.ProductSettings.GetCurrentSerialNumber().ToString(), @"\D", "");
+                            string EtcsC;
+                            if (serialDigits.Length >= 7)
+                                EtcsC = serialDigits.Substring(serialDigits.Length - 7).PadLeft(7, '0');  // 7자리 우선
+                            else
+                                EtcsC = serialDigits.PadLeft(4, '0');                                      // 기본 4자리
+
                             var etcs = new EtcsSettings
                             {
                                 Vendor = EtcsVendor,
                                 PartNo = EtcsPartNo,
                                 Serial = EtcsSerial,
                                 Eo = EtcsEo,
-                                Trace = EtcsTrace,
-                                A1 = EtcsA1,
-                                M = EtcsM,
-                                C = EtcsC
+                                Trace = EtcsTrace, // 오늘 YYMMDD
+                                A1 = EtcsA1,    // A/@ 한 글자 또는 공란
+                                M = EtcsM,     // 4M 공란
+                                C = EtcsC      // 7 or 4자리
                             };
 
-                            // 설정값(ProductSettings.LabelPrint.PrinterName) 우선 사용 + 신규 데이터 전달
                             GSystem.PrintProductLabel(
                                 payload,
                                 GSystem.ProductSettings.LabelPrint.Style,
@@ -4526,9 +4533,6 @@ namespace DHSTesterXL
                                 printerName: "ZDesigner ZD421-203dpi ZPL",
                                 dpi: null, darkness: null, qty: 1, speedIps: 1
                             );
-
-
-
                         }
                     }
 

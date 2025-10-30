@@ -718,66 +718,73 @@ namespace DHSTesterXL
         {
             if (d == null) return null;
 
-            // 최소 필수: Vendor, PartNo, Trace
+            // 최소 필수: Vendor, PartNo, Trace(= 생산일자 YYMMDD 기준)
             if (string.IsNullOrWhiteSpace(d.Vendor) ||
-                string.IsNullOrWhiteSpace(d.PartNo) ||
-                string.IsNullOrWhiteSpace(d.Trace))
+                string.IsNullOrWhiteSpace(d.PartNo))
                 return null;
 
+            // 제어코드(\hh → ^FH\에서 해석)
             const string GS = @"\1D";
             const string RS = @"\1E";
             const string EOT = @"\04";
 
-            var v = (d.Vendor ?? "").Trim();  // V
-            var p = (d.PartNo ?? "").Trim();  // P
-            var s = (d.Serial ?? "").Trim();  // S (opt)
-            var e = (d.Eo ?? "").Trim();      // E (opt)
-            var t = (d.Trace ?? "").Trim();   // T (필수)
-            var a1 = (d.A1 ?? "").Trim();      // 1A (opt)
-            var m = (d.M ?? "").Trim();       // M (opt)
-            var c = (d.C ?? "").Trim();       // C (opt)
+            var v = (d.Vendor ?? "").Trim();   // V
+            var p = (d.PartNo ?? "").Trim();   // P
+            var s = (d.Serial ?? "").Trim();   // S (opt)
+            var e = (d.Eo ?? "").Trim();       // E (opt)
 
-            // A or @ 필드는 공란으로 유지해 추적번호(C)가 앞단에 잘못 배치되지 않도록 한다.
-            a1 = string.Empty;
+            // ── T(추적영역) 구성 규칙 ─────────────────────────────────────────────
+            // 1) 생산일자(YYMMDD): 당일 날짜만 사용 (뒤에 붙던 기존 후미는 모두 버림)
+            // 2) 부품4M: 공란 강제
+            // 3) A or @: 한 글자만 허용 (A 또는 @), 그 외 값은 공란
+            // 4) 추적번호: 숫자만 추출해서 7자리면 7자리, 그 외는 4자리(우리 설비 기본)로 0패딩
+            string todayYYMMDD = DateTime.Now.ToString("yyMMdd");
 
-            // 생산일자(YYMMDD)는 항상 현재 날짜를 사용하고, 기존 값의 후미(라인/옵션)는 유지
-            if (t.Length > 0)
-            {
-                string today = DateTime.Now.ToString("yyMMdd");
-                t = today + (t.Length > 6 ? t.Substring(6) : string.Empty);
-            }
+            // A or @ (1문자만 허용)
+            string a1 = (d.A1 ?? "").Trim();
+            a1 = (a1 == "A" || a1 == "@") ? a1 : string.Empty;
+
+            // 부품4M 공란 강제
+            string fourM = string.Empty; // (표준상 S/D/B 등 세부코드가 올 수 있으나 현재 정책=공란)
+
+            // 추적번호
+            string cDigits = System.Text.RegularExpressions.Regex.Replace((d.C ?? ""), @"\D", "");
+            if (string.IsNullOrEmpty(cDigits) && GSystem.ProductSettings != null)
+                cDigits = GSystem.ProductSettings.GetCurrentSerialNumber().ToString("D4"); // 기본 4자리
+
+            string c; // 최종 추적번호
+            if (cDigits.Length >= 7)
+                c = cDigits.Substring(cDigits.Length - 7).PadLeft(7, '0'); // 7자리 우선
             else
-            {
-                t = DateTime.Now.ToString("yyMMdd");
-            }
+                c = cDigits.PadLeft(4, '0'); // 기본 4자리
 
-            // 추적번호(C)는 현재 제품 일련번호로 강제 설정
-            if (GSystem.ProductSettings != null)
-            {
-                c = GSystem.ProductSettings.GetCurrentSerialNumber().ToString("D04");
-            }
+            // 최종 T 페이로드: [YYMMDD] + [4M=공란] + [A/@] + [추적번호]
+            // (우리 현행 문자열 규칙: T 뒤에는 위 항목들을 GS 없이 연속 배치)
+            string t = todayYYMMDD + fourM + a1 + c;
 
+            // ── DM 문자열 조립 ────────────────────────────────────────────────────
             var sb = new StringBuilder(256);
-            sb.Append("[)>");            // 심볼 식별자
-            sb.Append(RS).Append("06"); // 버전
+            sb.Append("]>");               // 심볼 식별자 (스펙/현행 문자열에 맞춰 "]>" 사용)
+            sb.Append(RS).Append("06");    // 버전
 
             sb.Append(GS).Append("V").Append(v);
             sb.Append(GS).Append("P").Append(p);
 
-            // S/E는 비어도 GS 토큰은 남겨 필드 밀림 방지
+            // S/E: 비어도 GS 슬롯은 유지해 필드 밀림 방지
             sb.Append(GS);
-            //if (!string.IsNullOrEmpty(labelStyle))
-            sb.Append("S").Append(s);
+            if (!string.IsNullOrEmpty(s)) sb.Append("S").Append(s);
 
             sb.Append(GS);
-            //if (!string.IsNullOrEmpty(e))
-            sb.Append("E").Append(e);
+            if (!string.IsNullOrEmpty(e)) sb.Append("E").Append(e);
 
-            sb.Append(GS).Append("T").Append(t).Append(a1).Append(m).Append(c);
+            // T(필수)
+            sb.Append(GS).Append("T").Append(t);
 
+            // 트레일러
             sb.Append(GS).Append(RS).Append(EOT);
             return sb.ToString();
         }
+
 
         public static string BuildZpl(
             LabelStyle labelStyle,
