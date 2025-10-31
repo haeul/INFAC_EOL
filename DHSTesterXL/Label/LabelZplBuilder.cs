@@ -363,8 +363,11 @@ namespace DHSTesterXL
             sb.Append("T").Append(t);
 
             sb.Append(m);
+
             sb.Append(a1);
+
             sb.Append(c);
+
             // 트레일러
             sb.Append(GS).Append(RS).Append(EOT);
             return sb.ToString();
@@ -799,7 +802,9 @@ namespace DHSTesterXL
             sb.Append("T").Append(todayYYMMDD);
 
             sb.Append(fourM);
+
             sb.Append(a1);
+
             sb.Append(c);
 
             // 트레일러
