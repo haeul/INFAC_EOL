@@ -113,15 +113,19 @@ namespace DHSTesterXL
             GSystem.SetButtonForeColor(buttonLockCh2, Color.Black, Color.DimGray);
             GSystem.SetButtonForeColor(buttonTestCh2, Color.Black, Color.DimGray);
 
-            formBarcodeCh1 = new FormBarcode()
+            formBarcodeCh1 = new FormBarcode
             {
-                TopMost = true
+                Size = new Size(680, 185),
+                Channel = GSystem.CH1
             };
+            formBarcodeCh1.BarcodeDataChanged += OnBarcodeDataChanged;
             formBarcodeCh1.Hide();
-            formBarcodeCh2 = new FormBarcode()
+            formBarcodeCh2 = new FormBarcode
             {
-                TopMost = true
+                Size = new Size(680, 185),
+                Channel = GSystem.CH2
             };
+            formBarcodeCh2.BarcodeDataChanged += OnBarcodeDataChanged;
             formBarcodeCh2.Hide();
 
             // 업데이트 타이머 실행
@@ -514,55 +518,6 @@ namespace DHSTesterXL
             // 2) 당일 검사한 마스터샘플은 다시 검사하지 않는다.
             // 3) 품번이 전환되면 마스텀샘플 검사를 하지 않은 품번은 마스터 검사를 진행하고
             //    마스터샘플을 검사한 품번은 마스터 검사를 하지 않는다.
-        }
-
-        private void BarcodeResetAndPopUp(int channel)
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new BarcodeResetAndPopUpDelegate(BarcodeResetAndPopUp), channel);
-                return;
-            }
-            if (channel == CH1)
-            {
-                textBarcodeCh1.Text = string.Empty;
-                if (GSystem.ProductSettings.ProductInfo.UseProductBarcode)
-                {
-                    FormBarcode formBarcode = new FormBarcode();
-                    formBarcode.Channel = channel;
-                    formBarcode.TopMost = true;
-                    formBarcode.StartPosition = FormStartPosition.Manual;
-                    formBarcode.Location = new Point(10, 240);
-                    formBarcode.TrayBarcode = GSystem.TrayBarcode;
-                    if (formBarcode.ShowDialog() == DialogResult.OK)
-                    {
-                        GSystem.TraceMessage($"Barcode = {formBarcode.ProductBarcode}");
-                        GSystem.TrayBarcode = formBarcode.TrayBarcode;
-                        GSystem.ProductBarcode[CH1] = formBarcode.ProductBarcode;
-                        textBarcodeCh1.Text = formBarcode.ProductBarcode;
-                    }
-                }
-            }
-            else
-            {
-                textBarcodeCh2.Text = string.Empty;
-                if (GSystem.ProductSettings.ProductInfo.UseProductBarcode)
-                {
-                    FormBarcode formBarcode = new FormBarcode();
-                    formBarcode.Channel = channel;
-                    formBarcode.TopMost = true;
-                    formBarcode.StartPosition = FormStartPosition.Manual;
-                    formBarcode.Location = new Point(600, 240);
-                    formBarcode.TrayBarcode = GSystem.TrayBarcode;
-                    if (formBarcode.ShowDialog() == DialogResult.OK)
-                    {
-                        GSystem.TraceMessage($"Barcode = {formBarcode.ProductBarcode}");
-                        GSystem.TrayBarcode = formBarcode.TrayBarcode;
-                        GSystem.ProductBarcode[CH2] = formBarcode.ProductBarcode;
-                        textBarcodeCh2.Text = formBarcode.ProductBarcode;
-                    }
-                }
-            }
         }
 
         private void SetupGridProductInfo()
@@ -2292,30 +2247,109 @@ namespace DHSTesterXL
             }
         }
 
-        private void OnBarcodePopup(object sender, EventArgs e)
+        private void BarcodeResetAndPopUp(int channel)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new BarcodeResetAndPopUpDelegate(BarcodeResetAndPopUp), channel);
+                return;
+            }
+            if (channel == CH1)
+            {
+                textBarcodeCh1.Text = string.Empty;
+                if (GSystem.ProductSettings.ProductInfo.UseProductBarcode)
+                {
+                    //FormBarcode formBarcode = new FormBarcode();
+                    //formBarcode.Channel = channel;
+                    //formBarcode.StartPosition = FormStartPosition.Manual;
+                    //formBarcode.Location = new Point(10, 240);
+                    //formBarcode.TrayBarcode = GSystem.TrayBarcode;
+                    //if (formBarcode.ShowDialog(this) == DialogResult.OK)
+                    //{
+                    //    GSystem.TraceMessage($"Barcode = {formBarcode.ProductBarcode}");
+                    //    GSystem.TrayBarcode = formBarcode.TrayBarcode;
+                    //    GSystem.ProductBarcode[CH1] = formBarcode.ProductBarcode;
+                    //    textBarcodeCh1.Text = formBarcode.ProductBarcode;
+                    //}
+                    formBarcodeCh1.Channel = channel;
+                    formBarcodeCh1.StartPosition = FormStartPosition.Manual;
+                    formBarcodeCh1.Location = new Point(10, 240);
+                    formBarcodeCh1.TrayBarcode = GSystem.TrayBarcode;
+                    formBarcodeCh1.Show(this);
+                    formBarcodeCh1.ResetProductBarcodeData();
+                }
+            }
+            else
+            {
+                textBarcodeCh2.Text = string.Empty;
+                if (GSystem.ProductSettings.ProductInfo.UseProductBarcode)
+                {
+                    //FormBarcode formBarcode = new FormBarcode();
+                    //formBarcode.Channel = channel;
+                    //formBarcode.StartPosition = FormStartPosition.Manual;
+                    //formBarcode.Location = new Point(600, 240);
+                    //formBarcode.TrayBarcode = GSystem.TrayBarcode;
+                    //if (formBarcode.ShowDialog(this) == DialogResult.OK)
+                    //{
+                    //    GSystem.TraceMessage($"Barcode = {formBarcode.ProductBarcode}");
+                    //    GSystem.TrayBarcode = formBarcode.TrayBarcode;
+                    //    GSystem.ProductBarcode[CH2] = formBarcode.ProductBarcode;
+                    //    textBarcodeCh2.Text = formBarcode.ProductBarcode;
+                    //}
+                    formBarcodeCh2.Channel = channel;
+                    formBarcodeCh2.StartPosition = FormStartPosition.Manual;
+                    formBarcodeCh2.Location = new Point(600, 240);
+                    formBarcodeCh2.TrayBarcode = GSystem.TrayBarcode;
+                    formBarcodeCh2.Show(this);
+                    formBarcodeCh2.ResetProductBarcodeData();
+                }
+            }
+        }
+
+        private void OnBarcodeDataChanged(object sender, EventArgs e)
         {
             BarcodeEventArgs eventArgs = e as BarcodeEventArgs;
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action<int, int, int, string, string>(BarcodePopup),
+                this.Invoke(new Action<int, string, string>(UpdateBarcodeData),
                     eventArgs.Channel,
-                    eventArgs.TrayMaxCount,
-                    eventArgs.ProductCount,
                     eventArgs.TrayBarcode,
                     eventArgs.ProductBarcode);
             }
             else
             {
-                BarcodePopup(eventArgs.Channel,
-                    eventArgs.TrayMaxCount,
-                    eventArgs.ProductCount,
+                UpdateBarcodeData(
+                    eventArgs.Channel,
                     eventArgs.TrayBarcode,
                     eventArgs.ProductBarcode);
             }
         }
-        private void BarcodePopup(int channel, int trayMaxCount, int productCount, string trayBarcode, string productBarcode)
+        private void UpdateBarcodeData(int channel, string trayBarcode, string productBarcode)
         {
-
+            if (channel == GSystem.CH1)
+            {
+                textBarcodeCh1.Text = string.Empty;
+                if (GSystem.ProductSettings.ProductInfo.UseProductBarcode)
+                {
+                    GSystem.TraceMessage($"CH1 Tray Barcode    = {trayBarcode}");
+                    GSystem.TraceMessage($"CH1 Product Barcode = {productBarcode}");
+                    GSystem.TrayBarcode = trayBarcode;
+                    GSystem.ProductBarcode[CH1] = productBarcode;
+                    textBarcodeCh1.Text = productBarcode;
+                }
+            }
+            else
+            {
+                textBarcodeCh2.Text = string.Empty;
+                if (GSystem.ProductSettings.ProductInfo.UseProductBarcode)
+                {
+                    GSystem.TraceMessage($"CH2 Tray Barcode    = {trayBarcode}");
+                    GSystem.TraceMessage($"CH2 Product Barcode = {productBarcode}");
+                    GSystem.TrayBarcode = trayBarcode;
+                    GSystem.ProductBarcode[CH2] = productBarcode;
+                    textBarcodeCh2.Text = productBarcode;
+                }
+            }
         }
 
         private void timerBlinkCh1_Tick(object sender, EventArgs e)

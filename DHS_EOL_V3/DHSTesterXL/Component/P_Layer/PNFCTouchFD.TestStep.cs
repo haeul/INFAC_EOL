@@ -4611,9 +4611,10 @@ namespace DHSTesterXL
             // 검사 완료
             GSystem.MiPLC.SetAutoTestComplete(channel, true);
 
-            // 스레드 종료
+            // 검사 스텝 대기 상태로
             SetTestStep(channel, NFCTouchTestStep.Standby);
-            _testStepThreadExit[channel] = true;
+            // 스레드 종료는 하지 않는다
+            //_testStepThreadExit[channel] = true;
 
             // 바코드 입력창 표시
             GSystem.BarcodeResetAndPopUp?.Invoke(channel);

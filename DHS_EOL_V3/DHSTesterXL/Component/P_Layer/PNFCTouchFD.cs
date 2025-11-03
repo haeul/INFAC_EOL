@@ -39,6 +39,7 @@ namespace DHSTesterXL
         public event EventHandler<XcpDataEventArgs> XcpDataChanged;
         public event EventHandler TouchXcpDataChanged;
         public event EventHandler CancelXcpDataChanged;
+        public event EventHandler BarcodeDataChanged;
 
         // Const
         public const int SerialNumberLength = 20;

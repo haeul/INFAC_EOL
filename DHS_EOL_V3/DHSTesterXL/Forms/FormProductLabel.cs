@@ -396,8 +396,8 @@ namespace DHSTesterXL
         {
             try
             {
-                string hwVersion = "1.00";
-                string swVersion = "2571";
+                string hwVersion = "HW:1.00";
+                string swVersion = "SW:2571";
                 string lotNumber = "LOT NO:UH2";
                 string sn = "S/N:0001";
                 string partNo = "82667-P8100";

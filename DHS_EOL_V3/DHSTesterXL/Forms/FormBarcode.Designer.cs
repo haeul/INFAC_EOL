@@ -39,6 +39,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.numericProductCount = new System.Windows.Forms.NumericUpDown();
             this.checkRetry = new System.Windows.Forms.CheckBox();
+            this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonOk = new System.Windows.Forms.Button();
             this.panelProductBarcode.SuspendLayout();
             this.panelTrayBarcode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericTrayCount)).BeginInit();
@@ -57,7 +59,7 @@
             this.label1.Size = new System.Drawing.Size(70, 45);
             this.label1.TabIndex = 1;
             this.label1.Text = "품목";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panelProductBarcode
             // 
@@ -89,7 +91,7 @@
             this.label2.Size = new System.Drawing.Size(70, 45);
             this.label2.TabIndex = 1;
             this.label2.Text = "트레이";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panelTrayBarcode
             // 
@@ -131,7 +133,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.SystemColors.Control;
+            this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.numericTrayCount);
             this.panel3.Location = new System.Drawing.Point(515, 2);
             this.panel3.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -141,7 +143,7 @@
             // 
             // panel4
             // 
-            this.panel4.BackColor = System.Drawing.SystemColors.Control;
+            this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.Controls.Add(this.numericProductCount);
             this.panel4.Location = new System.Drawing.Point(515, 48);
             this.panel4.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -178,12 +180,35 @@
             this.checkRetry.UseVisualStyleBackColor = false;
             this.checkRetry.CheckedChanged += new System.EventHandler(this.checkRetry_CheckedChanged);
             // 
+            // buttonClose
+            // 
+            this.buttonClose.Location = new System.Drawing.Point(547, 105);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(100, 30);
+            this.buttonClose.TabIndex = 7;
+            this.buttonClose.Text = "닫기";
+            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            // 
+            // buttonOk
+            // 
+            this.buttonOk.Location = new System.Drawing.Point(441, 105);
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(100, 30);
+            this.buttonOk.TabIndex = 7;
+            this.buttonOk.Text = "확인";
+            this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
+            // 
             // FormBarcode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.DarkGray;
-            this.ClientSize = new System.Drawing.Size(659, 95);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(664, 146);
+            this.ControlBox = false;
+            this.Controls.Add(this.buttonOk);
+            this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.checkRetry);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
@@ -226,5 +251,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.NumericUpDown numericProductCount;
         private System.Windows.Forms.CheckBox checkRetry;
+        private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Button buttonOk;
     }
 }

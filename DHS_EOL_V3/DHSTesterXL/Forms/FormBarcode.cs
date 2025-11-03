@@ -13,9 +13,9 @@ namespace DHSTesterXL
 {
     public partial class FormBarcode : Form
     {
+        public event EventHandler BarcodeDataChanged;
+
         public int Channel { get; set; }
-        //public int TrayInterlockCount { get; set; } = 10;
-        //public int ProductCount { get; set; }
         public string TrayBarcode { get; set; }
         public string ProductBarcode { get; set; }
 
@@ -26,15 +26,17 @@ namespace DHSTesterXL
 
         private void FormBarcode_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void FormBarcode_Shown(object sender, EventArgs e)
+        {
             this.Text = $"바코드 스캔 [CH.{Channel + 1}]";
             textTrayBarcode.Text = TrayBarcode;
             textProductBarcode.Text = string.Empty;
             numericTrayCount.Value = GSystem.TrayInterlockCount;
             numericProductCount.Value = GSystem.ProductInterlockCount;
-        }
 
-        private void FormBarcode_Shown(object sender, EventArgs e)
-        {
             if (textTrayBarcode.Text == string.Empty)
                 textTrayBarcode.Focus();
             else
@@ -74,9 +76,10 @@ namespace DHSTesterXL
                         }
                         TrayBarcode = textTrayBarcode.Text;
                         ProductBarcode = textProductBarcode.Text;
-                        DialogResult = DialogResult.OK;
-                        Close();
-                        //Hide();
+                        OnBarcodeDataChanged(Channel, TrayBarcode, ProductBarcode);
+                        //DialogResult = DialogResult.OK;
+                        //Close();
+                        Hide();
                     }
                     else
                     {
@@ -90,9 +93,10 @@ namespace DHSTesterXL
                 {
                     TrayBarcode = textTrayBarcode.Text;
                     ProductBarcode = textProductBarcode.Text;
-                    DialogResult = DialogResult.OK;
-                    Close();
-                    //Hide();
+                    OnBarcodeDataChanged(Channel, TrayBarcode, ProductBarcode);
+                    //DialogResult = DialogResult.OK;
+                    //Close();
+                    Hide();
                 }
             }
         }
@@ -110,6 +114,35 @@ namespace DHSTesterXL
                 panelTrayBarcode.BackColor = System.Drawing.Color.White;
             textTrayBarcode.Enabled = !checkRetry.Checked;
             numericTrayCount.Enabled = !checkRetry.Checked;
+            textProductBarcode.Focus();
+        }
+        private void OnBarcodeDataChanged(int channel, string trayBarcode, string productBarcode)
+        {
+            BarcodeEventArgs barcodeEventArgs = new BarcodeEventArgs
+            {
+                Channel = channel,
+                TrayBarcode = trayBarcode,
+                ProductBarcode = productBarcode
+            };
+            BarcodeDataChanged?.Invoke(this, barcodeEventArgs);
+        }
+
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            TrayBarcode = textTrayBarcode.Text;
+            ProductBarcode = textProductBarcode.Text;
+            OnBarcodeDataChanged(Channel, TrayBarcode, ProductBarcode);
+            Hide();
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            Hide();
+        }
+
+        public void ResetProductBarcodeData()
+        {
+            textProductBarcode.Text = string.Empty;
             textProductBarcode.Focus();
         }
     }

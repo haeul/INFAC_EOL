@@ -3,20 +3,21 @@ using MetroFramework;
 using MS.WindowsAPICodePack.Internal;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static DHSTesterXL.GSystem;
+using static System.Windows.Forms.AxHost;
 using static vxlapi_NET.XLClass;
 using static vxlapi_NET.XLDefine;
-using static DHSTesterXL.GSystem;
-using System.IO;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using static System.Windows.Forms.AxHost;
 
 namespace DHSTesterXL
 {
@@ -587,7 +588,7 @@ namespace DHSTesterXL
         private void TestStepThreadCh1()
         {
             int channel = GSystem.CH1;
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step Thread start...");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step Thread start...");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step Thread start...");
 
             _testStepThreadExit[channel] = false;
@@ -601,7 +602,7 @@ namespace DHSTesterXL
             _testStepThreadExit[channel] = false;
             _testStepThread[channel] = null;
 
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step Thread terminated!");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step Thread terminated!");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step Thread terminated!");
         }
 
@@ -609,7 +610,7 @@ namespace DHSTesterXL
         private void TestStepThreadCh2()
         {
             int channel = GSystem.CH2;
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step Thread start...");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step Thread start...");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step Thread start...");
 
             _testStepThreadExit[channel] = false;
@@ -623,7 +624,7 @@ namespace DHSTesterXL
             _testStepThreadExit[channel] = false;
             _testStepThread[channel] = null;
 
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step Thread terminated!");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step Thread terminated!");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step Thread terminated!");
         }
 
@@ -723,7 +724,7 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_Prepare(int channel)
         {
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [Prepare]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Prepare]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Prepare]");
 
             // 테스트 결과 초기화
@@ -788,7 +789,7 @@ namespace DHSTesterXL
         private void TouchOnlyTestStep_MotionLoadingStart(int channel)
         {
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [Motion Loading]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Motion Loading]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Motion Loading]");
             GSystem.MiPLC.SetLoadingStart(channel, true);
             NextTouchOnlyTestStep(channel);
@@ -802,9 +803,9 @@ namespace DHSTesterXL
                     return;
                 GSystem.MiPLC.SetLoadingStart(channel, false);
             }
-            GSystem.Logger.Info($"[CH.{channel + 1}] Motion Loading step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Loading step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Loading step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Motion Loading Complete");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Loading Complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Loading Complete");
             NextTouchOnlyTestStep(channel);
         }
@@ -813,7 +814,7 @@ namespace DHSTesterXL
             if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [Test Init]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Test Init]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Test Init]");
             GSystem.DedicatedCTRL.SetCommandTestInit(channel, true);
             NextTouchOnlyTestStep(channel);
@@ -825,9 +826,9 @@ namespace DHSTesterXL
             // 완료 대기
             //if (!GSystem.DedicatedCTRL.GetCommandTestInit(channel) || !GSystem.DedicatedCTRL.GetCompleteTestInit(channel))
             //    return;
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Init step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Init step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Init step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Init Complete");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Init Complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Init Complete");
             GSystem.DedicatedCTRL.SetCommandTestInit(channel, false);
             GSystem.TimerTestTime[channel].Start();
@@ -847,7 +848,7 @@ namespace DHSTesterXL
                 return;
             }
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [Pin Shot]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Pin Shot]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Pin Shot]");
             // 측정 상태 표시
             _overalResult[channel].Short_1_2.State = TestStates.Running;
@@ -1019,17 +1020,17 @@ namespace DHSTesterXL
             _overalResult[channel].Short_3_6.Result = $"{(ShortResult_3_6 / 1000.0):F03} mA";
             _overalResult[channel].Short_4_6.Result = $"{(ShortResult_4_6 / 1000.0):F03} mA";
 
-            GSystem.Logger.Info($"[CH.{channel + 1}] Short 1-2: [ {(ShortResult_1_2 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_1_2.State} ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Short 1-3: [ {(ShortResult_1_3 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_1_3.State} ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Short 1-4: [ {(ShortResult_1_4 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_1_4.State} ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Short 1-6: [ {(ShortResult_1_6 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_1_6.State} ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Short 2-3: [ {(ShortResult_2_3 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_2_3.State} ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Short 2-4: [ {(ShortResult_2_4 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_2_4.State} ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Short 2-6: [ {(ShortResult_2_6 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_2_6.State} ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Short 3-4: [ {(ShortResult_3_4 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_3_4.State} ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Short 3-6: [ {(ShortResult_3_6 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_3_6.State} ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Short 4-6: [ {(ShortResult_4_6 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_4_6.State} ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Pin Short step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 1-2: [ {(ShortResult_1_2 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_1_2.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 1-3: [ {(ShortResult_1_3 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_1_3.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 1-4: [ {(ShortResult_1_4 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_1_4.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 1-6: [ {(ShortResult_1_6 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_1_6.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 2-3: [ {(ShortResult_2_3 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_2_3.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 2-4: [ {(ShortResult_2_4 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_2_4.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 2-6: [ {(ShortResult_2_6 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_2_6.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 3-4: [ {(ShortResult_3_4 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_3_4.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 3-6: [ {(ShortResult_3_6 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_3_6.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Short 4-6: [ {(ShortResult_4_6 / 1000.0):F03} mA ] [ {_overalResult[channel].Short_4_6.State} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Pin Short step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Pin Short step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
 
             OnTestStepProgressChanged(channel, _overalResult[channel].Short_1_2);
@@ -1042,7 +1043,7 @@ namespace DHSTesterXL
             OnTestStepProgressChanged(channel, _overalResult[channel].Short_3_4);
             OnTestStepProgressChanged(channel, _overalResult[channel].Short_3_6);
             OnTestStepProgressChanged(channel, _overalResult[channel].Short_4_6);
-            GSystem.Logger.Info($"[CH.{channel + 1}] Pin Short Test Complete");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Pin Short Test Complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Pin Short Test Complete");
             NextTouchOnlyTestStep(channel);
         }
@@ -1051,7 +1052,7 @@ namespace DHSTesterXL
             if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [Power On]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Power On]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Power On]");
             GSystem.DedicatedCTRL.SetCommandDarkPowerOn(channel, true);
             NextTouchOnlyTestStep(channel);
@@ -1066,9 +1067,9 @@ namespace DHSTesterXL
                 if (!GSystem.DedicatedCTRL.GetCommandDarkPowerOn(channel) || !GSystem.DedicatedCTRL.GetCompleteDarkPowerOn(channel))
                     return;
             }
-            GSystem.Logger.Info($"[CH.{channel + 1}] Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Power On complete");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Power On complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Power On complete");
             NextTouchOnlyTestStep(channel);
             _tickStepInterval[channel].Reset();
@@ -1078,7 +1079,7 @@ namespace DHSTesterXL
             if (_tickStepInterval[channel].LessThan(100))
                 return;
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [Wake Up]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Wake Up]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Wake Up]");
             NextTouchOnlyTestStep(channel);
             _tickStepInterval[channel].Reset();
@@ -1087,9 +1088,9 @@ namespace DHSTesterXL
         {
             if (_tickStepInterval[channel].LessThan(100))
                 return;
-            GSystem.Logger.Info($"[CH.{channel + 1}] Wake Up step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Wake Up step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Wake Up step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Wake Up complete");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Wake Up complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Wake Up complete");
             NextTouchOnlyTestStep(channel);
             _tickStepInterval[channel].Reset();
@@ -1106,7 +1107,7 @@ namespace DHSTesterXL
                 return;
             }
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [Dark Current]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Dark Current]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Dark Current]");
             // 측정 상태 표시
             _overalResult[channel].DarkCurrent.State = TestStates.Running;
@@ -1148,10 +1149,10 @@ namespace DHSTesterXL
                 DartCurrent = (short)(GSystem.DedicatedCTRL.Reg_03h_ch1_current_lo);
             else
                 DartCurrent = (short)(GSystem.DedicatedCTRL.Reg_03h_ch2_current_lo);
-            GSystem.Logger.Info($"[CH.{channel + 1}] Dark Current : [ {DartCurrent} uA ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Dark Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Dark Current : [ {DartCurrent} uA ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Dark Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Dark Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Dark Current complete");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Dark Current complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Dark Current complete");
             // 결과 판정
             TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.DarkCurrent;
@@ -1170,7 +1171,7 @@ namespace DHSTesterXL
         private void TouchOnlyTestStep_DarkPowerOff(int channel)
         {
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [Power Off]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Power Off]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Power Off]");
             GSystem.DedicatedCTRL.SetCommandDarkPowerOn(channel, false);
             GSystem.DedicatedCTRL.SetCommandTestInit(channel, true);
@@ -1184,9 +1185,9 @@ namespace DHSTesterXL
             if (!GSystem.DedicatedCTRL.GetCommandTestInit(channel) || !GSystem.DedicatedCTRL.GetCompleteTestInit(channel))
                 return;
             GSystem.DedicatedCTRL.SetCommandTestInit(channel, false);
-            GSystem.Logger.Info($"[CH.{channel + 1}] Power Off step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Power Off step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Power Off step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Power Off Complete");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Power Off Complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Power Off Complete");
             NextTouchOnlyTestStep(channel);
             _tickStepInterval[channel].Reset();
@@ -1196,7 +1197,7 @@ namespace DHSTesterXL
             if (_tickStepInterval[channel].LessThan(500))
                 return;
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [Power On]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Power On]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Power On]");
             GSystem.DedicatedCTRL.SetCommandTestInit(channel, false);
             GSystem.DedicatedCTRL.SetCommandActivePowerOn(channel, true);
@@ -1207,9 +1208,9 @@ namespace DHSTesterXL
             // 완료 대기
             if (!GSystem.DedicatedCTRL.GetCommandActivePowerOn(channel) || !GSystem.DedicatedCTRL.GetCompleteActivePowerOn(channel))
                 return;
-            GSystem.Logger.Info($"[CH.{channel + 1}] Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Power On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Power On Complete");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Power On Complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Power On Complete");
             NextTouchOnlyTestStep(channel);
             _tickStepTimeout[channel].Reset();
@@ -1232,7 +1233,7 @@ namespace DHSTesterXL
                 return;
             }
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [P-Light Turn On]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [P-Light Turn On]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [P-Light Turn On]");
             // 측정 상태 표시
             _overalResult[channel].PLightTurnOn.State = TestStates.Running;
@@ -1246,7 +1247,7 @@ namespace DHSTesterXL
                 PLightOffCurrentValue[channel] = (DedicatedCTRL.Reg_03h_ch2_current_lo / 1000.0);
             GSystem.TraceMessage($"P-Light LO current = {(DedicatedCTRL.Reg_03h_ch1_current_lo / 1000.0):F2} mA");
             GSystem.TraceMessage($"P-Light HI current = {DedicatedCTRL.Reg_03h_ch1_current_hi} mA");
-            GSystem.Logger.Info($"P-Light Off current = {PLightOffCurrentValue[channel]:F2} mA");
+            GSystem.Logger.Info ($"P-Light Off current = {PLightOffCurrentValue[channel]:F2} mA");
             GSystem.TraceMessage($"P-Light Off current = {PLightOffCurrentValue[channel]:F2} mA");
             // PLight ON
             GSystem.DedicatedCTRL.SetCommandPLightOn(channel, true);
@@ -1257,11 +1258,11 @@ namespace DHSTesterXL
         {
             if (GSystem.DedicatedCTRL.GetResponsePLightOn(channel))
             {
-                GSystem.Logger.Info($"[CH.{channel + 1}] P-Light Turn On [ {GSystem.DedicatedCTRL.GetCompletePLightOn(channel)} ]");
+                GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Turn On [ {GSystem.DedicatedCTRL.GetCompletePLightOn(channel)} ]");
                 GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Turn On [ {GSystem.DedicatedCTRL.GetCompletePLightOn(channel)} ]");
-                GSystem.Logger.Info($"[CH.{channel + 1}] P-Light Turn On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+                GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Turn On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
                 GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Turn On step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-                GSystem.Logger.Info($"[CH.{channel + 1}] P-Light Turn On complete");
+                GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Turn On complete");
                 GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Turn On complete");
                 PLightTurnOnValue[channel] = 1;
                 // 결과 판정
@@ -1285,7 +1286,7 @@ namespace DHSTesterXL
                 {
                     if (++_retryCount[channel] < MaxRetryCount)
                     {
-                        GSystem.Logger.Info($"[CH.{channel + 1}] P-Light ON Timeout! Retry: [ {_retryCount[channel]} ]");
+                        GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light ON Timeout! Retry: [ {_retryCount[channel]} ]");
                         GSystem.TraceMessage($"[CH.{channel + 1}] P-Light ON Timeout! Retry: [ {_retryCount[channel]} ]");
                         SetTouchOnlyTestStep(channel, TouchOnlyTestStep.PLightTurnOnSend);
                         return;
@@ -1293,7 +1294,7 @@ namespace DHSTesterXL
                     else
                     {
                         // timeout
-                        GSystem.Logger.Info($"[CH.{channel + 1}] P-Light ON Timeout Error!");
+                        GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light ON Timeout Error!");
                         GSystem.TraceMessage($"[CH.{channel + 1}] P-Light ON Timeout Error!");
                         // 측정 상태 표시
                         _overalResult[channel].PLightTurnOn.State = TestStates.Failed;
@@ -1309,7 +1310,7 @@ namespace DHSTesterXL
         private void TouchOnlyTestStep_PLightCurrentSend(int channel)
         {
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [P-Light Current]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [P-Light Current]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [P-Light Current]");
             // 측정 상태 표시
             _overalResult[channel].PLightCurrent.State = TestStates.Running;
@@ -1343,10 +1344,10 @@ namespace DHSTesterXL
             GSystem.TraceMessage($"P-Light LO current = {(DedicatedCTRL.Reg_03h_ch1_current_lo / 1000.0):F2} mA");
             GSystem.TraceMessage($"P-Light HI current = {DedicatedCTRL.Reg_03h_ch1_current_hi} mA");
             GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Current [ {(PLightOnCurrentValue[channel] - PLightOffCurrentValue[channel]):F2} mA ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] P-Light Current [ {(PLightOnCurrentValue[channel] - PLightOffCurrentValue[channel]):F2} mA ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] P-Light Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Current [ {(PLightOnCurrentValue[channel] - PLightOffCurrentValue[channel]):F2} mA ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Current step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] P-Light Current complete");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Current complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Current complete");
             // 결과 판정
             TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.PLightCurrent;
@@ -1365,7 +1366,7 @@ namespace DHSTesterXL
         private void TouchOnlyTestStep_PLightAmbientSend(int channel)
         {
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [P-Light Ambient]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [P-Light Ambient]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [P-Light Ambient]");
             // 측정 상태 표시
             _overalResult[channel].PLightAmbient.State = TestStates.Running;
@@ -1376,10 +1377,10 @@ namespace DHSTesterXL
         }
         private void TouchOnlyTestStep_PLightAmbientWait(int channel)
         {
-            GSystem.Logger.Info($"[CH.{channel + 1}] P-Light Ambient [ {PLightAmbientValue} ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] P-Light Ambient step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Ambient [ {PLightAmbientValue} ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Ambient step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Ambient step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] P-Light Ambient complete");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light Ambient complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] P-Light Ambient complete");
             // 결과 판정
             TestSpec testSpec = GSystem.ProductSettings.TestItemSpecs.PLightAmbient;
@@ -1424,7 +1425,7 @@ namespace DHSTesterXL
                 {
                     if (++_retryCount[channel] < MaxRetryCount)
                     {
-                        GSystem.Logger.Info($"[CH.{channel + 1}] P-Light OFF Timeout! Retry: [ {_retryCount[channel]} ]");
+                        GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light OFF Timeout! Retry: [ {_retryCount[channel]} ]");
                         GSystem.TraceMessage($"[CH.{channel + 1}] P-Light OFF Timeout! Retry: [ {_retryCount[channel]} ]");
                         SetTouchOnlyTestStep(channel, TouchOnlyTestStep.PLightTurnOffSend);
                         return;
@@ -1432,7 +1433,7 @@ namespace DHSTesterXL
                     else
                     {
                         // timeout
-                        GSystem.Logger.Info($"[CH.{channel + 1}] P-Light OFF Timeout Error!");
+                        GSystem.Logger.Info ($"[CH.{channel + 1}] P-Light OFF Timeout Error!");
                         GSystem.TraceMessage($"[CH.{channel + 1}] P-Light OFF Timeout Error!");
                         SetTouchOnlyTestStep(channel, TouchOnlyTestStep.MotionMoveTouchStart);
                         return;
@@ -1483,7 +1484,7 @@ namespace DHSTesterXL
                 return;
             }
             _tickStepElapse[channel].Reset();
-            GSystem.Logger.Info($"[CH.{channel + 1}] Test Step: [Motion Move to Touch]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Test Step: [Motion Move to Touch]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Test Step: [Motion Move to Touch]");
             // LQ2 NFC는 Touch 위치로
             // LQ2 Touch Only는 NFC 위치로
@@ -1528,9 +1529,9 @@ namespace DHSTesterXL
                     break;
             }
 
-            GSystem.Logger.Info($"[CH.{channel + 1}] Motion Move to Touch step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Move to Touch step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Move to Touch step time: [ {_tickStepElapse[channel].GetElapsedMilliseconds()} ms ]");
-            GSystem.Logger.Info($"[CH.{channel + 1}] Motion Move to Touch Complete");
+            GSystem.Logger.Info ($"[CH.{channel + 1}] Motion Move to Touch Complete");
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Move to Touch Complete");
             NextTouchOnlyTestStep(channel);
         }
@@ -2636,7 +2637,7 @@ namespace DHSTesterXL
                 {
                     Thread.Sleep(1);
 
-                    if (_serialPort[channel].BytesToRead > 8)
+                    if (_serialPort[channel].BytesToRead >= 10)
                     {
                         rxString = _serialPort[channel].ReadExisting();
                         if (rxString.Length >= 5)
@@ -2863,7 +2864,7 @@ namespace DHSTesterXL
             GSystem.TraceMessage($"[CH.{channel + 1}] Motion Unloading Complete");
             StringBuilder sb = new StringBuilder();
             sb.Append($"[CH.{channel + 1}] Total Test Elapse: [ {GSystem.TimerTestTime[channel].GetElapsedSeconds():F1} sec ]");
-            GSystem.Logger.Info(sb.ToString());
+            GSystem.Logger.Info (sb.ToString());
             GSystem.TraceMessage(sb.ToString());
             GSystem.TimerTestTime[channel].Stop();
             NextTouchOnlyTestStep(channel);
@@ -3049,15 +3050,6 @@ namespace DHSTesterXL
                             string item5     = GSystem.ProductSettings.LabelPrint.Style.Item5Text;
                             string company   = GSystem.ProductSettings.LabelPrint.Style.BrandText; //"INFAC ELECS";
 
-                            string EtcsVendor = GSystem.ProductSettings.LabelPrint.Etcs.Vendor; //"SUR2";
-                            string EtcsPartNo = GSystem.ProductSettings.LabelPrint.Etcs.PartNo; //"8266703200";
-                            string EtcsSerial = GSystem.ProductSettings.LabelPrint.Etcs.Serial; //"";
-                            string EtcsEo     = GSystem.ProductSettings.LabelPrint.Etcs.Eo; //"";
-                            string EtcsTrace  = GSystem.ProductSettings.LabelPrint.Etcs.Trace; //"250807";
-                            string EtcsA1     = GSystem.ProductSettings.LabelPrint.Etcs.A1; //"A000";
-                            string EtcsM      = GSystem.ProductSettings.LabelPrint.Etcs.M; //"0";
-                            string EtcsC      = GSystem.ProductSettings.LabelPrint.Etcs.C; //"001";
-
                             var payload = new LabelPayload
                             {
                                 HW = hwVersion,
@@ -3076,19 +3068,41 @@ namespace DHSTesterXL
                                 DataMatrix = null
                             };
 
+                            string EtcsVendor = (GSystem.ProductSettings.LabelPrint.Etcs.Vendor ?? "").Trim();
+                            string EtcsPartNo = (GSystem.ProductSettings.LabelPrint.Etcs.PartNo ?? "").Trim();
+                            string EtcsSerial = (GSystem.ProductSettings.LabelPrint.Etcs.Serial ?? "").Trim();
+                            string EtcsEo = (GSystem.ProductSettings.LabelPrint.Etcs.Eo ?? "").Trim();
+
+                            // T = [YYMMDD] + [4M 공란] + [A/@ 1글자] + [추적번호(7 or 4)]
+                            string EtcsTrace = DateTime.Now.ToString("yyMMdd"); // 생산일자: 오늘 날짜만 사용
+
+                            // 4M은 공란 강제
+                            string EtcsM = string.Empty;
+
+                            // A or @ 은 1글자만 허용 (그 외는 공란)
+                            string a1Raw = (GSystem.ProductSettings.LabelPrint.Etcs.A1 ?? "").Trim();
+                            string EtcsA1 = (a1Raw == "A" || a1Raw == "@") ? a1Raw : string.Empty;
+
+                            // 추적번호: 숫자만 추출하여 7자리면 7자리, 아니면 4자리 0패딩
+                            string serialDigits = Regex.Replace(serialNumber.ToString(), @"\D", "");
+                            string EtcsC;
+                            if (serialDigits.Length >= 7)
+                                EtcsC = serialDigits.Substring(serialDigits.Length - 7).PadLeft(7, '0');  // 7자리 우선
+                            else
+                                EtcsC = serialDigits.PadLeft(4, '0');                                      // 기본 4자리
+
                             var etcs = new EtcsSettings
                             {
                                 Vendor = EtcsVendor,
                                 PartNo = EtcsPartNo,
                                 Serial = EtcsSerial,
                                 Eo = EtcsEo,
-                                Trace = EtcsTrace,
-                                A1 = EtcsA1,
-                                M = EtcsM,
-                                C = EtcsC
+                                Trace = EtcsTrace, // 오늘 YYMMDD
+                                A1 = EtcsA1,    // A/@ 한 글자 또는 공란
+                                M = EtcsM,     // 4M 공란
+                                C = EtcsC      // 7 or 4자리
                             };
 
-                            // 설정값(ProductSettings.LabelPrint.PrinterName) 우선 사용 + 신규 데이터 전달
                             GSystem.PrintProductLabel(
                                 payload,
                                 GSystem.ProductSettings.LabelPrint.Style,
@@ -3096,9 +3110,6 @@ namespace DHSTesterXL
                                 printerName: "ZDesigner ZD421-203dpi ZPL",
                                 dpi: null, darkness: null, qty: 1, speedIps: 1
                             );
-
-
-
                         }
                     }
 
@@ -3141,9 +3152,13 @@ namespace DHSTesterXL
             // 검사 완료
             GSystem.MiPLC.SetAutoTestComplete(channel, true);
 
-            // 스레드 종료
+            // 검사 스텝 대기 상태로
             SetTouchOnlyTestStep(channel, TouchOnlyTestStep.Standby);
-            _testStepThreadExit[channel] = true;
+            // 스레드 종료는 하지 않는다
+            //_testStepThreadExit[channel] = true;
+
+            // 바코드 입력창 표시
+            GSystem.BarcodeResetAndPopUp?.Invoke(channel);
         }
         private void TouchOnlyTestStep_CancelStart(int channel)
         {

@@ -305,7 +305,7 @@ namespace DHSTesterXL
             string a1 = (txtEtcsSpecialValue?.Text ?? "").Trim();         // 1A (옵션 확장)
             string m = (txtEtcsInitialValue?.Text ?? "");
             if (string.IsNullOrEmpty(m))
-                m = new string(' ', 4);   // M 필드: 공백 4자리로 채움
+                m = new string('0', 4);   // M 필드: 공백 4자리로 채움
             string c = (txtEtcsCompanyAreaValue?.Text ?? "").Trim();     // C  (옵션 확장)
 
             // 제어코드(백슬래시-헥스 표기) - ^FH\ 가 해석함
@@ -335,11 +335,11 @@ namespace DHSTesterXL
             sb.Append(GS);
             sb.Append("T").Append(t);
 
-            sb.Append(m);
+            //sb.Append(m);
 
-            sb.Append(a1);
+            //sb.Append(a1);
 
-            sb.Append(c);
+            //sb.Append(c);
 
             // 트레일러
             sb.Append(GS).Append(RS).Append(EOT);
@@ -731,10 +731,11 @@ namespace DHSTesterXL
 
             // A or @ (1문자만 허용)
             string a1 = (d.A1 ?? "").Trim();
-            a1 = (a1 == "A" || a1 == "@") ? a1 : string.Empty;
+            //a1 = (a1 == "A" || a1 == "@") ? a1 : string.Empty;
+            a1 = "A";
 
             // 부품4M 공란 강제
-            string fourM = new string(' ', 4);  // 공백 4개
+            string fourM = new string('0', 4);  // 공백 4개
 
             // 추적번호
             string cDigits = System.Text.RegularExpressions.Regex.Replace((d.C ?? ""), @"\D", "");
