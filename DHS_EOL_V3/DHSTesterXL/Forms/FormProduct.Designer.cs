@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.buttonNew = new System.Windows.Forms.Button();
             this.buttonCopy = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
@@ -145,17 +145,17 @@
             this.panel12 = new System.Windows.Forms.Panel();
             this.label40 = new System.Windows.Forms.Label();
             this.txtFixtureBarcode = new System.Windows.Forms.TextBox();
-            this.txtEtcsCompanyAreaValue = new System.Windows.Forms.TextBox();
-            this.txtEtcsCTag = new System.Windows.Forms.TextBox();
-            this.txtEtcsInitialValue = new System.Windows.Forms.TextBox();
-            this.txtEtcsMTag = new System.Windows.Forms.TextBox();
-            this.txtEtcsSpecialValue = new System.Windows.Forms.TextBox();
+            this.txtEtcsSerialValue = new System.Windows.Forms.TextBox();
+            this.txtEtcsSnTag = new System.Windows.Forms.TextBox();
+            this.txtEtcsAValue = new System.Windows.Forms.TextBox();
             this.txtEtcsATag = new System.Windows.Forms.TextBox();
+            this.txtEtcs4MValue = new System.Windows.Forms.TextBox();
+            this.txtEtcsMTag = new System.Windows.Forms.TextBox();
             this.txtEtcsTraceValue = new System.Windows.Forms.TextBox();
             this.txtEtcsTTag = new System.Windows.Forms.TextBox();
             this.txtEtcsEoValue = new System.Windows.Forms.TextBox();
             this.txtEtcsETag = new System.Windows.Forms.TextBox();
-            this.txtEtcsSerialValue = new System.Windows.Forms.TextBox();
+            this.txtEtcsSequenceValue = new System.Windows.Forms.TextBox();
             this.txtEtcsSTag = new System.Windows.Forms.TextBox();
             this.txtEtcsPartNoValue = new System.Windows.Forms.TextBox();
             this.txtEtcsPTag = new System.Windows.Forms.TextBox();
@@ -200,26 +200,6 @@
             this.Ｙ비율 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.데이터 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.label50 = new System.Windows.Forms.Label();
-            this.label51 = new System.Windows.Forms.Label();
-            this.numSerialTo = new System.Windows.Forms.NumericUpDown();
-            this.numPrintQty = new System.Windows.Forms.NumericUpDown();
-            this.numPrintSpeed = new System.Windows.Forms.NumericUpDown();
-            this.numPrintDarkness = new System.Windows.Forms.NumericUpDown();
-            this.numSerialFrom = new System.Windows.Forms.NumericUpDown();
-            this.numLabelHeight = new System.Windows.Forms.NumericUpDown();
-            this.numLabelGap = new System.Windows.Forms.NumericUpDown();
-            this.numLabelWidth = new System.Windows.Forms.NumericUpDown();
-            this.comboPrintDir = new System.Windows.Forms.ComboBox();
-            this.label52 = new System.Windows.Forms.Label();
-            this.label53 = new System.Windows.Forms.Label();
-            this.label54 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
-            this.label58 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -257,6 +237,7 @@
             this.textNFC_Z_MeasureBasePositionCh1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.checkVFlash = new System.Windows.Forms.CheckBox();
             this.checkUseLabelPrint = new System.Windows.Forms.CheckBox();
             this.checkUseTrayInterlock = new System.Windows.Forms.CheckBox();
             this.checkUseProductBarcode = new System.Windows.Forms.CheckBox();
@@ -295,7 +276,20 @@
             this.labelMasterOk2_Ch1 = new System.Windows.Forms.Label();
             this.labelMasterOk1_Ch1 = new System.Windows.Forms.Label();
             this.labelMaster1 = new System.Windows.Forms.Label();
-            this.checkVFlash = new System.Windows.Forms.CheckBox();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.numPrintQty = new System.Windows.Forms.NumericUpDown();
+            this.numPrintSpeed = new System.Windows.Forms.NumericUpDown();
+            this.numPrintDarkness = new System.Windows.Forms.NumericUpDown();
+            this.numLabelHeight = new System.Windows.Forms.NumericUpDown();
+            this.numLabelWidth = new System.Windows.Forms.NumericUpDown();
+            this.comboPrintDir = new System.Windows.Forms.ComboBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
             this.panelProductInfo.SuspendLayout();
             this.panelProductInfoFrame.SuspendLayout();
             this.panelTestSettingsFrame.SuspendLayout();
@@ -318,15 +312,6 @@
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LabelDataGridView)).BeginInit();
             this.panel8.SuspendLayout();
-            this.panel9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSerialTo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPrintQty)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPrintSpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPrintDarkness)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numSerialFrom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numLabelHeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numLabelGap)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numLabelWidth)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -337,6 +322,12 @@
             this.panel5.SuspendLayout();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericMasterCount)).BeginInit();
+            this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPrintQty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPrintSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPrintDarkness)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLabelHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLabelWidth)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonNew
@@ -644,14 +635,14 @@
             this.gridTestList.AllowUserToResizeRows = false;
             this.gridTestList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridTestList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridTestList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridTestList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.gridTestList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridTestList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colTestNo,
@@ -660,14 +651,14 @@
             this.colTestMin,
             this.colTestMax,
             this.colTestOption});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridTestList.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridTestList.DefaultCellStyle = dataGridViewCellStyle10;
             this.gridTestList.GridColor = System.Drawing.Color.LightGray;
             this.gridTestList.Location = new System.Drawing.Point(10, 30);
             this.gridTestList.Name = "gridTestList";
@@ -1354,28 +1345,28 @@
             this.gridXcpList.AllowUserToResizeRows = false;
             this.gridXcpList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridXcpList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridXcpList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridXcpList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.gridXcpList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gridXcpList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colXcpNo,
             this.colUse,
             this.colXcpItem,
             this.colXcpAddress});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridXcpList.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridXcpList.DefaultCellStyle = dataGridViewCellStyle12;
             this.gridXcpList.GridColor = System.Drawing.Color.LightGray;
             this.gridXcpList.Location = new System.Drawing.Point(10, 30);
             this.gridXcpList.Name = "gridXcpList";
@@ -1692,17 +1683,17 @@
             this.panel12.BackColor = System.Drawing.SystemColors.Control;
             this.panel12.Controls.Add(this.label40);
             this.panel12.Controls.Add(this.txtFixtureBarcode);
-            this.panel12.Controls.Add(this.txtEtcsCompanyAreaValue);
-            this.panel12.Controls.Add(this.txtEtcsCTag);
-            this.panel12.Controls.Add(this.txtEtcsInitialValue);
-            this.panel12.Controls.Add(this.txtEtcsMTag);
-            this.panel12.Controls.Add(this.txtEtcsSpecialValue);
+            this.panel12.Controls.Add(this.txtEtcsSerialValue);
+            this.panel12.Controls.Add(this.txtEtcsSnTag);
+            this.panel12.Controls.Add(this.txtEtcsAValue);
             this.panel12.Controls.Add(this.txtEtcsATag);
+            this.panel12.Controls.Add(this.txtEtcs4MValue);
+            this.panel12.Controls.Add(this.txtEtcsMTag);
             this.panel12.Controls.Add(this.txtEtcsTraceValue);
             this.panel12.Controls.Add(this.txtEtcsTTag);
             this.panel12.Controls.Add(this.txtEtcsEoValue);
             this.panel12.Controls.Add(this.txtEtcsETag);
-            this.panel12.Controls.Add(this.txtEtcsSerialValue);
+            this.panel12.Controls.Add(this.txtEtcsSequenceValue);
             this.panel12.Controls.Add(this.txtEtcsSTag);
             this.panel12.Controls.Add(this.txtEtcsPartNoValue);
             this.panel12.Controls.Add(this.txtEtcsPTag);
@@ -1752,53 +1743,53 @@
             this.txtFixtureBarcode.Size = new System.Drawing.Size(247, 23);
             this.txtFixtureBarcode.TabIndex = 172;
             // 
-            // txtEtcsCompanyAreaValue
+            // txtEtcsSerialValue
             // 
-            this.txtEtcsCompanyAreaValue.Location = new System.Drawing.Point(135, 335);
-            this.txtEtcsCompanyAreaValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.txtEtcsCompanyAreaValue.Name = "txtEtcsCompanyAreaValue";
-            this.txtEtcsCompanyAreaValue.Size = new System.Drawing.Size(192, 23);
-            this.txtEtcsCompanyAreaValue.TabIndex = 171;
+            this.txtEtcsSerialValue.Location = new System.Drawing.Point(135, 335);
+            this.txtEtcsSerialValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsSerialValue.Name = "txtEtcsSerialValue";
+            this.txtEtcsSerialValue.Size = new System.Drawing.Size(192, 23);
+            this.txtEtcsSerialValue.TabIndex = 171;
             // 
-            // txtEtcsCTag
+            // txtEtcsSnTag
             // 
-            this.txtEtcsCTag.Location = new System.Drawing.Point(80, 335);
-            this.txtEtcsCTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.txtEtcsCTag.Name = "txtEtcsCTag";
-            this.txtEtcsCTag.Size = new System.Drawing.Size(48, 23);
-            this.txtEtcsCTag.TabIndex = 170;
+            this.txtEtcsSnTag.Location = new System.Drawing.Point(80, 335);
+            this.txtEtcsSnTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsSnTag.Name = "txtEtcsSnTag";
+            this.txtEtcsSnTag.Size = new System.Drawing.Size(48, 23);
+            this.txtEtcsSnTag.TabIndex = 170;
             // 
-            // txtEtcsInitialValue
+            // txtEtcsAValue
             // 
-            this.txtEtcsInitialValue.Location = new System.Drawing.Point(135, 305);
-            this.txtEtcsInitialValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.txtEtcsInitialValue.Name = "txtEtcsInitialValue";
-            this.txtEtcsInitialValue.Size = new System.Drawing.Size(192, 23);
-            this.txtEtcsInitialValue.TabIndex = 169;
-            // 
-            // txtEtcsMTag
-            // 
-            this.txtEtcsMTag.Location = new System.Drawing.Point(80, 305);
-            this.txtEtcsMTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.txtEtcsMTag.Name = "txtEtcsMTag";
-            this.txtEtcsMTag.Size = new System.Drawing.Size(48, 23);
-            this.txtEtcsMTag.TabIndex = 168;
-            // 
-            // txtEtcsSpecialValue
-            // 
-            this.txtEtcsSpecialValue.Location = new System.Drawing.Point(135, 275);
-            this.txtEtcsSpecialValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.txtEtcsSpecialValue.Name = "txtEtcsSpecialValue";
-            this.txtEtcsSpecialValue.Size = new System.Drawing.Size(192, 23);
-            this.txtEtcsSpecialValue.TabIndex = 167;
+            this.txtEtcsAValue.Location = new System.Drawing.Point(135, 305);
+            this.txtEtcsAValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsAValue.Name = "txtEtcsAValue";
+            this.txtEtcsAValue.Size = new System.Drawing.Size(192, 23);
+            this.txtEtcsAValue.TabIndex = 169;
             // 
             // txtEtcsATag
             // 
-            this.txtEtcsATag.Location = new System.Drawing.Point(80, 275);
+            this.txtEtcsATag.Location = new System.Drawing.Point(80, 305);
             this.txtEtcsATag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
             this.txtEtcsATag.Name = "txtEtcsATag";
             this.txtEtcsATag.Size = new System.Drawing.Size(48, 23);
-            this.txtEtcsATag.TabIndex = 166;
+            this.txtEtcsATag.TabIndex = 168;
+            // 
+            // txtEtcs4MValue
+            // 
+            this.txtEtcs4MValue.Location = new System.Drawing.Point(135, 275);
+            this.txtEtcs4MValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcs4MValue.Name = "txtEtcs4MValue";
+            this.txtEtcs4MValue.Size = new System.Drawing.Size(192, 23);
+            this.txtEtcs4MValue.TabIndex = 167;
+            // 
+            // txtEtcsMTag
+            // 
+            this.txtEtcsMTag.Location = new System.Drawing.Point(80, 275);
+            this.txtEtcsMTag.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsMTag.Name = "txtEtcsMTag";
+            this.txtEtcsMTag.Size = new System.Drawing.Size(48, 23);
+            this.txtEtcsMTag.TabIndex = 166;
             // 
             // txtEtcsTraceValue
             // 
@@ -1832,13 +1823,13 @@
             this.txtEtcsETag.Size = new System.Drawing.Size(48, 23);
             this.txtEtcsETag.TabIndex = 162;
             // 
-            // txtEtcsSerialValue
+            // txtEtcsSequenceValue
             // 
-            this.txtEtcsSerialValue.Location = new System.Drawing.Point(135, 185);
-            this.txtEtcsSerialValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
-            this.txtEtcsSerialValue.Name = "txtEtcsSerialValue";
-            this.txtEtcsSerialValue.Size = new System.Drawing.Size(192, 23);
-            this.txtEtcsSerialValue.TabIndex = 161;
+            this.txtEtcsSequenceValue.Location = new System.Drawing.Point(135, 185);
+            this.txtEtcsSequenceValue.Margin = new System.Windows.Forms.Padding(10, 5, 0, 0);
+            this.txtEtcsSequenceValue.Name = "txtEtcsSequenceValue";
+            this.txtEtcsSequenceValue.Size = new System.Drawing.Size(192, 23);
+            this.txtEtcsSequenceValue.TabIndex = 161;
             // 
             // txtEtcsSTag
             // 
@@ -1887,7 +1878,7 @@
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(70, 21);
             this.label20.TabIndex = 155;
-            this.label20.Text = "초도품구분";
+            this.label20.Text = "A or @";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label19
@@ -1897,7 +1888,7 @@
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(70, 21);
             this.label19.TabIndex = 154;
-            this.label19.Text = "업체영역";
+            this.label19.Text = "추적번호";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label18
@@ -1957,7 +1948,7 @@
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(70, 21);
             this.label35.TabIndex = 148;
-            this.label35.Text = "추적정보";
+            this.label35.Text = "생산일자";
             this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label34
@@ -1967,7 +1958,7 @@
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(70, 21);
             this.label34.TabIndex = 147;
-            this.label34.Text = "특이정보";
+            this.label34.Text = "부품4M";
             this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label27
@@ -2251,208 +2242,6 @@
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(550, 207);
             this.panel8.TabIndex = 107;
-            // 
-            // panel9
-            // 
-            this.panel9.BackColor = System.Drawing.SystemColors.Control;
-            this.panel9.Controls.Add(this.label50);
-            this.panel9.Controls.Add(this.label51);
-            this.panel9.Controls.Add(this.numSerialTo);
-            this.panel9.Controls.Add(this.numPrintQty);
-            this.panel9.Controls.Add(this.numPrintSpeed);
-            this.panel9.Controls.Add(this.numPrintDarkness);
-            this.panel9.Controls.Add(this.numSerialFrom);
-            this.panel9.Controls.Add(this.numLabelHeight);
-            this.panel9.Controls.Add(this.numLabelGap);
-            this.panel9.Controls.Add(this.numLabelWidth);
-            this.panel9.Controls.Add(this.comboPrintDir);
-            this.panel9.Controls.Add(this.label52);
-            this.panel9.Controls.Add(this.label53);
-            this.panel9.Controls.Add(this.label54);
-            this.panel9.Controls.Add(this.label56);
-            this.panel9.Controls.Add(this.label57);
-            this.panel9.Controls.Add(this.label58);
-            this.panel9.Controls.Add(this.label59);
-            this.panel9.Controls.Add(this.label55);
-            this.panel9.Location = new System.Drawing.Point(1, 0);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(548, 205);
-            this.panel9.TabIndex = 104;
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(448, 73);
-            this.label50.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(12, 15);
-            this.label50.TabIndex = 134;
-            this.label50.Text = "-";
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(286, 74);
-            this.label51.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(59, 15);
-            this.label51.TabIndex = 117;
-            this.label51.Text = "일련 번호";
-            // 
-            // numSerialTo
-            // 
-            this.numSerialTo.Location = new System.Drawing.Point(466, 71);
-            this.numSerialTo.Margin = new System.Windows.Forms.Padding(2);
-            this.numSerialTo.Name = "numSerialTo";
-            this.numSerialTo.Size = new System.Drawing.Size(68, 23);
-            this.numSerialTo.TabIndex = 133;
-            // 
-            // numPrintQty
-            // 
-            this.numPrintQty.Location = new System.Drawing.Point(374, 147);
-            this.numPrintQty.Margin = new System.Windows.Forms.Padding(2);
-            this.numPrintQty.Name = "numPrintQty";
-            this.numPrintQty.Size = new System.Drawing.Size(160, 23);
-            this.numPrintQty.TabIndex = 132;
-            // 
-            // numPrintSpeed
-            // 
-            this.numPrintSpeed.Location = new System.Drawing.Point(374, 111);
-            this.numPrintSpeed.Margin = new System.Windows.Forms.Padding(2);
-            this.numPrintSpeed.Name = "numPrintSpeed";
-            this.numPrintSpeed.Size = new System.Drawing.Size(160, 23);
-            this.numPrintSpeed.TabIndex = 131;
-            // 
-            // numPrintDarkness
-            // 
-            this.numPrintDarkness.Location = new System.Drawing.Point(374, 34);
-            this.numPrintDarkness.Margin = new System.Windows.Forms.Padding(2);
-            this.numPrintDarkness.Name = "numPrintDarkness";
-            this.numPrintDarkness.Size = new System.Drawing.Size(160, 23);
-            this.numPrintDarkness.TabIndex = 130;
-            // 
-            // numSerialFrom
-            // 
-            this.numSerialFrom.Location = new System.Drawing.Point(374, 71);
-            this.numSerialFrom.Margin = new System.Windows.Forms.Padding(2);
-            this.numSerialFrom.Name = "numSerialFrom";
-            this.numSerialFrom.Size = new System.Drawing.Size(67, 23);
-            this.numSerialFrom.TabIndex = 129;
-            // 
-            // numLabelHeight
-            // 
-            this.numLabelHeight.Location = new System.Drawing.Point(100, 110);
-            this.numLabelHeight.Margin = new System.Windows.Forms.Padding(2);
-            this.numLabelHeight.Name = "numLabelHeight";
-            this.numLabelHeight.Size = new System.Drawing.Size(160, 23);
-            this.numLabelHeight.TabIndex = 128;
-            // 
-            // numLabelGap
-            // 
-            this.numLabelGap.Location = new System.Drawing.Point(100, 148);
-            this.numLabelGap.Margin = new System.Windows.Forms.Padding(2);
-            this.numLabelGap.Name = "numLabelGap";
-            this.numLabelGap.Size = new System.Drawing.Size(160, 23);
-            this.numLabelGap.TabIndex = 127;
-            // 
-            // numLabelWidth
-            // 
-            this.numLabelWidth.Location = new System.Drawing.Point(100, 73);
-            this.numLabelWidth.Margin = new System.Windows.Forms.Padding(2);
-            this.numLabelWidth.Name = "numLabelWidth";
-            this.numLabelWidth.Size = new System.Drawing.Size(160, 23);
-            this.numLabelWidth.TabIndex = 126;
-            // 
-            // comboPrintDir
-            // 
-            this.comboPrintDir.FormattingEnabled = true;
-            this.comboPrintDir.Location = new System.Drawing.Point(100, 34);
-            this.comboPrintDir.Margin = new System.Windows.Forms.Padding(2);
-            this.comboPrintDir.Name = "comboPrintDir";
-            this.comboPrintDir.Size = new System.Drawing.Size(161, 23);
-            this.comboPrintDir.TabIndex = 125;
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(286, 37);
-            this.label52.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(59, 15);
-            this.label52.TabIndex = 118;
-            this.label52.Text = "인쇄 농도";
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(286, 112);
-            this.label53.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(59, 15);
-            this.label53.TabIndex = 119;
-            this.label53.Text = "인쇄 속도";
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(286, 151);
-            this.label54.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(59, 15);
-            this.label54.TabIndex = 120;
-            this.label54.Text = "인쇄 수량";
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(17, 150);
-            this.label56.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(59, 15);
-            this.label56.TabIndex = 121;
-            this.label56.Text = "라벨 간격";
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(17, 112);
-            this.label57.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(59, 15);
-            this.label57.TabIndex = 122;
-            this.label57.Text = "라벨 높이";
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(17, 74);
-            this.label58.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(59, 15);
-            this.label58.TabIndex = 123;
-            this.label58.Text = "라벨 너비";
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(17, 37);
-            this.label59.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(59, 15);
-            this.label59.TabIndex = 124;
-            this.label59.Text = "인쇄 방향";
-            // 
-            // label55
-            // 
-            this.label55.BackColor = System.Drawing.Color.LightGray;
-            this.label55.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label55.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label55.Location = new System.Drawing.Point(0, 0);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(548, 21);
-            this.label55.TabIndex = 3;
-            this.label55.Text = "인쇄 설정";
-            this.label55.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel6
             // 
@@ -2861,6 +2650,18 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(498, 218);
             this.panel4.TabIndex = 0;
+            // 
+            // checkVFlash
+            // 
+            this.checkVFlash.AutoSize = true;
+            this.checkVFlash.Checked = true;
+            this.checkVFlash.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkVFlash.Location = new System.Drawing.Point(278, 30);
+            this.checkVFlash.Name = "checkVFlash";
+            this.checkVFlash.Size = new System.Drawing.Size(70, 19);
+            this.checkVFlash.TabIndex = 7;
+            this.checkVFlash.Text = "VFLASH";
+            this.checkVFlash.UseVisualStyleBackColor = true;
             // 
             // checkUseLabelPrint
             // 
@@ -3280,17 +3081,147 @@
             this.labelMaster1.Text = "제품 1";
             this.labelMaster1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // checkVFlash
+            // panel9
             // 
-            this.checkVFlash.AutoSize = true;
-            this.checkVFlash.Checked = true;
-            this.checkVFlash.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkVFlash.Location = new System.Drawing.Point(278, 30);
-            this.checkVFlash.Name = "checkVFlash";
-            this.checkVFlash.Size = new System.Drawing.Size(70, 19);
-            this.checkVFlash.TabIndex = 7;
-            this.checkVFlash.Text = "VFLASH";
-            this.checkVFlash.UseVisualStyleBackColor = true;
+            this.panel9.BackColor = System.Drawing.SystemColors.Control;
+            this.panel9.Controls.Add(this.numPrintQty);
+            this.panel9.Controls.Add(this.numPrintSpeed);
+            this.panel9.Controls.Add(this.numPrintDarkness);
+            this.panel9.Controls.Add(this.numLabelHeight);
+            this.panel9.Controls.Add(this.numLabelWidth);
+            this.panel9.Controls.Add(this.comboPrintDir);
+            this.panel9.Controls.Add(this.label52);
+            this.panel9.Controls.Add(this.label53);
+            this.panel9.Controls.Add(this.label54);
+            this.panel9.Controls.Add(this.label57);
+            this.panel9.Controls.Add(this.label58);
+            this.panel9.Controls.Add(this.label59);
+            this.panel9.Controls.Add(this.label55);
+            this.panel9.Location = new System.Drawing.Point(1, 1);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(548, 205);
+            this.panel9.TabIndex = 105;
+            // 
+            // numPrintQty
+            // 
+            this.numPrintQty.Location = new System.Drawing.Point(368, 151);
+            this.numPrintQty.Margin = new System.Windows.Forms.Padding(2);
+            this.numPrintQty.Name = "numPrintQty";
+            this.numPrintQty.Size = new System.Drawing.Size(160, 23);
+            this.numPrintQty.TabIndex = 132;
+            // 
+            // numPrintSpeed
+            // 
+            this.numPrintSpeed.Location = new System.Drawing.Point(368, 101);
+            this.numPrintSpeed.Margin = new System.Windows.Forms.Padding(2);
+            this.numPrintSpeed.Name = "numPrintSpeed";
+            this.numPrintSpeed.Size = new System.Drawing.Size(160, 23);
+            this.numPrintSpeed.TabIndex = 131;
+            // 
+            // numPrintDarkness
+            // 
+            this.numPrintDarkness.Location = new System.Drawing.Point(368, 51);
+            this.numPrintDarkness.Margin = new System.Windows.Forms.Padding(2);
+            this.numPrintDarkness.Name = "numPrintDarkness";
+            this.numPrintDarkness.Size = new System.Drawing.Size(160, 23);
+            this.numPrintDarkness.TabIndex = 130;
+            // 
+            // numLabelHeight
+            // 
+            this.numLabelHeight.Location = new System.Drawing.Point(99, 151);
+            this.numLabelHeight.Margin = new System.Windows.Forms.Padding(2);
+            this.numLabelHeight.Name = "numLabelHeight";
+            this.numLabelHeight.Size = new System.Drawing.Size(160, 23);
+            this.numLabelHeight.TabIndex = 128;
+            // 
+            // numLabelWidth
+            // 
+            this.numLabelWidth.Location = new System.Drawing.Point(99, 101);
+            this.numLabelWidth.Margin = new System.Windows.Forms.Padding(2);
+            this.numLabelWidth.Name = "numLabelWidth";
+            this.numLabelWidth.Size = new System.Drawing.Size(160, 23);
+            this.numLabelWidth.TabIndex = 126;
+            // 
+            // comboPrintDir
+            // 
+            this.comboPrintDir.FormattingEnabled = true;
+            this.comboPrintDir.Location = new System.Drawing.Point(99, 51);
+            this.comboPrintDir.Margin = new System.Windows.Forms.Padding(2);
+            this.comboPrintDir.Name = "comboPrintDir";
+            this.comboPrintDir.Size = new System.Drawing.Size(160, 23);
+            this.comboPrintDir.TabIndex = 125;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(285, 55);
+            this.label52.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(59, 15);
+            this.label52.TabIndex = 118;
+            this.label52.Text = "인쇄 농도";
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(285, 105);
+            this.label53.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(59, 15);
+            this.label53.TabIndex = 119;
+            this.label53.Text = "인쇄 속도";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(285, 155);
+            this.label54.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(59, 15);
+            this.label54.TabIndex = 120;
+            this.label54.Text = "인쇄 수량";
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(16, 155);
+            this.label57.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(59, 15);
+            this.label57.TabIndex = 122;
+            this.label57.Text = "라벨 높이";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(16, 105);
+            this.label58.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(59, 15);
+            this.label58.TabIndex = 123;
+            this.label58.Text = "라벨 너비";
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(16, 55);
+            this.label59.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(59, 15);
+            this.label59.TabIndex = 124;
+            this.label59.Text = "인쇄 방향";
+            // 
+            // label55
+            // 
+            this.label55.BackColor = System.Drawing.Color.LightGray;
+            this.label55.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label55.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label55.Location = new System.Drawing.Point(0, 0);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(548, 21);
+            this.label55.TabIndex = 3;
+            this.label55.Text = "인쇄 설정";
+            this.label55.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormProduct
             // 
@@ -3339,16 +3270,6 @@
             this.panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.LabelDataGridView)).EndInit();
             this.panel8.ResumeLayout(false);
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSerialTo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPrintQty)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPrintSpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPrintDarkness)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numSerialFrom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numLabelHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numLabelGap)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numLabelWidth)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -3363,6 +3284,13 @@
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericMasterCount)).EndInit();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPrintQty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPrintSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPrintDarkness)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLabelHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLabelWidth)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3482,26 +3410,6 @@
         private System.Windows.Forms.TextBox textProductName2;
         private System.Windows.Forms.TextBox textAlcNo2;
         private System.Windows.Forms.TextBox textCarType2;
-        private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Label label50;
-        private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.NumericUpDown numSerialTo;
-        private System.Windows.Forms.NumericUpDown numPrintQty;
-        private System.Windows.Forms.NumericUpDown numPrintSpeed;
-        private System.Windows.Forms.NumericUpDown numPrintDarkness;
-        private System.Windows.Forms.NumericUpDown numSerialFrom;
-        private System.Windows.Forms.NumericUpDown numLabelHeight;
-        private System.Windows.Forms.NumericUpDown numLabelGap;
-        private System.Windows.Forms.NumericUpDown numLabelWidth;
-        private System.Windows.Forms.ComboBox comboPrintDir;
-        private System.Windows.Forms.Label label52;
-        private System.Windows.Forms.Label label53;
-        private System.Windows.Forms.Label label54;
-        private System.Windows.Forms.Label label56;
-        private System.Windows.Forms.Label label57;
-        private System.Windows.Forms.Label label58;
-        private System.Windows.Forms.Label label59;
-        private System.Windows.Forms.Label label55;
         private System.Windows.Forms.ComboBox cmbPrinter;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DataGridView LabelDataGridView;
@@ -3581,17 +3489,17 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox txtFixtureBarcode;
-        private System.Windows.Forms.TextBox txtEtcsCompanyAreaValue;
-        private System.Windows.Forms.TextBox txtEtcsCTag;
-        private System.Windows.Forms.TextBox txtEtcsInitialValue;
-        private System.Windows.Forms.TextBox txtEtcsMTag;
-        private System.Windows.Forms.TextBox txtEtcsSpecialValue;
+        private System.Windows.Forms.TextBox txtEtcsSerialValue;
+        private System.Windows.Forms.TextBox txtEtcsSnTag;
+        private System.Windows.Forms.TextBox txtEtcsAValue;
         private System.Windows.Forms.TextBox txtEtcsATag;
+        private System.Windows.Forms.TextBox txtEtcs4MValue;
+        private System.Windows.Forms.TextBox txtEtcsMTag;
         private System.Windows.Forms.TextBox txtEtcsTraceValue;
         private System.Windows.Forms.TextBox txtEtcsTTag;
         private System.Windows.Forms.TextBox txtEtcsEoValue;
         private System.Windows.Forms.TextBox txtEtcsETag;
-        private System.Windows.Forms.TextBox txtEtcsSerialValue;
+        private System.Windows.Forms.TextBox txtEtcsSequenceValue;
         private System.Windows.Forms.TextBox txtEtcsSTag;
         private System.Windows.Forms.TextBox txtEtcsPartNoValue;
         private System.Windows.Forms.TextBox txtEtcsPTag;
@@ -3633,5 +3541,19 @@
         private System.Windows.Forms.Label labelMasterOk2_Ch1;
         private System.Windows.Forms.Button buttonMasterTestResult;
         private System.Windows.Forms.CheckBox checkVFlash;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.NumericUpDown numPrintQty;
+        private System.Windows.Forms.NumericUpDown numPrintSpeed;
+        private System.Windows.Forms.NumericUpDown numPrintDarkness;
+        private System.Windows.Forms.NumericUpDown numLabelHeight;
+        private System.Windows.Forms.NumericUpDown numLabelWidth;
+        private System.Windows.Forms.ComboBox comboPrintDir;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label55;
     }
 }

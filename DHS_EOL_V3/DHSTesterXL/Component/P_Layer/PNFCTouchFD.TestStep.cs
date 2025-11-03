@@ -4529,37 +4529,37 @@ namespace DHSTesterXL
                             // 기본값
                             string EtcsVendor = (GSystem.ProductSettings.LabelPrint.Etcs.Vendor ?? "").Trim();
                             string EtcsPartNo = (GSystem.ProductSettings.LabelPrint.Etcs.PartNo ?? "").Trim();
-                            string EtcsSerial = (GSystem.ProductSettings.LabelPrint.Etcs.Serial ?? "").Trim();
+                            string EtcsSequence = (GSystem.ProductSettings.LabelPrint.Etcs.Sequence ?? "").Trim();
                             string EtcsEo = (GSystem.ProductSettings.LabelPrint.Etcs.Eo ?? "").Trim();
 
                             // T = [YYMMDD] + [4M 공란] + [A/@ 1글자] + [추적번호(7 or 4)]
                             string EtcsTrace = DateTime.Now.ToString("yyMMdd"); // 생산일자: 오늘 날짜만 사용
 
-                            // 4M은 공란 강제
-                            string EtcsM = string.Empty;
+                            // 4M은 "0000" 강제
+                            string EtcsM = "0000";
 
                             // A or @ 은 1글자만 허용 (그 외는 공란)
-                            string a1Raw = (GSystem.ProductSettings.LabelPrint.Etcs.A1 ?? "").Trim();
-                            string EtcsA1 = (a1Raw == "A" || a1Raw == "@") ? a1Raw : string.Empty;
+                            string a1Raw = (GSystem.ProductSettings.LabelPrint.Etcs.A ?? "").Trim();
+                            string EtcsA = (a1Raw == "A" || a1Raw == "@") ? a1Raw : "A";
 
                             // 추적번호: 숫자만 추출하여 7자리면 7자리, 아니면 4자리 0패딩
                             string serialDigits = Regex.Replace(GSystem.ProductSettings.GetCurrentSerialNumber().ToString(), @"\D", "");
-                            string EtcsC;
+                            string EtcsSerial;
                             if (serialDigits.Length >= 7)
-                                EtcsC = serialDigits.Substring(serialDigits.Length - 7).PadLeft(7, '0');  // 7자리 우선
+                                EtcsSerial = serialDigits.Substring(serialDigits.Length - 7).PadLeft(7, '0');  // 7자리 우선
                             else
-                                EtcsC = serialDigits.PadLeft(4, '0');                                      // 기본 4자리
+                                EtcsSerial = serialDigits.PadLeft(4, '0');                                      // 기본 4자리
 
                             var etcs = new EtcsSettings
                             {
                                 Vendor = EtcsVendor,
                                 PartNo = EtcsPartNo,
-                                Serial = EtcsSerial,
+                                Sequence = EtcsSequence,
                                 Eo = EtcsEo,
                                 Trace = EtcsTrace, // 오늘 YYMMDD
-                                A1 = EtcsA1,    // A/@ 한 글자 또는 공란
-                                M = EtcsM,     // 4M 공란
-                                C = EtcsC      // 7 or 4자리
+                                A = EtcsA,    // A/@ 한 글자 또는 공란
+                                M4 = EtcsM,     // 4M 공란
+                                Serial = EtcsSerial      // 7 or 4자리
                             };
 
                             GSystem.PrintProductLabel(

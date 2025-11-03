@@ -103,12 +103,12 @@ namespace DHSTesterXL
                 {
                     if (txtEtcsVendorValue != null) txtEtcsVendorValue.Text = cfg.LabelPrint.Etcs.Vendor;
                     if (txtEtcsPartNoValue != null) txtEtcsPartNoValue.Text = cfg.LabelPrint.Etcs.PartNo;
-                    if (txtEtcsSerialValue != null) txtEtcsSerialValue.Text = cfg.LabelPrint.Etcs.Serial;
+                    if (txtEtcsSequenceValue != null) txtEtcsSequenceValue.Text = cfg.LabelPrint.Etcs.Serial;
                     if (txtEtcsEoValue != null) txtEtcsEoValue.Text = cfg.LabelPrint.Etcs.Eo;
                     if (txtEtcsTraceValue != null) txtEtcsTraceValue.Text = cfg.LabelPrint.Etcs.Trace;
-                    if (txtEtcsSpecialValue != null) txtEtcsSpecialValue.Text = cfg.LabelPrint.Etcs.A1;
-                    if (txtEtcsInitialValue != null) txtEtcsInitialValue.Text = cfg.LabelPrint.Etcs.M;
-                    if (txtEtcsCompanyAreaValue != null) txtEtcsCompanyAreaValue.Text = cfg.LabelPrint.Etcs.C;
+                    if (txtEtcs4MValue != null) txtEtcs4MValue.Text = cfg.LabelPrint.Etcs.M4;
+                    if (txtEtcsAValue != null) txtEtcsAValue.Text = cfg.LabelPrint.Etcs.A;
+                    if (txtEtcsSerialValue != null) txtEtcsSerialValue.Text = cfg.LabelPrint.Etcs.Serial;
                 }
                 else
                 {
@@ -149,12 +149,12 @@ namespace DHSTesterXL
             // DM(ETCS) 재료 저장 (우측 입력칸들)
             cfg.LabelPrint.Etcs.Vendor = txtEtcsVendorValue.Text;
             cfg.LabelPrint.Etcs.PartNo = txtEtcsPartNoValue.Text;
-            cfg.LabelPrint.Etcs.Serial = txtEtcsSerialValue.Text;
+            cfg.LabelPrint.Etcs.Sequence = txtEtcsSequenceValue.Text;
             cfg.LabelPrint.Etcs.Eo = txtEtcsEoValue.Text;
             cfg.LabelPrint.Etcs.Trace = txtEtcsTraceValue.Text;
-            cfg.LabelPrint.Etcs.A1 = txtEtcsSpecialValue.Text;
-            cfg.LabelPrint.Etcs.M = txtEtcsInitialValue.Text;
-            cfg.LabelPrint.Etcs.C = txtEtcsCompanyAreaValue.Text;
+            cfg.LabelPrint.Etcs.M4 = txtEtcs4MValue.Text;
+            cfg.LabelPrint.Etcs.A = txtEtcsAValue.Text;
+            cfg.LabelPrint.Etcs.Serial = txtEtcsSerialValue.Text;
 
             // 즉시 저장
             cfg.Save(cfg.GetFileName(), GSystem.SystemData.GeneralSettings.ProductFolder);
@@ -233,20 +233,20 @@ namespace DHSTesterXL
             txtEtcsSTag.Text = "S";
             txtEtcsETag.Text = "E";
             txtEtcsTTag.Text = "T";
-            txtEtcsATag.Text = "1A";
-            txtEtcsMTag.Text = "M";
-            txtEtcsCTag.Text = "C";
+            txtEtcsMTag.Text = "1A";
+            txtEtcsATag.Text = "M";
+            txtEtcsSnTag.Text = "C";
 
             // ── 값 기본값(운영에 맞게 바꿔도 됨) ──
             txtEtcsVendorValue.Text = "SUR2";                    // 업체코드
             txtEtcsPartNoValue.Text = GetGridText(RowKey.Part, _style.PartText);   // 품번 연동
-            txtEtcsSerialValue.Text = "";                        // 서열코드(없으면 비움)
+            txtEtcsSequenceValue.Text = "";                        // 서열코드(없으면 비움)
             txtEtcsEoValue.Text = "";                        // EO번호(없으면 비움)
 
             string yyMMdd = DateTime.Now.ToString("yyMMdd");
             txtEtcsTraceValue.Text = yyMMdd + "A" + "0000001";
 
-            txtEtcsSpecialValue.Text = "";   // 1A (옵션)
+            txtEtcs4MValue.Text = "";   // 1A (옵션)
 
             // 그리드/프리뷰 동기화
             EtcsValueChanged(this, EventArgs.Empty);
@@ -256,12 +256,12 @@ namespace DHSTesterXL
         {
             txtEtcsVendorValue.TextChanged += EtcsValueChanged;
             txtEtcsPartNoValue.TextChanged += EtcsValueChanged;
-            txtEtcsSerialValue.TextChanged += EtcsValueChanged;
+            txtEtcsSequenceValue.TextChanged += EtcsValueChanged;
             txtEtcsEoValue.TextChanged += EtcsValueChanged;
             txtEtcsTraceValue.TextChanged += EtcsValueChanged;
-            txtEtcsSpecialValue.TextChanged += EtcsValueChanged;
-            txtEtcsInitialValue.TextChanged += EtcsValueChanged;
-            txtEtcsCompanyAreaValue.TextChanged += EtcsValueChanged;
+            txtEtcs4MValue.TextChanged += EtcsValueChanged;
+            txtEtcsAValue.TextChanged += EtcsValueChanged;
+            txtEtcsSerialValue.TextChanged += EtcsValueChanged;
         }
 
         private void EtcsValueChanged(object sender, EventArgs e)
@@ -407,12 +407,12 @@ namespace DHSTesterXL
 
                 string EtcsVendor = "SUR2";
                 string EtcsPartNo = "8266703200";
-                string EtcsSerial = "";
+                string EtcsSequence = "";
                 string EtcsEo = "";
                 string EtcsTrace = "250807";
-                string EtcsA1 = "A000";
-                string EtcsM = "0";
-                string EtcsC = "001";
+                string Etcs4M = "0000";
+                string EtcsA = "A";
+                string EtcsSerial = "0001";
 
                 var payload = new LabelPayload
                 {
@@ -431,12 +431,12 @@ namespace DHSTesterXL
                 {
                     Vendor = EtcsVendor,
                     PartNo = EtcsPartNo,
-                    Serial = EtcsSerial,
+                    Sequence = EtcsSequence,
                     Eo = EtcsEo,
                     Trace = EtcsTrace,
-                    A1 = EtcsA1,
-                    M = EtcsM,
-                    C = EtcsC
+                    M4 = Etcs4M,
+                    A = EtcsA,
+                    Serial = EtcsSerial
                 };
 
                 // 설정값(ProductSettings.LabelPrint.PrinterName) 우선 사용 + 신규 데이터 전달

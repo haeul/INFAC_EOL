@@ -299,14 +299,14 @@ namespace DHSTesterXL
             // UI 값(오른쪽 큰 칸: Value) 읽기
             string v = (txtEtcsVendorValue?.Text ?? "").Trim();          // V
             string p = (txtEtcsPartNoValue?.Text ?? "").Trim();          // P
-            string s = (txtEtcsSerialValue?.Text ?? "").Trim();          // S (옵션)
+            string s = (txtEtcsSequenceValue?.Text ?? "").Trim();          // S (옵션)
             string e = (txtEtcsEoValue?.Text ?? "").Trim();              // E (옵션)
             string t = (txtEtcsTraceValue?.Text ?? "").Trim();           // T = YYMMDD + ... + 4M + 7자리
-            string a1 = (txtEtcsSpecialValue?.Text ?? "").Trim();         // 1A (옵션 확장)
-            string m = (txtEtcsInitialValue?.Text ?? "");
+            string a = (txtEtcs4MValue?.Text ?? "").Trim();         // 1A (옵션 확장)
+            string m = (txtEtcsAValue?.Text ?? "");
             if (string.IsNullOrEmpty(m))
                 m = new string('0', 4);   // M 필드: 공백 4자리로 채움
-            string c = (txtEtcsCompanyAreaValue?.Text ?? "").Trim();     // C  (옵션 확장)
+            string Serial = (txtEtcsSerialValue?.Text ?? "").Trim();     // C  (옵션 확장)
 
             // 제어코드(백슬래시-헥스 표기) - ^FH\ 가 해석함
             const string GS = @"\1D";
@@ -335,11 +335,11 @@ namespace DHSTesterXL
             sb.Append(GS);
             sb.Append("T").Append(t);
 
-            //sb.Append(m);
+            sb.Append(m);
 
-            //sb.Append(a1);
+            sb.Append(a);
 
-            //sb.Append(c);
+            sb.Append(Serial);
 
             // 트레일러
             sb.Append(GS).Append(RS).Append(EOT);
@@ -719,7 +719,7 @@ namespace DHSTesterXL
 
             var v = (d.Vendor ?? "").Trim();   // V
             var p = (d.PartNo ?? "").Trim();   // P
-            var s = (d.Serial ?? "").Trim();   // S (opt)
+            var s = (d.Sequence ?? "").Trim();   // S (opt)
             var e = (d.Eo ?? "").Trim();       // E (opt)
 
             // ── T(추적영역) 구성 규칙 ─────────────────────────────────────────────
@@ -730,28 +730,26 @@ namespace DHSTesterXL
             string todayYYMMDD = DateTime.Now.ToString("yyMMdd");
 
             // A or @ (1문자만 허용)
-            string a1 = (d.A1 ?? "").Trim();
+            string a = (d.A ?? "").Trim();
             //a1 = (a1 == "A" || a1 == "@") ? a1 : string.Empty;
-            a1 = "A";
+            a = "A";
 
             // 부품4M 공란 강제
             string fourM = new string('0', 4);  // 공백 4개
 
             // 추적번호
-            string cDigits = System.Text.RegularExpressions.Regex.Replace((d.C ?? ""), @"\D", "");
+            string cDigits = System.Text.RegularExpressions.Regex.Replace((d.Serial ?? ""), @"\D", "");
             if (string.IsNullOrEmpty(cDigits) && GSystem.ProductSettings != null)
                 cDigits = GSystem.ProductSettings.GetCurrentSerialNumber().ToString("D4"); // 기본 4자리
 
-            string c; // 최종 추적번호
+            string Serial; // 최종 추적번호
             if (cDigits.Length >= 7)
-                c = cDigits.Substring(cDigits.Length - 7).PadLeft(7, '0'); // 7자리 우선
+                Serial = cDigits.Substring(cDigits.Length - 7).PadLeft(7, '0'); // 7자리 우선
             else
-                c = cDigits.PadLeft(4, '0'); // 기본 4자리
+                Serial = cDigits.PadLeft(4, '0'); // 기본 4자리
 
             // 최종 T 페이로드: [YYMMDD] + [4M=공란] + [A/@] + [추적번호]
             // (우리 현행 문자열 규칙: T 뒤에는 위 항목들을 GS 없이 연속 배치)
-            string t = todayYYMMDD + fourM + a1 + c;
-
             // ── DM 문자열 조립 ────────────────────────────────────────────────────
             var sb = new StringBuilder(256);
             sb.Append("[)>");               // 심볼 식별자 (스펙/현행 문자열에 맞춰 "]>" 사용)
@@ -777,9 +775,9 @@ namespace DHSTesterXL
 
             sb.Append(fourM);
 
-            sb.Append(a1);
+            sb.Append(a);
 
-            sb.Append(c);
+            sb.Append(Serial);
 
             // 트레일러
             sb.Append(GS).Append(RS).Append(EOT);

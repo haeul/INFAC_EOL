@@ -367,12 +367,12 @@ namespace DHSTesterXL
     {
         public string Vendor { get; set; } = "SUR2";  // 업체코드
         public string PartNo { get; set; } = "";      // 품번(보통 ProductInfo.PartNo와 동일하게 셋)
-        public string Serial { get; set; } = "";      // 서열코드(옵션)
+        public string Sequence { get; set; } = "";      // 서열코드(옵션)
         public string Eo { get; set; } = "";          // EO번호(옵션)
-        public string Trace { get; set; } = "";       // YYMMDD + ... + 4M + 7자리(필수)
-        public string A1 { get; set; } = "";          // 1A(옵션)
-        public string M { get; set; } = "";           // M(옵션)
-        public string C { get; set; } = "";           // C(옵션)
+        public string Trace { get; set; } = "";       // YYMMDD
+        public string M4 { get; set; } = "";          // 부품4M
+        public string A { get; set; } = "";           // A or @
+        public string Serial { get; set; } = "";           // 일련번호
 
         public EtcsSettings Clone() => (EtcsSettings)MemberwiseClone();
     }
