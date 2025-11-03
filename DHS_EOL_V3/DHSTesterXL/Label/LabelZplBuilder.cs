@@ -301,11 +301,11 @@ namespace DHSTesterXL
             string p = (txtEtcsPartNoValue?.Text ?? "").Trim();          // P
             string s = (txtEtcsSequenceValue?.Text ?? "").Trim();          // S (옵션)
             string e = (txtEtcsEoValue?.Text ?? "").Trim();              // E (옵션)
-            string t = (txtEtcsTraceValue?.Text ?? "").Trim();           // T = YYMMDD + ... + 4M + 7자리
-            string a = (txtEtcs4MValue?.Text ?? "").Trim();         // 1A (옵션 확장)
-            string m = (txtEtcsAValue?.Text ?? "");
+            string t = (txtEtcsTraceValue?.Text ?? "").Trim();           // T = YYMMDD 
+            string m = (txtEtcs4MValue?.Text ?? "").Trim();         // 부품4M
+            string a = (txtEtcsAValue?.Text ?? "");
             if (string.IsNullOrEmpty(m))
-                m = new string('0', 4);   // M 필드: 공백 4자리로 채움
+                m = new string('0', 4);   // M 필드: 0000으로 채움
             string Serial = (txtEtcsSerialValue?.Text ?? "").Trim();     // C  (옵션 확장)
 
             // 제어코드(백슬래시-헥스 표기) - ^FH\ 가 해석함
@@ -731,11 +731,10 @@ namespace DHSTesterXL
 
             // A or @ (1문자만 허용)
             string a = (d.A ?? "").Trim();
-            //a1 = (a1 == "A" || a1 == "@") ? a1 : string.Empty;
-            a = "A";
+            a = (a == "A" || a == "@") ? a : "A";
 
-            // 부품4M 공란 강제
-            string fourM = new string('0', 4);  // 공백 4개
+            // 부품4M 0000 강제
+            string fourM = new string('0', 4);  // 0 4개
 
             // 추적번호
             string cDigits = System.Text.RegularExpressions.Regex.Replace((d.Serial ?? ""), @"\D", "");
@@ -748,7 +747,7 @@ namespace DHSTesterXL
             else
                 Serial = cDigits.PadLeft(4, '0'); // 기본 4자리
 
-            // 최종 T 페이로드: [YYMMDD] + [4M=공란] + [A/@] + [추적번호]
+            // 최종 T 페이로드: [YYMMDD] + [4M=0000] + [A/@] + [추적번호]
             // (우리 현행 문자열 규칙: T 뒤에는 위 항목들을 GS 없이 연속 배치)
             // ── DM 문자열 조립 ────────────────────────────────────────────────────
             var sb = new StringBuilder(256);

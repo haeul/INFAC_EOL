@@ -103,7 +103,7 @@ namespace DHSTesterXL
                 {
                     if (txtEtcsVendorValue != null) txtEtcsVendorValue.Text = cfg.LabelPrint.Etcs.Vendor;
                     if (txtEtcsPartNoValue != null) txtEtcsPartNoValue.Text = cfg.LabelPrint.Etcs.PartNo;
-                    if (txtEtcsSequenceValue != null) txtEtcsSequenceValue.Text = cfg.LabelPrint.Etcs.Serial;
+                    if (txtEtcsSequenceValue != null) txtEtcsSequenceValue.Text = cfg.LabelPrint.Etcs.Sequence;
                     if (txtEtcsEoValue != null) txtEtcsEoValue.Text = cfg.LabelPrint.Etcs.Eo;
                     if (txtEtcsTraceValue != null) txtEtcsTraceValue.Text = cfg.LabelPrint.Etcs.Trace;
                     if (txtEtcs4MValue != null) txtEtcs4MValue.Text = cfg.LabelPrint.Etcs.M4;
