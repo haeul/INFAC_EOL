@@ -609,5 +609,41 @@ namespace DHSTesterXL
             GetGridLabelValue();
             Preview.Invalidate();
         }
+
+        /// <summary>
+        /// 전체 라벨 요소의 X/Y 좌표에 전역 오프셋을 적용한다.
+        /// (버튼에서 deltaX, deltaY를 받아서 호출)
+        /// </summary>
+        private void ApplyGlobalOffsetToGrid(double deltaX, double deltaY)
+        {
+            if (LabelDataGridView == null) return;
+
+            _suppressPreview = true;
+            try
+            {
+                // 전체 RowKey 순회하면서 X, Y 에 delta 더해주기
+                foreach (RowKey key in Enum.GetValues(typeof(RowKey)))
+                {
+                    // 필요하면 실제 요소만 골라서 (Logo, Brand, Part, Pb, HW, SW, LOT, SN, Rating, FCCID, ICID, QR)
+                    var row = GetRow(key);
+                    if (row == null) continue;
+
+                    double x = ReadDoubleCell(row, COL_X, 0.0);
+                    double y = ReadDoubleCell(row, COL_Y, 0.0);
+
+                    row.Cells[COL_X].Value = (x + deltaX).ToString("0.###");
+                    row.Cells[COL_Y].Value = (y + deltaY).ToString("0.###");
+                }
+
+                // 그리드 → _style 동기화
+                GetGridLabelValue();
+                _isModified = true;
+            }
+            finally
+            {
+                _suppressPreview = false;
+            }
+        }
+
     }
 }

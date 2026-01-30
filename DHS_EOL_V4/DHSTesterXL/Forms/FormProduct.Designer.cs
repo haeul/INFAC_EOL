@@ -141,6 +141,14 @@
             this.textThdTouchFastMutual = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.btnOffsetApply = new System.Windows.Forms.Button();
+            this.btnOffsetReset = new System.Windows.Forms.Button();
+            this.nudOffsetY = new System.Windows.Forms.NumericUpDown();
+            this.nudOffsetX = new System.Windows.Forms.NumericUpDown();
+            this.lblOffsetY = new System.Windows.Forms.Label();
+            this.lblOffsetX = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
             this.label40 = new System.Windows.Forms.Label();
@@ -307,6 +315,9 @@
             this.panelThdSettingsFrame.SuspendLayout();
             this.panelThdSettings.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.panel15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOffsetY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOffsetX)).BeginInit();
             this.panel11.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -1652,6 +1663,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.panel15);
             this.tabPage2.Controls.Add(this.panel11);
             this.tabPage2.Controls.Add(this.cmbPrinter);
             this.tabPage2.Controls.Add(this.label6);
@@ -1667,6 +1679,91 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "라벨 설정";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // panel15
+            // 
+            this.panel15.BackColor = System.Drawing.SystemColors.Control;
+            this.panel15.Controls.Add(this.btnOffsetApply);
+            this.panel15.Controls.Add(this.btnOffsetReset);
+            this.panel15.Controls.Add(this.nudOffsetY);
+            this.panel15.Controls.Add(this.nudOffsetX);
+            this.panel15.Controls.Add(this.lblOffsetY);
+            this.panel15.Controls.Add(this.lblOffsetX);
+            this.panel15.Controls.Add(this.label62);
+            this.panel15.Location = new System.Drawing.Point(295, 154);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(548, 65);
+            this.panel15.TabIndex = 133;
+            // 
+            // btnOffsetApply
+            // 
+            this.btnOffsetApply.Location = new System.Drawing.Point(474, -3);
+            this.btnOffsetApply.Name = "btnOffsetApply";
+            this.btnOffsetApply.Size = new System.Drawing.Size(71, 23);
+            this.btnOffsetApply.TabIndex = 139;
+            this.btnOffsetApply.Text = "Apply";
+            this.btnOffsetApply.UseVisualStyleBackColor = true;
+            // 
+            // btnOffsetReset
+            // 
+            this.btnOffsetReset.Location = new System.Drawing.Point(397, -3);
+            this.btnOffsetReset.Name = "btnOffsetReset";
+            this.btnOffsetReset.Size = new System.Drawing.Size(71, 23);
+            this.btnOffsetReset.TabIndex = 138;
+            this.btnOffsetReset.Text = "Reset";
+            this.btnOffsetReset.UseVisualStyleBackColor = true;
+            // 
+            // nudOffsetY
+            // 
+            this.nudOffsetY.Location = new System.Drawing.Point(368, 31);
+            this.nudOffsetY.Margin = new System.Windows.Forms.Padding(2);
+            this.nudOffsetY.Name = "nudOffsetY";
+            this.nudOffsetY.Size = new System.Drawing.Size(160, 23);
+            this.nudOffsetY.TabIndex = 132;
+            this.nudOffsetY.DecimalPlaces = 1;
+            this.nudOffsetY.Increment = 0.1M;
+            // 
+            // nudOffsetX
+            // 
+            this.nudOffsetX.Location = new System.Drawing.Point(99, 31);
+            this.nudOffsetX.Margin = new System.Windows.Forms.Padding(2);
+            this.nudOffsetX.Name = "nudOffsetX";
+            this.nudOffsetX.Size = new System.Drawing.Size(160, 23);
+            this.nudOffsetX.TabIndex = 128;
+            this.nudOffsetX.DecimalPlaces = 1;           // 소수 첫째 자리까지
+            this.nudOffsetX.Increment = 0.1M;       // 0.1mm씩 변경
+            // 
+            // lblOffsetY
+            // 
+            this.lblOffsetY.AutoSize = true;
+            this.lblOffsetY.Location = new System.Drawing.Point(275, 35);
+            this.lblOffsetY.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblOffsetY.Name = "lblOffsetY";
+            this.lblOffsetY.Size = new System.Drawing.Size(88, 15);
+            this.lblOffsetY.TabIndex = 120;
+            this.lblOffsetY.Text = "Y 오프셋 (mm)";
+            // 
+            // lblOffsetX
+            // 
+            this.lblOffsetX.AutoSize = true;
+            this.lblOffsetX.Location = new System.Drawing.Point(6, 35);
+            this.lblOffsetX.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblOffsetX.Name = "lblOffsetX";
+            this.lblOffsetX.Size = new System.Drawing.Size(88, 15);
+            this.lblOffsetX.TabIndex = 122;
+            this.lblOffsetX.Text = "X 오프셋 (mm)";
+            // 
+            // label62
+            // 
+            this.label62.BackColor = System.Drawing.Color.LightGray;
+            this.label62.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label62.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label62.Location = new System.Drawing.Point(0, 0);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(548, 21);
+            this.label62.TabIndex = 3;
+            this.label62.Text = "오프셋 설정";
+            this.label62.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel11
             // 
@@ -2261,12 +2358,12 @@
             this.panel9.Controls.Add(this.label55);
             this.panel9.Location = new System.Drawing.Point(1, 1);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(548, 205);
+            this.panel9.Size = new System.Drawing.Size(548, 139);
             this.panel9.TabIndex = 105;
             // 
             // numPrintQty
             // 
-            this.numPrintQty.Location = new System.Drawing.Point(368, 151);
+            this.numPrintQty.Location = new System.Drawing.Point(368, 100);
             this.numPrintQty.Margin = new System.Windows.Forms.Padding(2);
             this.numPrintQty.Name = "numPrintQty";
             this.numPrintQty.Size = new System.Drawing.Size(160, 23);
@@ -2274,7 +2371,7 @@
             // 
             // numPrintSpeed
             // 
-            this.numPrintSpeed.Location = new System.Drawing.Point(368, 101);
+            this.numPrintSpeed.Location = new System.Drawing.Point(368, 65);
             this.numPrintSpeed.Margin = new System.Windows.Forms.Padding(2);
             this.numPrintSpeed.Name = "numPrintSpeed";
             this.numPrintSpeed.Size = new System.Drawing.Size(160, 23);
@@ -2282,7 +2379,7 @@
             // 
             // numPrintDarkness
             // 
-            this.numPrintDarkness.Location = new System.Drawing.Point(368, 51);
+            this.numPrintDarkness.Location = new System.Drawing.Point(368, 30);
             this.numPrintDarkness.Margin = new System.Windows.Forms.Padding(2);
             this.numPrintDarkness.Name = "numPrintDarkness";
             this.numPrintDarkness.Size = new System.Drawing.Size(160, 23);
@@ -2290,7 +2387,7 @@
             // 
             // numLabelHeight
             // 
-            this.numLabelHeight.Location = new System.Drawing.Point(99, 151);
+            this.numLabelHeight.Location = new System.Drawing.Point(99, 100);
             this.numLabelHeight.Margin = new System.Windows.Forms.Padding(2);
             this.numLabelHeight.Name = "numLabelHeight";
             this.numLabelHeight.Size = new System.Drawing.Size(160, 23);
@@ -2298,7 +2395,7 @@
             // 
             // numLabelWidth
             // 
-            this.numLabelWidth.Location = new System.Drawing.Point(99, 101);
+            this.numLabelWidth.Location = new System.Drawing.Point(99, 65);
             this.numLabelWidth.Margin = new System.Windows.Forms.Padding(2);
             this.numLabelWidth.Name = "numLabelWidth";
             this.numLabelWidth.Size = new System.Drawing.Size(160, 23);
@@ -2307,7 +2404,7 @@
             // comboPrintDir
             // 
             this.comboPrintDir.FormattingEnabled = true;
-            this.comboPrintDir.Location = new System.Drawing.Point(99, 51);
+            this.comboPrintDir.Location = new System.Drawing.Point(99, 30);
             this.comboPrintDir.Margin = new System.Windows.Forms.Padding(2);
             this.comboPrintDir.Name = "comboPrintDir";
             this.comboPrintDir.Size = new System.Drawing.Size(160, 23);
@@ -2316,7 +2413,7 @@
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(285, 55);
+            this.label52.Location = new System.Drawing.Point(285, 34);
             this.label52.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(59, 15);
@@ -2326,7 +2423,7 @@
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(285, 105);
+            this.label53.Location = new System.Drawing.Point(285, 69);
             this.label53.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(59, 15);
@@ -2336,7 +2433,7 @@
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(285, 155);
+            this.label54.Location = new System.Drawing.Point(285, 104);
             this.label54.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(59, 15);
@@ -2346,7 +2443,7 @@
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(16, 155);
+            this.label57.Location = new System.Drawing.Point(16, 104);
             this.label57.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(59, 15);
@@ -2356,7 +2453,7 @@
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(16, 105);
+            this.label58.Location = new System.Drawing.Point(16, 69);
             this.label58.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(59, 15);
@@ -2366,7 +2463,7 @@
             // label59
             // 
             this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(16, 55);
+            this.label59.Location = new System.Drawing.Point(16, 34);
             this.label59.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(59, 15);
@@ -3264,6 +3361,10 @@
             this.panelThdSettings.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.panel15.ResumeLayout(false);
+            this.panel15.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOffsetY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOffsetX)).EndInit();
             this.panel11.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
             this.panel12.PerformLayout();
@@ -3555,5 +3656,13 @@
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.NumericUpDown nudOffsetY;
+        private System.Windows.Forms.NumericUpDown nudOffsetX;
+        private System.Windows.Forms.Label lblOffsetY;
+        private System.Windows.Forms.Label lblOffsetX;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.Button btnOffsetApply;
+        private System.Windows.Forms.Button btnOffsetReset;
     }
 }

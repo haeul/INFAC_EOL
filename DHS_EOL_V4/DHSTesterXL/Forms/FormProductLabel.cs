@@ -184,6 +184,11 @@ namespace DHSTesterXL
             this.btnTest.Click -= btnTest_Click;
             LabelDataGridView.CellDoubleClick -= LabelGrid_CellDoubleClick;
 
+            this.btnOffsetApply.Click -= btnOffsetApply_Click;
+            this.btnOffsetReset.Click -= btnOffsetReset_Click;
+            this.nudOffsetX.ValueChanged -= nudOffset_ValueChanged;
+            this.nudOffsetY.ValueChanged -= nudOffset_ValueChanged;
+
             this.Load += FormProductLabel_Load;
             this.Preview.Paint += Preview_Paint;
             this.btnPreview.Click += btnPreview_Click;
@@ -193,6 +198,11 @@ namespace DHSTesterXL
 
             // 로고 셀 더블클릭 → 파일 선택
             LabelDataGridView.CellDoubleClick += LabelGrid_CellDoubleClick;
+
+            this.btnOffsetApply.Click += btnOffsetApply_Click;
+            this.btnOffsetReset.Click += btnOffsetReset_Click;
+            this.nudOffsetX.ValueChanged += nudOffset_ValueChanged;
+            this.nudOffsetY.ValueChanged += nudOffset_ValueChanged;
 
             if (cmbPrinter != null) cmbPrinter.SelectedIndexChanged += (_, __) => _isModified = true;
 
@@ -356,6 +366,13 @@ namespace DHSTesterXL
             }
         }
 
+        private void nudOffset_ValueChanged(object sender, EventArgs e)
+        {
+            // 값만 바꿔도 바로 미리보기 다시 그림
+            Preview?.Invalidate();
+        }
+
+
 
         // ───────────────────── 버튼 핸들러 ─────────────────────
         private void btnPreview_Click(object sender, EventArgs e)
@@ -456,5 +473,29 @@ namespace DHSTesterXL
             }
         }
 
+        private void btnOffsetReset_Click(object sender, EventArgs e)
+        {
+            nudOffsetX.Value = 0;
+            nudOffsetY.Value = 0;
+            Preview?.Invalidate();
+        }
+
+        private void btnOffsetApply_Click(object sender, EventArgs e)
+        {
+            double deltaX = (double)nudOffsetX.Value;
+            double deltaY = (double)nudOffsetY.Value;
+
+            if (deltaX == 0.0 && deltaY == 0.0)
+                return;
+
+            // 실제 좌표 변경 작업은 LabelDataGridView.cs에 있는 메서드가 한다
+            ApplyGlobalOffsetToGrid(deltaX, deltaY);
+
+            // offset 값은 굽고 나면 0으로 리셋
+            nudOffsetX.Value = 0;
+            nudOffsetY.Value = 0;
+
+            Preview?.Invalidate();
+        }
     }
 }

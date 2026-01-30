@@ -18,6 +18,12 @@ namespace DHSTesterXL
             int PW = MmToDots(_style.LabelWmm, dpi); // Print Width
             int LL = MmToDots(_style.LabelHmm, dpi); // Label Length
 
+            // Offset (mm 단위) 읽기: Apply 안 눌러도 출력에 반영되도록
+            double offsetX = 0.0;
+            double offsetY = 0.0;
+            try { offsetX = Convert.ToDouble(nudOffsetX?.Value ?? 0m); } catch { offsetX = 0.0; }
+            try { offsetY = Convert.ToDouble(nudOffsetY?.Value ?? 0m); } catch { offsetY = 0.0; }
+
             // 텍스트 페이로드
             string brand = _style.BrandText ?? "";
             string part = _style.PartText ?? "";
@@ -74,8 +80,8 @@ namespace DHSTesterXL
                         logoGraphicFieldData = ToZplGFA(canvas, out bytePerRow, out rowCount);
                     }
 
-                    int x = MmToDots(_style.LogoX, dpi);
-                    int y = MmToDots(_style.LogoY, dpi);
+                    int x = MmToDots(_style.LogoX + offsetX, dpi);
+                    int y = MmToDots(_style.LogoY + offsetY, dpi);
                     sb.AppendLine($"^FO{x},{y}{logoGraphicFieldData}^FS");
                 }
             }
@@ -90,8 +96,8 @@ namespace DHSTesterXL
                 int h = MmToDots(_style.BrandFont * sy, dpi);
                 int w = (int)Math.Round(h * sx);
 
-                int x = MmToDots(_style.BrandX, dpi);
-                int y = MmToDots(_style.BrandY, dpi);
+                int x = MmToDots(_style.BrandX + offsetX, dpi);
+                int y = MmToDots(_style.BrandY + offsetY, dpi);
 
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{w}^FD{Escape(brand)}^FS");
             }
@@ -107,13 +113,14 @@ namespace DHSTesterXL
 
                 if (_style.PartX <= 0)
                 {
-                    int partY = MmToDots(_style.PartY, dpi);
+                    // 중앙 정렬: X는 0 고정, Y에만 offset 적용
+                    int partY = MmToDots(_style.PartY + offsetY, dpi);
                     sb.AppendLine($"^FO0,{partY}^FB{PW},1,0,C^A0N,{h},{w}^FD{Escape(part)}^FS");
                 }
                 else
                 {
-                    int x = MmToDots(_style.PartX, dpi);
-                    int y = MmToDots(_style.PartY, dpi);
+                    int x = MmToDots(_style.PartX + offsetX, dpi);
+                    int y = MmToDots(_style.PartY + offsetY, dpi);
                     sb.AppendLine($"^FO{x},{y}^A0N,{h},{w}^FD{Escape(part)}^FS");
                 }
             }
@@ -128,8 +135,8 @@ namespace DHSTesterXL
                 int h = MmToDots(PositiveOr(_style.HWfont, 2.6) * sy, dpi);
                 int w = (int)Math.Round(h * sx);
 
-                int x = MmToDots(_style.HWx, dpi);
-                int y = MmToDots(_style.HWy, dpi);
+                int x = MmToDots(_style.HWx + offsetX, dpi);
+                int y = MmToDots(_style.HWy + offsetY, dpi);
 
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{w}^FD{Escape(hw)}^FS");
             }
@@ -144,8 +151,8 @@ namespace DHSTesterXL
                 int h = MmToDots(PositiveOr(_style.SWfont, 2.6) * sy, dpi);
                 int w = (int)Math.Round(h * sx);
 
-                int x = MmToDots(_style.SWx, dpi);
-                int y = MmToDots(_style.SWy, dpi);
+                int x = MmToDots(_style.SWx + offsetX, dpi);
+                int y = MmToDots(_style.SWy + offsetY, dpi);
 
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{w}^FD{Escape(sw)}^FS");
             }
@@ -160,8 +167,8 @@ namespace DHSTesterXL
                 int h = MmToDots(PositiveOr(_style.LOTfont, 2.6) * sy, dpi);
                 int w = (int)Math.Round(h * sx);
 
-                int x = MmToDots(_style.LOTx, dpi);
-                int y = MmToDots(_style.LOTy, dpi);
+                int x = MmToDots(_style.LOTx + offsetX, dpi);
+                int y = MmToDots(_style.LOTy + offsetY, dpi);
 
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{w}^FD{Escape(lot)}^FS");
             }
@@ -176,8 +183,8 @@ namespace DHSTesterXL
                 int h = MmToDots(PositiveOr(_style.SNfont, 2.6) * sy, dpi);
                 int w = (int)Math.Round(h * sx);
 
-                int x = MmToDots(_style.SNx, dpi);
-                int y = MmToDots(_style.SNy, dpi);
+                int x = MmToDots(_style.SNx + offsetX, dpi);
+                int y = MmToDots(_style.SNy + offsetY, dpi);
 
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{w}^FD{Escape(sn)}^FS");
             }
@@ -191,8 +198,8 @@ namespace DHSTesterXL
 
                 int w = Math.Max(1, MmToDots(_style.BadgeDiameter * sx, dpi));
                 int h = Math.Max(1, MmToDots(_style.BadgeDiameter * sy, dpi));
-                int x = MmToDots(_style.BadgeX, dpi);
-                int y = MmToDots(_style.BadgeY, dpi);
+                int x = MmToDots(_style.BadgeX + offsetX, dpi);
+                int y = MmToDots(_style.BadgeY + offsetY, dpi);
 
                 int stroke = 2;
                 int fh = (int)Math.Round(Math.Min(w, h) * 0.45);
@@ -209,9 +216,9 @@ namespace DHSTesterXL
                 // ① 모듈 1칸 mm → 도트 (UI에서 온 값 그대로)
                 int moduleDots = Math.Max(1, MmToDots(Math.Max(0.1, _style.DMModuleMm), dpi));
 
-                // ② 좌표
-                int x = MmToDots(_style.DMx, dpi);
-                int y = MmToDots(_style.DMy, dpi);
+                // ② 좌표 (offset 적용)
+                int x = MmToDots(_style.DMx + offsetX, dpi);
+                int y = MmToDots(_style.DMy + offsetY, dpi);
 
                 // ③ DM 데이터 (ETCS)
                 string dm = BuildEtcsDmPayloadFromUi();
@@ -224,8 +231,8 @@ namespace DHSTesterXL
             // Rating
             if (_style.ShowRatingPrint)
             {
-                int x = MmToDots(_style.RatingX, dpi);
-                int y = MmToDots(_style.RatingY, dpi);
+                int x = MmToDots(_style.RatingX + offsetX, dpi);
+                int y = MmToDots(_style.RatingY + offsetY, dpi);
                 int h = MmToDots(PositiveOr(_style.RatingFont, 2.6), dpi);
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{h}^FD{Escape(GetGridText(RowKey.Rating, _style.RatingText))}^FS");
             }
@@ -233,8 +240,8 @@ namespace DHSTesterXL
             // FCC ID
             if (_style.ShowFCCIDPrint)
             {
-                int x = MmToDots(_style.FCCIDX, dpi);
-                int y = MmToDots(_style.FCCIDY, dpi);
+                int x = MmToDots(_style.FCCIDX + offsetX, dpi);
+                int y = MmToDots(_style.FCCIDY + offsetY, dpi);
                 int h = MmToDots(PositiveOr(_style.FCCIDFont, 2.6), dpi);
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{h}^FD{Escape(GetGridText(RowKey.FCCID, _style.FCCIDText))}^FS");
             }
@@ -242,8 +249,8 @@ namespace DHSTesterXL
             // IC ID
             if (_style.ShowICIDPrint)
             {
-                int x = MmToDots(_style.ICIDX, dpi);
-                int y = MmToDots(_style.ICIDY, dpi);
+                int x = MmToDots(_style.ICIDX + offsetX, dpi);
+                int y = MmToDots(_style.ICIDY + offsetY, dpi);
                 int h = MmToDots(PositiveOr(_style.ICIDFont, 2.6), dpi);
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{h}^FD{Escape(GetGridText(RowKey.ICID, _style.ICIDText))}^FS");
             }
@@ -251,40 +258,40 @@ namespace DHSTesterXL
             // Item1
             if (_style.ShowItem1Print)
             {
-                int x = MmToDots(_style.Item1X, dpi);
-                int y = MmToDots(_style.Item1Y, dpi);
+                int x = MmToDots(_style.Item1X + offsetX, dpi);
+                int y = MmToDots(_style.Item1Y + offsetY, dpi);
                 int h = MmToDots(PositiveOr(_style.Item1Font, 2.6), dpi);
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{h}^FD{Escape(GetGridText(RowKey.Item1, _style.Item1Text))}^FS");
             }
             // Item2
             if (_style.ShowItem2Print)
             {
-                int x = MmToDots(_style.Item2X, dpi);
-                int y = MmToDots(_style.Item2Y, dpi);
+                int x = MmToDots(_style.Item2X + offsetX, dpi);
+                int y = MmToDots(_style.Item2Y + offsetY, dpi);
                 int h = MmToDots(PositiveOr(_style.Item2Font, 2.6), dpi);
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{h}^FD{Escape(GetGridText(RowKey.Item2, _style.Item2Text))}^FS");
             }
             // Item3
             if (_style.ShowItem3Print)
             {
-                int x = MmToDots(_style.Item3X, dpi);
-                int y = MmToDots(_style.Item3Y, dpi);
+                int x = MmToDots(_style.Item3X + offsetX, dpi);
+                int y = MmToDots(_style.Item3Y + offsetY, dpi);
                 int h = MmToDots(PositiveOr(_style.Item3Font, 2.6), dpi);
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{h}^FD{Escape(GetGridText(RowKey.Item3, _style.Item3Text))}^FS");
             }
             // Item4
             if (_style.ShowItem4Print)
             {
-                int x = MmToDots(_style.Item4X, dpi);
-                int y = MmToDots(_style.Item4Y, dpi);
+                int x = MmToDots(_style.Item4X + offsetX, dpi);
+                int y = MmToDots(_style.Item4Y + offsetY, dpi);
                 int h = MmToDots(PositiveOr(_style.Item4Font, 2.6), dpi);
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{h}^FD{Escape(GetGridText(RowKey.Item4, _style.Item4Text))}^FS");
             }
             // Item5
             if (_style.ShowItem5Print)
             {
-                int x = MmToDots(_style.Item5X, dpi);
-                int y = MmToDots(_style.Item5Y, dpi);
+                int x = MmToDots(_style.Item5X + offsetX, dpi);
+                int y = MmToDots(_style.Item5Y + offsetY, dpi);
                 int h = MmToDots(PositiveOr(_style.Item5Font, 2.6), dpi);
                 sb.AppendLine($"^FO{x},{y}^A0N,{h},{h}^FD{Escape(GetGridText(RowKey.Item5, _style.Item5Text))}^FS");
             }

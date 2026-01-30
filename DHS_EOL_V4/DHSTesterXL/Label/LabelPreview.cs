@@ -34,6 +34,12 @@ namespace DHSTesterXL
             float labelOriginX = previewBounds.Left + (previewBounds.Width - labelWpx) / 2f;
             float labelOriginY = previewBounds.Top + (previewBounds.Height - labelHpx) / 2f;
 
+            // Offset
+            double offsetX = 0.0;
+            double offsetY = 0.0;
+            try { offsetX = Convert.ToDouble(nudOffsetX?.Value ?? 0m); } catch { }
+            try { offsetY = Convert.ToDouble(nudOffsetY?.Value ?? 0m); } catch { }
+
             var labelRect = new RectangleF(labelOriginX, labelOriginY, labelWpx, labelHpx);
             using (var bg = new SolidBrush(Color.White))
             using (var pen = new Pen(Color.Silver, 1f))
@@ -47,21 +53,24 @@ namespace DHSTesterXL
             //float ConvertMmToPreviewX(double mm) => labelOriginX + (float)(mm * mm2px);
             //float ConvertMmToPreviewY(double mm) => labelOriginY + (float)(mm * mm2px);
             const double NUDGE_Y_MM = 0.6; // 출력과 동일
+
             float ConvertMmToPreviewX(double mm)
             {
-                int quantizedXDots = MmToDotsInt(mm, DEFAULT_DPI);
+                // offsetX(mm) 적용 후 도트 양자화
+                double mmWithOffset = mm + offsetX;
+                int quantizedXDots = MmToDotsInt(mmWithOffset, DEFAULT_DPI);
                 double quantizedMillimeters = DotsToMm(quantizedXDots, DEFAULT_DPI);
                 return labelOriginX + (float)(quantizedMillimeters * mm2px);
             }
+
             float ConvertMmToPreviewY(double mm)
             {
-                // ^LT 보정 추가
-                double mmWithLt = mm + NUDGE_Y_MM;
-                int quantizedYDots = MmToDotsInt(mmWithLt, DEFAULT_DPI);
+                // offsetY + ^LT 보정 모두 적용
+                double mmWithOffsetAndLt = mm + offsetY + NUDGE_Y_MM;
+                int quantizedYDots = MmToDotsInt(mmWithOffsetAndLt, DEFAULT_DPI);
                 double quantizedMillimeters = DotsToMm(quantizedYDots, DEFAULT_DPI);
                 return labelOriginY + (float)(quantizedMillimeters * mm2px);
             }
-
 
             // 고정 요소(로고/브랜드/품번)
             DrawLogoBrandPart(graphics, ConvertMmToPreviewX, ConvertMmToPreviewY, mm2px);
@@ -194,7 +203,7 @@ namespace DHSTesterXL
             // Item2
             if (_style.ShowItem2Preview)
             {
-                var r = GetRow(RowKey.Item1);
+                var r = GetRow(RowKey.Item2);
                 double sx = ReadScaleCell(r, COL_XSCALE, 1.0);
                 double sy = ReadScaleCell(r, COL_YSCALE, 1.0);
                 DrawTextTopLeft(graphics, GetGridText(RowKey.Item2, _style.Item2Text),
